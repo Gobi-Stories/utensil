@@ -1,0 +1,56 @@
+{
+  "name": "utensil-workspace",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ],
+  "scripts": {
+    "build": "bun run --filter utensil-css build && bun run --filter utensil-vue build",
+    "build:reference": "bun run build && bun run --filter utensil-reference build",
+    "dev": "bun run --filter utensil-reference dev",
+    "typecheck": "vue-tsc --build",
+    "lint": "eslint --fix eslint.config.ts vitest.config.ts scripts && bun run --filter './packages/*' --filter './apps/*' lint",
+    "format": "prettier --write --log-level silent scripts/ && bun run --filter './packages/*' --filter './apps/*' format",
+    "format:one": "prettier --write",
+    "test": "vitest run",
+    "test:server": "vitest",
+    "test:coverage": "vitest run --coverage",
+    "verify:package": "bun scripts/verify-package.ts",
+    "release": "bun scripts/release.ts"
+  },
+  "devDependencies": {
+    "@arethetypeswrong/cli": "^0.18.2",
+    "@tsconfig/node22": "^22.0.5",
+    "@types/bun": "^1.4.2",
+    "@types/node": "^24.12.4",
+    "@vitejs/plugin-vue": "6.0.7",
+    "@vue/eslint-config-prettier": "^10.2.0",
+    "@vue/eslint-config-typescript": "14.7.0",
+    "@vue/test-utils": "2.4.10",
+    "@vue/tsconfig": "^0.7.0",
+    "esbuild": "^0.25.0",
+    "eslint": "9.39.4",
+    "eslint-plugin-vue": "^10.9.1",
+    "jiti": "^2.7.0",
+    "jsdom": "^26.1.0",
+    "npm-run-all2": "^8.0.4",
+    "prettier": "3.8.3",
+    "publint": "^0.3.12",
+    "typescript": "5.9.3",
+    "typescript-eslint": "8.59.1",
+    "vite": "7.3.3",
+    "vite-node": "3.2.4",
+    "vite-plugin-lib-inject-css": "^2.2.2",
+    "vitest": "3.2.4",
+    "vue-tsc": "3.3.1"
+  },
+  "overrides": {
+    "vue": "3.5.34",
+    "typescript-eslint": "8.59.1",
+    "@typescript-eslint/eslint-plugin": "8.59.1",
+    "@typescript-eslint/parser": "8.59.1"
+  }
+}

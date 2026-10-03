@@ -1,0 +1,11 @@
+# Ignore everything first
+*
+
+# Then unignore directories (so Prettier can traverse them)
+!*/
+
+# Finally, unignore specific file types
+!*.ts
+!*.tsx
+!*.vue
+!*.md

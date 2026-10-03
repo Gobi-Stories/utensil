@@ -1,0 +1,15 @@
+#!/bin/bash
+# Format, lint, typecheck and test the whole workspace.
+bun run format && bun run lint || exit $?
+
+bun run typecheck &
+pid1=$!
+bun run test &
+pid2=$!
+
+wait $pid1
+r1=$?
+wait $pid2
+r2=$?
+
+exit $((r1 || r2))

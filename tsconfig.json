@@ -1,0 +1,9 @@
+{
+  "files": [],
+  "references": [
+    { "path": "./packages/css" },
+    { "path": "./packages/vue" },
+    { "path": "./apps/reference" },
+    { "path": "./tsconfig.node.json" }
+  ]
+}

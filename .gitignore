@@ -1,0 +1,44 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+node_modules
+.DS_Store
+dist
+dist-ssr
+coverage
+*.local
+*.tgz
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+*.tsbuildinfo
+.vite
+
+# Working files: plans, scratch output, agent results
+temp/
+*audit-results.md
+*-requirements.md
+tasks/*
+
+# Generated at build: each shipped skill's references/ is copied from packages/vue/docs
+packages/vue/skills/*/references/
+
+# Saved answers to .claude/QUESTIONS.md
+.claude/answers.json
+
+# Copied from the repository root at build
+packages/*/LICENSE.md
