@@ -1,0 +1,698 @@
+/**
+ * Mono colors.
+ * Typically used for color blending in color generation and overlays.
+ */
+@layer utensil, app, utensil-utilities;
+
+@layer utensil {
+  :host,
+  :root {
+    --black-a1: #0000000d;
+    --black-a2: #0000001a;
+    --black-a3: #00000026;
+    --black-a4: #0003;
+    --black-a5: #0000004d;
+    --black-a6: #0006;
+    --black-a7: #00000080;
+    --black-a8: #0009;
+    --black-a9: #000000b3;
+    --black-a10: #000c;
+    --black-a11: #000000e6;
+    --black-a12: #000000f2;
+    --white-a1: #ffffff0d;
+    --white-a2: #ffffff1a;
+    --white-a3: #ffffff26;
+    --white-a4: #fff3;
+    --white-a5: #ffffff4d;
+    --white-a6: #fff6;
+    --white-a7: #ffffff80;
+    --white-a8: #fff9;
+    --white-a9: #ffffffb3;
+    --white-a10: #fffc;
+    --white-a11: #ffffffe6;
+    --white-a12: #fffffff2;
+  }
+
+  /**
+   * Base variables.
+   */
+  :host,
+  :root {
+    --scale: 1;
+    --radius-scale: 1;
+
+    --letter-spacing-1: 0.0025em;
+    --letter-spacing-2: 0em;
+    --letter-spacing-3: 0em;
+    --letter-spacing-4: -0.0025em;
+    --letter-spacing-5: -0.005em;
+    --letter-spacing-6: -0.00625em;
+    --letter-spacing-7: -0.0075em;
+    --letter-spacing-8: -0.01em;
+    --letter-spacing-9: -0.025em;
+  }
+
+  /**
+   * Mode variables.
+   * UtensilTheme uses these to recalculate values after color changes.
+   * These can be used directly in component styling.
+   */
+  .utensil-mode {
+    --mode: light;
+    --mode-background: var(--paper-1);
+    --mode-overlay: var(--black-a6);
+    --mode-screen: var(--white-a9);
+    --mode-surface: #ffffffd9;
+    --mode-surface: color-mix(in srgb, var(--paper-0) 85%, transparent);
+
+    --mode-panel-solid: var(--paper-1);
+    --mode-panel-translucent: var(--paper-a2);
+    --mode-panel-hover: var(--paper-a5);
+
+    /* Contrasting mono colors */
+    --mode-contrast-a1: var(--black-a1);
+    --mode-contrast-a2: var(--black-a2);
+    --mode-contrast-a3: var(--black-a3);
+    --mode-contrast-a4: var(--black-a4);
+    --mode-contrast-a5: var(--black-a5);
+    --mode-contrast-a6: var(--black-a6);
+    --mode-contrast-a7: var(--black-a7);
+    --mode-contrast-a8: var(--black-a8);
+    --mode-contrast-a9: var(--black-a9);
+    --mode-contrast-a10: var(--black-a10);
+    --mode-contrast-a11: var(--black-a11);
+    --mode-contrast-a12: var(--black-a12);
+
+    /* Shadows with subtle border - use for popovers, dropdowns, menus */
+    --mode-shadow-border-1:
+      inset 0 0 0 1px var(--paper-a11), inset 0 1.5px 2px 0 var(--paper-a8), inset 0 1.5px 2px 0 var(--black-a2);
+    --mode-shadow-border-2:
+      0 0 0 1px var(--paper-a5), 0 0 0 0.5px var(--black-a1), 0 1px 1px 0 var(--paper-a8),
+      0 2px 1px -1px var(--black-a1), 0 1px 3px 0 var(--black-a1);
+    --mode-shadow-border-3:
+      0 0 0 1px var(--paper-a5), 0 2px 3px -2px var(--paper-a5), 0 3px 12px -4px var(--black-a2),
+      0 4px 16px -8px var(--black-a2);
+    --mode-shadow-border-4: 0 0 0 1px var(--paper-a5), 0 8px 40px var(--black-a1), 0 12px 32px -16px var(--paper-a8);
+    --mode-shadow-border-5: 0 0 0 1px var(--paper-a5), 0 12px 60px var(--black-a3), 0 12px 32px -16px var(--paper-a11);
+    --mode-shadow-border-6:
+      0 0 0 1px var(--paper-a5), 0 12px 60px var(--black-a3), 0 16px 64px var(--paper-a8),
+      0 16px 36px -20px var(--paper-a12);
+
+    /* Shadows without border - use for modals, dialogs, cards with their own border/radius */
+    --mode-shadow-1: inset 0 1.5px 2px 0 var(--pencil-a2), inset 0 1.5px 2px 0 var(--black-a2);
+    --mode-shadow-2:
+      0 0 0 0.5px var(--black-a1), 0 1px 1px 0 var(--pencil-a2), 0 2px 1px -1px var(--black-a1),
+      0 1px 3px 0 var(--black-a1);
+    --mode-shadow-3: 0 2px 3px -2px var(--pencil-a3), 0 3px 12px -4px var(--black-a2), 0 4px 16px -8px var(--black-a2);
+    --mode-shadow-4: 0 8px 40px var(--black-a1), 0 12px 32px -16px var(--pencil-a3);
+    --mode-shadow-5: 0 12px 60px var(--black-a3), 0 12px 32px -16px var(--pencil-a5);
+    --mode-shadow-6: 0 12px 60px var(--black-a3), 0 16px 64px var(--pencil-a2), 0 16px 36px -20px var(--pencil-a7);
+
+    /* Highlight shadows with subtle border - like shadow-border but using the pen (highlight) color */
+    --mode-highlight-shadow-border-1:
+      inset 0 0 0 1px var(--pen-a5), inset 0 1.5px 2px 0 var(--pen-a2), inset 0 1.5px 2px 0 var(--black-a2);
+    --mode-highlight-shadow-border-2:
+      0 0 0 1px var(--pen-a3), 0 0 0 0.5px var(--black-a1), 0 1px 1px 0 var(--pen-a2), 0 2px 1px -1px var(--black-a1),
+      0 1px 3px 0 var(--black-a1);
+    --mode-highlight-shadow-border-3:
+      0 0 0 1px var(--pen-a3), 0 2px 3px -2px var(--pen-a3), 0 3px 12px -4px var(--black-a2),
+      0 4px 16px -8px var(--black-a2);
+    --mode-highlight-shadow-border-4:
+      0 0 0 1px var(--pen-a3), 0 8px 40px var(--black-a1), 0 12px 32px -16px var(--pen-a3);
+    --mode-highlight-shadow-border-5:
+      0 0 0 1px var(--pen-a3), 0 12px 60px var(--black-a3), 0 12px 32px -16px var(--pen-a5);
+    --mode-highlight-shadow-border-6:
+      0 0 0 1px var(--pen-a3), 0 12px 60px var(--black-a3), 0 16px 64px var(--pen-a2), 0 16px 36px -20px var(--pen-a7);
+
+    /* Highlight shadows without border - like shadow but using the pen (highlight) color */
+    --mode-highlight-shadow-1: inset 0 1.5px 2px 0 var(--pen-a2), inset 0 1.5px 2px 0 var(--black-a2);
+    --mode-highlight-shadow-2:
+      0 0 0 0.5px var(--black-a1), 0 1px 1px 0 var(--pen-a2), 0 2px 1px -1px var(--black-a1),
+      0 1px 3px 0 var(--black-a1);
+    --mode-highlight-shadow-3:
+      0 2px 3px -2px var(--pen-a3), 0 3px 12px -4px var(--black-a2), 0 4px 16px -8px var(--black-a2);
+    --mode-highlight-shadow-4: 0 8px 40px var(--black-a1), 0 12px 32px -16px var(--pen-a3);
+    --mode-highlight-shadow-5: 0 12px 60px var(--black-a3), 0 12px 32px -16px var(--pen-a5);
+    --mode-highlight-shadow-6: 0 12px 60px var(--black-a3), 0 16px 64px var(--pen-a2), 0 16px 36px -20px var(--pen-a7);
+
+    /* Colors for checkerboard backgrounds */
+    --mode-checkerboard-color-1: var(--pencil-4);
+    --mode-checkerboard-color-2: var(--pencil-2);
+
+    --mode-interactive-active-filter: brightness(0.92) saturate(1.1);
+  }
+
+  :is(.dark-mode),
+  :is(.dark-mode) :where(.utensil-mode:not(.light-mode)) {
+    --mode: dark;
+    --mode-background: var(--paper-1);
+    --mode-overlay: var(--black-a8);
+    --mode-screen: var(--black-a9);
+    --mode-panel-solid: var(--paper-1);
+    --mode-panel-translucent: var(--paper-a2);
+    --mode-panel-hover: var(--paper-a5);
+    --mode-surface: color-mix(in srgb, var(--paper-0) 25%, transparent);
+
+    /* Contrasting mono colors */
+    --mode-contrast-a1: var(--white-a1);
+    --mode-contrast-a2: var(--white-a2);
+    --mode-contrast-a3: var(--white-a3);
+    --mode-contrast-a4: var(--white-a4);
+    --mode-contrast-a5: var(--white-a5);
+    --mode-contrast-a6: var(--white-a6);
+    --mode-contrast-a7: var(--white-a7);
+    --mode-contrast-a8: var(--white-a8);
+    --mode-contrast-a9: var(--white-a9);
+    --mode-contrast-a10: var(--white-a10);
+    --mode-contrast-a11: var(--white-a11);
+    --mode-contrast-a12: var(--white-a12);
+
+    /* Shadows with subtle border - use for popovers, dropdowns, menus */
+    --mode-shadow-border-1:
+      inset 0 -1px 1px 0 var(--paper-a8), inset 0 0 0 1px var(--paper-a8), inset 0 3px 4px 0 var(--black-a5),
+      inset 0 0 0 1px var(--paper-a10);
+    --mode-shadow-border-2:
+      0 0 0 1px var(--paper-a11), 0 0 0 0.5px var(--black-a3), 0 1px 1px 0 var(--black-a6),
+      0 2px 1px -1px var(--black-a6), 0 1px 3px 0 var(--black-a5);
+    --mode-shadow-border-3:
+      0 0 0 1px var(--paper-a11), 0 2px 3px -2px var(--black-a3), 0 3px 8px -2px var(--black-a6),
+      0 4px 12px -4px var(--black-a7);
+    --mode-shadow-border-4: 0 0 0 1px var(--paper-a11), 0 8px 40px var(--black-a3), 0 12px 32px -16px var(--black-a5);
+    --mode-shadow-border-5: 0 0 0 1px var(--paper-a11), 0 12px 60px var(--black-a5), 0 12px 32px -16px var(--black-a7);
+    --mode-shadow-border-6:
+      0 0 0 1px var(--paper-a11), 0 12px 60px var(--black-a4), 0 16px 64px var(--black-a6),
+      0 16px 36px -20px var(--black-a11);
+
+    /* Shadows without border - use for modals, dialogs, cards with their own border/radius */
+    --mode-shadow-1: inset 0 -1px 1px 0 var(--pencil-a3), inset 0 3px 4px 0 var(--black-a5);
+    --mode-shadow-2:
+      0 0 0 0.5px var(--black-a3), 0 1px 1px 0 var(--black-a6), 0 2px 1px -1px var(--black-a6),
+      0 1px 3px 0 var(--black-a5);
+    --mode-shadow-3: 0 2px 3px -2px var(--black-a3), 0 3px 8px -2px var(--black-a6), 0 4px 12px -4px var(--black-a7);
+    --mode-shadow-4: 0 8px 40px var(--black-a3), 0 12px 32px -16px var(--black-a5);
+    --mode-shadow-5: 0 12px 60px var(--black-a5), 0 12px 32px -16px var(--black-a7);
+    --mode-shadow-6: 0 12px 60px var(--black-a4), 0 16px 64px var(--black-a6), 0 16px 36px -20px var(--black-a11);
+
+    /* Highlight shadows with subtle border - like shadow-border but using the pen (highlight) color */
+    --mode-highlight-shadow-border-1:
+      inset 0 -1px 1px 0 var(--pen-a3), inset 0 0 0 1px var(--pen-a3), inset 0 3px 4px 0 var(--black-a5),
+      inset 0 0 0 1px var(--pen-a4);
+    --mode-highlight-shadow-border-2:
+      0 0 0 1px var(--pen-a6), 0 0 0 0.5px var(--black-a3), 0 1px 1px 0 var(--black-a6), 0 2px 1px -1px var(--black-a6),
+      0 1px 3px 0 var(--black-a5);
+    --mode-highlight-shadow-border-3:
+      0 0 0 1px var(--pen-a6), 0 2px 3px -2px var(--black-a3), 0 3px 8px -2px var(--black-a6),
+      0 4px 12px -4px var(--black-a7);
+    --mode-highlight-shadow-border-4:
+      0 0 0 1px var(--pen-a6), 0 8px 40px var(--black-a3), 0 12px 32px -16px var(--black-a5);
+    --mode-highlight-shadow-border-5:
+      0 0 0 1px var(--pen-a6), 0 12px 60px var(--black-a5), 0 12px 32px -16px var(--black-a7);
+    --mode-highlight-shadow-border-6:
+      0 0 0 1px var(--pen-a6), 0 12px 60px var(--black-a4), 0 16px 64px var(--black-a6),
+      0 16px 36px -20px var(--black-a11);
+
+    /* Highlight shadows without border - like shadow but using the pen (highlight) color */
+    --mode-highlight-shadow-1: inset 0 -1px 1px 0 var(--pen-a3), inset 0 3px 4px 0 var(--black-a5);
+    --mode-highlight-shadow-2:
+      0 0 0 0.5px var(--black-a3), 0 1px 1px 0 var(--black-a6), 0 2px 1px -1px var(--black-a6),
+      0 1px 3px 0 var(--black-a5);
+    --mode-highlight-shadow-3:
+      0 2px 3px -2px var(--black-a3), 0 3px 8px -2px var(--black-a6), 0 4px 12px -4px var(--black-a7);
+    --mode-highlight-shadow-4: 0 8px 40px var(--black-a3), 0 12px 32px -16px var(--black-a5);
+    --mode-highlight-shadow-5: 0 12px 60px var(--black-a5), 0 12px 32px -16px var(--black-a7);
+    --mode-highlight-shadow-6:
+      0 12px 60px var(--black-a4), 0 16px 64px var(--black-a6), 0 16px 36px -20px var(--black-a11);
+
+    /* Colors for checkerboard backgrounds */
+    --mode-checkerboard-color-1: var(--pencil-6);
+    --mode-checkerboard-color-2: var(--pencil-4);
+
+    --mode-interactive-active-filter: brightness(1.08);
+  }
+
+  @supports (color: color-mix(in oklab, white, black)) {
+    .utensil-mode {
+      /* Enhanced bordered shadows with color-mix for better blending */
+      --mode-shadow-border-1:
+        inset 0 0 0 1px var(--pencil-a5), inset 0 1.5px 2px 0 var(--pencil-a2), inset 0 1.5px 2px 0 var(--black-a2);
+      --mode-shadow-border-2:
+        0 0 0 1px color-mix(in oklab, var(--paper-a5), var(--paper-6) 25%), 0 0 0 0.5px var(--black-a1),
+        0 1px 1px 0 var(--paper-a8), 0 2px 1px -1px var(--black-a1), 0 1px 3px 0 var(--black-a1);
+      --mode-shadow-border-3:
+        0 0 0 1px color-mix(in oklab, var(--paper-a5), var(--paper-6) 25%), 0 2px 3px -2px var(--paper-a8),
+        0 3px 12px -4px var(--black-a2), 0 4px 16px -8px var(--black-a2);
+      --mode-shadow-border-4:
+        0 0 0 1px color-mix(in oklab, var(--paper-a5), var(--paper-6) 25%), 0 8px 40px var(--black-a1),
+        0 12px 32px -16px var(--paper-a5);
+      --mode-shadow-border-5:
+        0 0 0 1px color-mix(in oklab, var(--paper-a5), var(--paper-6) 25%), 0 12px 60px var(--black-a3),
+        0 12px 32px -16px var(--paper-a11);
+      --mode-shadow-border-6:
+        0 0 0 1px color-mix(in oklab, var(--paper-a5), var(--paper-6) 25%), 0 12px 60px var(--black-a3),
+        0 16px 64px var(--paper-a8), 0 16px 36px -20px var(--paper-a12);
+
+      /* Enhanced borderless shadows with color-mix for better blending */
+      --mode-shadow-1: inset 0 1.5px 2px 0 var(--pencil-a2), inset 0 1.5px 2px 0 var(--black-a2);
+      --mode-shadow-2:
+        0 0 0 0.5px var(--black-a1), 0 1px 1px 0 var(--pencil-a2), 0 2px 1px -1px var(--black-a1),
+        0 1px 3px 0 var(--black-a1);
+      --mode-shadow-3:
+        0 2px 3px -2px var(--pencil-a3), 0 3px 12px -4px var(--black-a2), 0 4px 16px -8px var(--black-a2);
+      --mode-shadow-4: 0 8px 40px var(--black-a1), 0 12px 32px -16px var(--pencil-a3);
+      --mode-shadow-5: 0 12px 60px var(--black-a3), 0 12px 32px -16px var(--pencil-a5);
+      --mode-shadow-6: 0 12px 60px var(--black-a3), 0 16px 64px var(--pencil-a2), 0 16px 36px -20px var(--pencil-a7);
+
+      /* Enhanced highlight bordered shadows with color-mix for better blending */
+      --mode-highlight-shadow-border-1:
+        inset 0 0 0 1px var(--pen-a5), inset 0 1.5px 2px 0 var(--pen-a2), inset 0 1.5px 2px 0 var(--black-a2);
+      --mode-highlight-shadow-border-2:
+        0 0 0 1px color-mix(in oklab, var(--pen-a9), var(--pen-9) 25%), 0 0 0 0.5px var(--black-a1),
+        0 1px 1px 0 var(--pen-a2), 0 2px 1px -1px var(--black-a1), 0 1px 3px 0 var(--black-a1);
+      --mode-highlight-shadow-border-3:
+        0 0 0 1px color-mix(in oklab, var(--pen-a9), var(--pen-9) 25%), 0 2px 3px -2px var(--pen-a3),
+        0 3px 12px -4px var(--black-a2), 0 4px 16px -8px var(--black-a2);
+      --mode-highlight-shadow-border-4:
+        0 0 0 1px color-mix(in oklab, var(--pen-a9), var(--pen-9) 25%), 0 8px 40px var(--black-a1),
+        0 12px 32px -16px var(--pen-a3);
+      --mode-highlight-shadow-border-5:
+        0 0 0 1px color-mix(in oklab, var(--pen-a9), var(--pen-9) 25%), 0 12px 60px var(--black-a3),
+        0 12px 32px -16px var(--pen-a5);
+      --mode-highlight-shadow-border-6:
+        0 0 0 1px color-mix(in oklab, var(--pen-a9), var(--pen-9) 25%), 0 12px 60px var(--black-a3),
+        0 16px 64px var(--pen-a2), 0 16px 36px -20px var(--pen-a7);
+
+      /* Enhanced highlight borderless shadows with color-mix for better blending */
+      --mode-highlight-shadow-1: inset 0 1.5px 2px 0 var(--pen-a2), inset 0 1.5px 2px 0 var(--black-a2);
+      --mode-highlight-shadow-2:
+        0 0 0 0.5px var(--black-a1), 0 1px 1px 0 var(--pen-a2), 0 2px 1px -1px var(--black-a1),
+        0 1px 3px 0 var(--black-a1);
+      --mode-highlight-shadow-3:
+        0 2px 3px -2px var(--pen-a3), 0 3px 12px -4px var(--black-a2), 0 4px 16px -8px var(--black-a2);
+      --mode-highlight-shadow-4: 0 8px 40px var(--black-a1), 0 12px 32px -16px var(--pen-a3);
+      --mode-highlight-shadow-5: 0 12px 60px var(--black-a3), 0 12px 32px -16px var(--pen-a5);
+      --mode-highlight-shadow-6:
+        0 12px 60px var(--black-a3), 0 16px 64px var(--pen-a2), 0 16px 36px -20px var(--pen-a7);
+    }
+
+    :is(.dark-mode),
+    :is(.dark-mode) :where(.utensil-mode:not(.light-mode)) {
+      /* Enhanced bordered shadows with color-mix for better blending */
+      --mode-shadow-border-1:
+        inset 0 -1px 1px 0 var(--paper-a5), inset 0 0 0 1px var(--paper-a5), inset 0 3px 4px 0 var(--black-a5),
+        inset 0 0 0 1px var(--paper-a10);
+      --mode-shadow-border-2:
+        0 0 0 1px color-mix(in oklab, var(--paper-a11), var(--paper-11) 25%), 0 0 0 0.5px var(--black-a3),
+        0 1px 1px 0 var(--black-a6), 0 2px 1px -1px var(--black-a6), 0 1px 3px 0 var(--black-a5);
+      --mode-shadow-border-3:
+        0 0 0 1px color-mix(in oklab, var(--paper-a11), var(--paper-11) 25%), 0 2px 3px -2px var(--black-a3),
+        0 3px 8px -2px var(--black-a6), 0 4px 12px -4px var(--black-a7);
+      --mode-shadow-border-4:
+        0 0 0 1px color-mix(in oklab, var(--paper-a11), var(--paper-11) 25%), 0 8px 40px var(--black-a3),
+        0 12px 32px -16px var(--black-a5);
+      --mode-shadow-border-5:
+        0 0 0 1px color-mix(in oklab, var(--paper-a11), var(--paper-11) 25%), 0 12px 60px var(--black-a5),
+        0 12px 32px -16px var(--black-a7);
+      --mode-shadow-border-6:
+        0 0 0 1px color-mix(in oklab, var(--paper-a11), var(--paper-11) 25%), 0 12px 60px var(--black-a4),
+        0 16px 64px var(--black-a6), 0 16px 36px -20px var(--black-a11);
+
+      /* Enhanced borderless shadows with color-mix for better blending */
+      --mode-shadow-1: inset 0 -1px 1px 0 var(--pencil-a3), inset 0 3px 4px 0 var(--black-a5);
+      --mode-shadow-2:
+        0 0 0 0.5px var(--black-a3), 0 1px 1px 0 var(--black-a6), 0 2px 1px -1px var(--black-a6),
+        0 1px 3px 0 var(--black-a5);
+      --mode-shadow-3: 0 2px 3px -2px var(--black-a3), 0 3px 8px -2px var(--black-a6), 0 4px 12px -4px var(--black-a7);
+      --mode-shadow-4: 0 8px 40px var(--black-a3), 0 12px 32px -16px var(--black-a5);
+      --mode-shadow-5: 0 12px 60px var(--black-a5), 0 12px 32px -16px var(--black-a7);
+      --mode-shadow-6: 0 12px 60px var(--black-a4), 0 16px 64px var(--black-a6), 0 16px 36px -20px var(--black-a11);
+
+      /* Enhanced highlight bordered shadows with color-mix for better blending */
+      --mode-highlight-shadow-border-1:
+        inset 0 -1px 1px 0 var(--pen-a3), inset 0 0 0 1px var(--pen-a3), inset 0 3px 4px 0 var(--black-a5),
+        inset 0 0 0 1px var(--pen-a4);
+      --mode-highlight-shadow-border-2:
+        0 0 0 1px color-mix(in oklab, var(--pen-a8), var(--pen-8) 25%), 0 0 0 0.5px var(--black-a3),
+        0 1px 1px 0 var(--black-a6), 0 2px 1px -1px var(--black-a6), 0 1px 3px 0 var(--black-a5);
+      --mode-highlight-shadow-border-3:
+        0 0 0 1px color-mix(in oklab, var(--pen-a10), var(--pen-10) 25%), 0 2px 3px -2px var(--black-a3),
+        0 3px 8px -2px var(--black-a6), 0 4px 12px -4px var(--black-a7);
+      --mode-highlight-shadow-border-4:
+        0 0 0 1px color-mix(in oklab, var(--pen-a10), var(--pen-10) 25%), 0 8px 40px var(--black-a3),
+        0 12px 32px -16px var(--black-a5);
+      --mode-highlight-shadow-border-5:
+        0 0 0 1px color-mix(in oklab, var(--pen-a10), var(--pen-10) 25%), 0 12px 60px var(--black-a5),
+        0 12px 32px -16px var(--black-a7);
+      --mode-highlight-shadow-border-6:
+        0 0 0 1px color-mix(in oklab, var(--pen-a10), var(--pen-10) 25%), 0 12px 60px var(--black-a4),
+        0 16px 64px var(--black-a6), 0 16px 36px -20px var(--black-a11);
+
+      /* Enhanced highlight borderless shadows with color-mix for better blending */
+      --mode-highlight-shadow-1: inset 0 -1px 1px 0 var(--pen-a3), inset 0 3px 4px 0 var(--black-a5);
+      --mode-highlight-shadow-2:
+        0 0 0 0.5px var(--black-a3), 0 1px 1px 0 var(--black-a6), 0 2px 1px -1px var(--black-a6),
+        0 1px 3px 0 var(--black-a5);
+      --mode-highlight-shadow-3:
+        0 2px 3px -2px var(--black-a3), 0 3px 8px -2px var(--black-a6), 0 4px 12px -4px var(--black-a7);
+      --mode-highlight-shadow-4: 0 8px 40px var(--black-a3), 0 12px 32px -16px var(--black-a5);
+      --mode-highlight-shadow-5: 0 12px 60px var(--black-a5), 0 12px 32px -16px var(--black-a7);
+      --mode-highlight-shadow-6:
+        0 12px 60px var(--black-a4), 0 16px 64px var(--black-a6), 0 16px 36px -20px var(--black-a11);
+    }
+  }
+
+  /**
+   * Semantic mapping.
+   * Purpose based naming for easy reference and selection when styling components.
+   */
+  .utensil-calculate {
+    --background: var(--mode-background);
+    --overlay: var(--mode-overlay);
+    --screen: var(--mode-screen);
+    --panel-solid: var(--mode-panel-solid);
+    --panel-translucent: var(--mode-panel-translucent);
+    --panel-hover: var(--mode-panel-hover);
+    --surface: var(--mode-surface);
+    --transparent: #0000;
+    --checkerboard-color-1: var(--mode-checkerboard-color-1);
+    --checkerboard-color-2: var(--mode-checkerboard-color-2);
+
+    --active-filter: var(--mode-interactive-active-filter);
+
+    /* Size variables */
+    /* Note these are designed to work together and should not be changed independantly */
+    --space-1: calc(4px * var(--scale));
+    --space-2: calc(8px * var(--scale));
+    --space-3: calc(12px * var(--scale));
+    --space-4: calc(16px * var(--scale));
+    --space-5: calc(24px * var(--scale));
+    --space-6: calc(32px * var(--scale));
+    --space-7: calc(40px * var(--scale));
+    --space-8: calc(48px * var(--scale));
+    --space-9: calc(64px * var(--scale));
+
+    --font-size-0: calc(8px * var(--scale));
+    --font-size-1: calc(12px * var(--scale));
+    --font-size-2: calc(14px * var(--scale));
+    --font-size-3: calc(16px * var(--scale));
+    --font-size-4: calc(18px * var(--scale));
+    --font-size-5: calc(20px * var(--scale));
+    --font-size-6: calc(24px * var(--scale));
+    --font-size-7: calc(28px * var(--scale));
+    --font-size-8: calc(35px * var(--scale));
+    --font-size-9: calc(60px * var(--scale));
+    --font-size-10: calc(96px * var(--scale));
+
+    --line-height-0: calc(12px * var(--scale));
+    --line-height-1: calc(16px * var(--scale));
+    --line-height-2: calc(20px * var(--scale));
+    --line-height-3: calc(24px * var(--scale));
+    --line-height-4: calc(26px * var(--scale));
+    --line-height-5: calc(28px * var(--scale));
+    --line-height-6: calc(30px * var(--scale));
+    --line-height-7: calc(36px * var(--scale));
+    --line-height-8: calc(40px * var(--scale));
+    --line-height-9: calc(60px * var(--scale));
+
+    /* Border radius - used for the 'roundness' of the UI */
+    /* For example, a completely square UI would have a radius-scale of 0 */
+    --radius-1: calc(3px * var(--scale) * var(--radius-scale));
+    --radius-2: calc(4px * var(--scale) * var(--radius-scale));
+    --radius-3: calc(6px * var(--scale) * var(--radius-scale));
+    --radius-4: calc(8px * var(--scale) * var(--radius-scale));
+    --radius-5: calc(12px * var(--scale) * var(--radius-scale));
+    --radius-6: calc(16px * var(--scale) * var(--radius-scale));
+    --radius-full: 9999px;
+
+    /* Fixed radius when we want a specific radius regardless of the theme's radius-scale */
+    --radius-fixed-1: calc(3px * var(--scale));
+    --radius-fixed-2: calc(4px * var(--scale));
+    --radius-fixed-3: calc(6px * var(--scale));
+    --radius-fixed-4: calc(8px * var(--scale));
+    --radius-fixed-5: calc(12px * var(--scale));
+    --radius-fixed-6: calc(16px * var(--scale));
+
+    /* Scales within a range */
+    /* Max --radius-fixed-4 */
+    --radius-squared: calc(var(--radius-fixed-4) * var(--radius-scale) / 4);
+    /* Min --radius-fixed-3, Max --radius-fixed-6 */
+    --radius-rounded: calc(
+      var(--radius-fixed-3) + (var(--radius-fixed-6) - var(--radius-fixed-3)) * (var(--radius-scale) / 4)
+    );
+
+    /* Shadow aliases based on the current mode */
+    /* Borderless shadows - for elements with their own border/radius (modals, dialogs, cards) */
+    --shadow-1: var(--mode-shadow-1);
+    --shadow-2: var(--mode-shadow-2);
+    --shadow-3: var(--mode-shadow-3);
+    --shadow-4: var(--mode-shadow-4);
+    --shadow-5: var(--mode-shadow-5);
+    --shadow-6: var(--mode-shadow-6);
+
+    /* Bordered shadows - for floating elements (popovers, dropdowns, menus) */
+    --shadow-border-1: var(--mode-shadow-border-1);
+    --shadow-border-2: var(--mode-shadow-border-2);
+    --shadow-border-3: var(--mode-shadow-border-3);
+    --shadow-border-4: var(--mode-shadow-border-4);
+    --shadow-border-5: var(--mode-shadow-border-5);
+    --shadow-border-6: var(--mode-shadow-border-6);
+
+    /* Highlight shadows - like shadow but tinted with the pen (highlight) color */
+    --highlight-shadow-1: var(--mode-highlight-shadow-1);
+    --highlight-shadow-2: var(--mode-highlight-shadow-2);
+    --highlight-shadow-3: var(--mode-highlight-shadow-3);
+    --highlight-shadow-4: var(--mode-highlight-shadow-4);
+    --highlight-shadow-5: var(--mode-highlight-shadow-5);
+    --highlight-shadow-6: var(--mode-highlight-shadow-6);
+
+    /* Highlight bordered shadows - like shadow-border but tinted with the pen (highlight) color */
+    --highlight-shadow-border-1: var(--mode-highlight-shadow-border-1);
+    --highlight-shadow-border-2: var(--mode-highlight-shadow-border-2);
+    --highlight-shadow-border-3: var(--mode-highlight-shadow-border-3);
+    --highlight-shadow-border-4: var(--mode-highlight-shadow-border-4);
+    --highlight-shadow-border-5: var(--mode-highlight-shadow-border-5);
+    --highlight-shadow-border-6: var(--mode-highlight-shadow-border-6);
+
+    &.utensil-high-contrast,
+    .utensil-high-contrast {
+      --pen-a10: var(--pen-a11);
+      --pencil-a10: var(--pencil-a11);
+      --pencil-10: var(--pencil-11);
+      --pen-a11: var(--pen-a12);
+      --pen-11: var(--pen-12);
+      --pencil-a11: var(--pencil-a12);
+      --pencil-11: var(--pencil-12);
+    }
+  }
+
+  .utensil-theme {
+    --interactive-border-width: 1px;
+
+    /**
+     * Shared UI variation classes.
+     * Base appearance for solid, soft, outline, surface, text and overlay.
+     * Compose with .interactive, .selected and .pencil modifiers.
+     */
+
+    /* Solid */
+    .ui-solid {
+      background-color: var(--pen-9);
+      color: var(--pen-contrast);
+    }
+
+    /* Soft */
+    .ui-soft {
+      background-color: var(--pen-a3);
+      color: var(--pen-a11);
+    }
+
+    /* Outline */
+    .ui-outline {
+      background-color: transparent;
+      color: var(--pen-a11);
+      box-shadow: inset 0 0 0 var(--interactive-border-width) var(--pen-a8);
+    }
+
+    /* Surface */
+    .ui-surface {
+      background-color: var(--pen-surface);
+      color: var(--pen-a11);
+      box-shadow: inset 0 0 0 1px var(--pen-a7);
+    }
+
+    /* Text */
+    .ui-text {
+      background-color: transparent;
+      color: var(--pen-11);
+    }
+
+    /* Overlay */
+    .ui-overlay {
+      background-color: var(--black-a9);
+      color: var(--white-a12);
+      backdrop-filter: blur(4px);
+    }
+
+    /* Interactive hover */
+    .interactive.ui-solid:hover {
+      background-color: var(--pen-10);
+    }
+
+    .interactive.ui-soft:hover {
+      background-color: var(--pen-a4);
+    }
+
+    .interactive.ui-outline:hover {
+      background-color: var(--pen-a2);
+    }
+
+    .interactive.ui-surface:hover {
+      box-shadow: inset 0 0 0 1px var(--pen-a8);
+    }
+
+    .interactive.ui-text:hover {
+      background-color: var(--pen-a3);
+    }
+
+    .interactive.ui-overlay:hover {
+      background-color: var(--black-a10);
+    }
+
+    /* Interactive active */
+    .interactive.ui-solid:active {
+      filter: var(--active-filter);
+    }
+
+    .interactive.ui-soft:active {
+      background-color: var(--pen-a5);
+    }
+
+    .interactive.ui-outline:active {
+      background-color: var(--pen-a3);
+    }
+
+    .interactive.ui-outline.thick:active {
+      --interactive-border-width: 2px;
+    }
+
+    .interactive.ui-surface:active {
+      background-color: var(--pen-a3);
+      box-shadow: inset 0 0 0 1px var(--pen-a8);
+    }
+
+    .interactive.ui-text:active {
+      background-color: var(--pen-a4);
+    }
+
+    .interactive.ui-overlay:active {
+      background-color: var(--black-a10);
+    }
+
+    /* Selected (pressed/checked resting state) */
+    .selected.ui-soft {
+      background-color: var(--pen-a6);
+    }
+
+    .selected.ui-outline {
+      background-color: var(--pen-a4);
+    }
+
+    .selected.thick.ui-outline {
+      --interactive-border-width: 2px;
+    }
+
+    .selected.ui-surface {
+      background-color: var(--pen-a4);
+      box-shadow: inset 0 0 0 1px var(--pen-a8);
+    }
+
+    .selected.ui-text {
+      background-color: var(--pen-a4);
+    }
+
+    /* Selected modifier + interactive hover (toward deselection — one step down from selected) */
+    .selected.interactive.ui-soft:hover {
+      background-color: var(--pen-a5);
+    }
+
+    .selected.interactive.ui-outline:hover {
+      background-color: var(--pen-a4);
+    }
+
+    .selected.interactive.ui-surface:hover {
+      background-color: var(--pen-a5);
+    }
+
+    .selected.interactive.ui-text:hover {
+      background-color: var(--pen-a5);
+    }
+
+    /* Pencil modifier — resting state uses pencil tokens */
+    .pencil.ui-solid:not(.interactive:active):not(.interactive:hover) {
+      background-color: var(--pencil-9);
+      color: var(--pencil-contrast);
+    }
+
+    .pencil.ui-soft {
+      background-color: var(--pencil-a3);
+      color: var(--pencil-a11);
+    }
+
+    .pencil.ui-outline:not(.interactive:active):not(.interactive:hover) {
+      color: var(--pencil-a11);
+      box-shadow: inset 0 0 0 1px var(--pencil-a8);
+    }
+
+    .pencil.ui-surface:not(.interactive:active):not(.interactive:hover) {
+      background-color: var(--pencil-surface);
+      color: var(--pencil-a11);
+      box-shadow: inset 0 0 0 1px var(--pencil-a6);
+    }
+
+    .pencil.ui-text {
+      color: var(--pencil-11);
+    }
+
+    /* Disabled modifier — every variation keeps its shape, drawn in muted
+       pencil. The :not() qualifiers only outweigh the pencil rules above. */
+    .disabled.ui-solid:not(.interactive:active):not(.interactive:hover),
+    .disabled.ui-soft {
+      background-color: var(--pencil-a3);
+      color: var(--pencil-a8);
+    }
+
+    .disabled.ui-outline:not(.interactive:active):not(.interactive:hover) {
+      background-color: transparent;
+      color: var(--pencil-a8);
+      box-shadow: inset 0 0 0 var(--interactive-border-width) var(--pencil-a6);
+    }
+
+    .disabled.ui-surface:not(.interactive:active):not(.interactive:hover) {
+      background-color: transparent;
+      color: var(--pencil-a8);
+      box-shadow: inset 0 0 0 1px var(--pencil-a6);
+    }
+
+    .disabled.ui-text {
+      background-color: transparent;
+      color: var(--pencil-a8);
+    }
+
+    .disabled.ui-overlay {
+      color: var(--white-a8);
+    }
+
+    /* Wireframe modifier */
+    .interactive.wireframe.ui-outline,
+    .interactive.wireframe.ui-outline:hover,
+    .interactive.wireframe.ui-outline:active,
+    .interactive.selected.wireframe.ui-outline,
+    .interactive.selected.wireframe.ui-outline:hover,
+    .interactive.selected.wireframe.ui-outline:active {
+      background-color: transparent;
+
+      &.selected {
+        box-shadow: inset 0 0 0 var(--interactive-border-width) var(--pen-a9);
+      }
+    }
+  }
+}

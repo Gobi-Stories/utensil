@@ -1,0 +1,50 @@
+{
+  "name": "utensil-css",
+  "version": "0.1.0",
+  "description": "Utensil CSS framework: pen, pencil and paper color instruments, scalable design tokens, cascade layers, utilities and a color scale generator.",
+  "license": "MIT",
+  "author": "Gobi Stories AS",
+  "type": "module",
+  "keywords": [
+    "css",
+    "design-system",
+    "design-tokens",
+    "color-scales",
+    "dark-mode",
+    "cascade-layers",
+    "utensil"
+  ],
+  "files": [
+    "src",
+    "dist",
+    "README.md",
+    "LICENSE.md"
+  ],
+  "sideEffects": [
+    "**/*.css"
+  ],
+  "exports": {
+    "./utensil.css": "./dist/utensil.css",
+    "./utensil.min.css": "./dist/utensil.min.css",
+    "./colors/*": {
+      "types": "./dist/colors/*.d.ts",
+      "import": "./dist/colors/*.js"
+    },
+    "./*.css": "./src/*.css",
+    "./package.json": "./package.json"
+  },
+  "bin": {
+    "utensil-generate-color": "./dist/bin/generate-color.js"
+  },
+  "scripts": {
+    "build": "rm -rf dist && vite build && vue-tsc -p tsconfig.build.json && bun scripts/build-css-bundle.ts && cp ../../LICENSE.md .",
+    "generate-color": "vite-node src/bin/generate-color.ts",
+    "lint": "eslint . --fix",
+    "format": "prettier --write --log-level silent src/"
+  },
+  "dependencies": {
+    "@radix-ui/colors": "^3.0.0",
+    "bezier-easing": "^2.1.0",
+    "colorjs.io": "^0.5.2"
+  }
+}

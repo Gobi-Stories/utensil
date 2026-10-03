@@ -1,0 +1,458 @@
+/**
+ * Utensil Text Themes
+ * Define typography styles and element formatting for different content contexts.
+ *
+ * Text themes control:
+ * - Font families, sizes, weights, and spacing
+ * - Styles for semantic HTML elements (headings, paragraphs, lists, code, etc.)
+ * - User selection behavior
+ *
+ * Usage:
+ * - Apply via UtensilTheme component: <UtensilTheme text="content">
+ * - Or directly in CSS: class="text-content"
+ */
+@layer utensil, app, utensil-utilities;
+
+@layer utensil {
+  /**
+   * UI Text Theme
+   * Optimized for application interfaces with compact spacing and UI density.
+   * - Inter font for clean, modern UI
+   */
+  .text-ui {
+    --ui-font-family: var(--utensil-ui-font-family, var(--font-family, ui-sans-serif, system-ui, sans-serif));
+    --ui-letter-spacing: var(--utensil-ui-letter-spacing, var(--letter-spacing, var(--letter-spacing-2)));
+    --ui-font-size: var(--utensil-ui-font-size, var(--font-size, var(--font-size-2)));
+    --ui-font-weight: var(--utensil-ui-font-weight, var(--font-weight, 400));
+    --ui-text-color: var(--utensil-ui-text-color, var(--text-color, var(--pencil-12)));
+
+    --ui-heading-font-family: var(--utensil-ui-heading-font-family, var(--heading-font-family, var(--ui-font-family)));
+    --ui-heading-weight: var(--utensil-ui-heading-weight, var(--heading-weight, 600));
+    --ui-heading-sub-weight: var(--utensil-ui-heading-sub-weight, var(--heading-sub-weight, 400));
+    --ui-heading-text-color: var(--utensil-ui-heading-text-color, var(--ui-text-color));
+
+    --ui-code-font-family: var(--utensil-ui-code-font-family, var(--code-font-family, monospace));
+
+    font-family: var(--ui-font-family);
+    letter-spacing: var(--ui-letter-spacing);
+    font-size: var(---ui-font-size);
+    font-weight: var(--ui-font-weight);
+    color: var(--ui-text-color);
+
+    line-height: normal;
+
+    /* Text selection - UI text is non-selectable by default */
+    user-select: none;
+
+    .user-selectable {
+      user-select: text;
+    }
+
+    /* Headings - common structure */
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      margin-bottom: 0;
+      font-family: var(--ui-heading-font-family);
+      color: var(--ui-heading-text-color);
+    }
+
+    h1,
+    h2,
+    h3 {
+      font-weight: var(--ui-heading-weight);
+    }
+
+    h4,
+    h5,
+    h6 {
+      font-weight: var(--ui-heading-sub-weight);
+    }
+
+    h1 {
+      font-size: var(--font-size-8);
+      line-height: var(--line-height-8);
+      letter-spacing: var(--letter-spacing-8);
+    }
+
+    h2 {
+      font-size: var(--font-size-6);
+      line-height: var(--line-height-6);
+      letter-spacing: var(--letter-spacing-6);
+    }
+
+    h3 {
+      font-size: var(--font-size-5);
+      line-height: var(--line-height-5);
+      letter-spacing: var(--letter-spacing-5);
+    }
+
+    h4 {
+      font-size: var(--font-size-4);
+      line-height: var(--line-height-4);
+      letter-spacing: var(--letter-spacing-4);
+    }
+
+    h5 {
+      font-size: var(--font-size-3);
+      line-height: var(--line-height-3);
+      letter-spacing: var(--letter-spacing-3);
+    }
+
+    h6 {
+      font-size: var(--font-size-2);
+      line-height: var(--line-height-2);
+      letter-spacing: var(--letter-spacing-2);
+      color: var(--pencil-11);
+    }
+
+    /* Paragraphs */
+    p,
+    dd {
+      font-size: var(--font-size-2);
+      margin-bottom: var(--space-3);
+      line-height: var(--line-height-2);
+    }
+
+    /* Links */
+    a {
+      color: var(--pen-11);
+      text-decoration: none;
+
+      &:hover {
+        color: var(--pen-10);
+        text-decoration: underline;
+      }
+    }
+
+    /* Lists */
+    ul,
+    ol {
+      margin-bottom: var(--space-3);
+      padding-left: var(--space-5);
+    }
+
+    li {
+      margin-bottom: var(--space-1);
+      line-height: var(--line-height-2);
+    }
+
+    /* Code */
+    code:not(pre code) {
+      margin-inline: var(--space-1);
+      background-color: var(--pencil-1);
+      box-shadow: var(--shadow-border-2);
+      border-radius: var(--radius-1);
+      padding: var(--space-1) calc(6px * var(--scale));
+
+      font-family: var(--ui-code-font-family);
+      font-size: 0.9em;
+    }
+
+    pre {
+      background-color: var(--pencil-a3);
+      box-shadow: var(--shadow-border-1);
+      border-radius: var(--radius-1);
+      padding: var(--space-3);
+      margin-bottom: var(--space-3);
+
+      color: var(--pencil-a12);
+      font-family: var(--code-font-family);
+      font-size: var(--font-size-2);
+      line-height: var(--line-height-3);
+
+      overflow-x: auto;
+      overscroll-behavior-x: contain;
+    }
+
+    /* Blockquote */
+    blockquote {
+      border-left: var(--space-1) solid var(--pen-7);
+      padding-left: var(--space-3);
+      margin-bottom: var(--space-3);
+      font-style: italic;
+    }
+
+    /* Inline elements */
+    strong,
+    b {
+      font-weight: 600;
+    }
+
+    em,
+    i {
+      font-style: italic;
+    }
+
+    small {
+      font-size: var(--font-size-1);
+      line-height: var(--line-height-1);
+    }
+
+    /* Horizontal rule */
+    hr {
+      border: none;
+      border-top: 1px solid var(--pencil-6);
+      margin: var(--space-4) 0;
+    }
+  }
+
+  /**
+   * Content Text Theme
+   * Optimized for reading content with comfortable spacing and larger text.
+   * - Selectable text by default (reading content)
+   * - Generous spacing and larger fonts for readability
+   */
+  .text-content {
+    --content-font-family: var(--utensil-content-font-family, var(--font-family, sans-serif));
+    --content-letter-spacing: var(
+      --utensil-content-letter-spacing,
+      var(--letter-spacing, calc(var(--letter-spacing-1) * 1.2))
+    );
+    --content-font-size: var(--utensil-content-font-size, var(--font-size, var(--font-size-4)));
+    --content-line-height: var(--utensil-content-line-height, var(--line-height, 1.8));
+    --content-font-weight: var(--utensil-content-font-weight, var(--font-weight, 400));
+    --content-text-color: var(--utensil-content-text-color, var(--text-color, var(--pencil-12)));
+
+    --content-heading-font-family: var(
+      --utensil-content-heading-font-family,
+      var(--heading-font-family, var(--content-font-family))
+    );
+    --content-heading-weight: var(--utensil-content-heading-weight, var(--heading-weight, 600));
+    --content-heading-sub-weight: var(--utensil-content-heading-sub-weight, var(--heading-sub-weight, 300));
+    --content-heading-text-color: var(--utensil-content-heading-text-color, var(--content-text-color));
+
+    --content-code-font-family: var(--utensil-content-code-font-family, var(--code-font-family, monospace));
+
+    /* Base text style */
+    font-family: var(--content-font-family);
+    letter-spacing: var(--content-letter-spacing);
+    font-size: var(--content-font-size);
+    line-height: var(--content-line-height);
+    font-weight: var(--content-font-weight);
+    color: var(--content-text-color);
+
+    /* Content is selectable by default */
+    user-select: text;
+
+    /* Headings - common structure */
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      font-family: var(--content-heading-font-family);
+      color: var(--content-heading-text-color);
+    }
+
+    h1,
+    h2,
+    h3 {
+      font-weight: var(--content-heading-weight);
+    }
+
+    h1 {
+      font-weight: 700;
+    }
+
+    h4,
+    h5,
+    h6 {
+      font-weight: var(--content-heading-sub-weight);
+    }
+
+    /* Headings - larger sizes and top margins for content */
+    h1 {
+      font-size: var(--font-size-9);
+      line-height: var(--line-height-9);
+      letter-spacing: var(--letter-spacing-9);
+      margin-bottom: var(--space-6);
+    }
+
+    h2 {
+      font-size: var(--font-size-7);
+      line-height: var(--line-height-9);
+      letter-spacing: var(--letter-spacing-7);
+      margin-bottom: var(--space-4);
+    }
+
+    h3 {
+      font-size: var(--font-size-6);
+      line-height: calc(1.8 * var(--scale));
+      letter-spacing: var(--letter-spacing-6);
+      margin-bottom: var(--space-1);
+    }
+
+    h4 {
+      font-size: var(--font-size-5);
+      line-height: var(--line-height-5);
+      letter-spacing: var(--letter-spacing-5);
+      margin-bottom: var(--space-1);
+    }
+
+    h5 {
+      font-size: var(--font-size-4);
+      line-height: var(--line-height-4);
+      letter-spacing: var(--letter-spacing-4);
+      margin-bottom: var(--space-1);
+    }
+
+    h6 {
+      font-size: var(--font-size-3);
+      line-height: var(--line-height-3);
+      letter-spacing: var(--letter-spacing-3);
+      margin-bottom: var(--space-1);
+    }
+
+    /* Paragraphs - larger for reading */
+    p {
+      font-size: var(--font-size);
+      line-height: var(--content-line-height);
+      margin-bottom: var(--space-5);
+      color: var(--pencil-12);
+    }
+
+    /* Links - underlined for content */
+    a {
+      color: var(--pen-11);
+      text-decoration: underline;
+      text-decoration-thickness: 1px;
+      text-underline-offset: 3px;
+
+      &:hover {
+        color: var(--pen-10);
+        text-decoration-thickness: 2px;
+      }
+    }
+
+    /* Lists - more spacing */
+    ul,
+    ol {
+      margin-bottom: var(--space-5);
+      padding-left: var(--space-6);
+    }
+
+    li {
+      margin-bottom: var(--space-2);
+      line-height: var(--line-height-7);
+    }
+
+    /* Nested lists */
+    li > ul,
+    li > ol {
+      margin-top: var(--space-2);
+      margin-bottom: var(--space-2);
+    }
+
+    /* Code */
+    code:not(pre code) {
+      margin-inline: var(--space-1);
+      background-color: var(--pencil-1);
+      box-shadow: var(--shadow-border-2);
+      border-radius: var(--radius-1);
+      padding: var(--space-1) calc(6px * var(--scale));
+
+      font-family: var(--content-code-font-family);
+      font-size: 0.9em;
+    }
+
+    pre {
+      background-color: var(--pencil-a3);
+      box-shadow: var(--shadow-border-1);
+      border-radius: var(--radius-1);
+      padding: var(--space-4);
+      margin-bottom: var(--space-7);
+
+      color: var(--pencil-a12);
+      font-family: var(--content-code-font-family);
+      font-size: var(--font-size-2);
+      line-height: var(--line-height-3);
+
+      overflow-x: auto;
+      overscroll-behavior-x: contain;
+    }
+
+    /* Blockquote */
+    blockquote {
+      border-left: calc(var(--space-1) * 1.5) solid var(--pen-7);
+      padding-left: var(--space-4);
+      padding-top: var(--space-1);
+      padding-bottom: var(--space-1);
+      line-height: var(--line-height-6);
+      margin-bottom: var(--space-5);
+      font-size: var(--font-size-4);
+      font-style: italic;
+    }
+
+    /* Inline elements */
+    strong,
+    b {
+      font-weight: 600;
+    }
+
+    em,
+    i {
+      font-style: italic;
+    }
+
+    small {
+      font-size: var(--font-size-2);
+      line-height: var(--line-height-2);
+    }
+
+    /* Horizontal rule - more spacing */
+    hr {
+      margin: var(--space-6) 0;
+      border-top: 1px solid var(--pencil-6);
+    }
+
+    /* Tables */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 0;
+    }
+
+    th,
+    td {
+      padding: var(--space-2) var(--space-3);
+      text-align: left;
+      border-bottom: 1px solid var(--pencil-6);
+    }
+
+    th {
+      font-weight: 600;
+      background-color: var(--pencil-a3);
+    }
+
+    /* Images */
+    img {
+      max-width: 100%;
+      height: auto;
+      border-radius: var(--radius-2);
+      margin-bottom: var(--space-4);
+    }
+
+    /* Figure with caption */
+    figure {
+      margin: 0 0 var(--space-5) 0;
+    }
+
+    figcaption {
+      font-size: var(--font-size-2);
+      text-align: center;
+      margin-top: var(--space-2);
+      font-style: italic;
+    }
+  }
+
+  .utensil-rounded .text-content {
+    code:not(pre code) {
+      padding-inline: calc(var(--space-2) * var(--scale));
+    }
+  }
+}

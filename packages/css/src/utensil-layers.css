@@ -1,0 +1,15 @@
+/**
+ * Utensil Design System Layers
+ *
+ * Cascade layer order for all Utensil CSS. Later layers beat earlier ones;
+ * unlayered CSS beats all layers, letting consumers override Utensil without
+ * specificity fights.
+ *
+ * - utensil: reset, theme, color scales, and component styles
+ * - app: consumer shared CSS (overrides utensil, loses to utilities)
+ * - utensil-utilities: utility classes
+ *
+ * Must load before any CSS that mentions these layers — import this file
+ * first at the application entry point.
+ */
+@layer utensil, app, utensil-utilities;
