@@ -1,0 +1,65 @@
+{
+  "name": "utensil-vue",
+  "version": "0.1.0",
+  "description": "Utensil Vue 3 theme layer and accessible, themeable component library, with an AI harness of usage knowledge and skills.",
+  "license": "MIT",
+  "author": "Gobi Stories AS",
+  "type": "module",
+  "keywords": [
+    "vue",
+    "vue3",
+    "components",
+    "component-library",
+    "design-system",
+    "accessibility",
+    "theming",
+    "agent-skills",
+    "tanstack-intent",
+    "utensil"
+  ],
+  "files": [
+    "dist",
+    "src",
+    "!src/**/*.test.ts",
+    "docs",
+    "skills",
+    "README.md",
+    "LICENSE.md"
+  ],
+  "sideEffects": [
+    "**/*.css",
+    "./dist/utensil-css-include.js"
+  ],
+  "exports": {
+    "./*.vue": {
+      "types": "./dist/*.vue.d.ts",
+      "import": "./dist/*.vue.js"
+    },
+    "./*.css": "./src/*.css",
+    "./package.json": "./package.json",
+    "./*": {
+      "types": "./dist/*.d.ts",
+      "import": "./dist/*.js"
+    }
+  },
+  "scripts": {
+    "build": "rm -rf dist && vite build && vue-tsc -p tsconfig.build.json && bun scripts/build-skills.ts && cp ../../LICENSE.md .",
+    "lint": "eslint . --fix",
+    "format": "prettier --write --log-level silent src/"
+  },
+  "dependencies": {
+    "utensil-css": "workspace:*"
+  },
+  "peerDependencies": {
+    "@fortawesome/fontawesome-svg-core": "^7.0.0",
+    "@fortawesome/free-solid-svg-icons": "^7.0.0",
+    "@fortawesome/vue-fontawesome": "^3.1.0",
+    "vue": "^3.5.0"
+  },
+  "devDependencies": {
+    "@fortawesome/fontawesome-svg-core": "^7.2.0",
+    "@fortawesome/free-solid-svg-icons": "^7.2.0",
+    "@fortawesome/vue-fontawesome": "^3.2.0",
+    "vue": "^3.5.34"
+  }
+}

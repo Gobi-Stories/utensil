@@ -1,0 +1,190 @@
+/**
+ * Code Text Theme
+ * Optimized for technical documentation with monospace for code and examples.
+ * Designed to extend
+ */
+.text-code {
+  --heading-weight: 700;
+  --letter-spacing: 0;
+  --font-size: calc(var(--font-size-2) * 1.1);
+  --line-height: 1.8;
+
+  /* Text selection */
+  user-select: text;
+
+  font-size: var(--font-size);
+  line-height: var(--line-height);
+  color: var(--pencil-a11);
+
+  /* Headings - adjusted sizes for monospace */
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    margin-top: var(--space-4);
+  }
+
+  h1 {
+    font-size: var(--font-size-7);
+    line-height: var(--line-height-7);
+    letter-spacing: var(--letter-spacing-7);
+    margin-top: var(--space-6);
+    color: var(--pencil-12);
+  }
+
+  h1:first-child {
+    margin-top: 0;
+  }
+
+  h2 {
+    font-size: var(--font-size-5);
+    font-weight: 500;
+    line-height: var(--line-height-5);
+    letter-spacing: var(--letter-spacing-5);
+    margin-top: var(--space-7);
+    margin-bottom: var(--space-3);
+  }
+
+  h3 {
+    font-size: var(--font-size-3);
+    line-height: var(--line-height-5);
+    letter-spacing: var(--letter-spacing-5);
+    font-weight: 400;
+    margin-bottom: var(--space-1);
+    margin-top: var(--space-6);
+  }
+
+  p,
+  dd {
+    line-height: var(--line-height-3);
+  }
+
+  /* Links - dotted underline style */
+  a {
+    text-decoration: underline;
+    text-decoration-style: dotted;
+    text-underline-offset: 2px;
+
+    &:hover {
+      text-decoration-style: solid;
+    }
+  }
+
+  /* Lists - adjusted spacing */
+  ul,
+  ol {
+    margin-bottom: var(--space-4);
+    padding-left: var(--space-2);
+  }
+
+  li {
+    margin-bottom: var(--space-2);
+    line-height: var(--line-height-6);
+    list-style-type: none;
+  }
+
+  /* Code - enhanced background, same size as body */
+  code:not(pre code) {
+    color: var(--pen-11);
+    font-size: 1em;
+  }
+
+  pre {
+    font-size: var(--font-size);
+    margin-bottom: var(--space-4);
+  }
+
+  /* Blockquote - no italic, stronger border */
+  blockquote {
+    font-size: var(--font-size-3);
+    border-left-color: var(--pen-8);
+    font-style: normal;
+    margin: var(--space-4) 0 var(--space-6);
+    line-height: 1.5;
+  }
+
+  /* Strong - heavier weight */
+  strong,
+  b {
+    font-weight: 700;
+  }
+
+  em {
+    font-style: normal;
+    color: var(--pen-a11);
+    margin-right: var(--space-1);
+  }
+
+  /* Horizontal rule - dashed style */
+  hr {
+    border-top-style: dashed;
+    margin: var(--space-5) 0;
+  }
+
+  /* Tables - with borders */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: var(--space-4);
+    font-size: var(--font-size-3);
+  }
+
+  th,
+  td {
+    padding: var(--space-2);
+    text-align: left;
+    border: 1px solid var(--pencil-a7);
+    background-color: var(--pencil-a2);
+
+    code:not(pre code) {
+      font-size: var(--font-size-2);
+    }
+  }
+
+  th {
+    font-weight: 700;
+    background-color: var(--pencil-a3);
+    line-height: normal;
+  }
+}
+
+.utensil-api-doc {
+  &:not(:first-child) {
+    margin-top: var(--space-9);
+  }
+
+  .doc-header {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: var(--space-6);
+
+    h1 {
+      margin-top: calc(var(--space-1) * 1.5);
+      margin-bottom: 0;
+      font-size: var(--font-size-8);
+      color: var(--pencil-12);
+    }
+
+    .theme-props-badge {
+      cursor: help;
+      user-select: none;
+    }
+  }
+
+  .ui-variations-reference {
+    display: flex;
+    gap: var(--space-3);
+    width: fit-content;
+    background-color: var(--pencil-a3);
+    padding: var(--space-2);
+    border-radius: var(--radius-3);
+    margin-bottom: var(--space-5);
+  }
+}
+
+.utensil-rounded .text-code pre {
+  padding-inline: var(--space-5);
+}
