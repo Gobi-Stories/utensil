@@ -1,4 +1,4 @@
-import { ref, watch } from 'vue'
+import { effectScope, ref, watch, type Ref } from 'vue'
 import { resolveMode, type ThemeContrast, type ThemeMode, type ThemeReducedMotion } from './utensil-theme'
 
 const MODE_STORAGE_KEY = 'utensil-theme-mode'
@@ -41,41 +41,53 @@ function storeReducedMotion(reducedMotion: ThemeReducedMotion) {
   localStorage.setItem(REDUCED_MOTION_STORAGE_KEY, reducedMotion)
 }
 
-// Global state - initialized once
-const storedMode = getStoredMode()
-const mode = ref<ThemeMode>(resolveMode(storedMode))
-const userHasSetMode = ref(storedMode !== undefined)
+export interface UserThemePreferences {
+  mode: Ref<ThemeMode>
+  setMode: (value: ThemeMode) => void
+  toggleThemeMode: () => void
+  contrast: Ref<ThemeContrast>
+  setContrast: (value: ThemeContrast) => void
+  toggleContrast: () => void
+  reducedMotion: Ref<ThemeReducedMotion>
+  setReducedMotion: (value: ThemeReducedMotion) => void
+  toggleReducedMotion: () => void
+}
 
-const storedContrast = getStoredContrast()
-const contrast = ref<ThemeContrast>(storedContrast ?? 'normal')
-const userHasSetContrast = ref(storedContrast !== undefined)
+// Shared by every caller, created by the first call: importing this module reads nothing
+let preferences: UserThemePreferences | undefined
 
-const storedReducedMotion = getStoredReducedMotion()
-const reducedMotion = ref<ThemeReducedMotion>(storedReducedMotion ?? 'normal')
-const userHasSetReducedMotion = ref(storedReducedMotion !== undefined)
+function createPreferences(): UserThemePreferences {
+  const storedMode = getStoredMode()
+  const mode = ref<ThemeMode>(resolveMode(storedMode))
+  const userHasSetMode = ref(storedMode !== undefined)
 
-// Persist mode changes to localStorage
-watch(mode, (value) => {
-  if (userHasSetMode.value) {
-    storeMode(value)
-  }
-})
+  const storedContrast = getStoredContrast()
+  const contrast = ref<ThemeContrast>(storedContrast ?? 'normal')
+  const userHasSetContrast = ref(storedContrast !== undefined)
 
-// Persist contrast changes to localStorage
-watch(contrast, (value) => {
-  if (userHasSetContrast.value) {
-    storeContrast(value)
-  }
-})
+  const storedReducedMotion = getStoredReducedMotion()
+  const reducedMotion = ref<ThemeReducedMotion>(storedReducedMotion ?? 'normal')
+  const userHasSetReducedMotion = ref(storedReducedMotion !== undefined)
 
-// Persist reduced motion changes to localStorage
-watch(reducedMotion, (value) => {
-  if (userHasSetReducedMotion.value) {
-    storeReducedMotion(value)
-  }
-})
+  // Persist changes to localStorage
+  watch(mode, (value) => {
+    if (userHasSetMode.value) {
+      storeMode(value)
+    }
+  })
 
-export function useUserThemePreferences() {
+  watch(contrast, (value) => {
+    if (userHasSetContrast.value) {
+      storeContrast(value)
+    }
+  })
+
+  watch(reducedMotion, (value) => {
+    if (userHasSetReducedMotion.value) {
+      storeReducedMotion(value)
+    }
+  })
+
   function setMode(value: ThemeMode) {
     userHasSetMode.value = true
     mode.value = value
@@ -114,4 +126,14 @@ export function useUserThemePreferences() {
     setReducedMotion,
     toggleReducedMotion,
   }
+}
+
+/**
+ * The user's mode, contrast and reduced motion preferences, persisted to localStorage and shared
+ * across the app. The first call reads storage and starts persisting; later calls share that state.
+ */
+export function useUserThemePreferences(): UserThemePreferences {
+  // A detached scope keeps the persisting watchers alive beyond the component that first calls this
+  preferences ??= effectScope(true).run(createPreferences)!
+  return preferences
 }
