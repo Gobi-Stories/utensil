@@ -1,0 +1,30 @@
+services:
+  utensil-reference:
+    build:
+      context: .
+      dockerfile: apps/reference/Dockerfile
+      target: dev
+    environment:
+      APP_ENVIRONMENT: development
+      PORT: ${UTENSIL_REFERENCE_PORT:-12911}
+      USE_POLLING: ${USE_POLLING:-true}
+    volumes:
+      - .:/app
+      - /app/node_modules
+      - /app/packages/css/node_modules
+      - /app/packages/vue/node_modules
+      - /app/apps/reference/node_modules
+    ports:
+      - "0.0.0.0:${UTENSIL_REFERENCE_PORT:-12911}:${UTENSIL_REFERENCE_PORT:-12911}"
+
+  # Production build of the reference app, served by nginx: docker compose --profile product up
+  utensil-reference-product:
+    profiles: ["product"]
+    build:
+      context: .
+      dockerfile: apps/reference/Dockerfile
+      target: product
+    environment:
+      PORT: 8080
+    ports:
+      - "0.0.0.0:${UTENSIL_REFERENCE_PRODUCT_PORT:-12912}:8080"
