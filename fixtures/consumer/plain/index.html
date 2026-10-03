@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Utensil CSS only</title>
+    <link rel="stylesheet" href="../node_modules/utensil-css/dist/utensil.css" />
+    <link rel="stylesheet" href="./blue.css" />
+    <style>
+      .my-button {
+        background: var(--pen-9);
+        color: var(--pen-contrast);
+        border: none;
+        border-radius: var(--radius-3);
+        padding: var(--space-2) var(--space-4);
+        font-size: var(--font-size-2);
+      }
+    </style>
+  </head>
+  <body class="utensil-calculate utensil-mode blue-pen gray-pencil">
+    <main class="flex column gap-4 padding-5">
+      <button class="my-button">Pen button</button>
+    </main>
+  </body>
+</html>

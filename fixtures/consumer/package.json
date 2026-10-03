@@ -1,0 +1,33 @@
+{
+  "name": "utensil-consumer-fixture",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "description": "A fresh consumer app installed from the packed utensil-css and utensil-vue tarballs. Used by scripts/verify-package.ts.",
+  "scripts": {
+    "typecheck": "vue-tsc --noEmit -p tsconfig.json",
+    "build": "vite build",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^7.2.0",
+    "@fortawesome/free-solid-svg-icons": "^7.2.0",
+    "@fortawesome/vue-fontawesome": "^3.2.0",
+    "utensil-css": "file:../utensil-css.tgz",
+    "utensil-vue": "file:../utensil-vue.tgz",
+    "vue": "3.5.34"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "6.0.7",
+    "@vue/tsconfig": "^0.7.0",
+    "typescript": "5.9.3",
+    "vite": "7.3.3",
+    "vue-tsc": "3.3.1",
+    "@vue/test-utils": "2.4.10",
+    "jsdom": "^26.1.0",
+    "vitest": "3.2.4"
+  },
+  "overrides": {
+    "utensil-css": "file:../utensil-css.tgz"
+  }
+}
