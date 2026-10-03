@@ -464,8 +464,14 @@ export default defineConfig({
 })
 ```
 
-Test components through their public API: props, slots, emitted events and anything they `defineExpose`. Utensil
-ships production builds, so a component's internal setup state is not reachable through `wrapper.vm`.
+Test components through their public API: props, slots, emitted events and what they `defineExpose`. Utensil ships
+production builds, so `wrapper.vm` doesn't carry a Utensil component's setup state or its exposed members. Reach the
+exposed API the way a parent's template ref does:
+
+```ts
+const list = wrapper.findComponent(UtensilReorderableList).vm.$.exposed as { grab: (id: string) => void }
+list.grab('item-1')
+```
 
 ## File Structure Summary
 
