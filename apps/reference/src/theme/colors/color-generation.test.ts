@@ -1,7 +1,7 @@
 import { readFileSync } from 'fs'
 import { createRequire } from 'module'
 import { describe, it, expect } from 'vitest'
-import { generateColorCss } from 'utensil-css/colors/generate-css'
+import { generateColorCss } from 'utensil-vue/colors/generate-css'
 
 // The committed color files are the generator's recorded output: regenerating each one
 // from the source color in its header must reproduce its declarations exactly.

@@ -30,6 +30,10 @@
       "types": "./dist/colors/*.d.ts",
       "import": "./dist/colors/*.js"
     },
+    "./bin/generate-color": {
+      "types": "./dist/bin/generate-color.d.ts",
+      "import": "./dist/bin/generate-color.js"
+    },
     "./*.css": "./src/*.css",
     "./package.json": "./package.json"
   },

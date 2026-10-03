@@ -4,7 +4,8 @@ The Utensil CSS framework: a color system built on three instruments — **pen**
 scalable design tokens, light and dark mode, high contrast and reduced motion support, cascade layers and layout
 utilities. No framework required.
 
-For the Vue 3 theme layer and component library built on it, see [`utensil-vue`](https://www.npmjs.com/package/utensil-vue).
+For the Vue 3 theme layer and component library built on it, see [`utensil-vue`](https://www.npmjs.com/package/utensil-vue). It
+includes `utensil-css` and forwards its files, so Vue projects install `utensil-vue` alone.
 
 ## Install
 

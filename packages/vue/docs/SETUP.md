@@ -7,13 +7,13 @@ We'll build an example theme called "Acme" throughout this guide.
 ## Install
 
 ```bash
-npm install utensil-css utensil-vue
+npm install utensil-vue
 npm install vue @fortawesome/fontawesome-svg-core @fortawesome/free-solid-svg-icons @fortawesome/vue-fontawesome
 ```
 
 `vue` and the FontAwesome packages are peer dependencies, so your app and Utensil share one copy.
 
-Both packages are ESM, built for bundlers such as Vite. Use `"moduleResolution": "bundler"` in your `tsconfig` (the default with `@vue/tsconfig`). There is no barrel file: import each component, composable, and type from its own path (e.g. `utensil-vue/components/button/UtensilButton.vue`), and your bundler includes only the JavaScript and CSS you use.
+`utensil-vue` brings the CSS framework, `utensil-css`, with it and forwards its files at the same subpaths, so import everything from `utensil-vue`. The packages are ESM, built for bundlers such as Vite. Use `"moduleResolution": "bundler"` in your `tsconfig` (the default with `@vue/tsconfig`). There is no barrel file: import each component, composable, and type from its own path (e.g. `utensil-vue/components/button/UtensilButton.vue`), and your bundler includes only the JavaScript and CSS you use.
 
 ## 1. Generate Color Scales
 
@@ -25,7 +25,7 @@ The quickest way to generate a color scale is from the Utensil reference app. Us
 
 ### From the CLI
 
-`utensil-css` installs a `utensil-generate-color` command (it runs on Node):
+`utensil-vue` installs a `utensil-generate-color` command (it runs on Node):
 
 ```bash
 npx utensil-generate-color <color> <hex> [options] > path/to/colors/<color>.css
@@ -45,7 +45,7 @@ Run it without arguments to list the options (e.g. `--paper <hex>` to anchor the
 You can also generate color CSS in code, which is useful for theme builders or dynamic themes:
 
 ```ts
-import { generateColorCss } from 'utensil-css/colors/generate-css'
+import { generateColorCss } from 'utensil-vue/colors/generate-css'
 
 const css = generateColorCss('blue', '#0093ee')
 ```
@@ -369,7 +369,7 @@ Utensil's CSS is organized into cascade layers (see USAGE.md → "Cascade Layers
 
 ```ts
 // main.ts
-import 'utensil-css/utensil-layers.css'
+import 'utensil-vue/utensil-layers.css'
 
 import { createApp } from 'vue'
 // ...

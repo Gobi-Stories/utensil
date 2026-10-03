@@ -1,7 +1,7 @@
 import { ref, watch } from 'vue'
 import { isRoundness, type RadiusScaleProp } from 'utensil-vue/theme/utensil-theme'
 import { useUserThemePreferences } from 'utensil-vue/theme/useUserThemePreferences'
-import { defaultPaperOptions, type PaperOptions } from 'utensil-css/colors/generate-colors'
+import { defaultPaperOptions, type PaperOptions } from 'utensil-vue/colors/generate-colors'
 import { DEFAULT_PEN_COLOR, DEFAULT_PENCIL_COLOR, DEFAULT_PAPER_COLOR } from '@/theme/reference-color-presets'
 import { router } from '../router'
 

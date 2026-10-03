@@ -1,4 +1,4 @@
-import { defaultPaperOptions } from 'utensil-css/colors/generate-colors'
+import { defaultPaperOptions } from 'utensil-vue/colors/generate-colors'
 import type { ThemePreset } from 'utensil-vue/theme-editor/ThemeEditor.vue'
 
 export const DEFAULT_PEN_COLOR = '#0093ee'

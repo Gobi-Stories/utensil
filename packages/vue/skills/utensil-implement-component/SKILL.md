@@ -43,7 +43,7 @@ Follow the patterns in the guide. Key areas to get right on the first pass:
 - **Design tokens** — use `--pen-*`, `--pencil-*`, `--space-*`, `--radius-*`, etc. for all spacing, sizing, and color. No hardcoded values.
 - **Accessibility** — support `.utensil-high-contrast` and `.utensil-reduced-motion`. Provide `:focus-visible` focus styles for interactive elements. Use semantic HTML where possible; add ARIA attributes for non-semantic interactive elements.
 - **Theme integration** — use `useTheme` only if the component changes pen/pencil/scale via props. Use `ColorProp<Theme>`, `IconProp<Theme>`, `ScaleProp` on theme-typed props with the `Theme extends ThemeConfig` generic.
-- **UI variations** — if the component supports variations, use the `UtensilUIVariation` type and shared `ui-<variation>` classes from `utensil-css/theme/utensil-theme.css`.
+- **UI variations** — if the component supports variations, use the `UtensilUIVariation` type and shared `ui-<variation>` classes from the Utensil theme CSS (`utensil-vue/theme/utensil-theme.css`).
 - **Composition** — for composite components, use `provide`/`inject` for built-in children and expose the same API via slot scope for custom children.
 - **CSS cvars** — namespace with the component name (e.g., `--user-avatar-size`) and fall back to design tokens.
 

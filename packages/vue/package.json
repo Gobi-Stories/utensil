@@ -21,6 +21,7 @@
     "dist",
     "src",
     "!src/**/*.test.ts",
+    "bin",
     "docs",
     "skills",
     "README.md",
@@ -41,6 +42,9 @@
       "types": "./dist/*.d.ts",
       "import": "./dist/*.js"
     }
+  },
+  "bin": {
+    "utensil-generate-color": "./bin/generate-color.js"
   },
   "scripts": {
     "build": "rm -rf dist && vite build && vue-tsc -p tsconfig.build.json && bun scripts/build-skills.ts && cp ../../LICENSE.md .",

@@ -72,6 +72,12 @@ so bundlers include only what is used. `vue-tsc` emits the declarations, keeping
 typed wrappers (`UtensilButton<AcmeThemeConfig>`) work. `utensil-css` and the peer dependencies stay external, except
 `?inline` CSS imports, which are inlined as strings for `utensil-css-inline`.
 
+`utensil-vue` forwards `utensil-css` so a Vue project depends on `utensil-vue` alone: each base CSS file has a
+one-line `@import` forward at the same subpath (`packages/vue/src/utensil-layers.css`, `src/theme/utensil-theme.css`,
+…), `src/colors/{colors,generate-colors,generate-css}.ts` re-export the generator, and `bin/generate-color.js`
+forwards the CLI. `verify:package` installs the Vue fixture with an isolated linker, so anything a Vue app reaches
+must be forwarded rather than found by hoisting. Add a forward when `utensil-css` gains a public file.
+
 The package also ships its readable `src/` (minus tests) for agents and source maps, `docs/`, and `skills/`. The
 build copies the docs each skill needs into `skills/<name>/references/` (`scripts/build-skills.ts`).
 

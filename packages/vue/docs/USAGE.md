@@ -89,10 +89,10 @@ The skills are version-matched to the installed package: upgrading `utensil-vue`
 
 ## Pure CSS Usage
 
-The `utensil-css` package works without Vue or any framework. Load its all-in-one stylesheet, which leads with the layer order — from a bundler:
+Utensil's CSS framework works without Vue or any framework, and ships on its own as the `utensil-css` package. Load its all-in-one stylesheet, which leads with the layer order — from a bundler:
 
 ```ts
-import 'utensil-css/utensil.css'
+import 'utensil-css/utensil.css' // or 'utensil-vue/utensil.css' in a Vue project
 ```
 
 or with a `<link>` to the package file (`utensil.min.css` is the minified copy):

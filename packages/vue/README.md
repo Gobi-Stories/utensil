@@ -9,7 +9,7 @@ Utensil ships as two packages:
 | `utensil-css` | The CSS framework: color instruments, design tokens, cascade layers, utilities, color generator    |
 | `utensil-vue` | The Vue 3 theme layer, the component library and composables, and the AI harness (docs and skills) |
 
-`utensil-vue` depends on `utensil-css`, so installing it brings both.
+`utensil-vue` depends on `utensil-css` and forwards everything from it at the same subpaths (`utensil-vue/utensil-layers.css`, `utensil-vue/colors/generate-css`, the `utensil-generate-color` command), so a Vue project installs and imports only `utensil-vue`.
 
 ## Install
 
@@ -26,7 +26,7 @@ Load the cascade layer order first, at your application entry point:
 
 ```ts
 // main.ts
-import 'utensil-css/utensil-layers.css'
+import 'utensil-vue/utensil-layers.css'
 
 import { createApp } from 'vue'
 import App from './App.vue'
@@ -122,8 +122,8 @@ Utensil includes simple tools to generate color scales from a single base color 
 You can generate color scales using:
 
 - the theme designer in the Utensil reference app
-- the `utensil-generate-color` command from `utensil-css` (`npx utensil-generate-color blue "#0093ee"`)
-- `generateColorCss()` from `utensil-css/colors/generate-css`, or the `useColorGenerator()` composable from `utensil-vue/colors/use-color-generator`, at runtime
+- the `utensil-generate-color` command (`npx utensil-generate-color blue "#0093ee"`)
+- `generateColorCss()` from `utensil-vue/colors/generate-css`, or the `useColorGenerator()` composable from `utensil-vue/colors/use-color-generator`, at runtime
 
 ### Scalable Design Tokens
 

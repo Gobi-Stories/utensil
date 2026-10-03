@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "type": "module",
-  "description": "A fresh consumer app installed from the packed utensil-css and utensil-vue tarballs. Used by scripts/verify-package.ts.",
+  "description": "A fresh Vue consumer app that installs only the packed utensil-vue tarball (utensil-css arrives as its dependency). Used by scripts/verify-package.ts.",
   "scripts": {
     "typecheck": "vue-tsc --noEmit -p tsconfig.json",
     "build": "vite build",
@@ -13,7 +13,6 @@
     "@fortawesome/fontawesome-svg-core": "^7.2.0",
     "@fortawesome/free-solid-svg-icons": "^7.2.0",
     "@fortawesome/vue-fontawesome": "^3.2.0",
-    "utensil-css": "file:../utensil-css.tgz",
     "utensil-vue": "file:../utensil-vue.tgz",
     "vue": "3.5.34"
   },

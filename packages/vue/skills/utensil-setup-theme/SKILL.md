@@ -29,7 +29,7 @@ Determine:
 
 If brand colors are missing, ask the user for them. Never invent brand colors. Utensil provides `gray`; neutral colors may otherwise be chosen and stated as a default for the user to confirm.
 
-Check that `utensil-vue`, `utensil-css` and the FontAwesome peer dependencies (`@fortawesome/fontawesome-svg-core`, `@fortawesome/free-solid-svg-icons`, `@fortawesome/vue-fontawesome`) are installed. Install them if not.
+Check that `utensil-vue` (it brings `utensil-css` with it) and the FontAwesome peer dependencies (`@fortawesome/fontawesome-svg-core`, `@fortawesome/free-solid-svg-icons`, `@fortawesome/vue-fontawesome`) are installed. Install them if not.
 
 ## Step 3: Generate the color scales
 
@@ -55,7 +55,7 @@ Follow SETUP.md sections 2–6, naming everything after the theme (shown here fo
 
 ## Step 5: Wire it into the application
 
-1. Make `import 'utensil-css/utensil-layers.css'` the first line of the application entry point (e.g., `main.ts`), before any other import.
+1. Make `import 'utensil-vue/utensil-layers.css'` the first line of the application entry point (e.g., `main.ts`), before any other import.
 2. Wrap the application in the theme root, with user preferences from `useUserThemePreferences` (`utensil-vue/theme/useUserThemePreferences`):
 
 ```vue

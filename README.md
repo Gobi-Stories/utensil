@@ -51,17 +51,21 @@ See the [utensil-css README](packages/css/README.md).
 ### Vue
 
 ```bash
-npm install utensil-css utensil-vue vue @fortawesome/fontawesome-svg-core @fortawesome/free-solid-svg-icons @fortawesome/vue-fontawesome
+npm install utensil-vue vue @fortawesome/fontawesome-svg-core @fortawesome/free-solid-svg-icons @fortawesome/vue-fontawesome
 ```
 
 ```ts
 // main.ts — the layer order must load before any other CSS
-import 'utensil-css/utensil-layers.css'
+import 'utensil-vue/utensil-layers.css'
 ```
 
 ```ts
 import UtensilButton from 'utensil-vue/components/button/UtensilButton.vue'
 ```
+
+`utensil-vue` brings `utensil-css` with it and forwards its files at the same subpaths (`utensil-vue/utensil-layers.css`,
+`utensil-vue/colors/generate-css`, the `utensil-generate-color` command), so a Vue project only deals with
+`utensil-vue`.
 
 Components are imported directly by path. There is no barrel file, so your bundler only includes the components you
 use, each with only its own CSS. The packages are ESM, built for bundlers such as Vite (`moduleResolution:

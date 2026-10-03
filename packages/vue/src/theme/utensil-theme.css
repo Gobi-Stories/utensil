@@ -1,0 +1,2 @@
+/* Forwards theme/utensil-theme.css, so Vue projects only depend on utensil-vue. */
+@import 'utensil-css/theme/utensil-theme.css';

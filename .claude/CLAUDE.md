@@ -24,7 +24,7 @@ Read the guide that matches the task before starting:
 
 ## Consumer Compatibility
 
-Both packages are used by other projects through npm. Everything a consumer can import or target is public API: module paths (`utensil-vue/components/<feature>/Utensil<Name>.vue`), exported names and types, props, events, slots, component root classes (`.utensil-<name>`), CSS cvars (`--utensil-<component>-*`), and utensil-css class, layer and token names. Keep changes additive; call out anything breaking so it reaches the release notes. No barrel files — every module is a deep import so consumers can tree-shake.
+Both packages are used by other projects through npm. Everything a consumer can import or target is public API: module paths (`utensil-vue/components/<feature>/Utensil<Name>.vue`), exported names and types, props, events, slots, component root classes (`.utensil-<name>`), CSS cvars (`--utensil-<component>-*`), and utensil-css class, layer and token names. `utensil-vue` forwards every public `utensil-css` file at the same subpath (CSS `@import` forwards, generator re-exports, the CLI) so Vue apps depend on `utensil-vue` alone — add a forward when `utensil-css` gains a public file. Keep changes additive; call out anything breaking so it reaches the release notes. No barrel files — every module is a deep import so consumers can tree-shake.
 
 ## Skills
 
