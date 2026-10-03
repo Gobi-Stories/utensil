@@ -33,7 +33,7 @@
     },
     "apps/reference": {
       "name": "utensil-reference",
-      "version": "0.1.0",
+      "version": "1.0.0",
       "dependencies": {
         "@fortawesome/fontawesome-svg-core": "^7.2.0",
         "@fortawesome/free-regular-svg-icons": "^7.2.0",
@@ -50,7 +50,7 @@
     },
     "packages/css": {
       "name": "utensil-css",
-      "version": "0.1.0",
+      "version": "1.0.0",
       "bin": {
         "utensil-generate-color": "./dist/bin/generate-color.js",
       },
@@ -62,7 +62,7 @@
     },
     "packages/vue": {
       "name": "utensil-vue",
-      "version": "0.1.0",
+      "version": "1.0.0",
       "bin": {
         "utensil-generate-color": "./bin/generate-color.js",
       },
