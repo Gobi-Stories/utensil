@@ -1,0 +1,83 @@
+/**
+ * Reference Theme Text Themes
+ * Custom text themes demonstrating extensibility of the Utensil text theme system.
+ */
+
+/**
+ * Reference Base Text Theme
+ * Sets the default font family for all Reference theme text.
+ * Specific themes (article, code) can override this.
+ */
+.text-reference {
+  --font-family: 'Figtree', ui-sans-serif, sans-serif;
+  --heading-font-family: 'Plus Jakarta Sans', ui-sans-serif, sans-serif;
+  --code-font-family: 'Source Code Pro', monospace;
+  --heading-weight: 500;
+  --font-weight: 400;
+}
+
+/**
+ * Article Text Theme
+ * Optimized for long-form article reading with elegant serif typography.
+ * Extends the base with serif fonts and enhanced spacing.
+ */
+.text-article {
+  --font-family: 'Merriweather', serif;
+  --font-size: var(--font-size-4);
+  --line-height: calc(1.8 * var(--scale));
+  --letter-spacing: calc(var(--letter-spacing-1) * 1.2);
+  --scale: 1.1;
+
+  line-height: calc(1.8 * var(--scale));
+  font-size: calc(18px * var(--scale));
+  color: var(--pencil-a12);
+
+  /* Drop cap for first paragraph */
+  p.drop-cap:first-of-type::first-letter {
+    font-size: calc(var(--font-size) * 4 - 1px);
+    font-weight: 700;
+    line-height: 1;
+    float: left;
+    margin-right: var(--space-2);
+    margin-bottom: 0;
+  }
+
+  /* Links - enhanced offset */
+  a {
+    text-decoration-thickness: 2px;
+    text-underline-offset: 6px;
+    color: var(--pen-10);
+
+    &:hover {
+      color: var(--pen-12);
+      text-decoration: underline;
+      text-decoration-thickness: 2px;
+    }
+  }
+
+  /* Lists - more generous spacing */
+  li {
+    margin-bottom: var(--space-3);
+    line-height: var(--line-height-8);
+  }
+
+  /* Blockquote - pen color and enhanced styling */
+  blockquote {
+    border-left-width: calc(var(--space-1) * 2);
+    border-left-color: var(--pen-8);
+    margin: var(--space-6) 0;
+    line-height: calc(1.8 * var(--scale));
+    color: var(--pencil-a11);
+  }
+
+  /* Strong - heavier weight */
+  strong,
+  b {
+    font-weight: 700;
+  }
+
+  /* Horizontal rule - more spacing */
+  hr {
+    margin: var(--space-8) 0;
+  }
+}

@@ -1,0 +1,21 @@
+server {
+  listen $PORT;
+  server_name localhost;
+  charset utf-8;
+  gzip on;
+  gzip_types text/plain application/json application/javascript;
+  root /app/dist;
+  index index.html;
+
+  location / {
+    root /app/dist;
+    autoindex on;
+    try_files $uri $uri/ /index.html =404;
+    add_header Cache-Control "no-store, no-cache, must-revalidate";
+  }
+
+  location /assets {
+    expires 1y;
+    add_header Cache-Control "public, immutable";
+  }
+}
