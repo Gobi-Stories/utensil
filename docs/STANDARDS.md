@@ -100,6 +100,42 @@ Examples: `vue: tabs: keep focus on the active trigger after removal`, `css: uti
 - Keep commits atomic — the codebase should not be knowingly broken at any commit.
 - Avoid meaningless commit messages. Use `git commit --amend` or a fixup for small corrections.
 
+## Module Scope
+
+Importing a module must never do work. Module scope holds declarations only: imports and exports, types, functions
+and classes, constants of literal values, simple instantiations (`new Map()`, `Symbol()`), and `let` caches that start
+empty.
+
+Never at module scope, directly or through a call:
+
+- I/O: `localStorage` and `sessionStorage`, cookies, network, the DOM (`document`, `window`), `matchMedia`, `navigator`
+- listeners, timers and observers
+- reactive effects (`watch`, `watchEffect`, `effectScope`) and refs initialised from any of the above
+
+Work runs when a function is called. State shared across callers is created by the first call and cached:
+
+```ts
+let preferences: UserThemePreferences | undefined
+
+export function useUserThemePreferences(): UserThemePreferences {
+  // A detached scope keeps the watchers alive beyond the component that first calls this
+  preferences ??= effectScope(true).run(createPreferences)!
+  return preferences
+}
+```
+
+Create shared Vue effects inside a detached `effectScope(true)`. Created lazily without one, they belong to the first
+component that calls the function and stop when it unmounts.
+
+Entry points (an app's `main.ts`, a CLI `bin`) are the only exception: starting work is their job.
+
+Why: an import that does work runs before its importer can prepare for it (a consumer migrating stored settings can't
+run before a module that reads them on import), runs in every test and SSR context that merely imports it, and can't
+be tree-shaken.
+
+Enforced: `packages/vue/src/no-import-side-effects.test.ts` imports every module and fails if Utensil code touches
+storage, listeners, `matchMedia` or timers on import.
+
 ## Do's & Don'ts
 
 **Do:**
@@ -110,7 +146,7 @@ Examples: `vue: tabs: keep focus on the active trigger after removal`, `css: uti
 
 **Don't:**
 
-- Execute code in the global scope except simple assignments and instantiations
+- Do work at module scope (see Module Scope)
 - Execute I/O in constructors or factory functions
 - Rely on non-constant global variables
 - Add additional boolean flags when presence/absence of a value suffices

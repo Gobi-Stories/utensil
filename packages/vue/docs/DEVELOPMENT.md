@@ -109,6 +109,42 @@ const props = withDefaults(defineProps<Props<Theme>>(), { color: 'pen' })
 
 Export any local types the props interface references (e.g. `export type CalloutVariation = 'soft' | 'surface' | 'outline'`). Non-generic components export a plain `export interface Props`. `bun run build` fails with `TS4025 … private name 'Props'` when this is missed.
 
+## Module Scope
+
+Importing a module must never do work. Module scope holds declarations only: imports and exports, types, functions
+and classes, constants of literal values, simple instantiations (`new Map()`, `Symbol()`), and `let` caches that start
+empty.
+
+Never at module scope, directly or through a call:
+
+- I/O: `localStorage` and `sessionStorage`, cookies, network, the DOM (`document`, `window`), `matchMedia`, `navigator`
+- listeners, timers and observers
+- reactive effects (`watch`, `watchEffect`, `effectScope`) and refs initialised from any of the above
+
+Work runs when a function is called. State shared across callers is created by the first call and cached:
+
+```ts
+let preferences: UserThemePreferences | undefined
+
+export function useUserThemePreferences(): UserThemePreferences {
+  // A detached scope keeps the watchers alive beyond the component that first calls this
+  preferences ??= effectScope(true).run(createPreferences)!
+  return preferences
+}
+```
+
+Create shared Vue effects inside a detached `effectScope(true)`. Created lazily without one, they belong to the first
+component that calls the function and stop when it unmounts.
+
+Composables and helpers do their work when called, never when imported.
+
+Why: an import that does work runs before its importer can prepare for it (a consumer migrating stored settings can't
+run before a module that reads them on import), runs in every test and SSR context that merely imports it, and can't
+be tree-shaken.
+
+Utensil enforces this with a test that imports every module and fails if one touches storage, listeners,
+`matchMedia` or timers on import.
+
 ## Theme Integration
 
 ### useTheme Composable
