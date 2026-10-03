@@ -60,6 +60,14 @@ if (!dry) {
     pkg.version = version
     writeFileSync(path, `${JSON.stringify(pkg, null, 2)}\n`)
   }
+  // bun pm pack fills utensil-vue's workspace:* dependency on utensil-css from the version bun.lock
+  // records for the workspace, and bun install does not refresh it, so set it here.
+  const lockPath = join(root, 'bun.lock')
+  const lock = readFileSync(lockPath, 'utf8').replace(
+    /("name": "utensil-(?:css|vue|reference)",\s*"version": ")[^"]+"/g,
+    `$1${version}"`,
+  )
+  writeFileSync(lockPath, lock)
   await $`bun install`.cwd(root)
 }
 
