@@ -4,6 +4,15 @@
   "description": "Utensil Vue 3 theme layer and accessible, themeable component library, with an AI harness of usage knowledge and skills.",
   "license": "MIT",
   "author": "Gobi Stories AS",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Gobi-Stories/utensil.git",
+    "directory": "packages/vue"
+  },
+  "homepage": "https://github.com/Gobi-Stories/utensil/tree/main/packages/vue#readme",
+  "bugs": {
+    "url": "https://github.com/Gobi-Stories/utensil/issues"
+  },
   "type": "module",
   "keywords": [
     "vue",

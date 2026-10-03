@@ -4,6 +4,15 @@
   "description": "Utensil CSS framework: pen, pencil and paper color instruments, scalable design tokens, cascade layers, utilities and a color scale generator.",
   "license": "MIT",
   "author": "Gobi Stories AS",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Gobi-Stories/utensil.git",
+    "directory": "packages/css"
+  },
+  "homepage": "https://github.com/Gobi-Stories/utensil/tree/main/packages/css#readme",
+  "bugs": {
+    "url": "https://github.com/Gobi-Stories/utensil/issues"
+  },
   "type": "module",
   "keywords": [
     "css",
