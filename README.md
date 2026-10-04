@@ -105,14 +105,15 @@ To give your agent Utensil's usage guide in every session, you can also import i
 
 ## Documentation
 
-| Guide                                                      | For                                                   |
-| ---------------------------------------------------------- | ----------------------------------------------------- |
-| [SETUP.md](packages/vue/docs/SETUP.md)                     | Creating your theme: colors, variants, icons, root    |
-| [USAGE.md](packages/vue/docs/USAGE.md)                     | The color system, tokens, components, layers, theming |
-| [COMPONENTS.md](packages/vue/docs/COMPONENTS.md)           | The component catalogue                               |
-| [DEVELOPMENT.md](packages/vue/docs/DEVELOPMENT.md)         | Building components the Utensil way                   |
-| [audit-checklist.md](packages/vue/docs/audit-checklist.md) | The patterns components are audited against           |
-| [DEVELOPMENT.md](DEVELOPMENT.md)                           | Working on this repository: build, test, release      |
+| Guide                                                        | For                                                   |
+| ------------------------------------------------------------ | ----------------------------------------------------- |
+| [SETUP.md](packages/vue/docs/SETUP.md)                       | Creating your theme: colors, variants, icons, root    |
+| [USAGE.md](packages/vue/docs/USAGE.md)                       | The color system, tokens, components, layers, theming |
+| [COMPONENTS.md](packages/vue/docs/COMPONENTS.md)             | The component catalogue                               |
+| [DEVELOPMENT.md](packages/vue/docs/DEVELOPMENT.md)           | Building components the Utensil way                   |
+| [audit-checklist.md](packages/vue/docs/audit-checklist.md)   | The patterns components are audited against           |
+| [docs/DEVELOPMENT-ADDENDUM.md](docs/DEVELOPMENT-ADDENDUM.md) | Building components in this repository                |
+| [DEVELOPMENT.md](DEVELOPMENT.md)                             | Working on this repository: build, test, release      |
 
 ## License
 

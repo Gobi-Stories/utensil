@@ -83,7 +83,7 @@ build copies the docs each skill needs into `skills/<name>/references/` (`script
 
 Because declarations are emitted from the components, a generic component exports its props interface:
 `export interface Props<Theme extends ThemeConfig>`, used as `defineProps<Props<Theme>>()`, along with any local
-types it references. See [packages/vue/docs/DEVELOPMENT.md](packages/vue/docs/DEVELOPMENT.md).
+types it references. See [docs/DEVELOPMENT-ADDENDUM.md](docs/DEVELOPMENT-ADDENDUM.md).
 
 ## Compatibility
 

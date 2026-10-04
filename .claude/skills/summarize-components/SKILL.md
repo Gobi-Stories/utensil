@@ -1,5 +1,5 @@
 ---
-name: summarize-utensil-components
+name: summarize-components
 description: Summarize all Utensil components across all reference sections
 context: fork
 allowed-tools: Write(packages/vue/docs/COMPONENTS.md)

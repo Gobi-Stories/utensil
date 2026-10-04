@@ -176,7 +176,7 @@ npx skills-npm setup
 `setup` adds `skills-npm` to your `prepare` script, so the links are refreshed on every install and always match the
 installed version of `utensil-vue`. Commit the links and `skills-npm-lock.json` to share them with your team.
 
-You can also bring the usage guide into every session by adding it to your project's `CLAUDE.md`:
+You can also bring the usage guide into every session by importing it from your agent's project instructions (e.g. `CLAUDE.md` or `AGENTS.md`), where your agent supports imports:
 
 ```md
 @node_modules/utensil-vue/docs/USAGE.md
@@ -186,7 +186,7 @@ You can also bring the usage guide into every session by adding it to your proje
 
 - [SETUP.md](docs/SETUP.md) — Creating your own theme: colors, variants, icons, and theme root
 - [USAGE.md](docs/USAGE.md) — Using the color system, components, and theming in your application
-- [DEVELOPMENT.md](docs/DEVELOPMENT.md) — Building new Utensil components: patterns, conventions, and checklist
+- [DEVELOPMENT.md](docs/DEVELOPMENT.md) — Building components the Utensil way: patterns, conventions, and checklist
 - [COMPONENTS.md](docs/COMPONENTS.md) — The component catalogue
 
 ## License

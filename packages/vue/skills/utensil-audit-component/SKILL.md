@@ -1,20 +1,19 @@
 ---
 name: utensil-audit-component
-description: Audit a component in this project's local component library against Utensil Design System patterns and standards, optionally fixing the findings. Use after implementing or changing a project component in a project that uses utensil-vue.
+description: Audit a component against Utensil Design System patterns and standards, optionally fixing the findings. Use after implementing or changing a component in a project that uses utensil-vue.
 license: MIT
-argument-hint: <ComponentName> [--fix] [--rule number] | --rules
+argument-hint: <ComponentName or path> [--fix] [--rule number] | --rules
 context: fork
 ---
 
 # Audit Component
 
-Audit a component in the consumer project's local library against Utensil Design System patterns, rules, and guidance. The same quality bar that applies to Utensil components applies here.
+Audit a component against Utensil Design System patterns, rules, and guidance. The same quality bar that applies to Utensil components applies here.
 
 ## Arguments
 
-- `ComponentName`: The component name (e.g., `UserAvatar`)
-  - Looked for at `src/lib/components/<feature>/<ComponentName>.vue` by default
-  - Or in the path specified by the consumer's CLAUDE.md
+- `ComponentName or path`: the component's file path, or its name (e.g., `UserAvatar`)
+  - Given a name, find `<ComponentName>.vue` in the project, outside `node_modules`. If more than one matches, ask which one.
 
 ## Options
 
@@ -38,17 +37,6 @@ Before auditing, load these files in order:
    - **Should the component be using this pattern?** Consider the component's nature — not all patterns apply to all components (e.g., UI variations only matter for components that benefit from visual weight options; ARIA attributes only matter for interactive components; popover composition only matters for overlay components)
 3. A recommendation is produced only when: the component is **not** using the pattern **and** it **should** be
 4. Return the list of recommendations, each with the checklist item number and pattern description
-
-### Consumer-specific checklist adjustments
-
-A few checklist items are Utensil-repo specific. Apply these adjustments for consumer components:
-
-- **#8 (Reference examples in the reference app)** — Not applicable. Consumer projects do not have the Utensil reference app.
-- **#32 (File located at `components/<feature>/Utensil<Name>.vue`)** — Substitute the consumer's convention: `src/lib/components/<feature>/<Name>.vue` with no `Utensil` prefix (unless the project's CLAUDE.md specifies a different prefix/path).
-- **#52 (Reference examples use Reference-typed components)** — Not applicable.
-- **#53 (Reference examples never use native `alert`/`confirm`)** — Not applicable.
-
-All other items apply as written.
 
 ### Judgement guidelines
 

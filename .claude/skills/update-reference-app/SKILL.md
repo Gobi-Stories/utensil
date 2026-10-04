@@ -35,4 +35,4 @@ When done, run `./check` from the repository root and fix any errors related to 
 
 ## Troubleshooting
 
-External positioning and outer styling of Utensil components is supposed to be easy. If a component is not being styled as expected, do not use aggressive approaches such as `:deep()`. This points to a design issue with the component. You can call on a sub-agent to update the component, using the `/update-utensil-component` skill. Describe the issue and instruct them not to break compatibility with existing consumers of the published package.
+External positioning and outer styling of Utensil components is supposed to be easy. If a component is not being styled as expected, do not use aggressive approaches such as `:deep()`. This points to a design issue with the component. You can call on a sub-agent to update the component, using the `/update-component` skill. Describe the issue and instruct them not to break compatibility with existing consumers of the published package.

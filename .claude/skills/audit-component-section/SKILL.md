@@ -12,7 +12,7 @@ Audit every component demonstrated in a reference section against Utensil Design
 ## Arguments
 
 - `Page`: The reference page (e.g., "DialogsPage", "dialogs", or "Dialogs")
-- All options (`--fix`, `--rule`) are passed through to each `/audit-components` invocation.
+- All options (`--fix`, `--rule`) are passed through to each `/audit-component` invocation.
 
 ## Step 1: Read the page and its demos
 
@@ -34,9 +34,9 @@ Some components will have multiple demo blocks. Pay attention to the actual comp
 
 Build a list of all unique component names found on the page.
 
-## Step 3: Run `/audit-components` for each component
+## Step 3: Run `/audit-component` for each component
 
-For each component in the list, run an agent with the `/audit-components` skill. Run them **in parallel** — each agent only reads and (in fix mode) edits its own component files so there are no conflicts.
+For each component in the list, run an agent with the `/audit-component` skill. Run them **in parallel** — each agent only reads and (in fix mode) edits its own component files so there are no conflicts.
 
 Pass through any `--fix` or `--rule` options to each invocation.
 

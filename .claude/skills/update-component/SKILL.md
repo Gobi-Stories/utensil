@@ -1,5 +1,5 @@
 ---
-name: update-utensil-component
+name: update-component
 description: Update an existing component in the Utensil component library
 argument-hint: <ComponentName> <description>
 ---
@@ -21,9 +21,10 @@ Components are located at:
 
 ## Utensil Development Guide
 
-Read and follow the Utensil contributing guide for all component patterns, conventions, and standards, plus the repository's development standards:
+Read and follow the Utensil component guide for all component patterns, conventions, and standards, its addendum for this repository, and the repository's development standards:
 
 @../../../packages/vue/docs/DEVELOPMENT.md
+@../../../docs/DEVELOPMENT-ADDENDUM.md
 @../../../docs/STANDARDS.md
 
 ## Consumer Compatibility
@@ -38,7 +39,7 @@ Update or write a vitest unit test for the component alongside the component fil
 
 Update the adjacent doc file with your changes. The file will be named `<ComponentName>Doc.vue` and located in the same directory as the component.
 
-Read (don't use) the document-component-api skill to see the API documentation template.
+Read (don't use) the documentation skill to see the API documentation template: `packages/vue/skills/utensil-document-component-api/SKILL.md`, with this repository's differences in `.claude/skills/document-component-api/SKILL.md`.
 
 If no document file exists, create one.
 
@@ -50,6 +51,6 @@ If implementing or updating a reference demo see @../../../apps/reference/DEVELO
 
 ## Steps
 
-1. Make the requested changes following the contributing guide above.
+1. Make the requested changes following the component guide and addendum above.
 2. Update the Reference application if there are new features to demonstrate (or features were removed).
 3. From the repository root, run `./check` (format, lint, typecheck, test) and `bun run verify:package`. Fix any errors related to your work.

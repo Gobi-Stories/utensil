@@ -1,5 +1,5 @@
 ---
-name: document-utensil-components
+name: document-components
 description: Document all Utensil components across all reference sections
 context: fork
 ---

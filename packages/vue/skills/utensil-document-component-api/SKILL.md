@@ -1,28 +1,28 @@
 ---
 name: utensil-document-component-api
-description: Create or update the adjacent <Name>Doc.vue API documentation for a component in this project's local component library, in the Utensil documentation format. Use after implementing or changing a project component in a project that uses utensil-vue.
+description: Create or update the adjacent <Name>Doc.vue API documentation for a component, in the Utensil documentation format. Use after implementing or changing a component in a project that uses utensil-vue.
 license: MIT
-argument-hint: <ComponentName>
+argument-hint: <ComponentName or path>
 context: fork
 ---
 
 # Document Component API
 
-Create or update an API documentation component for a component in the consumer project's local library.
+Create or update an API documentation component for a component.
 
 ## Arguments
 
-- `ComponentName`: PascalCase name (e.g., "UserAvatar")
+- `ComponentName or path`: the component's file path, or its PascalCase name (e.g., "UserAvatar")
 
 ## Step 1: Locate the component and check for existing docs
 
 Read `references/DEVELOPMENT.md` (in this skill's directory) for the component conventions this documentation describes (theme props, UI variations, CSS cvars, composite children).
 
-Find the component at `src/lib/components/<feature>/<ComponentName>.vue` (or wherever the consumer's CLAUDE.md specifies).
+Given a path, use it. Given a name, find `<ComponentName>.vue` in the project, outside `node_modules`; if more than one matches, ask which one.
 
 Read the component file thoroughly. For composite components (parent + children), also read all child components in the same directory.
 
-Then check if a doc component already exists at `src/lib/components/<feature>/<ComponentName>Doc.vue`.
+Then check if a doc component already exists beside it, as `<ComponentName>Doc.vue`.
 
 - **If the doc component does not exist** — continue to Step 2 to create it from scratch.
 - **If the doc component already exists** — read the existing doc and compare it against the current component source. Check for:
@@ -97,17 +97,17 @@ For composite components that have built-in child components:
 
 ## Step 3: Create the Doc component
 
-Create the file at `src/lib/components/<feature>/<ComponentName>Doc.vue`.
+Create the file beside the component, as `<ComponentName>Doc.vue`.
 
 ### Documentation CSS
 
-The doc component uses CSS classes from Utensil's doc stylesheet, which `utensil-vue` exports as `utensil-vue/utensil-docs.css`:
+The doc component uses CSS classes from Utensil's doc stylesheet, which `utensil-vue` exports as `utensil-vue/utensil-docs.css`. Import it in the doc component:
 
 ```vue
 <style src="utensil-vue/utensil-docs.css"></style>
 ```
 
-This gives access to the `.text-code` text theme and all `.doc-*` layout classes.
+This gives access to the `.text-code` text theme, the `.utensil-api-doc` layout and all `.doc-*` classes.
 
 ### Structure
 
@@ -115,7 +115,7 @@ Use this template as a starting point. Remove sections that don't apply (e.g., n
 
 ```vue
 <template>
-  <article class="text-code api-doc">
+  <article class="text-code utensil-api-doc">
     <div class="doc-header">
       <h1>{Name}</h1>
       <!-- Theme Props Flag -->
@@ -130,7 +130,7 @@ Use this template as a starting point. Remove sections that don't apply (e.g., n
     </div>
     <p>{Brief description of what the component does and when to use it.}</p>
 
-    <!-- UI Variations (if any) -->
+    <!-- UI Variations (for each applicable, if any) -->
     <h2>Variations</h2>
     <div class="text-ui ui-variations-reference">
       <UtensilBadge variation="solid" scale="giant">Solid</UtensilBadge>
@@ -185,6 +185,7 @@ Use this template as a starting point. Remove sections that don't apply (e.g., n
     <!-- Provided Context (Composite parents only) -->
     <h2>Context</h2>
     <p>Brief list of all props that are included in the context so we don't need to redocument them</p>
+    <!-- Any additional context that is not documented as a prop -->
     <table>
       <thead>
         <tr>
@@ -199,7 +200,7 @@ Use this template as a starting point. Remove sections that don't apply (e.g., n
           <td><code>label</code></td>
           <td>string</td>
           <td>—</td>
-          <td>Button label content.</td>
+          <td>Button label content. Overrides the <code>label</code> prop.</td>
         </tr>
       </tbody>
     </table>
@@ -208,6 +209,7 @@ Use this template as a starting point. Remove sections that don't apply (e.g., n
     <h2>Slots</h2>
     <h3>#default</h3>
     <p>{Brief list of all context that is included in the scope so we don't need to redocument them}</p>
+    <!-- Any additional scope that is not documented as context -->
     <table>
       <thead>
         <tr>
@@ -267,6 +269,7 @@ Use this template as a starting point. Remove sections that don't apply (e.g., n
     <h2>{ChildComponentName}</h2>
     <p>{Brief description of the component and when to use it}</p>
 
+    <!-- Same document section as parent, as applicable, but use <h3> for title -->
     <h3>Props</h3>
     <!-- etc -->
 
@@ -274,7 +277,23 @@ Use this template as a starting point. Remove sections that don't apply (e.g., n
     <h2>Examples</h2>
 
     <h3>Basic Usage</h3>
-    <pre><code>&lt;UserAvatar :user="user" /&gt;</code></pre>
+    <pre><code>&lt;UserAvatar :user="user" /&gt;
+
+&lt;UserAvatar :user="user" scale="large" rounded /&gt;</code></pre>
+
+    <!-- For composite components, add an example with native + custom children -->
+    <h3>With Native and Custom Children</h3>
+    <pre><code>&lt;UtensilMenu :active="open" @close="open = false"&gt;
+  &lt;template #default="{ isFocused, focus, close }"&gt;
+    &lt;UtensilMenuItem label="Copy" /&gt;
+    &lt;UtensilMenuItem label="Paste" /&gt;
+    &lt;div
+      data-focusable
+      @mouseenter="focus($el)"
+      @click="doCustomAction(); close()"
+    &gt;Custom action&lt;/div&gt;
+  &lt;/template&gt;
+&lt;/UtensilMenu&gt;</code></pre>
   </article>
 </template>
 
@@ -305,6 +324,6 @@ import UtensilPopoverPanel from 'utensil-vue/components/popover/UtensilPopoverPa
 
 ## Step 4: Post Implementation
 
-Run lint, format, and typecheck using the project's commands.
+Run the project's format, lint, typecheck and test commands.
 
 Fix any errors.

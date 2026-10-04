@@ -1,28 +1,30 @@
 ---
 name: utensil-implement-component
-description: Implement a generic component in this project's local component library following Utensil Design System principles. Use when a project using utensil-vue needs a reusable UI component that Utensil does not provide.
+description: Implement a new component following Utensil Design System principles, with a unit test and API documentation. Use when a project using utensil-vue needs a UI component that Utensil does not provide.
 license: MIT
 argument-hint: <ComponentName> <description>
 ---
 
 # Implement Component
 
-Create a production-grade generic component in the consumer project's local component library, following Utensil Design System principles, patterns, and conventions.
+Create a production-grade component following Utensil Design System principles, patterns, and conventions: tested, documented and audited.
 
-Use this when the project needs a component that is not in Utensil. The result is a component usable today, and a candidate for upstreaming to Utensil later if it matures into a reusable primitive.
+Use this when the project needs a component that is not in Utensil. A component built this way also meets Utensil's bar for contributions, should the project ever want to contribute it.
 
 ## Arguments
 
-- `ComponentName`: PascalCase name (e.g., "UserAvatar", "SidebarItem"). Do not use the `Utensil` prefix — consumer components are project-owned. If the project uses its own prefix (e.g., `Acme`), keep it.
+- `ComponentName`: PascalCase name (e.g., "UserAvatar", "SidebarItem"), with whatever prefix the project's conventions give it.
 - `description`: What the component does and its key requirements
 
-## Step 1: Determine the component directory
+## Step 1: Determine where the component goes
 
-Default path: `src/lib/components/<feature>/<ComponentName>.vue`
+Where the component lives and how it is named are the project's decisions. Take them from, in order:
 
-`<feature>` is the kebab-case form of the component name (e.g., `UserAvatar` → `user-avatar/`). Group related components together in the same feature directory (e.g., `side-menu/SideMenu.vue` and `side-menu/SideMenuItem.vue`).
+1. The user's request, if it names a location.
+2. The project's conventions, including where its existing components live.
+3. Otherwise, ask the user.
 
-If the project's CLAUDE.md specifies a different path convention for local library components, follow that instead.
+Put the component in a directory named after its feature in kebab-case (e.g., `UserAvatar` → `user-avatar/`), and group related components together (e.g., `side-menu/SideMenu.vue` and `side-menu/SideMenuItem.vue`).
 
 Do NOT add to barrel files — components are imported directly for tree-shaking.
 
@@ -30,7 +32,7 @@ Prefer composing and extending Utensil components over duplicating their code. R
 
 ## Step 2: Read the Utensil principles
 
-Read and follow the Utensil contributing guide, `references/DEVELOPMENT.md` (in this skill's directory). It covers design tokens, theme integration, accessibility, composition patterns, and all conventions that make a component production-grade. Its file locations and the `Utensil` prefix apply to Utensil's own components; for this project use the location from Step 1 and the project's own naming.
+Read and follow Utensil's component guide, `references/DEVELOPMENT.md` (in this skill's directory). It covers design tokens, theme integration, accessibility, composition patterns, and all conventions that make a component production-grade.
 
 Also read `references/USAGE.md` for how the project consumes Utensil (typed wrappers, tokens, cascade layers).
 
@@ -47,15 +49,13 @@ Follow the patterns in the guide. Key areas to get right on the first pass:
 - **Composition** — for composite components, use `provide`/`inject` for built-in children and expose the same API via slot scope for custom children.
 - **CSS cvars** — namespace with the component name (e.g., `--user-avatar-size`) and fall back to design tokens.
 
-Consumer components do NOT use the `Utensil` prefix unless the project convention dictates otherwise.
-
 ## Step 4: Write a unit test
 
 Write a vitest unit test alongside the component file with a `.test.ts` suffix. Test the component's behaviour (props, slots, events, classes, emitted events) — not implementation details.
 
 ## Step 5: Document the component API
 
-Run `/utensil-document-component-api <ComponentName>`.
+Run `/utensil-document-component-api <path to the component>`.
 
 This creates an adjacent `<ComponentName>Doc.vue` file documenting props, events, slots, exposed members, and CSS cvars.
 
@@ -72,4 +72,4 @@ Fix any errors related to your work.
 
 ## Step 7: Audit
 
-Run `/utensil-audit-component <ComponentName>` in a sub-agent (without `--fix`). Review the recommendations and apply the ones that genuinely improve the component. Re-run verification if you make changes.
+Run `/utensil-audit-component <path to the component>` (without `--fix`), in a sub-agent if your agent supports one. Review the recommendations and apply the ones that genuinely improve the component. Re-run verification if you make changes.

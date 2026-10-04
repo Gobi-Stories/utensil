@@ -1,6 +1,6 @@
 # Development Standards
 
-Standards for all code in the Utensil repository. Component-specific patterns (tokens, theme integration, accessibility, composition) live in the contributing guide at `packages/vue/docs/DEVELOPMENT.md`.
+Standards for all code in the Utensil repository. Component-specific patterns (tokens, theme integration, accessibility, composition) live in the component guide at `packages/vue/docs/DEVELOPMENT.md`, with this repository's specifics in `docs/DEVELOPMENT-ADDENDUM.md`.
 
 Apply SOLID principles throughout.
 

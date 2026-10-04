@@ -25,7 +25,7 @@ Determine:
 - The colors the theme needs and their hex values. Variants `success`, `warning`, `error` and `disabled` are required; add the project's own (e.g., `primary`, `secondary`, `brand`).
 - The default pen and pencil colors.
 - Any custom fonts or text themes.
-- Where the theme lives. Default: `src/theme/` (follow the project's CLAUDE.md if it says otherwise).
+- Where the theme lives. Default: `src/theme/`, unless the project's conventions say otherwise.
 
 If brand colors are missing, ask the user for them. Never invent brand colors. Utensil provides `gray`; neutral colors may otherwise be chosen and stated as a default for the user to confirm.
 

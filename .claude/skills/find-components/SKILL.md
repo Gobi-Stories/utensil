@@ -1,5 +1,5 @@
 ---
-name: find-utensil-components
+name: find-components
 description: Find suitable Utensil components for a design's requirements
 argument-hint: <requirements>
 context: fork
@@ -46,7 +46,7 @@ Then output a markdown list of the component location and document location. The
   - **API**: packages/vue/src/components/radio-buttons/UtensilRadioButtonsDoc.vue
 ```
 
-If a requirement has no suitable match, include it with "No match" in the Component column and suggest what would need to be built (potentially via `/implement-utensil-component`).
+If a requirement has no suitable match, include it with "No match" in the Component column and suggest what would need to be built (potentially via `/implement-component`).
 
 If a single requirement maps to multiple components (e.g., a composed solution), list each component on its own row with the same requirement text.
 

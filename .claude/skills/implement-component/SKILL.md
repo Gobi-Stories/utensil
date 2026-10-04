@@ -1,5 +1,5 @@
 ---
-name: implement-utensil-component
+name: implement-component
 description: Implement a new component for the Utensil component library
 argument-hint: <ComponentName> <description>
 ---
@@ -27,11 +27,12 @@ Choose based on the component's nature:
 
 ## Step 2: Implement the component
 
-### Utensil Contributing Guide
+### Utensil Component Guide
 
-Read and follow the Utensil contributing guide for all component patterns, conventions, and standards, plus the repository's development standards:
+Read and follow the Utensil component guide for all component patterns, conventions, and standards, its addendum for this repository, and the repository's development standards:
 
 @../../../packages/vue/docs/DEVELOPMENT.md
+@../../../docs/DEVELOPMENT-ADDENDUM.md
 @../../../docs/STANDARDS.md
 
 Every component is a public module of `utensil-vue`: consumers import it directly as `utensil-vue/components/<feature>/Utensil<Name>.vue`, so the file path, root class, cvars and exported types are public API from the moment it ships.
@@ -70,7 +71,7 @@ Fix any errors found related to your work.
 
 Test in Chrome _if_ the user answered that you should do it. The reference app runs at `http://localhost:12911` (`bun run dev` from the repository root, or `docker compose up utensil-reference`).
 
-Tell a sub-agent to run the /audit-components skill on the component. Don't use --fix. Consider the recommendations returned and update if required.
+Tell a sub-agent to run the /audit-component skill on the component. Don't use --fix. Consider the recommendations returned and update if required.
 
 ## Step 7: Completion
 

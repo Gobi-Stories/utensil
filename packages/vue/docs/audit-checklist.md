@@ -1,6 +1,8 @@
 # Utensil Component Audit Checklist
 
-Last modified: 2026-10-03
+The facts a component built on Utensil is audited against, wherever it is built. Numbers are stable identifiers, so the list has gaps.
+
+Last modified: 2026-10-04
 
 | #   | Pattern                                                                                                                                                                                                                 | Type     | Domain        |
 | --- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------- | ------------- |
@@ -11,7 +13,6 @@ Last modified: 2026-10-03
 | 5   | Proper TypeScript types for all props                                                                                                                                                                                   | Rule     | Type safety   |
 | 6   | Accessibility support with High contrast mode via `.utensil-high-contrast` class, and Reduced motion via `.utensil-reduced-motion`                                                                                      | Rule     | Accessibility |
 | 7   | Reduced motion supported for motion animations (not incidental fades) via theme state CSS                                                                                                                               | Rule     | Accessibility |
-| 8   | Reference examples added in `apps/reference/src/features`                                                                                                                                                               | Rule     | Documentation |
 | 9   | Passes format, lint, typecheck, and test                                                                                                                                                                                | Rule     | Quality       |
 | 10  | Focus ring or focus style with `:focus-visible`                                                                                                                                                                         | Rule     | Accessibility |
 | 11  | Disabled state styling (`opacity: 0.5`, `pointer-events: none`)                                                                                                                                                         | Pattern  | Accessibility |
@@ -41,7 +42,6 @@ Last modified: 2026-10-03
 | 29  | Elements with own prominent focus style (pen box-shadow/border) skip outline                                                                                                                                            | Guidance | Accessibility |
 | 30  | Keyboard-heavy components have `aria-roledescription` and `aria-describedby` with screen reader description for available keys                                                                                          | Rule     | Accessibility |
 | 31  | Screen reader text uses `.screen-reader` class; parent has `position: relative`                                                                                                                                         | Pattern  | Accessibility |
-| 32  | File located at `packages/vue/src/components/<feature>/Utensil<Name>.vue`                                                                                                                                               | Rule     | Structure     |
 | 33  | Related components grouped in same directory with consistent naming                                                                                                                                                     | Rule     | Structure     |
 | 34  | Not added to barrel files (direct imports for tree-shaking)                                                                                                                                                             | Rule     | Structure     |
 | 35  | Composes existing components, does not duplicate their code                                                                                                                                                             | Rule     | Composition   |
@@ -61,8 +61,6 @@ Last modified: 2026-10-03
 | 49  | Absolute positioned elements placed later in DOM rather than using z-index                                                                                                                                              | Guidance | Style         |
 | 50  | Theme state selectors (`.light-mode`, `.dark-mode`, `.utensil-rounded`, `.utensil-squared`) targeted for both alternatives                                                                                              | Rule     | Theme         |
 | 51  | Nested theme state selectors use unscoped CSS to define local variables                                                                                                                                                 | Pattern  | Theme         |
-| 52  | Reference examples (in `apps/reference/src/features`) use Reference-typed components (`ReferenceIcon`, not `UtensilIcon`)                                                                                               | Rule     | Documentation |
-| 53  | Reference examples never use browser native `alert` or `confirm`                                                                                                                                                        | Rule     | Documentation |
 | 54  | Flex, spacing and shadow utilities from `utensil-utilities.css` used for simple layouts; scoped CSS for complex/responsive layouts                                                                                      | Guidance | Style         |
 | 55  | UI standard values followed (radius-3, space-2/3/4 padding, font-size-2, etc.)                                                                                                                                          | Guidance | Style         |
 | 56  | Alpha color values preferred for backgrounds and borders (blend across modes)                                                                                                                                           | Guidance | Style         |

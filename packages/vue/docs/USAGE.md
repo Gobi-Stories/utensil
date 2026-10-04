@@ -57,33 +57,29 @@ This does not apply for your own custom components that aren't typed utensil com
 
 ## Building Components Beyond Utensil
 
-Utensil covers general-purpose primitives. When your project needs a component Utensil doesn't provide, build it in a local component library following Utensil's principles — so it fits naturally alongside Utensil components and can be upstreamed later if it matures into a reusable primitive.
+Utensil covers general-purpose primitives. When your project needs a component Utensil doesn't provide, build it following Utensil's component guide (`DEVELOPMENT.md`): design tokens, theme integration, accessibility, a unit test and API documentation. It then fits naturally alongside Utensil components, and also meets Utensil's bar for contributions, should you ever want to contribute it.
 
 ### Convention
 
-Place project-owned components at `src/lib/components/<feature>/<ComponentName>.vue`:
-
-- No `Utensil` prefix — these are project-owned (use your own prefix if the project has one, e.g., `Acme`)
+- Place and name components by your project's conventions. The skills below follow them, and ask where nothing says
 - Group related components in a feature directory
 - Do not add to barrel files — import directly for tree-shaking
 - Do not modify files under `node_modules/utensil-vue/` — the design system is installed from the `utensil-vue` package
-
-If your project uses a different path convention, document it in your project's CLAUDE.md and the skills below will honour it.
 
 ### Skills
 
 `utensil-vue` ships agent skills in its `skills/` folder. Once installed with skills-npm (see the `utensil-vue` README → "AI Harness"), these are available in your project:
 
-| Skill                                               | Purpose                                                                                            |
-| --------------------------------------------------- | -------------------------------------------------------------------------------------------------- |
-| `/utensil-usage`                                    | Background knowledge of Utensil's usage guide; loads automatically when you work on Utensil UI     |
-| `/utensil-find-components <requirements>`           | Match design requirements to existing Utensil components                                           |
-| `/utensil-implement-component <Name> <description>` | Create a new component in `src/lib/components/` following Utensil principles (tokens, a11y, theme) |
-| `/utensil-document-component-api <Name>`            | Generate or update an adjacent `<Name>Doc.vue` API documentation file                              |
-| `/utensil-audit-component <Name> [--fix]`           | Audit a component against Utensil patterns and standards; optionally fix recommendations           |
-| `/utensil-setup-theme <ThemeName>`                  | Create your app's theme: colors, variants, icons, theme root, and typed wrappers (see SETUP.md)    |
+| Skill                                               | Purpose                                                                                         |
+| --------------------------------------------------- | ----------------------------------------------------------------------------------------------- |
+| `/utensil-usage`                                    | Background knowledge of Utensil's usage guide; loads automatically when you work on Utensil UI  |
+| `/utensil-find-components <requirements>`           | Match design requirements to existing Utensil components                                        |
+| `/utensil-implement-component <Name> <description>` | Create a new component following Utensil principles (tokens, a11y, theme, test, API docs)       |
+| `/utensil-document-component-api <Name or path>`    | Generate or update an adjacent `<Name>Doc.vue` API documentation file                           |
+| `/utensil-audit-component <Name or path> [--fix]`   | Audit a component against Utensil patterns and standards; optionally fix recommendations        |
+| `/utensil-setup-theme <ThemeName>`                  | Create your app's theme: colors, variants, icons, theme root, and typed wrappers (see SETUP.md) |
 
-`/utensil-implement-component` reads Utensil's DEVELOPMENT.md up-front so components land production-grade on the first pass. `/utensil-audit-component` uses the same checklist that Utensil's own components are audited against.
+`/utensil-implement-component` reads Utensil's component guide (`DEVELOPMENT.md`) up-front so components land production-grade on the first pass. `/utensil-audit-component` uses the checklist Utensil's own components are audited against.
 
 The skills are version-matched to the installed package: upgrading `utensil-vue` upgrades them.
 

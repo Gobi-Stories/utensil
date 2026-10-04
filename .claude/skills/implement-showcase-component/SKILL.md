@@ -27,11 +27,12 @@ Choose based on the component's nature:
 
 ## Step 2: Implement the component
 
-### Utensil Contributing Guide
+### Utensil Component Guide
 
-Read and follow the Utensil contributing guide for all component patterns, conventions, and standards, plus the repository's development standards:
+Read and follow the Utensil component guide for all component patterns, conventions, and standards, its addendum for this repository, and the repository's development standards:
 
 @../../../packages/vue/docs/DEVELOPMENT.md
+@../../../docs/DEVELOPMENT-ADDENDUM.md
 @../../../docs/STANDARDS.md
 
 ### Reference components
@@ -142,4 +143,4 @@ Fix any errors found related to your work.
 
 Test in Chrome _if_ the user answered that you should do it. The showcase is at `http://localhost:12911/showcase` (`bun run dev` from the repository root) — the new demo should appear second in the paginator, after the sign up demo.
 
-For components in `packages/vue/src/components/`: tell a sub-agent to run the /audit-components skill on the component. Don't use --fix. Consider the recommendations returned and update if required.
+For components in `packages/vue/src/components/`: tell a sub-agent to run the /audit-component skill on the component. Don't use --fix. Consider the recommendations returned and update if required.
