@@ -83,17 +83,24 @@ npm publish temp/release/utensil-vue-<v>.tgz
 ```
 
 Tell the maintainer to expect a two-factor confirmation for each publish (a browser prompt, or a one-time code, which
-can also be passed as `--otp=<code>`). Wait for them to confirm both are published.
+can also be passed as `--otp=<code>`).
+
+**Publishing takes time. Expect to wait several minutes** after each `npm publish` before the release is complete and
+visible on the registry. Tell the maintainer this up front: let each command finish, and don't treat the wait as a
+failure or retry the publish (npm refuses a version that is already published). Wait for them to confirm both are
+published.
 
 ## 7. Verify the publish
+
+Give the registry those minutes before checking:
 
 ```bash
 npm view utensil-css@<v> version
 npm view utensil-vue@<v> version dependencies
 ```
 
-Right after publishing these can return 404 for a few minutes while the registry propagates. If so, tell the
-maintainer, wait, and try again; a 404 is not a failure on its own.
+A 404 here usually means the publish hasn't finished propagating, not that it failed. Tell the maintainer, wait a few
+minutes, and try again. Only treat it as a problem if it persists well beyond that.
 
 ## 8. Hand over: push
 
