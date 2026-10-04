@@ -121,7 +121,7 @@ Utensil includes simple tools to generate color scales from a single base color 
 
 You can generate color scales using:
 
-- the theme designer in the Utensil reference app
+- the theme designer in the Utensil reference app, [utensil.gobistories.com](https://utensil.gobistories.com)
 - the `utensil-generate-color` command (`npx utensil-generate-color blue "#0093ee"`)
 - `generateColorCss()` from `utensil-vue/colors/generate-css`, or the `useColorGenerator()` composable from `utensil-vue/colors/use-color-generator`, at runtime
 
@@ -136,7 +136,7 @@ Spacing, font sizes, line heights, and border radii are all relative to a `scale
 - **Light and dark mode** — The color system works across modes. Components adapt automatically.
 - **Cross-mode overlays** — Alpha color values and absolute color tokens ensure elements look correct when overlaid on unknown or mixed-mode backgrounds.
 - **Accessible by default** — The component library is built with accessibility as a first-class concern: focus management, keyboard navigation, ARIA attributes, high contrast support, and reduced motion support.
-- **Customizable** — Define your own theme with your own colors, variants, icons, and text themes. The component library works with any theme configuration. Design with the reference app's theme designer and export the CSS to your codebase.
+- **Customizable** — Define your own theme with your own colors, variants, icons, and text themes. The component library works with any theme configuration. Design with the theme designer at [utensil.gobistories.com](https://utensil.gobistories.com) and export the CSS to your codebase.
 - **Type-safe theming** — Define your colors, variants, and icons in TypeScript. Invalid values are caught at compile time, and your IDE provides full autocomplete.
 - **Scoped and composable** — Theme changes cascade and nest. Override the pen color for a subtree without affecting the rest of the page.
 

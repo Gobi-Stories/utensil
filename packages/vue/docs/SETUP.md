@@ -19,9 +19,9 @@ npm install vue @fortawesome/fontawesome-svg-core @fortawesome/free-solid-svg-ic
 
 Each color in your theme needs a CSS color scale. Utensil provides a generator that produces a full 12-step scale with light mode, dark mode, and alpha variants from a single hex color.
 
-### From the Reference App
+### From utensil.gobistories.com
 
-The quickest way to generate a color scale is from the Utensil reference app. Use the theme controls to pick a color, then use the menu to copy the generated CSS to your clipboard. Paste it into a new CSS file (e.g., `colors/blue.css`).
+The quickest way to generate a color scale is from the Utensil reference app at [utensil.gobistories.com](https://utensil.gobistories.com). Use the theme controls to pick a color, then use the menu to copy the generated CSS to your clipboard. Paste it into a new CSS file (e.g., `colors/blue.css`).
 
 ### From the CLI
 
