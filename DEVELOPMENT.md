@@ -103,6 +103,9 @@ The release script requires a clean working tree. It bumps every workspace packa
 and publish with the commands it prints. `bun pm pack` replaces `utensil-vue`'s `workspace:*` dependency on
 `utensil-css` with the exact release version.
 
+In Claude Code, `/release` walks you through the whole process: choosing the version, the script, reviewing the
+tarballs, the commit and tag, then hands you the `npm publish` and `git push` steps and verifies the result.
+
 ## AI harness
 
 - `.claude/CLAUDE.md` routes maintainers (and their agents) to the right knowledge and lists the internal skills.

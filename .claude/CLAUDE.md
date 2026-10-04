@@ -53,6 +53,10 @@ Documentation and audit:
 - `/summarize-component-section <Page>` — summarize all components on a reference page
 - `/summarize-components` — rebuild `packages/vue/docs/COMPONENTS.md`
 
+Releases (only when the maintainer asks):
+
+- `/release [patch | minor | major | x.y.z]` — walk the maintainer through releasing both packages to npm
+
 Design reference bundle (needs the reference app running at `http://localhost:12911`):
 
 - `/bundle-design-reference` — harvest the reference app into a static HTML+CSS bundle in `temp/`
@@ -71,7 +75,7 @@ Run from the repository root:
 - `bun run dev` — reference app at `http://localhost:12911` (or `docker compose up utensil-reference`)
 - `bun run build` — build both packages
 - `bun run verify:package` — pack both packages, install them into a fresh consumer and check types, build and tree-shaking
-- `bun run release` — see `DEVELOPMENT.md`. Only when explicitly asked: releases are cut on a cadence and may bundle several changes, so never bump versions or release as part of a task.
+- `bun run release` — see `DEVELOPMENT.md`, or `/release` for the guided walkthrough. Only when explicitly asked: releases are cut on a cadence and may bundle several changes, so never bump versions or release as part of a task.
 
 You _MUST_ use `bun run test` (or `./check`) and _NOT_ `bun test`.
 You _MUST_ use `bun run typecheck` and _NOT_ `npx vue-tsc --noEmit`.
