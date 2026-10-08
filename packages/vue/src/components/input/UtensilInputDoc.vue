@@ -181,7 +181,10 @@
           <td><code>ariaInvalid</code></td>
           <td><code>boolean</code></td>
           <td><code>false</code></td>
-          <td>Sets <code>aria-invalid</code>.</td>
+          <td>
+            Sets <code>aria-invalid</code> and draws the input in the theme's <code>warning</code> variant: its outline,
+            icon and description. Give the description the error message, so it is announced with the input.
+          </td>
         </tr>
         <tr>
           <td><code>ariaDescribedBy</code></td>
@@ -360,6 +363,15 @@
     Find your key in &lt;a href="/settings"&gt;account settings&lt;/a&gt;.
   &lt;/template&gt;
 &lt;/UtensilInput&gt;</code></pre>
+
+    <h3>Invalid</h3>
+    <pre><code>&lt;UtensilInput
+  v-model="email"
+  type="email"
+  label="Email"
+  :aria-invalid="!!emailError"
+  :description="emailError"
+/&gt;</code></pre>
   </article>
 </template>
 

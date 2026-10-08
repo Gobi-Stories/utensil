@@ -127,7 +127,11 @@
           <td><code>ariaInvalid</code></td>
           <td><code>boolean</code></td>
           <td><code>false</code></td>
-          <td>Sets <code>aria-invalid</code>.</td>
+          <td>
+            Sets <code>aria-invalid</code> and draws the text area's outline in the theme's
+            <code>warning</code> variant. Point <code>ariaDescribedBy</code> at the error message, so it is announced
+            with the text area.
+          </td>
         </tr>
         <tr>
           <td><code>ariaDescribedBy</code></td>

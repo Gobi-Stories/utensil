@@ -9,6 +9,7 @@
         `resize-${resize}`,
         {
           'has-value': !!model,
+          invalid: ariaInvalid,
         },
       ]"
       :style="style"
@@ -84,7 +85,8 @@ const props = withDefaults(defineProps<Props>(), {
 const generatedId = `utensil-text-area-${useId()}`
 const textAreaId = computed(() => props.id || generatedId)
 
-const { classes: themeClasses, style } = useTheme({})
+// An invalid text area takes the warning variant as its pen
+const { classes: themeClasses, style } = useTheme<Theme>({ pen: () => (props.ariaInvalid ? 'warning' : undefined) })
 
 const emit = defineEmits<{
   input: [value: string]
@@ -257,6 +259,14 @@ defineExpose({
   .utensil-text-area-control.soft textarea:focus {
     background-color: var(--pen-a4);
     box-shadow: inset 0 0 0 2px var(--pen-8);
+  }
+
+  /* Invalid: the pen is the warning variant. A soft text area gains an edge, so invalid isn't shown by color alone.
+     Focus keeps its 2px ring. */
+  .utensil-text-area-control.invalid.outline textarea:not(:focus),
+  .utensil-text-area-control.invalid.surface textarea:not(:focus),
+  .utensil-text-area-control.invalid.soft textarea:not(:focus) {
+    box-shadow: inset 0 0 0 1px var(--pen-8);
   }
 }
 </style>

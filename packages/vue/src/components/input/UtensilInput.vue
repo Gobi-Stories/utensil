@@ -11,49 +11,52 @@
           'icon-start': icon && iconPosition === 'start',
           'icon-end': icon && iconPosition === 'end',
           'has-value': !!model,
+          invalid: ariaInvalid,
         },
       ]"
       :style="style"
     >
-      <div class="icon-box" v-if="icon">
-        <UtensilIcon
-          v-if="icon"
-          :icon="icon"
-          @mousedown.prevent="() => emit('iconClick')"
-          :role="hasIconClick ? 'button' : undefined"
+      <div class="utensil-input-field">
+        <div class="icon-box" v-if="icon">
+          <UtensilIcon
+            v-if="icon"
+            :icon="icon"
+            @mousedown.prevent="() => emit('iconClick')"
+            :role="hasIconClick ? 'button' : undefined"
+          />
+        </div>
+        <div class="action-box">
+          <slot name="action" />
+        </div>
+        <input
+          ref="input"
+          v-model="model"
+          :id="inputId"
+          :name="name"
+          :type="type"
+          :placeholder="placeholder"
+          @input="(event) => emit('input', (event.target as HTMLInputElement).value)"
+          @change="(event) => emit('change', (event.target as HTMLInputElement).value)"
+          @search="(event: Event) => emit('search', (event.target as HTMLInputElement).value)"
+          @keyup="(event) => emit('keyup', event)"
+          @keydown="delegateKeyboardEvent"
+          @blur="(event) => emit('blur', event)"
+          @focus="(event) => emit('focus', event)"
+          :required="required"
+          :autocomplete="autocomplete"
+          :autofocus="autofocus"
+          :disabled="disabled"
+          :min="min"
+          :max="max"
+          :size="size"
+          :readonly="readonly"
+          :pattern="pattern"
+          :aria-label="ariaLabel"
+          :aria-describedby="describedBy"
+          :aria-required="ariaRequired"
+          :aria-invalid="ariaInvalid"
         />
       </div>
-      <div class="action-box">
-        <slot name="action" />
-      </div>
-      <input
-        ref="input"
-        v-model="model"
-        :id="inputId"
-        :name="name"
-        :type="type"
-        :placeholder="placeholder"
-        @input="(event) => emit('input', (event.target as HTMLInputElement).value)"
-        @change="(event) => emit('change', (event.target as HTMLInputElement).value)"
-        @search="(event: Event) => emit('search', (event.target as HTMLInputElement).value)"
-        @keyup="(event) => emit('keyup', event)"
-        @keydown="delegateKeyboardEvent"
-        @blur="(event) => emit('blur', event)"
-        @focus="(event) => emit('focus', event)"
-        :required="required"
-        :autocomplete="autocomplete"
-        :autofocus="autofocus"
-        :disabled="disabled"
-        :min="min"
-        :max="max"
-        :size="size"
-        :readonly="readonly"
-        :pattern="pattern"
-        :aria-label="ariaLabel"
-        :aria-describedby="describedBy"
-        :aria-required="ariaRequired"
-        :aria-invalid="ariaInvalid"
-      />
       <p v-if="$slots.description || props.description" :id="`${inputId}-description`" class="description">
         <slot name="description">
           {{ props.description }}
@@ -134,7 +137,8 @@ const describedBy = computed(() => {
   return undefined
 })
 
-const { classes: themeClasses, style } = useTheme({})
+// An invalid input takes the warning variant as its pen
+const { classes: themeClasses, style } = useTheme<Theme>({ pen: () => (props.ariaInvalid ? 'warning' : undefined) })
 
 const emit = defineEmits<{
   input: [value: string]
@@ -216,9 +220,13 @@ defineExpose({
   }
 
   .utensil-input-control {
-    position: relative;
     /* Fixes Chrome not applying color-scheme to pseudo elements */
     color-scheme: var(--mode);
+  }
+
+  /* The input with its icon and action, which are centered on it */
+  .utensil-input-field {
+    position: relative;
   }
 
   .utensil-input-control input {
@@ -275,6 +283,22 @@ defineExpose({
   .utensil-input-control.soft input:focus {
     background-color: var(--pen-a4);
     box-shadow: inset 0 0 0 2px var(--pen-8);
+  }
+
+  /* Invalid: the pen is the warning variant. A soft input gains an edge, so invalid isn't shown by color alone.
+     Focus keeps its 2px ring. */
+  .utensil-input-control.invalid.outline input:not(:focus),
+  .utensil-input-control.invalid.surface input:not(:focus),
+  .utensil-input-control.invalid.soft input:not(:focus) {
+    box-shadow: inset 0 0 0 1px var(--pen-8);
+  }
+
+  .utensil-input-control.invalid .utensil-icon {
+    color: var(--pen-9);
+  }
+
+  .utensil-input-control.invalid p.description {
+    color: var(--pen-11);
   }
 
   /* Large size */

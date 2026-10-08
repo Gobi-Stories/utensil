@@ -75,6 +75,22 @@
       </div>
       <div class="demo-item">
         <div class="demo-content input-demo">
+          <UtensilInput
+            v-model="invalidEmailInput"
+            label="Email"
+            type="email"
+            icon="envelope"
+            :aria-invalid="!!invalidEmailError"
+            :description="invalidEmailError || 'We send the receipt here.'"
+          />
+        </div>
+        <div class="demo-label always-visible">Invalid</div>
+        <div class="demo-code">
+          <code>&lt;UtensilInput :aria-invalid="!!error" :description="error" /&gt;</code>
+        </div>
+      </div>
+      <div class="demo-item">
+        <div class="demo-content input-demo">
           <UtensilInput v-model="largeInput" placeholder="Large input" height="large" />
           <UtensilInput v-model="largeSoftInput" placeholder="Large soft" variation="soft" height="large" />
         </div>
@@ -92,7 +108,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 import ReferenceComponentDemo from '@/features/components/ReferenceComponentDemo.vue'
 import UtensilInput from 'utensil-vue/components/input/UtensilInput.vue'
 import UtensilInputDoc from 'utensil-vue/components/input/UtensilInputDoc.vue'
@@ -108,6 +124,10 @@ const iconStartInput = ref('')
 const iconEndInput = ref('')
 const emailInput = ref('')
 const numberInput = ref('')
+const invalidEmailInput = ref('sam@')
+const invalidEmailError = computed(() =>
+  /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(invalidEmailInput.value) ? '' : 'Enter an email address like sam@example.com.',
+)
 </script>
 
 <style scoped>

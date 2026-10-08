@@ -60,6 +60,28 @@
           <code>&lt;UtensilTextArea disabled /&gt;</code>
         </div>
       </div>
+      <div class="demo-item">
+        <div class="demo-content input-demo">
+          <UtensilTextArea
+            v-model="textAreaInvalid"
+            label="Message"
+            :rows="3"
+            :aria-invalid="textAreaInvalid.length < 20"
+            aria-described-by="text-area-invalid-error"
+          />
+          <p id="text-area-invalid-error" class="text-area-message">
+            {{
+              textAreaInvalid.length < 20
+                ? `Write at least 20 characters (${textAreaInvalid.length} so far).`
+                : 'Ready to send.'
+            }}
+          </p>
+        </div>
+        <div class="demo-label always-visible">Invalid</div>
+        <div class="demo-code">
+          <code>&lt;UtensilTextArea :aria-invalid="tooShort" aria-described-by="error-id" /&gt;</code>
+        </div>
+      </div>
     </div>
 
     <template #api>
@@ -78,12 +100,19 @@ const textAreaSurface = ref('')
 const textAreaSoft = ref('')
 const textAreaLabel = ref('')
 const textAreaNoResize = ref('')
+const textAreaInvalid = ref('Too short')
 </script>
 
 <style scoped>
 .demo-content.input-demo {
   flex-direction: column;
   align-items: stretch;
+}
+
+.text-area-message {
+  margin: var(--space-1) 0 0;
+  font-size: var(--font-size-1);
+  color: var(--pencil-a11);
 }
 
 .input-value {
