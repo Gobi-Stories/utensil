@@ -10,7 +10,7 @@
 import { useDeckTransition } from './useDeckTransition'
 import type { DeckTransitions } from './utensil-deck'
 
-interface Props {
+export interface Props {
   /** Whether this child is the active (current) one in the deck. */
   active: boolean
   /** Animate the entrance the first time the child is shown. */
@@ -50,10 +50,12 @@ const { shown, transitionProps, on } = useDeckTransition({
    * The incoming child wipes over the outgoing one with an expanding circular reveal; the outgoing
    * fades out beneath it. This transition is asymmetric (clip in, fade out), so its reverse is the
    * mirror: the outgoing clips closed (shrinks) on top while the incoming fades in beneath it.
+   *
+   * Positioned for z-index; fills a deck item with a height, and takes its content's height otherwise.
    */
   .utensil-deck-reveal {
-    position: absolute;
-    inset: 0;
+    position: relative;
+    height: 100%;
   }
 
   /* The moving child sits on top while leaving — let clicks fall through to the other panel. */

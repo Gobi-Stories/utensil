@@ -15,6 +15,13 @@
       not need the full list of children up front. The active child renders first (underneath) and outgoing children
       render last (on top), so a typical push/slide reads correctly without z-index.
     </p>
+    <p>
+      The deck lays out each mounted child in an item of its own, and children fill their item. With
+      <code>fit="container"</code> (the default) the deck fills its parent, which must give it a height. With
+      <code>fit="content"</code> the deck is as tall as its active child, so children of any height scroll with the
+      page; leaving children overlay it from the top. Scrolling the page when the child changes is up to the consumer.
+      Leaving children are inert, so they can't be focused or read while they animate away.
+    </p>
 
     <UtensilCallout icon="exclamation-triangle">
       Ensure you set a solid background on the root slide so that the entering slide does not show through during it's
@@ -62,6 +69,35 @@
           <td>
             Default for children's <code>transitions</code> (see Composition). Standalone children leave this at
             <code>both</code>; it is set per-child when composing layers.
+          </td>
+        </tr>
+        <tr>
+          <td><code>fit</code></td>
+          <td><code>'container' | 'content'</code></td>
+          <td><code>'container'</code></td>
+          <td>
+            How the deck is sized. <code>container</code> fills the parent, which must give the deck a height.
+            <code>content</code> sizes the deck to its active child, and needs children that fill their item (see Child
+            Contract).
+          </td>
+        </tr>
+        <tr>
+          <td><code>animateHeight</code></td>
+          <td><code>boolean</code></td>
+          <td><code>false</code></td>
+          <td>
+            In a <code>content</code> deck, animate the deck's height to the incoming child's instead of snapping to it,
+            and follow the active child as its height changes. Not animated with reduced motion.
+          </td>
+        </tr>
+        <tr>
+          <td><code>focusOnChange</code></td>
+          <td><code>boolean</code></td>
+          <td><code>false</code></td>
+          <td>
+            When the current child changes while focus is in the deck, move focus to the incoming child once it has
+            entered: its first heading, or its item. Leaving children are inert, so focus on a control inside one, such
+            as the Next button that changed the step, would otherwise be lost.
           </td>
         </tr>
       </tbody>
@@ -129,6 +165,14 @@
         </tr>
       </thead>
       <tbody>
+        <tr>
+          <td>Fills its item</td>
+          <td>
+            The root element fills the item the deck gives it (<code>height: 100%</code>) and stays in flow, so a
+            <code>content</code> deck can size to it. It may be positioned (<code>position: relative</code>) for
+            stacking, never taken out of flow.
+          </td>
+        </tr>
         <tr>
           <td><code>active: boolean</code> prop</td>
           <td>Animate in when it becomes <code>true</code>, out when it becomes <code>false</code>.</td>
@@ -241,6 +285,16 @@
       &lt;DetailsForm v-else-if="id === 'details'" /&gt;
       &lt;ConfirmForm v-else-if="id === 'confirm'" /&gt;
     &lt;/UtensilDeckScale&gt;
+  &lt;/template&gt;
+&lt;/UtensilDeck&gt;</code></pre>
+
+    <h3>Steps of any height</h3>
+    <pre v-pre><code>&lt;UtensilDeck :current="step" :reverse="back" fit="content" animate-height focus-on-change&gt;
+  &lt;template #default="{ id, active, appear }"&gt;
+    &lt;UtensilDeckSlide :id="id" :active="active" :appear="appear"&gt;
+      &lt;ChooseStep v-if="id === 'choose'" /&gt;
+      &lt;ReviewStep v-else-if="id === 'review'" /&gt;
+    &lt;/UtensilDeckSlide&gt;
   &lt;/template&gt;
 &lt;/UtensilDeck&gt;</code></pre>
 

@@ -10,7 +10,7 @@
 import { useDeckTransition } from './useDeckTransition'
 import type { DeckTransitions } from './utensil-deck'
 
-interface Props {
+export interface Props {
   /** Whether this child is the active (current) one in the deck. */
   active: boolean
   /** Animate the entrance the first time the child is shown. */
@@ -51,10 +51,12 @@ const { shown, transitionProps, on } = useDeckTransition({
    * Symmetric zoom: the incoming child scales up from underneath while the outgoing scales back down,
    * both crossfading. Compose with another transition to vary a single phase — e.g. an onboarding push
    * is `<UtensilDeckScale transitions="enter"><UtensilDeckSlide transitions="leave">`.
+   *
+   * Positioned for z-index; fills a deck item with a height, and takes its content's height otherwise.
    */
   .utensil-deck-scale {
-    position: absolute;
-    inset: 0;
+    position: relative;
+    height: 100%;
   }
 
   .utensil-deck-scale-leave-active {

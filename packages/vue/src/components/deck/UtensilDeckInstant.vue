@@ -10,7 +10,7 @@
 import { useDeckTransition } from './useDeckTransition'
 import type { DeckTransitions } from './utensil-deck'
 
-interface Props {
+export interface Props {
   /** Whether this child is the active (current) one in the deck. */
   active: boolean
   /** Accepted for contract parity — an instant child never animates. */
@@ -53,8 +53,8 @@ const { shown, transitionProps, on } = useDeckTransition({
    * enter/leave on the next frame, so the deck unmounts the outgoing child right away.
    */
   .utensil-deck-instant {
-    position: absolute;
-    inset: 0;
+    position: relative;
+    height: 100%;
   }
 }
 </style>

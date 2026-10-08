@@ -10,7 +10,7 @@
 import { useDeckTransition } from './useDeckTransition'
 import type { DeckTransitions } from './utensil-deck'
 
-interface Props {
+export interface Props {
   /** Whether this child is the active (current) one in the deck. */
   active: boolean
   /** Animate the entrance the first time the child is shown. */
@@ -46,9 +46,10 @@ const { shown, transitionProps, on } = useDeckTransition({
 
 <style scoped>
 @layer utensil {
+  /* Positioned for z-index; fills a deck item with a height, and takes its content's height otherwise. */
   .utensil-deck-flip {
-    position: absolute;
-    inset: 0;
+    position: relative;
+    height: 100%;
     backface-visibility: hidden;
   }
 

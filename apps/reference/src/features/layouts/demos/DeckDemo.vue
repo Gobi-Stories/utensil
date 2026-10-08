@@ -64,6 +64,52 @@
       </div>
     </div>
 
+    <div id="steps-of-any-height" class="component-demo">
+      <h3><a class="demo-anchor" href="#steps-of-any-height">Steps of any height</a></h3>
+      <p>
+        With <code>fit="content"</code> the deck is as tall as its active step, so long steps scroll with the page.
+        <code>animate-height</code> eases the deck to each step's height, and <code>focus-on-change</code> moves focus
+        to the incoming step's heading.
+      </p>
+
+      <div class="deck-transitions">
+        <ReferenceButton
+          :variation="contentDeckAnimateHeight ? 'solid' : 'soft'"
+          scale="small"
+          :pressed="contentDeckAnimateHeight ? 'pressed' : false"
+          @click="contentDeckAnimateHeight = !contentDeckAnimateHeight"
+        >
+          Animate height
+        </ReferenceButton>
+      </div>
+
+      <UtensilDeck
+        class="content-deck"
+        :current="contentDeckSteps[contentDeckIndex].id"
+        :reverse="contentDeckReverse"
+        fit="content"
+        :animate-height="contentDeckAnimateHeight"
+        focus-on-change
+      >
+        <template #default="{ id, active, appear }">
+          <UtensilDeckSlide :id="id" :key="id" :active="active" :appear="appear">
+            <div class="content-deck-step text-content">
+              <h4>{{ contentDeckStepById(id)?.title }}</h4>
+              <p v-for="paragraph in contentDeckStepById(id)?.paragraphs" :key="paragraph">{{ paragraph }}</p>
+              <div class="deck-nav">
+                <ReferenceButton variation="soft" :disabled="contentDeckIndex === 0" @click="contentDeckPrev">
+                  Back
+                </ReferenceButton>
+                <ReferenceButton :disabled="contentDeckIndex === contentDeckSteps.length - 1" @click="contentDeckNext">
+                  Next
+                </ReferenceButton>
+              </div>
+            </div>
+          </UtensilDeckSlide>
+        </template>
+      </UtensilDeck>
+    </div>
+
     <template #api>
       <UtensilDeckDoc />
     </template>
@@ -121,6 +167,52 @@ const deckCurrentId = computed(() => deckSteps[deckIndex.value].id)
 const deckTransitionComponent = computed(
   () => deckTransitionComponents[deckTransition.value as keyof typeof deckTransitionComponents],
 )
+
+const contentDeckSteps = [
+  {
+    id: 'brief',
+    title: 'Write a brief',
+    paragraphs: ['A sentence or two on what the story is about is enough to start.'],
+  },
+  {
+    id: 'audience',
+    title: 'Describe your audience',
+    paragraphs: [
+      'Who will read it, and what do they already know? A story for new customers explains what a story for your team can assume.',
+      'Think about where they will read it too: a phone on the move wants short sections and a clear first line.',
+      'If there are several audiences, pick the one that matters most. The others can have their own version later.',
+      'Name the one thing they should remember once they have finished reading.',
+    ],
+  },
+  {
+    id: 'review',
+    title: 'Review and send',
+    paragraphs: [
+      'Check the brief and audience, then send it to your team.',
+      'You can change either of them until the story is published.',
+    ],
+  },
+]
+
+const contentDeckIndex = ref(0)
+const contentDeckReverse = ref(false)
+const contentDeckAnimateHeight = ref(true)
+
+function contentDeckStepById(id: string) {
+  return contentDeckSteps.find((step) => step.id === id)
+}
+
+function contentDeckNext() {
+  if (contentDeckIndex.value >= contentDeckSteps.length - 1) return
+  contentDeckReverse.value = false
+  contentDeckIndex.value++
+}
+
+function contentDeckPrev() {
+  if (contentDeckIndex.value <= 0) return
+  contentDeckReverse.value = true
+  contentDeckIndex.value--
+}
 
 function deckStepById(id: string) {
   return deckSteps.find((step) => step.id === id)
@@ -189,6 +281,21 @@ function deckPrev() {
 .deck-panel-content {
   max-width: 38ch;
   text-align: center;
+}
+
+.content-deck {
+  border-radius: var(--radius-4);
+  box-shadow: var(--shadow-border-2);
+}
+
+.content-deck-step {
+  padding: var(--space-5);
+  border-radius: inherit;
+  background: var(--panel-solid);
+}
+
+.content-deck-step h4 {
+  margin-block-start: 0;
 }
 
 .deck-nav {
