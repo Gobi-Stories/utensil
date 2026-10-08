@@ -6,10 +6,20 @@
   >
     <div class="entrance-demo-wrapper">
       <div class="entrance-demo-toolbar">
+        <ReferenceButton
+          v-for="option in entranceSpeeds"
+          :key="option"
+          :variation="entranceSpeed === option ? 'solid' : 'soft'"
+          scale="small"
+          :pressed="entranceSpeed === option ? 'pressed' : false"
+          @click="playAtSpeed(option)"
+        >
+          {{ option === 'normal' ? 'Normal' : 'Fast' }}
+        </ReferenceButton>
         <ReferenceButton variation="soft" scale="small" icon="refresh" @click="replayEntrance">Replay</ReferenceButton>
       </div>
       <div class="entrance-demo-stage">
-        <UtensilEntrance ref="entranceRef">
+        <UtensilEntrance ref="entranceRef" :speed="entranceSpeed">
           <h2 class="entrance-heading">Authentic stories, effortlessly collected.</h2>
           <p class="text-content entrance-subtitle">
             We help you create powerful employee video content without the hassle. Choose a service below and get
@@ -63,13 +73,21 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
-import UtensilEntrance from 'utensil-vue/components/entrance/UtensilEntrance.vue'
+import { nextTick, ref } from 'vue'
+import UtensilEntrance, { type EntranceSpeed } from 'utensil-vue/components/entrance/UtensilEntrance.vue'
 import UtensilEntranceDoc from 'utensil-vue/components/entrance/UtensilEntranceDoc.vue'
 import { ReferenceButton } from '@/theme/components/ReferenceButton'
 import ReferenceComponentDemo from '@/features/components/ReferenceComponentDemo.vue'
 
 const entranceRef = ref<InstanceType<typeof UtensilEntrance>>()
+const entranceSpeeds: EntranceSpeed[] = ['normal', 'fast']
+const entranceSpeed = ref<EntranceSpeed>('normal')
+
+async function playAtSpeed(speed: EntranceSpeed) {
+  entranceSpeed.value = speed
+  await nextTick()
+  replayEntrance()
+}
 
 function replayEntrance() {
   entranceRef.value?.replay()
@@ -86,6 +104,7 @@ function replayEntrance() {
 .entrance-demo-toolbar {
   display: flex;
   justify-content: flex-end;
+  gap: var(--space-2);
 }
 
 .entrance-demo-stage {

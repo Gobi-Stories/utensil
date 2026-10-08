@@ -7,7 +7,12 @@
 <script setup lang="ts">
 import { computed, ref, onMounted, onBeforeUnmount, watch, nextTick } from 'vue'
 
-interface Props {
+/** `normal`: a staggered, gentle entrance. `fast`: a short fade up of every child at once. */
+export type EntranceSpeed = 'normal' | 'fast'
+
+export interface Props {
+  /** Preset timing and distance. The other props override it. */
+  speed?: EntranceSpeed
   /** Animation duration in milliseconds */
   duration?: number
   /** Delay between each child in milliseconds */
@@ -20,16 +25,24 @@ interface Props {
   enabled?: boolean
 }
 
-const { duration = 500, stagger = 120, delay = 80, distance = 16, enabled = true } = defineProps<Props>()
+const ENTRANCE_SPEEDS: Record<EntranceSpeed, { duration: number; stagger: number; delay: number; distance: number }> = {
+  normal: { duration: 500, stagger: 120, delay: 80, distance: 16 },
+  fast: { duration: 280, stagger: 0, delay: 0, distance: 6 },
+}
+
+const { speed = 'normal', duration, stagger, delay, distance, enabled = true } = defineProps<Props>()
+
+// Falls back to the normal speed for a value that isn't a preset, e.g. from JavaScript
+const timing = computed(() => ENTRANCE_SPEEDS[speed] ?? ENTRANCE_SPEEDS.normal)
 
 const root = ref<HTMLElement>()
 const ready = ref(false)
 
 const entranceStyle = computed(() => ({
-  '--entrance-duration': `${duration}ms`,
-  '--entrance-stagger': `${stagger}ms`,
-  '--entrance-delay': `${delay}ms`,
-  '--entrance-distance': `${distance}px`,
+  '--entrance-duration': `${duration ?? timing.value.duration}ms`,
+  '--entrance-stagger': `${stagger ?? timing.value.stagger}ms`,
+  '--entrance-delay': `${delay ?? timing.value.delay}ms`,
+  '--entrance-distance': `${distance ?? timing.value.distance}px`,
 }))
 
 function applyIndexes() {
