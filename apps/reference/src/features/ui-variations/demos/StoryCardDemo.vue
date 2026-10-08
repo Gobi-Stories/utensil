@@ -7,7 +7,7 @@
     </p>
 
     <div class="scene">
-      <ReferenceCard class="story-card">
+      <ReferenceBox class="story-card">
         <div class="story-card-header">
           <div class="story-card-meta">
             <ReferenceAvatar fallback="AL" color="primary" scale="large" />
@@ -42,14 +42,14 @@
             >Share</ReferenceButton
           >
         </div>
-      </ReferenceCard>
+      </ReferenceBox>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import { ReferenceButton } from '@/theme/components/ReferenceButton'
-import { ReferenceCard } from '@/theme/components/ReferenceCard'
+import { ReferenceBox } from '@/theme/components/ReferenceBox'
 import { ReferenceBadge } from '@/theme/components/ReferenceBadge'
 import { ReferencePill } from '@/theme/components/ReferencePill'
 import { ReferenceAvatar } from '@/theme/components/ReferenceAvatar'

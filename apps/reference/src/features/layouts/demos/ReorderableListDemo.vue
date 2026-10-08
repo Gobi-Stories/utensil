@@ -516,7 +516,7 @@ function deleteStripClip() {
   background: var(--pencil-a2);
 }
 
-.utensil-card.team-demo-card.pencil.ui-surface {
+.utensil-box.team-demo-card.pencil.ui-surface {
   cursor: grab;
   background-color: var(--pencil-1);
 }

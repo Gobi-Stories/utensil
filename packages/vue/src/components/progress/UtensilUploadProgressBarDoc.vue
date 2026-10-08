@@ -81,14 +81,14 @@
     ><code>&lt;UtensilUploadProgressBar :progress="upload.progress" :errored="upload.failed" /&gt;</code></pre>
 
     <h3>Small Size in a File Card</h3>
-    <pre v-pre><code>&lt;UtensilCard variation="soft"&gt;
+    <pre v-pre><code>&lt;UtensilBox variation="soft"&gt;
   &lt;span&gt;document.pdf&lt;/span&gt;
   &lt;UtensilUploadProgressBar
     :progress="file.progress"
     :errored="file.failed"
     size="small"
   /&gt;
-&lt;/UtensilCard&gt;</code></pre>
+&lt;/UtensilBox&gt;</code></pre>
   </article>
 </template>
 

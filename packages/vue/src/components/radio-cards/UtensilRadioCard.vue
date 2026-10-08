@@ -1,5 +1,5 @@
 <template generic="Theme extends ThemeConfig">
-  <UtensilCard
+  <UtensilBox
     class="utensil-radio-card"
     :class="[
       indicatorPositionClass,
@@ -35,7 +35,7 @@
     <div class="radio-card-content">
       <slot>{{ label || value }}</slot>
     </div>
-  </UtensilCard>
+  </UtensilBox>
 </template>
 
 <script setup lang="ts" generic="Theme extends ThemeConfig">
@@ -48,7 +48,7 @@ import type {
   ScaleProp,
   RadiusScaleProp,
 } from '../../theme/utensil-theme'
-import UtensilCard from '../card/UtensilCard.vue'
+import UtensilBox from '../box/UtensilBox.vue'
 import UtensilIcon from '../icon/UtensilIcon.vue'
 import { UtensilRadioGroupContextKey } from '../radio-group/utensil-radio-group'
 import { UtensilRadioCardsContextKey, type RadioIndicatorPosition } from './utensil-radio-cards'
@@ -138,6 +138,11 @@ function select() {
     display: flex;
     align-items: center;
     gap: var(--space-3);
+  }
+
+  /* A radio card is a control, with the interactive radius; compound to out-specify the box's content radius */
+  .utensil-radio-card.utensil-box {
+    border-radius: var(--radius-3);
   }
 
   /* Indicator positions */

@@ -18,12 +18,12 @@ describe('UtensilUserProfileCard', () => {
     expect(wrapper.find('.profile-email').exists()).toBe(false)
   })
 
-  it('renders a surface card by default and unstyled without a border', async () => {
+  it('renders a surface box by default and unstyled without a border', async () => {
     const wrapper = mount(UtensilUserProfileCard, { props: { name: 'Sofia Chen' } })
-    expect(wrapper.find('.utensil-card').classes()).toContain('ui-surface')
+    expect(wrapper.find('.utensil-box').classes()).toContain('ui-surface')
 
     await wrapper.setProps({ bordered: false })
-    expect(wrapper.find('.utensil-card').classes()).toContain('ui-unstyled')
+    expect(wrapper.find('.utensil-box').classes()).toContain('ui-unstyled')
   })
 
   it('shows the avatar fallback initials', () => {

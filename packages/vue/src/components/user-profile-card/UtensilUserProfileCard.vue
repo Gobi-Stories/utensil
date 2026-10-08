@@ -1,5 +1,5 @@
 <template generic="Theme extends ThemeConfig">
-  <UtensilCard
+  <UtensilBox
     class="utensil-user-profile-card"
     :variation="bordered ? 'surface' : 'unstyled'"
     :color="color"
@@ -15,13 +15,13 @@
         <slot></slot>
       </div>
     </div>
-  </UtensilCard>
+  </UtensilBox>
 </template>
 
 <script setup lang="ts" generic="Theme extends ThemeConfig">
 import type { ColorProp, ScaleProp, ThemeConfig } from '../../theme/utensil-theme'
 import UtensilAvatar from '../avatar/UtensilAvatar.vue'
-import UtensilCard from '../card/UtensilCard.vue'
+import UtensilBox from '../box/UtensilBox.vue'
 
 // A horizontal identity card: avatar beside the person's name and email, with room for extra
 // content underneath. Borderless it doubles as a header inside popovers and panels.

@@ -82,7 +82,7 @@
           </div>
 
           <div class="sidebar-footer">
-            <UtensilCard
+            <UtensilBox
               class="sidebar-user"
               :variation="profileSelected('kara') ? 'surface' : 'unstyled'"
               @click="selectProfile('kara')"
@@ -92,8 +92,8 @@
                 <span class="user-name">Kara Lindqvist</span>
                 <span class="user-email">kara@example.com</span>
               </div>
-            </UtensilCard>
-            <UtensilCard
+            </UtensilBox>
+            <UtensilBox
               class="sidebar-user"
               :variation="profileSelected('theo') ? 'surface' : 'unstyled'"
               @click="selectProfile('theo')"
@@ -108,8 +108,8 @@
                 <span class="user-name">Theo Marsh</span>
                 <span class="user-email">theo@example.com</span>
               </div>
-            </UtensilCard>
-            <UtensilCard
+            </UtensilBox>
+            <UtensilBox
               class="sidebar-user"
               :variation="profileSelected('dana') ? 'surface' : 'unstyled'"
               @click="selectProfile('dana')"
@@ -124,8 +124,8 @@
                 <span class="user-name">Dana Grant</span>
                 <span class="user-email">dana@example.com</span>
               </div>
-            </UtensilCard>
-            <UtensilCard
+            </UtensilBox>
+            <UtensilBox
               class="sidebar-user"
               :variation="profileSelected('june') ? 'surface' : 'unstyled'"
               @click="selectProfile('june')"
@@ -140,7 +140,7 @@
                 <span class="user-name">June Garcia</span>
                 <span class="user-email">june@example.com</span>
               </div>
-            </UtensilCard>
+            </UtensilBox>
           </div>
         </aside>
 
@@ -162,11 +162,11 @@
             :playing="enableAnimations && themeReducedMotion !== 'reduced'"
           />
 
-          <ReferenceCard class="showcase-card" :variation="enableAnimations ? 'unstyled' : 'surface'">
+          <ReferenceBox class="showcase-card" :variation="enableAnimations ? 'unstyled' : 'surface'">
             <UtensilComponentLoader :path="currentPath" :modules="demoModules">
               <SignUpFormDemo />
             </UtensilComponentLoader>
-          </ReferenceCard>
+          </ReferenceBox>
 
           <div class="showcase-paginator">
             <ReferenceCircleButton icon="chevron-left" variation="text" scale="small" @click="previousDemo" />
@@ -357,7 +357,7 @@ import UtensilTabs from 'utensil-vue/components/tabs/UtensilTabs.vue'
 import UtensilTabsTrigger from 'utensil-vue/components/tabs/UtensilTabsTrigger.vue'
 import UtensilComponentLoader from 'utensil-vue/components/component-loader/UtensilComponentLoader.vue'
 import { ReferenceTheme } from '@/theme/ReferenceTheme'
-import { ReferenceCard } from '@/theme/components/ReferenceCard'
+import { ReferenceBox } from '@/theme/components/ReferenceBox'
 import { ReferenceButton } from '@/theme/components/ReferenceButton'
 import { ReferenceToggleButton } from '@/theme/components/ReferenceToggleButton'
 import { ReferenceMenuItem } from '@/theme/components/ReferenceMenuItem'
@@ -376,7 +376,7 @@ import UtensilDialog from 'utensil-vue/components/dialogs/UtensilDialog.vue'
 import UtensilFader from 'utensil-vue/components/fader/UtensilFader.vue'
 import ReferenceTechnoRefinedBackground from '@/features/components/backgrounds/ReferenceTechnoRefinedBackground.vue'
 import { toasts } from '@/app/reference-toast'
-import UtensilCard from 'utensil-vue/components/card/UtensilCard.vue'
+import UtensilBox from 'utensil-vue/components/box/UtensilBox.vue'
 import { useUserThemePreferences } from 'utensil-vue/theme/useUserThemePreferences'
 import { demoManifest } from './demo-components/demo-manifest'
 import { showcaseContextKey } from './showcase-context'

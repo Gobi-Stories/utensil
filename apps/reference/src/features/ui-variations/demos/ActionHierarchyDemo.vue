@@ -7,7 +7,7 @@
     </p>
 
     <div class="scene-row">
-      <ReferenceCard class="story-card hierarchy-card">
+      <ReferenceBox class="story-card hierarchy-card">
         <h4 class="hierarchy-card-title">Publish Settings</h4>
         <p class="hierarchy-card-description">Review your story before publishing to all channels.</p>
         <div class="hierarchy-card-status">
@@ -19,9 +19,9 @@
           <ReferenceButton variation="soft" color="pencil">Save Draft</ReferenceButton>
           <ReferenceButton variation="solid" color="pen">Publish</ReferenceButton>
         </div>
-      </ReferenceCard>
+      </ReferenceBox>
 
-      <ReferenceCard class="story-card hierarchy-card">
+      <ReferenceBox class="story-card hierarchy-card">
         <h4 class="hierarchy-card-title">Delete Story</h4>
         <p class="hierarchy-card-description">
           This action cannot be undone. All slides and associated analytics will be permanently removed.
@@ -33,14 +33,14 @@
           <ReferenceButton variation="soft" color="pencil">Cancel</ReferenceButton>
           <ReferenceButton variation="solid" color="error" icon="trash">Delete Story</ReferenceButton>
         </div>
-      </ReferenceCard>
+      </ReferenceBox>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import { ReferenceButton } from '@/theme/components/ReferenceButton'
-import { ReferenceCard } from '@/theme/components/ReferenceCard'
+import { ReferenceBox } from '@/theme/components/ReferenceBox'
 import { ReferencePill } from '@/theme/components/ReferencePill'
 import { ReferenceCallout } from '@/theme/components/ReferenceCallout'
 </script>

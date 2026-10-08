@@ -51,20 +51,20 @@
       <div class="demo-item">
         <div class="demo-content progress-demo">
           <div class="flex column gap-4">
-            <UtensilCard variation="soft" class="file-item shadow-3">
+            <UtensilBox variation="soft" class="file-item shadow-3">
               <div class="file-info">
                 <UtensilIcon icon="file" />
                 <span>document.pdf</span>
               </div>
               <UtensilUploadProgressBar :progress="fileUpload1" size="medium" />
-            </UtensilCard>
-            <UtensilCard variation="soft" class="file-item shadow-3">
+            </UtensilBox>
+            <UtensilBox variation="soft" class="file-item shadow-3">
               <div class="file-info">
                 <UtensilIcon icon="image" />
                 <span>photo.jpg</span>
               </div>
               <UtensilUploadProgressBar :progress="fileUpload2" size="medium" />
-            </UtensilCard>
+            </UtensilBox>
             <div class="upload-actions">
               <UtensilButton size="small" @click="simulateUploads"> Upload Files </UtensilButton>
             </div>
@@ -90,7 +90,7 @@ import UtensilUploadProgressBar from 'utensil-vue/components/progress/UtensilUpl
 import UtensilUploadProgressBarDoc from 'utensil-vue/components/progress/UtensilUploadProgressBarDoc.vue'
 import UtensilButton from 'utensil-vue/components/button/UtensilButton.vue'
 import UtensilIcon from 'utensil-vue/components/icon/UtensilIcon.vue'
-import UtensilCard from 'utensil-vue/components/card/UtensilCard.vue'
+import UtensilBox from 'utensil-vue/components/box/UtensilBox.vue'
 
 const uploadDemo = ref<number>(0)
 

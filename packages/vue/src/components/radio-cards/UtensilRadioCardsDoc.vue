@@ -13,7 +13,7 @@
     </div>
     <p>
       A composite radio group that presents options as cards with radio indicators. Composes
-      <code>UtensilRadioGroup</code> for keyboard navigation and roving tabindex, and <code>UtensilCard</code> for card
+      <code>UtensilRadioGroup</code> for keyboard navigation and roving tabindex, and <code>UtensilBox</code> for card
       styling. Uses <code>v-model</code> for the selected value.
     </p>
 

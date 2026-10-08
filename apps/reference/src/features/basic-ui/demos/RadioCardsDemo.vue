@@ -254,7 +254,7 @@ const cardCustomIndicator = ref('check-a')
 }
 
 .indicators {
-  .utensil-card {
+  .utensil-box {
     flex-grow: 1;
   }
 }

@@ -8,7 +8,7 @@
 
     <div class="scene-row">
       <div class="dashboard-row">
-        <ReferenceCard class="dashboard-stat story-card">
+        <ReferenceBox class="dashboard-stat story-card">
           <div class="stat-header">
             <h5 class="stat-label">Recent Activity</h5>
             <ReferenceButton variation="text" color="pencil" size="tiny">View All</ReferenceButton>
@@ -39,9 +39,9 @@
               <ReferencePill variation="soft" color="pencil" label="Processing" scale="small" />
             </div>
           </div>
-        </ReferenceCard>
+        </ReferenceBox>
 
-        <ReferenceCard class="dashboard-stat story-card">
+        <ReferenceBox class="dashboard-stat story-card">
           <div class="stat-header">
             <h5>Filters</h5>
             <ReferenceButton variation="text" color="pencil" size="tiny">Clear All</ReferenceButton>
@@ -71,7 +71,7 @@
               <ReferencePill variation="outline" color="pencil" label="Archived" scale="small" />
             </div>
           </div>
-        </ReferenceCard>
+        </ReferenceBox>
       </div>
     </div>
   </div>
@@ -80,7 +80,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { ReferenceButton } from '@/theme/components/ReferenceButton'
-import { ReferenceCard } from '@/theme/components/ReferenceCard'
+import { ReferenceBox } from '@/theme/components/ReferenceBox'
 import { ReferenceBadge } from '@/theme/components/ReferenceBadge'
 import { ReferencePill } from '@/theme/components/ReferencePill'
 import { ReferenceAvatar } from '@/theme/components/ReferenceAvatar'

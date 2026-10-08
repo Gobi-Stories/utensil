@@ -1,5 +1,5 @@
 <template>
-  <ReferenceCard class="benchmark-card" variation="surface">
+  <ReferenceBox class="benchmark-card" variation="surface">
     <div class="flex align-center gap-2">
       <ReferenceIcon icon="photo-film" />
       <span class="card-title">Asset {{ index + 1 }}</span>
@@ -10,11 +10,11 @@
       <ReferenceButton scale="small" variation="soft" icon="play">Play</ReferenceButton>
       <ReferenceCircleButton icon="ellipsis-v" variation="text" scale="small" description="More" />
     </div>
-  </ReferenceCard>
+  </ReferenceBox>
 </template>
 
 <script setup lang="ts">
-import { ReferenceCard } from '@/theme/components/ReferenceCard'
+import { ReferenceBox } from '@/theme/components/ReferenceBox'
 import { ReferenceIcon } from '@/theme/components/ReferenceIcon'
 import { ReferenceBadge } from '@/theme/components/ReferenceBadge'
 import { ReferencePill } from '@/theme/components/ReferencePill'
