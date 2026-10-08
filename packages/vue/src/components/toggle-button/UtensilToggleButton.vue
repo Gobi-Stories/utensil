@@ -4,7 +4,8 @@
     :class="[
       $attrs.class,
       {
-        disabled,
+        disabled: disabled || ariaDisabled,
+        'aria-disabled': ariaDisabled && !disabled,
         'label-start': label && labelPosition === 'start',
         'label-end': label && labelPosition === 'end',
       },
@@ -19,6 +20,7 @@
       :color="buttonColor"
       :scale="scale"
       :disabled="disabled"
+      :aria-disabled="ariaDisabled"
       :round="round"
       :pressed="pressedValue"
       :role="role === 'radio' ? 'radio' : undefined"
@@ -54,6 +56,8 @@ export interface Props<Theme extends ThemeConfig> {
   offColor?: ColorProp<Theme>
   scale?: ScaleProp
   disabled?: boolean
+  /** Drawn disabled and announced unavailable, but stays focusable and emits click without toggling */
+  ariaDisabled?: boolean
   round?: boolean
   autofocus?: boolean
   /** Controls ARIA semantics: 'button' uses aria-pressed, 'radio' uses aria-checked with role="radio" */
@@ -65,6 +69,7 @@ const props = withDefaults(defineProps<Props<Theme>>(), {
   variation: 'soft',
   color: 'pen',
   disabled: false,
+  ariaDisabled: false,
   round: false,
   autofocus: false,
   scale: 1,
@@ -98,7 +103,7 @@ const pressedValue = computed(() => {
 })
 
 function toggle() {
-  if (!props.disabled) {
+  if (!props.disabled && !props.ariaDisabled) {
     model.value = !model.value
   }
 }
@@ -139,6 +144,10 @@ function clickButton() {
   .utensil-toggle-button.disabled .utensil-toggle-button-label {
     opacity: 0.5;
     cursor: default;
+  }
+
+  /* An aria-disabled label still routes its clicks through the button */
+  .utensil-toggle-button.disabled:not(.aria-disabled) .utensil-toggle-button-label {
     pointer-events: none;
   }
 }

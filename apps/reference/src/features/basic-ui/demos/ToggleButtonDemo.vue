@@ -133,6 +133,23 @@
       </div>
       <div class="demo-item">
         <div class="demo-content">
+          <div class="demo-stack">
+            <ReferenceToggleButton
+              icon="lock"
+              label="Sync"
+              aria-disabled
+              @click="toggleNotReadyMessage = 'Sign in to sync.'"
+            />
+            <span class="toggle-not-ready-message" aria-live="polite">{{ toggleNotReadyMessage }}</span>
+          </div>
+        </div>
+        <div class="demo-label always-visible">Not Ready Yet</div>
+        <div class="demo-code">
+          <code>&lt;UtensilToggleButton aria-disabled @click="explainWhy" /&gt;</code>
+        </div>
+      </div>
+      <div class="demo-item">
+        <div class="demo-content">
           <ReferenceToggleButton v-model="toggleRound" icon="heart" round color="error" />
           <ReferenceToggleButton v-model="toggleRound2" icon="star" round color="warning" />
         </div>
@@ -162,6 +179,7 @@ const toggleBold2 = ref(true)
 const toggleItalic2 = ref(false)
 const toggleUnderline2 = ref(false)
 const toggleNoLabel = ref(true)
+const toggleNotReadyMessage = ref('')
 const toggleNoLabel2 = ref(false)
 const toggleNoLabel3 = ref(true)
 const toggleText = ref(false)
@@ -181,6 +199,12 @@ const toggleRound2 = ref(false)
 <style scoped>
 .demo-content {
   min-height: 80px;
+}
+
+.toggle-not-ready-message {
+  min-height: var(--line-height-2);
+  font-size: var(--font-size-2);
+  color: var(--pencil-a11);
 }
 
 .demo-stack.label-end {

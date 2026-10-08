@@ -88,6 +88,15 @@
           <td>Disable the button.</td>
         </tr>
         <tr>
+          <td><code>ariaDisabled</code></td>
+          <td><code>boolean</code></td>
+          <td><code>false</code></td>
+          <td>
+            Draw the button disabled and set <code>aria-disabled</code>, but keep it focusable and clickable. Use it for
+            an action that isn't available yet, where pressing it should say why. It doesn't submit a form.
+          </td>
+        </tr>
+        <tr>
           <td><code>autofocus</code></td>
           <td><code>boolean</code></td>
           <td><code>false</code></td>
@@ -127,7 +136,10 @@
         <tr>
           <td><code>click</code></td>
           <td><code>MouseEvent</code></td>
-          <td>Fires on click. Suppressed when <code>disabled</code> or <code>busy</code>.</td>
+          <td>
+            Fires on click. Suppressed when <code>disabled</code> or <code>busy</code>, but not when
+            <code>ariaDisabled</code>.
+          </td>
         </tr>
       </tbody>
     </table>
@@ -202,6 +214,13 @@
   iconOnly
   label="Bold"
   @click="isActive = !isActive"
+/&gt;</code></pre>
+
+    <h3>Not Ready Yet</h3>
+    <pre><code>&lt;UtensilButton
+  label="Continue"
+  :aria-disabled="!ready"
+  @click="ready ? next() : explainWhy()"
 /&gt;</code></pre>
   </article>
 </template>

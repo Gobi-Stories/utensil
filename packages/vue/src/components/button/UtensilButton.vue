@@ -6,9 +6,9 @@
       `ui-${variation}`,
       {
         // Disabled buttons drop the interactive styling so hover states don't light them up.
-        interactive: !disabled && !busy,
+        interactive: !disabled && !ariaDisabled && !busy,
         busy: busy,
-        disabled: disabled && !busy,
+        disabled: (disabled || ariaDisabled) && !busy,
         selected: pressed === 'pressed' || pressed === 'checked',
         'icon-only': iconOnly,
         'icon-start': icon && !iconOnly && iconPosition === 'start',
@@ -20,6 +20,7 @@
     ]"
     :style="style"
     :disabled="disabled || busy"
+    :aria-disabled="(ariaDisabled && !disabled && !busy) || undefined"
     :aria-pressed="pressed === 'pressed' || undefined"
     :aria-checked="pressed === 'checked' ? true : pressed === 'unchecked' ? false : undefined"
     :autofocus="autofocus"
@@ -57,6 +58,8 @@ export interface Props<Theme extends ThemeConfig> {
   pressed?: 'pressed' | 'checked' | 'unchecked' | false
   busy?: boolean
   disabled?: boolean
+  // Looks and is announced disabled, but stays focusable and still emits click
+  ariaDisabled?: boolean
   autofocus?: boolean
   scale?: ScaleProp
   block?: boolean
@@ -72,6 +75,7 @@ const props = withDefaults(defineProps<Props<Theme>>(), {
   pressed: false,
   busy: false,
   disabled: false,
+  ariaDisabled: false,
   autofocus: false,
   justify: 'center',
   scale: 1,
@@ -115,6 +119,10 @@ const style = computed<CSSProperties>(() => {
 })
 
 function handleClick(event: MouseEvent): void {
+  // An unavailable action doesn't submit its form, but still emits click so it can say why
+  if (props.ariaDisabled) {
+    event.preventDefault()
+  }
   if (!props.disabled && !props.busy) {
     emit('click', event)
   }

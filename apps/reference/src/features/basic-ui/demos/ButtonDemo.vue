@@ -141,6 +141,21 @@
         </div>
       </div>
       <div class="demo-item">
+        <div class="demo-content not-ready-demo">
+          <div class="flex gap-2">
+            <ReferenceButton variation="soft" color="pencil" @click="toggleNotReadyChosen">
+              {{ notReadyChosen ? 'Clear plan' : 'Choose a plan' }}
+            </ReferenceButton>
+            <ReferenceButton :aria-disabled="!notReadyChosen" @click="continueWhenReady">Continue</ReferenceButton>
+          </div>
+          <p class="not-ready-message" aria-live="polite">{{ notReadyMessage }}</p>
+        </div>
+        <div class="demo-label always-visible">Not Ready Yet</div>
+        <div class="demo-code">
+          <code>&lt;UtensilButton :aria-disabled="!ready" @click="ready ? next() : explainWhy()"&gt;</code>
+        </div>
+      </div>
+      <div class="demo-item">
         <div class="demo-content">
           <ReferenceButton icon="check" icon-only>Accept</ReferenceButton>
           <ReferenceButton variation="outline" color="pencil" icon="search" icon-only>Search</ReferenceButton>
@@ -180,7 +195,18 @@ import { ReferenceRangeSlider } from '@/theme/components/ReferenceRangeSlider'
 import ReferenceComponentDemo from '@/features/components/ReferenceComponentDemo.vue'
 
 const busyDemo = ref(false)
+const notReadyChosen = ref(false)
+const notReadyMessage = ref('')
 const scaleButtonScale = ref(1)
+
+function toggleNotReadyChosen() {
+  notReadyChosen.value = !notReadyChosen.value
+  notReadyMessage.value = ''
+}
+
+function continueWhenReady() {
+  notReadyMessage.value = notReadyChosen.value ? 'On to the next step.' : 'Choose a plan to continue.'
+}
 
 function toggleBusy() {
   busyDemo.value = true
@@ -198,6 +224,18 @@ function toggleBusy() {
 .demo-content.block-demo {
   flex-direction: column;
   gap: var(--space-3);
+}
+
+.demo-content.not-ready-demo {
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.not-ready-message {
+  min-height: var(--line-height-2);
+  margin: 0;
+  font-size: var(--font-size-2);
+  color: var(--pencil-a11);
 }
 
 .fixed-width-demo {

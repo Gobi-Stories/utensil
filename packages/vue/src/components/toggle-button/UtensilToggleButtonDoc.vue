@@ -104,6 +104,15 @@
           <td>Disable the button and label. Prevents toggling.</td>
         </tr>
         <tr>
+          <td><code>ariaDisabled</code></td>
+          <td><code>boolean</code></td>
+          <td><code>false</code></td>
+          <td>
+            Draw the toggle disabled and set <code>aria-disabled</code>, but keep it focusable and clickable. It doesn't
+            toggle, and still emits <code>click</code>, so pressing it can say why it isn't available.
+          </td>
+        </tr>
+        <tr>
           <td><code>round</code></td>
           <td><code>boolean</code></td>
           <td><code>false</code></td>
@@ -141,6 +150,13 @@
           <td><code>update:modelValue</code></td>
           <td><code>boolean</code></td>
           <td>Fires when the toggle state changes. Use with <code>v-model</code>.</td>
+        </tr>
+        <tr>
+          <td><code>click</code></td>
+          <td><code>MouseEvent</code></td>
+          <td>
+            The inner button's click, as an attribute listener. Fires while <code>ariaDisabled</code>, without toggling.
+          </td>
         </tr>
       </tbody>
     </table>

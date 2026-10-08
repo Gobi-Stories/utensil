@@ -83,6 +83,18 @@ describe('UtensilToggleButton', () => {
     expect(wrapper.emitted('update:modelValue')).toBeUndefined()
   })
 
+  it('stays clickable without toggling when aria-disabled', async () => {
+    const wrapper = mount(UtensilToggleButton, {
+      props: { icon: 'star', modelValue: false, ariaDisabled: true },
+    })
+    const button = wrapper.find('button')
+    await button.trigger('click')
+    expect(wrapper.emitted('update:modelValue')).toBeUndefined()
+    expect(button.attributes('aria-disabled')).toBe('true')
+    expect(button.attributes('disabled')).toBeUndefined()
+    expect(wrapper.find('.utensil-toggle-button').classes()).toContain('disabled')
+  })
+
   it('applies disabled class when disabled', () => {
     const wrapper = mount(UtensilToggleButton, {
       props: { icon: 'star', disabled: true },
