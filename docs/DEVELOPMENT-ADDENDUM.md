@@ -44,6 +44,20 @@ A new icon goes into Utensil's base icon map when Utensil components need it, or
 its demos do. Theme-generic components get a typed wrapper in the reference app's `theme/components/` (e.g.
 `ReferenceTask`).
 
+## Theme Colors
+
+Utensil ships a single gray color scale, and its default theme maps the pen, pencil, paper and every variant
+(`success`, `warning`, `error`, `disabled`) to it. Consumers always configure a full set of color scales and a variant
+map that uses them. Design and judge components for those themes:
+
+- Never decide a design, a state's styling or a fix because one gray looks like another under the default theme. A
+  state drawn in the `warning` pen is distinct in every real theme.
+- Unit tests that need colors to differ give the component a test theme with a non-gray color (an
+  `interface TestThemeConfig extends ThemeConfig` whose `color` adds one, used through a typed `UtensilTheme`),
+  rather than asserting on gray.
+- UAT in the reference app, which has full color scales and a variant map that uses them (see
+  `apps/reference/DEVELOPMENT.md` → Variants).
+
 ## Reference App
 
 Every component has demos in the reference app (`apps/reference`, see `apps/reference/DEVELOPMENT.md`):
@@ -60,7 +74,7 @@ Run `./check` at the repository root before finishing: it formats, lints, typech
 both packages, installs them into a fresh consumer app, and checks typechecking, tree-shaking and the shipped files.
 
 A **Chrome DevTools MCP** is available for inspecting the running UI (the reference app) - use it to verify styling,
-colors, and layout.
+colors, and layout. Judge colors there, in its full theme, never under Utensil's gray default (see Theme Colors).
 
 ## Checklist
 
