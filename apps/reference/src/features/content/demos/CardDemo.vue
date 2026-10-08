@@ -1,153 +1,105 @@
 <template>
-  <ReferenceComponentDemo title="Card" anchor="card" description="Container that groups related content and actions.">
-    <div class="demo-grid">
-      <div class="demo-item">
-        <div class="demo-content card-demo">
-          <ReferenceCard variation="surface">
-            <div class="profile-card">
-              <ReferenceAvatar src="https://i.pravatar.cc/150?u=sofia" alt="Sofia Chen" fallback="SC" />
-              <div class="profile-info">
-                <div class="profile-name">Sofia Chen</div>
-                <div class="profile-email">sofia.chen@example.com</div>
-              </div>
-            </div>
-          </ReferenceCard>
+  <ReferenceComponentDemo
+    title="Card"
+    anchor="card"
+    description="A box with a layout for its content: media, a header with an icon, title and description, the content, and a footer with actions. Every part is optional."
+  >
+    <div id="card-section" class="component-demo">
+      <h3><a class="demo-anchor" href="#card-section">Section</a></h3>
+      <p>A titled section of a page, with a control at the end of its header.</p>
+      <ReferenceCard icon="user" title="Members" title-element="h4" description="Who can see and edit this project.">
+        <template #header-end>
+          <ReferenceButton variation="soft" color="pencil" scale="small" icon="share-alt">Invite</ReferenceButton>
+        </template>
+        <div class="card-members">
+          <ReferenceUserProfileCard
+            v-for="member in cardMembers"
+            :key="member.email"
+            :name="member.name"
+            :email="member.email"
+            :fallback="member.initials"
+            :bordered="false"
+          />
         </div>
-        <div class="demo-label">Profile Card</div>
-        <div class="demo-code">
-          <code>&lt;UtensilCard&gt;&lt;Avatar /&gt; Name &amp; email&lt;/UtensilCard&gt;</code>
-        </div>
+      </ReferenceCard>
+    </div>
+
+    <div id="card-choice" class="component-demo">
+      <h3><a class="demo-anchor" href="#card-choice">Choice</a></h3>
+      <p>Clickable cards that act as a whole, highlighted when chosen.</p>
+      <div class="card-grid">
+        <ReferenceCard
+          v-for="choice in cardChoices"
+          :key="choice.id"
+          clickable
+          :shadow="2"
+          :highlighted="cardChoice === choice.id"
+          :icon="choice.icon"
+          icon-color="primary"
+          :title="choice.title"
+          :description="choice.description"
+          @click="cardChoice = choice.id"
+        >
+          <template #footer>
+            <span class="card-meta">{{ choice.meta }}</span>
+          </template>
+        </ReferenceCard>
       </div>
-      <div class="demo-item">
-        <div class="demo-content card-demo">
-          <ReferenceCard variation="solid">
-            <p>Solid variation.</p>
-          </ReferenceCard>
-          <ReferenceCard variation="soft">
-            <p>Soft variation.</p>
-          </ReferenceCard>
-          <ReferenceCard variation="surface">
-            <p>Surface variation.</p>
-          </ReferenceCard>
-          <ReferenceCard variation="outline">
-            <p>Outline variation.</p>
-          </ReferenceCard>
-          <ReferenceCard variation="unstyled" style="box-shadow: var(--shadow-border-3)">
-            <p>Unstyled variation.<br />Shadow added externally.</p>
-          </ReferenceCard>
-        </div>
-        <div class="demo-label">Variations</div>
-        <div class="demo-code">
-          <code>&lt;UtensilCard variation="outline"&gt;...&lt;/UtensilCard&gt;</code>
-        </div>
+    </div>
+
+    <div id="card-media" class="component-demo">
+      <h3><a class="demo-anchor" href="#card-media">Media and Actions</a></h3>
+      <p>
+        Inset media, or media that bleeds to the card's edges. The second card links as a whole with a stretched link,
+        while its action stays clickable.
+      </p>
+      <div class="card-grid">
+        <ReferenceCard title="Quarterly report" title-element="h4" description="8 pages">
+          <template #media>
+            <div class="card-media-art" aria-hidden="true"></div>
+          </template>
+          <template #actions>
+            <ReferenceButton variation="soft" color="pencil" icon="download" icon-only>Download</ReferenceButton>
+            <ReferenceButton>Open</ReferenceButton>
+          </template>
+        </ReferenceCard>
+        <ReferenceCard interactive media-bleed footer-divider title-element="h4" description="Updated today">
+          <template #media>
+            <div class="card-media-art bleed" aria-hidden="true"></div>
+          </template>
+          <template #title>
+            <a class="utensil-card-link" href="#card-media">Annual summary</a>
+          </template>
+          <template #footer>
+            <span class="card-meta">Shared with 4 people</span>
+          </template>
+          <template #actions>
+            <ReferenceButton variation="text" color="pencil" icon="share-alt" icon-only>Share</ReferenceButton>
+          </template>
+        </ReferenceCard>
       </div>
-      <div class="demo-item">
-        <div class="demo-content card-demo">
-          <ReferenceCard variation="solid" highlighted>
-            <p>Solid highlighted.</p>
-          </ReferenceCard>
-          <ReferenceCard variation="soft" highlighted>
-            <p>Soft highlighted.</p>
-          </ReferenceCard>
-          <ReferenceCard variation="surface" highlighted>
-            <p>Surface highlighted.</p>
-          </ReferenceCard>
-          <ReferenceCard variation="outline" highlighted>
-            <p>Outline highlighted.</p>
-          </ReferenceCard>
-        </div>
-        <div class="demo-label always-visible">Highlighted</div>
-        <div class="demo-code">
-          <code>&lt;UtensilCard variation="surface" highlighted&gt;...&lt;/UtensilCard&gt;</code>
-        </div>
-      </div>
-      <div class="demo-item">
-        <div class="demo-content card-demo">
-          <ReferenceCard variation="solid" interactive>
-            <p>Solid interactive.</p>
-          </ReferenceCard>
-          <ReferenceCard variation="soft" interactive>
-            <p>Soft interactive.</p>
-          </ReferenceCard>
-          <ReferenceCard variation="surface" interactive>
-            <p>Surface interactive.</p>
-          </ReferenceCard>
-          <ReferenceCard variation="outline" interactive>
-            <p>Outline interactive.</p>
-          </ReferenceCard>
-        </div>
-        <div class="demo-label always-visible">Interactive</div>
-        <div class="demo-code">
-          <code>&lt;UtensilCard variation="surface" interactive&gt;...&lt;/UtensilCard&gt;</code>
-        </div>
-      </div>
-      <div class="demo-item">
-        <div class="demo-content card-demo">
-          <ReferenceCard variation="solid" interactive highlighted>
-            <p>Solid interactive.</p>
-          </ReferenceCard>
-          <ReferenceCard variation="soft" interactive highlighted>
-            <p>Soft interactive.</p>
-          </ReferenceCard>
-          <ReferenceCard variation="surface" interactive highlighted>
-            <p>Surface interactive.</p>
-          </ReferenceCard>
-          <ReferenceCard variation="outline" interactive highlighted>
-            <p>Outline interactive.</p>
-          </ReferenceCard>
-        </div>
-        <div class="demo-label always-visible">Interactive Highlighted</div>
-        <div class="demo-code">
-          <code>&lt;UtensilCard variation="surface" interactive highlighted&gt;...&lt;/UtensilCard&gt;</code>
-        </div>
-      </div>
-      <div class="demo-item">
-        <div class="demo-content card-demo">
-          <ReferenceCard color="success" variation="surface" highlighted>
-            <p>Success colored card.</p>
-          </ReferenceCard>
-          <ReferenceCard color="warning" variation="surface" highlighted>
-            <p>Warning colored card.</p>
-          </ReferenceCard>
-          <ReferenceCard color="error" variation="surface" highlighted>
-            <p>Error colored card.</p>
-          </ReferenceCard>
-        </div>
-        <div class="demo-label">Semantic Colors</div>
-        <div class="demo-code">
-          <code>&lt;UtensilCard color="success"&gt;...&lt;/UtensilCard&gt;</code>
-        </div>
-      </div>
-      <div class="demo-item">
-        <div class="demo-content card-demo">
-          <ReferenceCard scale="small" variation="surface">
-            <p>Small scale card.</p>
-          </ReferenceCard>
-          <ReferenceCard variation="surface">
-            <p>Normal scale card.</p>
-          </ReferenceCard>
-          <ReferenceCard scale="large" variation="surface">
-            <p>Large scale card.</p>
-          </ReferenceCard>
-        </div>
-        <div class="demo-label">Scale Presets</div>
-        <div class="demo-code">
-          <code>&lt;UtensilCard scale="large"&gt;...&lt;/UtensilCard&gt;</code>
-        </div>
-      </div>
-      <div class="demo-item">
-        <div class="demo-content card-demo controlled-demo">
-          <div class="demo">
-            <ReferenceCard :scale="scaleCardScale" variation="surface">
-              <p>Scalable card component with reactive sizing.</p>
-            </ReferenceCard>
-          </div>
-          <ReferenceRangeSlider class="control" v-model="scaleCardScale" :min="0.7" :max="1.5" :step="0.01" />
-        </div>
-        <div class="demo-label">Reactive Scale</div>
-        <div class="demo-code">
-          <code>&lt;UtensilCard :scale="{{ scaleCardScale.toFixed(2) }}"&gt;...&lt;/UtensilCard&gt;</code>
-        </div>
+    </div>
+
+    <div id="card-grid" class="component-demo">
+      <h3><a class="demo-anchor" href="#card-grid">Grid with Pinned Footers</a></h3>
+      <p>In a grid of cards, each footer stays at the bottom, whatever the length of the content above it.</p>
+      <div class="card-grid">
+        <ReferenceCard
+          v-for="report in cardReports"
+          :key="report.title"
+          :icon="report.icon"
+          :title="report.title"
+          title-element="h4"
+          footer-divider
+        >
+          <p class="card-text">{{ report.body }}</p>
+          <template #footer>
+            <span class="card-meta">{{ report.meta }}</span>
+          </template>
+          <template #actions>
+            <ReferenceButton variation="soft" scale="small">View</ReferenceButton>
+          </template>
+        </ReferenceCard>
       </div>
     </div>
 
@@ -162,40 +114,75 @@ import { ref } from 'vue'
 import UtensilCardDoc from 'utensil-vue/components/card/UtensilCardDoc.vue'
 import ReferenceComponentDemo from '@/features/components/ReferenceComponentDemo.vue'
 import { ReferenceCard } from '@/theme/components/ReferenceCard'
-import { ReferenceAvatar } from '@/theme/components/ReferenceAvatar'
-import { ReferenceRangeSlider } from '@/theme/components/ReferenceRangeSlider'
+import { ReferenceButton } from '@/theme/components/ReferenceButton'
+import { ReferenceUserProfileCard } from '@/theme/components/ReferenceUserProfileCard'
 
-const scaleCardScale = ref(1)
+const cardMembers = [
+  { name: 'Sofia Chen', email: 'sofia.chen@example.com', initials: 'SC' },
+  { name: 'Amir Haddad', email: 'amir.haddad@example.com', initials: 'AH' },
+]
+
+const cardChoices = [
+  {
+    id: 'import',
+    icon: 'download',
+    title: 'Import a file',
+    description: 'Start from a spreadsheet you already have.',
+    meta: 'Takes a minute',
+  },
+  {
+    id: 'blank',
+    icon: 'edit',
+    title: 'Start from scratch',
+    description: 'Build the table yourself, one column at a time.',
+    meta: 'Most flexible',
+  },
+] as const
+
+const cardChoice = ref<(typeof cardChoices)[number]['id']>('import')
+
+const cardReports = [
+  { icon: 'chart-column', title: 'Traffic', body: 'Visits rose 12% this month.', meta: 'Daily' },
+  {
+    icon: 'database',
+    title: 'Storage',
+    body: 'Most of the space is taken by video uploads from the last quarter. Archiving the oldest projects would free about a third of it, and the archive stays searchable.',
+    meta: 'Weekly',
+  },
+  { icon: 'folder', title: 'Projects', body: 'Three projects are waiting for review.', meta: 'Live' },
+] as const
 </script>
 
 <style scoped>
-.demo-content.card-demo {
-  flex-direction: column;
-  align-items: stretch;
-  gap: var(--space-3);
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr));
+  gap: var(--space-4);
 }
 
-.demo-content.card-demo p {
+.card-members {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+}
+
+.card-meta {
+  font-size: var(--font-size-1);
+  color: var(--pencil-a11);
+}
+
+.card-text {
   margin: 0;
-}
-
-.profile-card {
-  display: flex;
-  align-items: center;
-  gap: var(--space-3);
-}
-
-.profile-info {
-  display: flex;
-  flex-direction: column;
-}
-
-.profile-name {
-  font-weight: 500;
-}
-
-.profile-email {
   font-size: var(--font-size-2);
-  color: var(--pencil-11);
+  color: var(--pencil-a11);
+}
+
+.card-media-art {
+  aspect-ratio: 16 / 9;
+  background: linear-gradient(135deg, var(--pen-5), var(--pen-9));
+}
+
+.card-media-art.bleed {
+  background: linear-gradient(135deg, var(--pencil-5), var(--pen-7));
 }
 </style>

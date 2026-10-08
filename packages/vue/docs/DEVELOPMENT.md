@@ -267,6 +267,7 @@ Note that font weights for headings and text are provided by the text ui theme. 
 | Property                    | Standard Value             |
 | --------------------------- | -------------------------- |
 | Border radius (interactive) | `--radius-3`               |
+| Border radius (content)     | `--radius-2`               |
 | Vertical padding            | `--space-2`                |
 | Horizontal padding          | `--space-3` or `--space-4` |
 | Font size                   | `--font-size-2`            |
