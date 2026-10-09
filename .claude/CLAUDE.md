@@ -35,6 +35,7 @@ Components in `packages/vue/src/components`:
 - `/implement-component <ComponentName> <description>` — create a new component
 - `/update-component <ComponentName> <description>` — update an existing component
 - `/find-components <requirements>` — find suitable components for a design
+- `/promote-local <path> [ComponentOrComposable ...]` — promote a consumer's local Utensil folder (new components, wrappers, vendored fixes) into `utensil-vue`
 
 Reference app in `apps/reference`:
 
