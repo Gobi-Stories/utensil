@@ -16,7 +16,11 @@ that leaves this machine: `npm publish`, `git push`, a GitHub release. Never run
 give the exact commands in a code block, say what to expect, and wait for the maintainer to say it's done before
 going on. Keep each message to the current step.
 
-The registry, used below as `<registry>`, is `https://europe-west1-npm.pkg.dev/gobi-tron-production/npm/`.
+Two values are filled into the commands below, so they paste as they are:
+
+- `<registry>` — the registry URL in `publishConfig.registry` of `packages/vue/package.json`.
+- `<account>` — the Google account the maintainer publishes with. Take it from your memory; if you don't have it,
+  ask the maintainer and remember it. Never write it into the repository.
 
 ## 1. Check the starting point
 
@@ -29,8 +33,9 @@ git describe --tags --abbrev=0
 - The tree must be clean and on `main`, level with `origin/main`. If `main` is ahead, the unpushed commits will be
   part of this release: list them and confirm. If it's behind, stop and ask the maintainer to pull.
 - If `git fetch` fails for want of an SSH key, hand it over as `! git fetch`, which runs in the maintainer's shell.
-- Check gcloud: `gcloud config get-value account` names the maintainer's Google account. If it's empty, hand over
-  `gcloud auth login`.
+- Check gcloud: `gcloud auth list` shows `<account>` among the credentialed accounts. It needn't be the active one:
+  the active account may be a limited development service account that can't publish. If it's missing, hand over
+  `gcloud auth login <account> --no-activate`, which stores the credentials and leaves the active account as it is.
 
 ## 2. Choose the version
 
@@ -80,7 +85,7 @@ tar -tzf temp/release/gobistories-utensil-css-<v>.tgz | head -20
 ```
 
 Confirm both are at the new version, `@gobistories/utensil-vue` depends on exactly `@gobistories/utensil-css@<v>`,
-`publishConfig.registry` is `<registry>`, and the shipped folders are present (`dist`, `src`, `docs`, `skills` for
+both set `publishConfig.registry`, and the shipped folders are present (`dist`, `src`, `docs`, `skills` for
 vue; no tests). Summarise the check to the maintainer.
 
 ## 5. Commit and tag
@@ -94,20 +99,23 @@ git commit -am "repo: release: <v>" && git tag v<v>
 `@gobistories/utensil-css` first: `@gobistories/utensil-vue` depends on it.
 
 ```bash
-env -u GOOGLE_APPLICATION_CREDENTIALS npx google-artifactregistry-auth
+CLOUDSDK_CORE_ACCOUNT=<account> env -u GOOGLE_APPLICATION_CREDENTIALS npx google-artifactregistry-auth
 npm publish temp/release/gobistories-utensil-css-<v>.tgz
 npm publish temp/release/gobistories-utensil-vue-<v>.tgz
+npm config delete <registry without https:>:_authToken --location=user
 ```
 
-The first command writes a short-lived token for the maintainer's Google account to `~/.npmrc`; it expires after about
-an hour, so run it right before publishing. It runs without `GOOGLE_APPLICATION_CREDENTIALS` because the tool prefers
-that variable's service account over the gcloud login. Each publish should end with
-`+ @gobistories/utensil-<css|vue>@<v>`, and `publishConfig` sends it to `<registry>`.
+- The first command writes a short-lived token for the maintainer's account to `~/.npmrc`. `CLOUDSDK_CORE_ACCOUNT`
+  picks that account for this command only, whatever gcloud's active account is, and the tool runs without
+  `GOOGLE_APPLICATION_CREDENTIALS` because it prefers that variable's service account over gcloud.
+- Each publish should end with `+ @gobistories/utensil-<css|vue>@<v>`; `publishConfig` sends it to `<registry>`.
+- The last command removes the token again. The registry rejects a request that carries an expired or revoked token
+  instead of treating it as anonymous, so a token left in `~/.npmrc` breaks every install from the registry on this
+  machine once it expires.
 
 A 403 naming `artifactregistry.repositories.uploadArtifacts` means the token belongs to an account without write access
-to the repository: check which account the token was made for before anything else. Don't retry a publish that
-succeeded: the registry refuses a version that is already published. Wait for the maintainer to confirm both are
-published.
+to the repository: check which account it was made for before anything else. Don't retry a publish that succeeded:
+the registry refuses a version that is already published. Wait for the maintainer to confirm both are published.
 
 ## 7. Verify the publish
 
@@ -116,7 +124,8 @@ npm view @gobistories/utensil-css@<v> version --registry <registry>
 npm view @gobistories/utensil-vue@<v> version dependencies --registry <registry>
 ```
 
-Without `--registry`, npm asks npmjs, where the packages aren't published, and returns a 404.
+Without `--registry`, npm asks npmjs, where the packages aren't published, and returns a 404. A 403 here means a
+token for the registry is still in `~/.npmrc`: remove it as in step 6.
 
 ## 8. Hand over: push
 

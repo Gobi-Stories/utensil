@@ -74,6 +74,10 @@ if (!dry) {
 await $`./check`.cwd(root)
 await $`bun scripts/verify-package.ts`.cwd(root)
 
+// The publish token google-artifactregistry-auth writes to ~/.npmrc, removed again once published.
+const registry = JSON.parse(readFileSync(join(root, 'packages/vue/package.json'), 'utf8')).publishConfig.registry
+const registryToken = `${registry.replace(/^https:/, '')}:_authToken`
+
 const out = join(root, 'temp', 'release')
 mkdirSync(out, { recursive: true })
 for (const pkg of ['css', 'vue']) {
@@ -85,8 +89,9 @@ Packed @gobistories/utensil-css@${version} and @gobistories/utensil-vue@${versio
 
 Next steps:
   git commit -am "repo: release: ${version}" && git tag v${version}
-  env -u GOOGLE_APPLICATION_CREDENTIALS npx google-artifactregistry-auth
+  CLOUDSDK_CORE_ACCOUNT=<account> env -u GOOGLE_APPLICATION_CREDENTIALS npx google-artifactregistry-auth
   npm publish temp/release/gobistories-utensil-css-${version}.tgz
   npm publish temp/release/gobistories-utensil-vue-${version}.tgz
+  npm config delete ${registryToken} --location=user
   git push && git push --tags
 `)

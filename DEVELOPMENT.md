@@ -117,9 +117,18 @@ The release script requires a clean working tree. It bumps every workspace packa
 and publish with the commands it prints. `bun pm pack` replaces `@gobistories/utensil-vue`'s `workspace:*` dependency
 on `@gobistories/utensil-css` with the exact release version.
 
-Publishing authenticates with a short-lived token that `npx google-artifactregistry-auth` writes to `~/.npmrc`. The tool
-prefers Application Default Credentials, so run it with `env -u GOOGLE_APPLICATION_CREDENTIALS` if that variable points
-at a service account without write access.
+Publishing authenticates with a short-lived token that `npx google-artifactregistry-auth` writes to `~/.npmrc`, made
+for an account with write access to the repository:
+
+```bash
+CLOUDSDK_CORE_ACCOUNT=<account> env -u GOOGLE_APPLICATION_CREDENTIALS npx google-artifactregistry-auth
+```
+
+`CLOUDSDK_CORE_ACCOUNT` picks the account for this command alone, so gcloud's active account can stay a development
+account without write access (add the publishing account with `gcloud auth login <account> --no-activate`). The tool
+prefers Application Default Credentials, hence `env -u GOOGLE_APPLICATION_CREDENTIALS`. Remove the token after
+publishing: the registry rejects a request carrying an expired token rather than treating it as anonymous, so a stale
+token breaks every install from it on that machine.
 
 In Claude Code, `/release` walks you through the whole process: choosing the version, the script, reviewing the
 tarballs, the commit and tag, then hands you the publish and `git push` steps and verifies the result.
