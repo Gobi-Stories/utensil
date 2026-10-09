@@ -12,7 +12,7 @@ version and are released together, to Utensil's npm repository in Google Artifac
 Releasing). Invoking this skill is the maintainer's explicit request to release.
 
 You do the local work: checks, the release script, review, the release commit and tag. The maintainer does everything
-that leaves this machine: `npm publish`, `git push`, a GitHub release. Never run those yourself. At each hand-off,
+that leaves this machine: `npm publish` and `git push`. Never run those yourself. At each hand-off,
 give the exact commands in a code block, say what to expect, and wait for the maintainer to say it's done before
 going on. Keep each message to the current step.
 
@@ -133,18 +133,12 @@ token for the registry is still in `~/.npmrc`: remove it as in step 6.
 git push && git push --tags
 ```
 
-Optionally, a GitHub release from the tag with the notes from step 2:
-
-```bash
-gh release create v<v> --title "v<v>" --notes-file <notes file>
-```
-
-Offer to write the notes file (in `temp/`, which is gitignored).
+Utensil doesn't use GitHub releases: the tag is the release's record in git. Don't offer to create one.
 
 ## 9. Wrap up
 
-Summarise: the version, what shipped, and that consumers pick it up by bumping `@gobistories/utensil-vue` and
-re-running skills-npm if the skills changed.
+Summarise: the version, what shipped (the release notes from step 2), and that consumers pick it up by bumping
+`@gobistories/utensil-vue` and re-running skills-npm if the skills changed.
 
 ## If something goes wrong
 
