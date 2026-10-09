@@ -1,20 +1,32 @@
-# utensil-vue
+# @gobistories/utensil-vue
+
+> [!WARNING]
+> **Internal and unsupported.** Utensil is built for Gobi Stories' own products. Until version 1.0.0 it is not an open
+> project: any release may make breaking changes, releases are not announced, and there is no support. Don't depend
+> on it.
 
 Utensil is a design system that provides a CSS color theme system, a Vue 3 theme configuration layer for reactivity and scoping, and an extensive component library — all designed so that non-designer engineers can build modern, elegant, and accessible interfaces.
 
 Utensil ships as two packages:
 
-| Package       | What it provides                                                                                   |
-| ------------- | -------------------------------------------------------------------------------------------------- |
-| `utensil-css` | The CSS framework: color instruments, design tokens, cascade layers, utilities, color generator    |
-| `utensil-vue` | The Vue 3 theme layer, the component library and composables, and the AI harness (docs and skills) |
+| Package                    | What it provides                                                                                   |
+| -------------------------- | -------------------------------------------------------------------------------------------------- |
+| `@gobistories/utensil-css` | The CSS framework: color instruments, design tokens, cascade layers, utilities, color generator    |
+| `@gobistories/utensil-vue` | The Vue 3 theme layer, the component library and composables, and the AI harness (docs and skills) |
 
-`utensil-vue` depends on `utensil-css` and forwards everything from it at the same subpaths (`utensil-vue/utensil-layers.css`, `utensil-vue/colors/generate-css`, the `utensil-generate-color` command), so a Vue project installs and imports only `utensil-vue`.
+`@gobistories/utensil-vue` depends on `@gobistories/utensil-css` and forwards everything from it at the same subpaths (`@gobistories/utensil-vue/utensil-layers.css`, `@gobistories/utensil-vue/colors/generate-css`, the `utensil-generate-color` command), so a Vue project installs and imports only `@gobistories/utensil-vue`.
 
 ## Install
 
+Utensil is published to its own registry, not to npmjs. Map the `@gobistories` scope to it in your project's
+`.npmrc` (npm, pnpm and Bun all read it). Installing needs no credentials.
+
+```ini
+@gobistories:registry=https://europe-west1-npm.pkg.dev/gobi-tron-production/npm/
+```
+
 ```bash
-npm install utensil-vue
+npm install @gobistories/utensil-vue
 npm install vue @fortawesome/fontawesome-svg-core @fortawesome/free-solid-svg-icons @fortawesome/vue-fontawesome
 ```
 
@@ -26,7 +38,7 @@ Load the cascade layer order first, at your application entry point:
 
 ```ts
 // main.ts
-import 'utensil-vue/utensil-layers.css'
+import '@gobistories/utensil-vue/utensil-layers.css'
 
 import { createApp } from 'vue'
 import App from './App.vue'
@@ -38,7 +50,7 @@ Wrap your app in a theme root, and use components through typed wrappers bound t
 
 ```ts
 // acme-theme/components/AcmeButton.ts
-import UtensilButton from 'utensil-vue/components/button/UtensilButton.vue'
+import UtensilButton from '@gobistories/utensil-vue/components/button/UtensilButton.vue'
 import type { AcmeThemeConfig } from '../acme-theme'
 
 export const AcmeButton = UtensilButton<AcmeThemeConfig>
@@ -123,7 +135,7 @@ You can generate color scales using:
 
 - the theme designer in the Utensil reference app, [utensil.gobistories.com](https://utensil.gobistories.com)
 - the `utensil-generate-color` command (`npx utensil-generate-color blue "#0093ee"`)
-- `generateColorCss()` from `utensil-vue/colors/generate-css`, or the `useColorGenerator()` composable from `utensil-vue/colors/use-color-generator`, at runtime
+- `generateColorCss()` from `@gobistories/utensil-vue/colors/generate-css`, or the `useColorGenerator()` composable from `@gobistories/utensil-vue/colors/use-color-generator`, at runtime
 
 ### Scalable Design Tokens
 
@@ -155,7 +167,7 @@ You can use just the CSS layers for a non-Vue project, or the full stack for a c
 
 ## AI Harness
 
-`utensil-vue` ships agent skills in its `skills/` folder, in the [Agent Skills](https://agentskills.io) format, together with the docs they draw on. They are version-matched to the package: upgrading `utensil-vue` upgrades the skills.
+`@gobistories/utensil-vue` ships agent skills in its `skills/` folder, in the [Agent Skills](https://agentskills.io) format, together with the docs they draw on. They are version-matched to the package: upgrading `@gobistories/utensil-vue` upgrades the skills.
 
 | Skill                                               | Purpose                                                                          |
 | --------------------------------------------------- | -------------------------------------------------------------------------------- |
@@ -174,12 +186,12 @@ npx skills-npm setup
 ```
 
 `setup` adds `skills-npm` to your `prepare` script, so the links are refreshed on every install and always match the
-installed version of `utensil-vue`. Commit the links and `skills-npm-lock.json` to share them with your team.
+installed version of `@gobistories/utensil-vue`. Commit the links and `skills-npm-lock.json` to share them with your team.
 
 You can also bring the usage guide into every session by importing it from your agent's project instructions (e.g. `CLAUDE.md` or `AGENTS.md`), where your agent supports imports:
 
 ```md
-@node_modules/utensil-vue/docs/USAGE.md
+@node_modules/@gobistories/utensil-vue/docs/USAGE.md
 ```
 
 ## Further Reading

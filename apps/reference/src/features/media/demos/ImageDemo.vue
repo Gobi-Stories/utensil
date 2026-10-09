@@ -45,8 +45,8 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import UtensilImage from 'utensil-vue/components/media/UtensilImage.vue'
-import UtensilImageDoc from 'utensil-vue/components/media/UtensilImageDoc.vue'
+import UtensilImage from '@gobistories/utensil-vue/components/media/UtensilImage.vue'
+import UtensilImageDoc from '@gobistories/utensil-vue/components/media/UtensilImageDoc.vue'
 import ReferenceComponentDemo from '@/features/components/ReferenceComponentDemo.vue'
 import { toasts } from '@/app/reference-toast'
 

@@ -39,7 +39,7 @@ import { computed, ref, watch } from 'vue'
 import ReferenceComponentDemo from '@/features/components/ReferenceComponentDemo.vue'
 import { ReferenceRadioGroup } from '@/theme/components/ReferenceRadioGroup'
 import { ReferenceRadioGroupButton } from '@/theme/components/ReferenceRadioGroupButton'
-import UtensilDisclosure from 'utensil-vue/components/disclosure/UtensilDisclosure.vue'
+import UtensilDisclosure from '@gobistories/utensil-vue/components/disclosure/UtensilDisclosure.vue'
 import BenchmarkCard from '../components/BenchmarkCard.vue'
 
 const benchmarkCount = ref('300')

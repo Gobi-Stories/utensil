@@ -7,7 +7,7 @@ import {
   type Variant,
   type ColorProp,
   type TextThemeClasses,
-} from 'utensil-vue/theme/utensil-theme'
+} from '@gobistories/utensil-vue/theme/utensil-theme'
 import { type ReferenceIcons } from './reference-icons'
 
 interface ReferenceVariants extends UtensilVariants {

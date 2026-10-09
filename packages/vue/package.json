@@ -1,5 +1,5 @@
 {
-  "name": "utensil-vue",
+  "name": "@gobistories/utensil-vue",
   "version": "1.0.2",
   "description": "Utensil Vue 3 theme layer and accessible, themeable component library, with an AI harness of usage knowledge and skills.",
   "license": "MIT",
@@ -12,6 +12,9 @@
   "homepage": "https://github.com/Gobi-Stories/utensil/tree/main/packages/vue#readme",
   "bugs": {
     "url": "https://github.com/Gobi-Stories/utensil/issues"
+  },
+  "publishConfig": {
+    "registry": "https://europe-west1-npm.pkg.dev/gobi-tron-production/npm/"
   },
   "type": "module",
   "keywords": [
@@ -61,7 +64,7 @@
     "format": "prettier --write --log-level silent src/"
   },
   "dependencies": {
-    "utensil-css": "workspace:*"
+    "@gobistories/utensil-css": "workspace:*"
   },
   "peerDependencies": {
     "@fortawesome/fontawesome-svg-core": "^7.0.0",

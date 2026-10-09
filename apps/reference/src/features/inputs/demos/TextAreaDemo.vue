@@ -93,8 +93,8 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import ReferenceComponentDemo from '@/features/components/ReferenceComponentDemo.vue'
-import UtensilTextArea from 'utensil-vue/components/text-area/UtensilTextArea.vue'
-import UtensilTextAreaDoc from 'utensil-vue/components/text-area/UtensilTextAreaDoc.vue'
+import UtensilTextArea from '@gobistories/utensil-vue/components/text-area/UtensilTextArea.vue'
+import UtensilTextAreaDoc from '@gobistories/utensil-vue/components/text-area/UtensilTextAreaDoc.vue'
 
 const textAreaSurface = ref('')
 const textAreaSoft = ref('')

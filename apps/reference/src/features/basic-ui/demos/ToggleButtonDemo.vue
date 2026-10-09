@@ -168,7 +168,7 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import UtensilToggleButtonDoc from 'utensil-vue/components/toggle-button/UtensilToggleButtonDoc.vue'
+import UtensilToggleButtonDoc from '@gobistories/utensil-vue/components/toggle-button/UtensilToggleButtonDoc.vue'
 import { ReferenceToggleButton } from '@/theme/components/ReferenceToggleButton'
 import ReferenceComponentDemo from '@/features/components/ReferenceComponentDemo.vue'
 

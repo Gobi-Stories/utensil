@@ -1,7 +1,7 @@
 import { readFileSync } from 'fs'
 import { createRequire } from 'module'
 import { describe, it, expect } from 'vitest'
-import { generateColorCss } from 'utensil-vue/colors/generate-css'
+import { generateColorCss } from '@gobistories/utensil-vue/colors/generate-css'
 
 // The committed color files are the generator's recorded output: regenerating each one
 // from the source color in its header must reproduce its declarations exactly.
@@ -11,7 +11,10 @@ function readCss(relativePath: string): string {
   return readFileSync(new URL(relativePath, import.meta.url), 'utf-8')
 }
 
-const grayCss = readFileSync(createRequire(import.meta.url).resolve('utensil-css/theme/colors/gray.css'), 'utf-8')
+const grayCss = readFileSync(
+  createRequire(import.meta.url).resolve('@gobistories/utensil-css/theme/colors/gray.css'),
+  'utf-8',
+)
 
 const referenceColors = [
   { name: 'blue', css: readCss('./blue.css') },

@@ -33,9 +33,9 @@
 </template>
 
 <script setup lang="ts">
-import UtensilTabs from 'utensil-vue/components/tabs/UtensilTabs.vue'
-import UtensilTabsTrigger from 'utensil-vue/components/tabs/UtensilTabsTrigger.vue'
-import UtensilTabsContent from 'utensil-vue/components/tabs/UtensilTabsContent.vue'
+import UtensilTabs from '@gobistories/utensil-vue/components/tabs/UtensilTabs.vue'
+import UtensilTabsTrigger from '@gobistories/utensil-vue/components/tabs/UtensilTabsTrigger.vue'
+import UtensilTabsContent from '@gobistories/utensil-vue/components/tabs/UtensilTabsContent.vue'
 import { ReferenceTabsList } from '@/theme/components/ReferenceTabsList'
 </script>
 

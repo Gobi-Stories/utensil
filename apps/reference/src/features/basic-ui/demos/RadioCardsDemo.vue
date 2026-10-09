@@ -231,7 +231,7 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import UtensilRadioCardsDoc from 'utensil-vue/components/radio-cards/UtensilRadioCardsDoc.vue'
+import UtensilRadioCardsDoc from '@gobistories/utensil-vue/components/radio-cards/UtensilRadioCardsDoc.vue'
 import { ReferenceRadioCards } from '@/theme/components/ReferenceRadioCards'
 import { ReferenceRadioCard } from '@/theme/components/ReferenceRadioCard'
 import ReferenceComponentDemo from '@/features/components/ReferenceComponentDemo.vue'

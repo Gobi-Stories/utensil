@@ -73,9 +73,9 @@
 <script setup lang="ts">
 import { ref, onBeforeUnmount } from 'vue'
 import ReferenceComponentDemo from '@/features/components/ReferenceComponentDemo.vue'
-import UtensilSkeleton from 'utensil-vue/components/skeleton/UtensilSkeleton.vue'
-import UtensilSkeletonDoc from 'utensil-vue/components/skeleton/UtensilSkeletonDoc.vue'
-import UtensilButton from 'utensil-vue/components/button/UtensilButton.vue'
+import UtensilSkeleton from '@gobistories/utensil-vue/components/skeleton/UtensilSkeleton.vue'
+import UtensilSkeletonDoc from '@gobistories/utensil-vue/components/skeleton/UtensilSkeletonDoc.vue'
+import UtensilButton from '@gobistories/utensil-vue/components/button/UtensilButton.vue'
 
 const skeletonLoaded = ref(false)
 const skeletonLoading = ref(false)

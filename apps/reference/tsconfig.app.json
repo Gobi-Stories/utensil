@@ -16,10 +16,10 @@
       "@/*": [
         "./src/*"
       ],
-      "utensil-vue/*": [
+      "@gobistories/utensil-vue/*": [
         "../../packages/vue/src/*"
       ],
-      "utensil-css/*": [
+      "@gobistories/utensil-css/*": [
         "../../packages/css/src/*"
       ]
     }

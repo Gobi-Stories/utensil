@@ -1,16 +1,28 @@
-# utensil-css
+# @gobistories/utensil-css
+
+> [!WARNING]
+> **Internal and unsupported.** Utensil is built for Gobi Stories' own products. Until version 1.0.0 it is not an open
+> project: any release may make breaking changes, releases are not announced, and there is no support. Don't depend
+> on it.
 
 The Utensil CSS framework: a color system built on three instruments — **pen**, **pencil** and **paper** — plus
 scalable design tokens, light and dark mode, high contrast and reduced motion support, cascade layers and layout
 utilities. No framework required.
 
-For the Vue 3 theme layer and component library built on it, see [`utensil-vue`](https://www.npmjs.com/package/utensil-vue). It
-includes `utensil-css` and forwards its files, so Vue projects install `utensil-vue` alone.
+For the Vue 3 theme layer and component library built on it, see `@gobistories/utensil-vue`. It
+includes `@gobistories/utensil-css` and forwards its files, so Vue projects install `@gobistories/utensil-vue` alone.
 
 ## Install
 
+Utensil is published to its own registry, not to npmjs. Map the `@gobistories` scope to it in your project's
+`.npmrc` (npm, pnpm and Bun all read it). Installing needs no credentials.
+
+```ini
+@gobistories:registry=https://europe-west1-npm.pkg.dev/gobi-tron-production/npm/
+```
+
 ```bash
-npm install utensil-css
+npm install @gobistories/utensil-css
 ```
 
 ## Use
@@ -20,24 +32,25 @@ npm install utensil-css
 Import the layer order first, then the rest of the framework:
 
 ```ts
-import 'utensil-css/utensil-layers.css' // must load before any CSS that mentions the layers
-import 'utensil-css/theme/colors/gray.css'
-import 'utensil-css/theme/utensil-theme.css'
-import 'utensil-css/utensil-reset.css'
-import 'utensil-css/theme/text-themes.css'
-import 'utensil-css/utensil-utilities.css'
+import '@gobistories/utensil-css/utensil-layers.css' // must load before any CSS that mentions the layers
+import '@gobistories/utensil-css/theme/colors/gray.css'
+import '@gobistories/utensil-css/theme/utensil-theme.css'
+import '@gobistories/utensil-css/utensil-reset.css'
+import '@gobistories/utensil-css/theme/text-themes.css'
+import '@gobistories/utensil-css/utensil-utilities.css'
 ```
 
 Or import everything at once:
 
 ```ts
-import 'utensil-css/utensil.css'
+import '@gobistories/utensil-css/utensil.css'
 ```
 
 ### In plain HTML
 
 ```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/utensil-css/dist/utensil.min.css" />
+<!-- utensil.min.css copied from node_modules/@gobistories/utensil-css/dist/ -->
+<link rel="stylesheet" href="/utensil.min.css" />
 <link rel="stylesheet" href="/colors/blue.css" />
 
 <body class="utensil-calculate utensil-mode blue-pen gray-pencil">
@@ -71,15 +84,15 @@ Scale a section of UI with `--scale`:
 
 ## Files
 
-| Import                                | Contents                                                       |
-| ------------------------------------- | -------------------------------------------------------------- |
-| `utensil-css/utensil-layers.css`      | Cascade layer order: `@layer utensil, app, utensil-utilities;` |
-| `utensil-css/theme/utensil-theme.css` | Mode colors, design tokens, UI variations, theme states        |
-| `utensil-css/theme/colors/gray.css`   | The base gray color scale                                      |
-| `utensil-css/theme/text-themes.css`   | `ui` and `content` text themes                                 |
-| `utensil-css/utensil-reset.css`       | Element reset                                                  |
-| `utensil-css/utensil-utilities.css`   | Flex, spacing and shadow utility classes                       |
-| `utensil-css/utensil.css`             | All of the above, in order (`utensil.min.css` minified)        |
+| Import                                             | Contents                                                       |
+| -------------------------------------------------- | -------------------------------------------------------------- |
+| `@gobistories/utensil-css/utensil-layers.css`      | Cascade layer order: `@layer utensil, app, utensil-utilities;` |
+| `@gobistories/utensil-css/theme/utensil-theme.css` | Mode colors, design tokens, UI variations, theme states        |
+| `@gobistories/utensil-css/theme/colors/gray.css`   | The base gray color scale                                      |
+| `@gobistories/utensil-css/theme/text-themes.css`   | `ui` and `content` text themes                                 |
+| `@gobistories/utensil-css/utensil-reset.css`       | Element reset                                                  |
+| `@gobistories/utensil-css/utensil-utilities.css`   | Flex, spacing and shadow utility classes                       |
+| `@gobistories/utensil-css/utensil.css`             | All of the above, in order (`utensil.min.css` minified)        |
 
 ## Generate color scales
 
@@ -94,14 +107,14 @@ npx utensil-generate-color # without arguments, prints the options (paper anchor
 The generator runs on Node. It is also available in code:
 
 ```ts
-import { generateColorCss } from 'utensil-css/colors/generate-css'
+import { generateColorCss } from '@gobistories/utensil-css/colors/generate-css'
 
 const css = generateColorCss('blue', '#0093ee')
 ```
 
 ## Documentation
 
-The full guides ship with `utensil-vue` in `docs/`: `USAGE.md` covers the color system, tokens, layers and utilities,
+The full guides ship with `@gobistories/utensil-vue` in `docs/`: `USAGE.md` covers the color system, tokens, layers and utilities,
 and `SETUP.md` covers building a theme.
 
 ## License

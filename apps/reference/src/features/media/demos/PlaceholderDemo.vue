@@ -68,8 +68,8 @@
 </template>
 
 <script setup lang="ts">
-import UtensilPlaceholder from 'utensil-vue/components/media/UtensilPlaceholder.vue'
-import UtensilPlaceholderDoc from 'utensil-vue/components/media/UtensilPlaceholderDoc.vue'
+import UtensilPlaceholder from '@gobistories/utensil-vue/components/media/UtensilPlaceholder.vue'
+import UtensilPlaceholderDoc from '@gobistories/utensil-vue/components/media/UtensilPlaceholderDoc.vue'
 import ReferenceComponentDemo from '@/features/components/ReferenceComponentDemo.vue'
 </script>
 

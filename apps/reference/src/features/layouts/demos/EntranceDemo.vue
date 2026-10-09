@@ -74,8 +74,8 @@
 
 <script setup lang="ts">
 import { nextTick, ref } from 'vue'
-import UtensilEntrance, { type EntranceSpeed } from 'utensil-vue/components/entrance/UtensilEntrance.vue'
-import UtensilEntranceDoc from 'utensil-vue/components/entrance/UtensilEntranceDoc.vue'
+import UtensilEntrance, { type EntranceSpeed } from '@gobistories/utensil-vue/components/entrance/UtensilEntrance.vue'
+import UtensilEntranceDoc from '@gobistories/utensil-vue/components/entrance/UtensilEntranceDoc.vue'
 import { ReferenceButton } from '@/theme/components/ReferenceButton'
 import ReferenceComponentDemo from '@/features/components/ReferenceComponentDemo.vue'
 

@@ -16,9 +16,9 @@
 </template>
 
 <script setup lang="ts">
-import UtensilPopoverPanel from 'utensil-vue/components/popover/UtensilPopoverPanel.vue'
-import UtensilButton from 'utensil-vue/components/button/UtensilButton.vue'
-import type { PopoverPlacement } from 'utensil-vue/components/popover/utensil-popover'
+import UtensilPopoverPanel from '@gobistories/utensil-vue/components/popover/UtensilPopoverPanel.vue'
+import UtensilButton from '@gobistories/utensil-vue/components/button/UtensilButton.vue'
+import type { PopoverPlacement } from '@gobistories/utensil-vue/components/popover/utensil-popover'
 
 const placements: PopoverPlacement[] = [
   'top-start',

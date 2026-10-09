@@ -11,7 +11,7 @@
 <script setup lang="ts">
 import AcmeThemeRoot from './acme-theme/AcmeThemeRoot.vue'
 import { AcmeButton } from './acme-theme/components/AcmeButton'
-import { useUserThemePreferences } from 'utensil-vue/theme/useUserThemePreferences'
+import { useUserThemePreferences } from '@gobistories/utensil-vue/theme/useUserThemePreferences'
 
 const { mode, toggleThemeMode } = useUserThemePreferences()
 </script>

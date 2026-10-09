@@ -4,7 +4,7 @@ import type {
   UtensilTextThemes,
   UtensilVariants,
   VariantMap,
-} from 'utensil-vue/theme/utensil-theme'
+} from '@gobistories/utensil-vue/theme/utensil-theme'
 import type { AcmeIcons } from './acme-icons'
 
 interface AcmeColors extends UtensilColors {

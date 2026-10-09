@@ -136,8 +136,8 @@
 </template>
 
 <script setup lang="ts">
-import UtensilToastDoc from 'utensil-vue/components/toast/UtensilToastDoc.vue'
-import UtensilButton from 'utensil-vue/components/button/UtensilButton.vue'
+import UtensilToastDoc from '@gobistories/utensil-vue/components/toast/UtensilToastDoc.vue'
+import UtensilButton from '@gobistories/utensil-vue/components/button/UtensilButton.vue'
 import { ReferenceButton } from '@/theme/components/ReferenceButton'
 import ReferenceComponentDemo from '@/features/components/ReferenceComponentDemo.vue'
 import { toasts } from '@/app/reference-toast'

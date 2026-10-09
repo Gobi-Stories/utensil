@@ -6,7 +6,7 @@ argument-hint: <ComponentName> <description>
 
 # Implement Utensil Component
 
-Create a production-grade Utensil component in `utensil-vue`.
+Create a production-grade Utensil component in `@gobistories/utensil-vue`.
 
 First confirm the answer to these questions:
 @../../QUESTIONS.md
@@ -35,7 +35,7 @@ Read and follow the Utensil component guide for all component patterns, conventi
 @../../../docs/DEVELOPMENT-ADDENDUM.md
 @../../../docs/STANDARDS.md
 
-Every component is a public module of `utensil-vue`: consumers import it directly as `utensil-vue/components/<feature>/Utensil<Name>.vue`, so the file path, root class, cvars and exported types are public API from the moment it ships.
+Every component is a public module of `@gobistories/utensil-vue`: consumers import it directly as `@gobistories/utensil-vue/components/<feature>/Utensil<Name>.vue`, so the file path, root class, cvars and exported types are public API from the moment it ships.
 
 ## Step 3: Implement a test
 

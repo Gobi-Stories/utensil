@@ -94,8 +94,8 @@
 </template>
 
 <script setup lang="ts">
-import UtensilAvatarStack from 'utensil-vue/components/avatar/UtensilAvatarStack.vue'
-import UtensilAvatarStackDoc from 'utensil-vue/components/avatar/UtensilAvatarStackDoc.vue'
+import UtensilAvatarStack from '@gobistories/utensil-vue/components/avatar/UtensilAvatarStack.vue'
+import UtensilAvatarStackDoc from '@gobistories/utensil-vue/components/avatar/UtensilAvatarStackDoc.vue'
 import { ReferenceAvatar } from '@/theme/components/ReferenceAvatar'
 import { ReferenceStackedAvatar } from '@/theme/components/ReferenceStackedAvatar'
 import ReferenceComponentDemo from '@/features/components/ReferenceComponentDemo.vue'

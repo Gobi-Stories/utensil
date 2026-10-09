@@ -1,19 +1,22 @@
 ---
 name: release
-description: Walk the maintainer through releasing utensil-css and utensil-vue to npm, step by step
+description: Walk the maintainer through releasing @gobistories/utensil-css and @gobistories/utensil-vue to Utensil's registry, step by step
 argument-hint: '[patch | minor | major | x.y.z]'
 disable-model-invocation: true
 ---
 
 # Release
 
-Walk the maintainer through a release of `utensil-css` and `utensil-vue`. They share one version and are released
-together. Invoking this skill is the maintainer's explicit request to release.
+Walk the maintainer through a release of `@gobistories/utensil-css` and `@gobistories/utensil-vue`. They share one
+version and are released together, to Utensil's npm repository in Google Artifact Registry (`DEVELOPMENT.md` →
+Releasing). Invoking this skill is the maintainer's explicit request to release.
 
 You do the local work: checks, the release script, review, the release commit and tag. The maintainer does everything
 that leaves this machine: `npm publish`, `git push`, a GitHub release. Never run those yourself. At each hand-off,
 give the exact commands in a code block, say what to expect, and wait for the maintainer to say it's done before
 going on. Keep each message to the current step.
+
+The registry, used below as `<registry>`, is `https://europe-west1-npm.pkg.dev/gobi-tron-production/npm/`.
 
 ## 1. Check the starting point
 
@@ -25,7 +28,9 @@ git describe --tags --abbrev=0
 
 - The tree must be clean and on `main`, level with `origin/main`. If `main` is ahead, the unpushed commits will be
   part of this release: list them and confirm. If it's behind, stop and ask the maintainer to pull.
-- Check npm: `npm whoami` (logged in) and `npm --version`. If not logged in, hand over `npm login`.
+- If `git fetch` fails for want of an SSH key, hand it over as `! git fetch`, which runs in the maintainer's shell.
+- Check gcloud: `gcloud config get-value account` names the maintainer's Google account. If it's empty, hand over
+  `gcloud auth login`.
 
 ## 2. Choose the version
 
@@ -35,12 +40,22 @@ List what has changed since the last release tag, in user-facing terms:
 git log --oneline <last tag>..HEAD
 ```
 
-Propose the bump from the changes, unless the argument already names one:
+Propose the bump from the changes, unless the argument already names one. What a breaking change is: anything that
+breaks a consumer (`.claude/CLAUDE.md` → Consumer Compatibility), such as a removed or renamed module path, export,
+prop, event, slot, root class, cvar, or `@gobistories/utensil-css` class, layer or token.
 
-- **major** — anything breaking for consumers (`.claude/CLAUDE.md` → Consumer Compatibility): a removed or renamed
-  module path, export, prop, event, slot, root class, cvar, or utensil-css class, layer or token.
+Below 1.0.0, while Utensil is closed:
+
+- **minor** — anything breaking.
+- **patch** — everything else: new components, props, slots, exports, tokens or skills, fixes, docs and skill text.
+
+From 1.0.0, once Utensil is open source:
+
+- **major** — anything breaking.
 - **minor** — new components, props, slots, exports, tokens or skills.
 - **patch** — fixes, docs and skill text only.
+
+Never propose 1.0.0 yourself: it marks the open sourcing, and is the maintainer's call.
 
 Draft short release notes grouped as Breaking, Added, Fixed and Docs/skills, and confirm the version with the
 maintainer before going on.
@@ -58,14 +73,15 @@ version bump with `git checkout -- .` once the maintainer agrees.
 ## 4. Review the tarballs
 
 ```bash
-tar -xOzf temp/release/utensil-vue-<v>.tgz package/package.json | grep -E '"(version|utensil-css)"'
-tar -tzf temp/release/utensil-vue-<v>.tgz | grep -cE '^package/(dist|src|docs|skills)/'
-tar -tzf temp/release/utensil-vue-<v>.tgz | grep -c '\.test\.ts$'   # 0
-tar -tzf temp/release/utensil-css-<v>.tgz | head -20
+tar -xOzf temp/release/gobistories-utensil-vue-<v>.tgz package/package.json | grep -E '"(version|@gobistories/utensil-css|registry)"'
+tar -tzf temp/release/gobistories-utensil-vue-<v>.tgz | grep -cE '^package/(dist|src|docs|skills)/'
+tar -tzf temp/release/gobistories-utensil-vue-<v>.tgz | grep -c '\.test\.ts$'   # 0
+tar -tzf temp/release/gobistories-utensil-css-<v>.tgz | head -20
 ```
 
-Confirm both are at the new version, `utensil-vue` depends on exactly `utensil-css@<v>`, and the shipped folders are
-present (`dist`, `src`, `docs`, `skills` for vue; no tests). Summarise the check to the maintainer.
+Confirm both are at the new version, `@gobistories/utensil-vue` depends on exactly `@gobistories/utensil-css@<v>`,
+`publishConfig.registry` is `<registry>`, and the shipped folders are present (`dist`, `src`, `docs`, `skills` for
+vue; no tests). Summarise the check to the maintainer.
 
 ## 5. Commit and tag
 
@@ -73,34 +89,34 @@ present (`dist`, `src`, `docs`, `skills` for vue; no tests). Summarise the check
 git commit -am "repo: release: <v>" && git tag v<v>
 ```
 
-## 6. Hand over: publish to npm
+## 6. Hand over: publish
 
-`utensil-css` first: `utensil-vue` depends on it.
+`@gobistories/utensil-css` first: `@gobistories/utensil-vue` depends on it.
 
 ```bash
-npm publish temp/release/utensil-css-<v>.tgz
-npm publish temp/release/utensil-vue-<v>.tgz
+env -u GOOGLE_APPLICATION_CREDENTIALS npx google-artifactregistry-auth
+npm publish temp/release/gobistories-utensil-css-<v>.tgz
+npm publish temp/release/gobistories-utensil-vue-<v>.tgz
 ```
 
-Tell the maintainer to expect a two-factor confirmation for each publish (a browser prompt, or a one-time code, which
-can also be passed as `--otp=<code>`).
+The first command writes a short-lived token for the maintainer's Google account to `~/.npmrc`; it expires after about
+an hour, so run it right before publishing. It runs without `GOOGLE_APPLICATION_CREDENTIALS` because the tool prefers
+that variable's service account over the gcloud login. Each publish should end with
+`+ @gobistories/utensil-<css|vue>@<v>`, and `publishConfig` sends it to `<registry>`.
 
-**Publishing takes time. Expect to wait several minutes** after each `npm publish` before the release is complete and
-visible on the registry. Tell the maintainer this up front: let each command finish, and don't treat the wait as a
-failure or retry the publish (npm refuses a version that is already published). Wait for them to confirm both are
+A 403 naming `artifactregistry.repositories.uploadArtifacts` means the token belongs to an account without write access
+to the repository: check which account the token was made for before anything else. Don't retry a publish that
+succeeded: the registry refuses a version that is already published. Wait for the maintainer to confirm both are
 published.
 
 ## 7. Verify the publish
 
-Give the registry those minutes before checking:
-
 ```bash
-npm view utensil-css@<v> version
-npm view utensil-vue@<v> version dependencies
+npm view @gobistories/utensil-css@<v> version --registry <registry>
+npm view @gobistories/utensil-vue@<v> version dependencies --registry <registry>
 ```
 
-A 404 here usually means the publish hasn't finished propagating, not that it failed. Tell the maintainer, wait a few
-minutes, and try again. Only treat it as a problem if it persists well beyond that.
+Without `--registry`, npm asks npmjs, where the packages aren't published, and returns a 404.
 
 ## 8. Hand over: push
 
@@ -118,15 +134,14 @@ Offer to write the notes file (in `temp/`, which is gitignored).
 
 ## 9. Wrap up
 
-Summarise: the version, what shipped, and that consumers pick it up by bumping `utensil-vue` and re-running
-skills-npm if the skills changed.
+Summarise: the version, what shipped, and that consumers pick it up by bumping `@gobistories/utensil-vue` and
+re-running skills-npm if the skills changed.
 
 ## If something goes wrong
 
-- **Only `utensil-css` published.** Publish `utensil-vue` once the problem is fixed; the css release is harmless on
-  its own.
-- **A published version is broken.** npm versions are immutable and can't be published again. Fix forward with a
-  patch release, and have the maintainer mark the bad one:
-  `npm deprecate utensil-vue@<v> "Broken release, use <next>"` (and the same for `utensil-css` if needed).
+- **Only `@gobistories/utensil-css` published.** Publish `@gobistories/utensil-vue` once the problem is fixed; the
+  css release is harmless on its own.
+- **A published version is broken.** Fix forward with a patch release. Don't delete the bad version: consumers whose
+  lockfile records it would fail to install.
 - **Committed and tagged, but nothing published.** Nothing has left the machine. The tag and commit can be fixed
   locally (`git tag -d v<v>`, then amend) before trying again.

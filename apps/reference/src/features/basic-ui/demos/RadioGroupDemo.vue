@@ -197,7 +197,7 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import UtensilRadioGroupDoc from 'utensil-vue/components/radio-group/UtensilRadioGroupDoc.vue'
+import UtensilRadioGroupDoc from '@gobistories/utensil-vue/components/radio-group/UtensilRadioGroupDoc.vue'
 import { ReferenceRadioGroup } from '@/theme/components/ReferenceRadioGroup'
 import { ReferenceRadioGroupButton } from '@/theme/components/ReferenceRadioGroupButton'
 import ReferenceComponentDemo from '@/features/components/ReferenceComponentDemo.vue'

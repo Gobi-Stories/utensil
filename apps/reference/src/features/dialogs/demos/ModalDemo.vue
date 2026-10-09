@@ -98,9 +98,9 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import UtensilModal from 'utensil-vue/components/dialogs/UtensilModal.vue'
-import UtensilModalDoc from 'utensil-vue/components/dialogs/UtensilModalDoc.vue'
-import UtensilButton from 'utensil-vue/components/button/UtensilButton.vue'
+import UtensilModal from '@gobistories/utensil-vue/components/dialogs/UtensilModal.vue'
+import UtensilModalDoc from '@gobistories/utensil-vue/components/dialogs/UtensilModalDoc.vue'
+import UtensilButton from '@gobistories/utensil-vue/components/button/UtensilButton.vue'
 import ReferenceComponentDemo from '@/features/components/ReferenceComponentDemo.vue'
 
 const basicModal = ref(false)

@@ -1,5 +1,5 @@
 {
-  "name": "utensil-css",
+  "name": "@gobistories/utensil-css",
   "version": "1.0.2",
   "description": "Utensil CSS framework: pen, pencil and paper color instruments, scalable design tokens, cascade layers, utilities and a color scale generator.",
   "license": "MIT",
@@ -12,6 +12,9 @@
   "homepage": "https://github.com/Gobi-Stories/utensil/tree/main/packages/css#readme",
   "bugs": {
     "url": "https://github.com/Gobi-Stories/utensil/issues"
+  },
+  "publishConfig": {
+    "registry": "https://europe-west1-npm.pkg.dev/gobi-tron-production/npm/"
   },
   "type": "module",
   "keywords": [

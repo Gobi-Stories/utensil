@@ -8,8 +8,8 @@ import {
   resolveTextContrast,
   type PaperOptions,
   type TextContrast,
-} from 'utensil-css/colors/generate-colors'
-import type { ColorBackgrounds } from 'utensil-css/colors/generate-css'
+} from '@gobistories/utensil-css/colors/generate-colors'
+import type { ColorBackgrounds } from '@gobistories/utensil-css/colors/generate-css'
 import { DebouncerEnd } from '../lib/debouncer/debouncer-end'
 import type { RadiusScaleProp } from '../theme/utensil-theme'
 

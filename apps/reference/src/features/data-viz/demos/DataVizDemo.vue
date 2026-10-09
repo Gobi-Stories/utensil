@@ -98,8 +98,8 @@
 </template>
 
 <script setup lang="ts">
-import UtensilDataViz from 'utensil-vue/components/data-viz/UtensilDataViz.vue'
-import UtensilDataVizDoc from 'utensil-vue/components/data-viz/UtensilDataVizDoc.vue'
+import UtensilDataViz from '@gobistories/utensil-vue/components/data-viz/UtensilDataViz.vue'
+import UtensilDataVizDoc from '@gobistories/utensil-vue/components/data-viz/UtensilDataVizDoc.vue'
 import ReferenceComponentDemo from '@/features/components/ReferenceComponentDemo.vue'
 import { monthLabels, singleSeries } from '../chart-data'
 

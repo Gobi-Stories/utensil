@@ -26,7 +26,7 @@ import { ref, computed, watch } from 'vue'
 import { ReferenceAudioEqualizer } from '@/theme/components/ReferenceAudioEqualizer'
 import { ReferenceRadioGroup } from '@/theme/components/ReferenceRadioGroup'
 import { ReferenceRadioGroupButton } from '@/theme/components/ReferenceRadioGroupButton'
-import type { AudioBand } from 'utensil-vue/components/audio-equalizer/audio-equalizer'
+import type { AudioBand } from '@gobistories/utensil-vue/components/audio-equalizer/audio-equalizer'
 
 const bands: AudioBand[] = [
   { label: 'Bass' },

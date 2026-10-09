@@ -20,10 +20,15 @@
 </template>
 
 <script setup lang="ts">
-import UtensilThemeRoot from 'utensil-vue/theme/UtensilThemeRoot.vue'
+import UtensilThemeRoot from '@gobistories/utensil-vue/theme/UtensilThemeRoot.vue'
 // After UtensilThemeRoot so the reference CSS loads after the Utensil base CSS and wins specificity ties
 import './reference-css-include'
-import type { RadiusScaleProp, ThemeContrast, ThemeMode, ThemeReducedMotion } from 'utensil-vue/theme/utensil-theme'
+import type {
+  RadiusScaleProp,
+  ThemeContrast,
+  ThemeMode,
+  ThemeReducedMotion,
+} from '@gobistories/utensil-vue/theme/utensil-theme'
 import {
   referenceDefaultPen,
   referenceDefaultPencil,
@@ -32,7 +37,7 @@ import {
   referenceVariantMap,
 } from './reference-theme'
 import { referenceIconMap } from './reference-icons'
-import { useUtensilIcons } from 'utensil-vue/components/icon/use-utensil-icons'
+import { useUtensilIcons } from '@gobistories/utensil-vue/components/icon/use-utensil-icons'
 
 defineProps<{
   mode?: ThemeMode

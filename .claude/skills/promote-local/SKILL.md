@@ -1,14 +1,14 @@
 ---
 name: promote-local
-description: Promote a consumer project's local Utensil work (new components, wrappers, vendored fixes) into utensil-vue
+description: Promote a consumer project's local Utensil work (new components, wrappers, vendored fixes) into @gobistories/utensil-vue
 argument-hint: <path> [ComponentOrComposable ...]
 ---
 
 # Promote Local Utensil Work
 
 A consumer that needs something Utensil doesn't have yet doesn't wait for a release: it builds it in a local folder of
-its own, written as Utensil code. Promoting brings that work into `utensil-vue`, so that once it's released the
-consumer switches its imports to `utensil-vue/...` and deletes its local copies.
+its own, written as Utensil code. Promoting brings that work into `@gobistories/utensil-vue`, so that once it's released the
+consumer switches its imports to `@gobistories/utensil-vue/...` and deletes its local copies.
 
 The consumer doesn't take the release automatically. Its local copies keep working until it chooses to upgrade, and
 when it does it updates its package, its local folder and its own code that uses them, adapting that code to any
@@ -38,7 +38,7 @@ as `use-<name>.ts`):
 | ------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------- |
 | `components/` | New components and composables                                                                                                                                                    | A new component or composable at the mirrored path        |
 | `wrappers/`   | A wrapper with the name of the Utensil component or composable it wraps, importing the original aliased (`BaseUtensilButton`) and adding props, slots, slot scope or context      | The additions, made in the component or composable itself |
-| `fixed/`      | A vendored copy, changed: a fix, or an addition a wrapper couldn't reach. A header comment names the `utensil-vue` version it was copied from (`Vendored from utensil-vue 1.0.2`) | The changes, made in the current component or composable  |
+| `fixed/`      | A vendored copy, changed: a fix, or an addition a wrapper couldn't reach. A header comment names the `@gobistories/utensil-vue` version it was copied from (`Vendored from @gobistories/utensil-vue 1.0.2`) | The changes, made in the current component or composable  |
 
 Classify each item by what its code shows, not only by where it sits. An item is a component or composable's folder
 (`components/box/`, `fixed/deck/`): the component or composable, its test and `<Name>Doc.vue`, and every other file
@@ -102,7 +102,7 @@ Changes):
   defaults, and the behaviour behind them (a preset resolved into the base's props is the component's own logic
   once promoted).
 - **Vendored** — what the copy changes, found by diffing it against the original at the version its header names:
-  `git show v<version>:packages/vue/src/<path>`. Point its `utensil-vue/...` imports back at relative paths first,
+  `git show v<version>:packages/vue/src/<path>`. Point its `@gobistories/utensil-vue/...` imports back at relative paths first,
   and ignore the vendoring header. With no version named, diff against the current source and judge which side each
   difference comes from: Utensil may have moved on since the copy.
 
@@ -132,7 +132,7 @@ Then follow each item's PR notes. Promote only changes evaluated as to promote; 
 Keep the consumer's API as its code uses it by default: module paths, names, props, events, slots and slot scope,
 defaults, root classes and cvars. Always change what makes the code this repository's:
 
-- Imports of `utensil-vue/...` become relative paths within the package.
+- Imports of `@gobistories/utensil-vue/...` become relative paths within the package.
 - Remove the vendoring and wrapping header comments, and anything about the consumer: its name, theme, features and
   copy. Tests and docs use a test theme of Utensil's own, not the consumer's (`docs/DEVELOPMENT-ADDENDUM.md` → Theme
   Colors).
@@ -176,7 +176,7 @@ bump versions or release: the promotion goes out in the next release on the main
 - **Breaking** — anything breaking, worded for the release notes.
 - **Audit** — recommendations not made, and why: outside the promoted work, or breaking for other consumers.
 - **Switching over** — for the consumer, whenever it chooses to upgrade to a release that includes the promotion:
-  each local import and the `utensil-vue/...` path that replaces it, the local files to delete, and the notes'
+  each local import and the `@gobistories/utensil-vue/...` path that replaces it, the local files to delete, and the notes'
   switching-over steps. Beyond imports, list every usage the consumer must rewrite: each covered change, to what
   covers it, and each change the promotion made to the consumer's API or behaviour, from what to what. Or say there
   are none.

@@ -26,7 +26,7 @@
 import { ref } from 'vue'
 import { ReferenceAudioEqualizer } from '@/theme/components/ReferenceAudioEqualizer'
 import ReferenceComponentDemo from '@/features/components/ReferenceComponentDemo.vue'
-import UtensilAudioEqualizerDoc from 'utensil-vue/components/audio-equalizer/UtensilAudioEqualizerDoc.vue'
+import UtensilAudioEqualizerDoc from '@gobistories/utensil-vue/components/audio-equalizer/UtensilAudioEqualizerDoc.vue'
 
 const eqBands = ref([0, 0, 0, 0, 0])
 </script>

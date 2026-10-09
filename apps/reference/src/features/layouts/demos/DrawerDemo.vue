@@ -79,9 +79,9 @@
 
 <script setup lang="ts">
 import { useTemplateRef } from 'vue'
-import UtensilDrawer from 'utensil-vue/components/drawer/UtensilDrawer.vue'
-import UtensilDrawerDoc from 'utensil-vue/components/drawer/UtensilDrawerDoc.vue'
-import UtensilButton from 'utensil-vue/components/button/UtensilButton.vue'
+import UtensilDrawer from '@gobistories/utensil-vue/components/drawer/UtensilDrawer.vue'
+import UtensilDrawerDoc from '@gobistories/utensil-vue/components/drawer/UtensilDrawerDoc.vue'
+import UtensilButton from '@gobistories/utensil-vue/components/button/UtensilButton.vue'
 import ReferenceComponentDemo from '@/features/components/ReferenceComponentDemo.vue'
 
 const drawerDemoContainer = useTemplateRef('drawerDemoContainer')

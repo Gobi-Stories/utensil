@@ -77,8 +77,8 @@
 import { ref } from 'vue'
 import ReferenceComponentDemo from '@/features/components/ReferenceComponentDemo.vue'
 import { ReferenceSpinnerOverlay } from '@/theme/components/ReferenceSpinnerOverlay'
-import UtensilSpinnerOverlayDoc from 'utensil-vue/components/spinner/UtensilSpinnerOverlayDoc.vue'
-import UtensilButton from 'utensil-vue/components/button/UtensilButton.vue'
+import UtensilSpinnerOverlayDoc from '@gobistories/utensil-vue/components/spinner/UtensilSpinnerOverlayDoc.vue'
+import UtensilButton from '@gobistories/utensil-vue/components/button/UtensilButton.vue'
 
 const overlayDemo1 = ref(false)
 const overlayDemo2 = ref(false)

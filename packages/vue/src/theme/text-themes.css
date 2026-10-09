@@ -1,2 +1,2 @@
-/* Forwards theme/text-themes.css, so Vue projects only depend on utensil-vue. */
-@import 'utensil-css/theme/text-themes.css';
+/* Forwards theme/text-themes.css, so Vue projects only depend on @gobistories/utensil-vue. */
+@import '@gobistories/utensil-css/theme/text-themes.css';

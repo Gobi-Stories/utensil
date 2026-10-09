@@ -39,7 +39,7 @@
     <h3>Composable Form</h3>
     <pre
       v-pre
-    ><code>import { provideReorderableGroup } from 'utensil-vue/components/reorderable-list/utensil-reorderable-list'
+    ><code>import { provideReorderableGroup } from '@gobistories/utensil-vue/components/reorderable-list/utensil-reorderable-list'
 
 // In a common ancestor's setup
 provideReorderableGroup()</code></pre>

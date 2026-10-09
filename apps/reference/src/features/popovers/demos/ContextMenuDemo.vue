@@ -67,15 +67,15 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import UtensilContextMenu from 'utensil-vue/components/context-menu/UtensilContextMenu.vue'
-import UtensilContextMenuArea from 'utensil-vue/components/context-menu/UtensilContextMenuArea.vue'
-import UtensilContextMenuAreaDoc from 'utensil-vue/components/context-menu/UtensilContextMenuAreaDoc.vue'
-import UtensilContextMenuDoc from 'utensil-vue/components/context-menu/UtensilContextMenuDoc.vue'
+import UtensilContextMenu from '@gobistories/utensil-vue/components/context-menu/UtensilContextMenu.vue'
+import UtensilContextMenuArea from '@gobistories/utensil-vue/components/context-menu/UtensilContextMenuArea.vue'
+import UtensilContextMenuAreaDoc from '@gobistories/utensil-vue/components/context-menu/UtensilContextMenuAreaDoc.vue'
+import UtensilContextMenuDoc from '@gobistories/utensil-vue/components/context-menu/UtensilContextMenuDoc.vue'
 import ReferenceComponentDemo from '@/features/components/ReferenceComponentDemo.vue'
 import { ReferenceMenuItem as UtensilMenuItem } from '@/theme/components/ReferenceMenuItem'
-import UtensilMenuDivider from 'utensil-vue/components/menu/UtensilMenuDivider.vue'
-import UtensilButton from 'utensil-vue/components/button/UtensilButton.vue'
-import UtensilBadge from 'utensil-vue/components/badge/UtensilBadge.vue'
+import UtensilMenuDivider from '@gobistories/utensil-vue/components/menu/UtensilMenuDivider.vue'
+import UtensilButton from '@gobistories/utensil-vue/components/button/UtensilButton.vue'
+import UtensilBadge from '@gobistories/utensil-vue/components/badge/UtensilBadge.vue'
 import { ReferenceIcon } from '@/theme/components/ReferenceIcon'
 
 const customItemRef = ref<HTMLElement>()

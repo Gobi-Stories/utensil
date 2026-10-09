@@ -80,9 +80,9 @@
 </template>
 
 <script setup lang="ts">
-import UtensilNullData from 'utensil-vue/components/null-data/UtensilNullData.vue'
-import UtensilNullDataDoc from 'utensil-vue/components/null-data/UtensilNullDataDoc.vue'
-import UtensilButton from 'utensil-vue/components/button/UtensilButton.vue'
+import UtensilNullData from '@gobistories/utensil-vue/components/null-data/UtensilNullData.vue'
+import UtensilNullDataDoc from '@gobistories/utensil-vue/components/null-data/UtensilNullDataDoc.vue'
+import UtensilButton from '@gobistories/utensil-vue/components/button/UtensilButton.vue'
 import ReferenceComponentDemo from '@/features/components/ReferenceComponentDemo.vue'
 import { toasts } from '@/app/reference-toast'
 

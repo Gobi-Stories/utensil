@@ -14,9 +14,9 @@ const entry = Object.fromEntries(
   sources.map((file) => [file.replace(/^src\//, '').replace(/\.ts$/, ''), file]),
 )
 
-// utensil-css stays external, except `?inline` CSS imports, which are inlined as strings at build
+// @gobistories/utensil-css stays external, except `?inline` CSS imports, which are inlined as strings at build
 // time so utensil-css-inline works with any bundler.
-const external = [/^vue$/, /^@vue\//, /^@fortawesome\//, /^utensil-css(\/[^?]*)?$/]
+const external = [/^vue$/, /^@vue\//, /^@fortawesome\//, /^@gobistories\/utensil-css(\/[^?]*)?$/]
 
 export default defineConfig({
   plugins: [vue(), libInjectCss()],
@@ -34,7 +34,7 @@ export default defineConfig({
       output: {
         preserveModules: true,
         preserveModulesRoot: 'src',
-        // Inlined utensil-css strings sit outside src; keep them together under _inline/.
+        // Inlined @gobistories/utensil-css strings sit outside src; keep them together under _inline/.
         entryFileNames: (chunk) => chunk.name.replace(/^css\/src\//, '_inline/') + '.js',
         chunkFileNames: '_chunks/[name].js',
         assetFileNames: '[name][extname]',

@@ -40,8 +40,8 @@
 </template>
 
 <script setup lang="ts">
-import UtensilMediaBadge from 'utensil-vue/components/media-badge/UtensilMediaBadge.vue'
-import UtensilMediaBadgeDoc from 'utensil-vue/components/media-badge/UtensilMediaBadgeDoc.vue'
+import UtensilMediaBadge from '@gobistories/utensil-vue/components/media-badge/UtensilMediaBadge.vue'
+import UtensilMediaBadgeDoc from '@gobistories/utensil-vue/components/media-badge/UtensilMediaBadgeDoc.vue'
 import ReferenceComponentDemo from '@/features/components/ReferenceComponentDemo.vue'
 </script>
 

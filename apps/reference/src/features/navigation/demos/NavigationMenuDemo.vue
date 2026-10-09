@@ -80,10 +80,10 @@
 </template>
 
 <script setup lang="ts">
-import UtensilNavigationMenu from 'utensil-vue/components/navigation-menu/UtensilNavigationMenu.vue'
-import UtensilNavigationMenuDoc from 'utensil-vue/components/navigation-menu/UtensilNavigationMenuDoc.vue'
-import UtensilNavigationMenuItem from 'utensil-vue/components/navigation-menu/UtensilNavigationMenuItem.vue'
-import UtensilNavigationMenuLink from 'utensil-vue/components/navigation-menu/UtensilNavigationMenuLink.vue'
+import UtensilNavigationMenu from '@gobistories/utensil-vue/components/navigation-menu/UtensilNavigationMenu.vue'
+import UtensilNavigationMenuDoc from '@gobistories/utensil-vue/components/navigation-menu/UtensilNavigationMenuDoc.vue'
+import UtensilNavigationMenuItem from '@gobistories/utensil-vue/components/navigation-menu/UtensilNavigationMenuItem.vue'
+import UtensilNavigationMenuLink from '@gobistories/utensil-vue/components/navigation-menu/UtensilNavigationMenuLink.vue'
 import ReferenceComponentDemo from '@/features/components/ReferenceComponentDemo.vue'
 
 function handleLinkSelect(event: Event) {

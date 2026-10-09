@@ -2,9 +2,9 @@
 
 Utensil is a design system published as two npm packages, with a reference app and an AI harness:
 
-- `packages/css` — **utensil-css**: the framework-agnostic CSS (cascade layers, reset, pen/pencil/paper color theme, scalable tokens, text themes, utilities), the color scale generator (`src/colors/`) and the `utensil-generate-color` CLI (`src/bin/`)
-- `packages/vue` — **utensil-vue**: the Vue 3 theme layer (`src/theme/`), components (`src/components/`), composables, lib utilities and theme editor; its docs (`docs/`) and the consumer skills (`skills/`) ship in the package
-- `apps/reference` — the reference app showcasing every component; it imports the packages as a consumer does (`utensil-vue/...`, `utensil-css/...`)
+- `packages/css` — **@gobistories/utensil-css**: the framework-agnostic CSS (cascade layers, reset, pen/pencil/paper color theme, scalable tokens, text themes, utilities), the color scale generator (`src/colors/`) and the `utensil-generate-color` CLI (`src/bin/`)
+- `packages/vue` — **@gobistories/utensil-vue**: the Vue 3 theme layer (`src/theme/`), components (`src/components/`), composables, lib utilities and theme editor; its docs (`docs/`) and the consumer skills (`skills/`) ship in the package
+- `apps/reference` — the reference app showcasing every component; it imports the packages as a consumer does (`@gobistories/utensil-vue/...`, `@gobistories/utensil-css/...`)
 - `fixtures/consumer` — a fresh consumer app used by `bun run verify:package` to test the packed tarballs
 - `.claude/` — this harness (maintainer skills); `docs/STANDARDS.md` — repository development standards
 
@@ -26,7 +26,14 @@ Importing a module must never do work: no I/O, listeners, timers or reactive eff
 
 ## Consumer Compatibility
 
-Both packages are used by other projects through npm. Everything a consumer can import or target is public API: module paths (`utensil-vue/components/<feature>/Utensil<Name>.vue`), exported names and types, props, events, slots, component root classes (`.utensil-<name>`), CSS cvars (`--utensil-<component>-*`), and utensil-css class, layer and token names. `utensil-vue` forwards every public `utensil-css` file at the same subpath (CSS `@import` forwards, generator re-exports, the CLI) so Vue apps depend on `utensil-vue` alone — add a forward when `utensil-css` gains a public file. Keep changes additive; call out anything breaking so it reaches the release notes. No barrel files — every module is a deep import so consumers can tree-shake.
+Both packages are used by other projects, installed from Utensil's own registry (`DEVELOPMENT.md` → Releasing). Everything a consumer can import or target is public API: module paths (`@gobistories/utensil-vue/components/<feature>/Utensil<Name>.vue`), exported names and types, props, events, slots, component root classes (`.utensil-<name>`), CSS cvars (`--utensil-<component>-*`), and `@gobistories/utensil-css` class, layer and token names. `@gobistories/utensil-vue` forwards every public `@gobistories/utensil-css` file at the same subpath (CSS `@import` forwards, generator re-exports, the CLI) so Vue apps depend on `@gobistories/utensil-vue` alone — add a forward when `@gobistories/utensil-css` gains a public file. No barrel files — every module is a deep import so consumers can tree-shake.
+
+What a change to the public API may do depends on the current version (`packages/vue/package.json`):
+
+- **Below 1.0.0** — Utensil is closed: only our own products use it, so breaking changes are allowed. Make them when the design needs them, rather than keeping a worse API for compatibility.
+- **1.0.0 and above** — Utensil is open source: keep changes additive.
+
+Either way, call out anything breaking in the commit message so it reaches the release notes.
 
 ## Skills
 
@@ -35,7 +42,7 @@ Components in `packages/vue/src/components`:
 - `/implement-component <ComponentName> <description>` — create a new component
 - `/update-component <ComponentName> <description>` — update an existing component
 - `/find-components <requirements>` — find suitable components for a design
-- `/promote-local <path> [ComponentOrComposable ...]` — promote a consumer's local Utensil folder (new components, wrappers, vendored fixes) into `utensil-vue`
+- `/promote-local <path> [ComponentOrComposable ...]` — promote a consumer's local Utensil folder (new components, wrappers, vendored fixes) into `@gobistories/utensil-vue`
 
 Reference app in `apps/reference`:
 

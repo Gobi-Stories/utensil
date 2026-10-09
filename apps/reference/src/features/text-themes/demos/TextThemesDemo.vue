@@ -115,7 +115,7 @@
 </template>
 
 <script setup lang="ts">
-import UtensilTheme from 'utensil-vue/theme/UtensilTheme.vue'
+import UtensilTheme from '@gobistories/utensil-vue/theme/UtensilTheme.vue'
 import { ReferenceTheme } from '@/theme/ReferenceTheme'
 </script>
 

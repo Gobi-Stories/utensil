@@ -21,6 +21,6 @@
 </template>
 
 <script setup lang="ts">
-import UtensilColorScaleGrid from 'utensil-vue/components/color-scale/UtensilColorScaleGrid.vue'
+import UtensilColorScaleGrid from '@gobistories/utensil-vue/components/color-scale/UtensilColorScaleGrid.vue'
 import { ReferenceColorScale } from '@/theme/components/ReferenceColorScale'
 </script>

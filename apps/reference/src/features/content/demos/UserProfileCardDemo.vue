@@ -60,7 +60,7 @@
 </template>
 
 <script setup lang="ts">
-import UtensilUserProfileCardDoc from 'utensil-vue/components/user-profile-card/UtensilUserProfileCardDoc.vue'
+import UtensilUserProfileCardDoc from '@gobistories/utensil-vue/components/user-profile-card/UtensilUserProfileCardDoc.vue'
 import ReferenceComponentDemo from '@/features/components/ReferenceComponentDemo.vue'
 import { ReferenceUserProfileCard } from '@/theme/components/ReferenceUserProfileCard'
 import { ReferenceBadge } from '@/theme/components/ReferenceBadge'

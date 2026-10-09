@@ -64,7 +64,7 @@
 </template>
 
 <script setup lang="ts">
-import UtensilLabelDoc from 'utensil-vue/components/label/UtensilLabelDoc.vue'
+import UtensilLabelDoc from '@gobistories/utensil-vue/components/label/UtensilLabelDoc.vue'
 import { ReferenceLabel } from '@/theme/components/ReferenceLabel'
 import ReferenceComponentDemo from '@/features/components/ReferenceComponentDemo.vue'
 </script>

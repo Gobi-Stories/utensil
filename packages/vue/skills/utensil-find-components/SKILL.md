@@ -1,6 +1,6 @@
 ---
 name: utensil-find-components
-description: Find suitable Utensil components for a design's requirements. Use before building UI in a project that uses utensil-vue, to match each requirement (date picker, search input, menu…) to existing Utensil components instead of writing new ones.
+description: Find suitable Utensil components for a design's requirements. Use before building UI in a project that uses @gobistories/utensil-vue, to match each requirement (date picker, search input, menu…) to existing Utensil components instead of writing new ones.
 license: MIT
 argument-hint: <requirements>
 context: fork
@@ -43,9 +43,9 @@ Output a markdown table with one row per requirement:
 Then output a markdown list of the component location and documentation location, for example:
 
 ```markdown
-- **UtensilRadioButtons**: node_modules/utensil-vue/src/components/radio-buttons/UtensilRadioButtons.vue
-  - **API**: node_modules/utensil-vue/src/components/radio-buttons/UtensilRadioButtonsDoc.vue
-  - **Import**: `utensil-vue/components/radio-buttons/UtensilRadioButtons.vue`
+- **UtensilRadioButtons**: node_modules/@gobistories/utensil-vue/src/components/radio-buttons/UtensilRadioButtons.vue
+  - **API**: node_modules/@gobistories/utensil-vue/src/components/radio-buttons/UtensilRadioButtonsDoc.vue
+  - **Import**: `@gobistories/utensil-vue/components/radio-buttons/UtensilRadioButtons.vue`
 ```
 
 If a requirement has no suitable match, include it with "No match" in the Component column and suggest what would need to be built (potentially via `/utensil-implement-component`).

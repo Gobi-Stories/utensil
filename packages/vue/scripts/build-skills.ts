@@ -17,7 +17,7 @@ const references: Record<string, string[]> = {
   'utensil-setup-theme': ['SETUP.md', 'USAGE.md'],
 }
 
-const consumerSource = 'node_modules/utensil-vue/src/'
+const consumerSource = 'node_modules/@gobistories/utensil-vue/src/'
 
 function toConsumerPaths(markdown: string): string {
   return markdown.replaceAll('](../src/', `](${consumerSource}`).replaceAll('`../src/', `\`${consumerSource}`)

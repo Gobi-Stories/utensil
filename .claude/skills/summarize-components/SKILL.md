@@ -32,7 +32,7 @@ After all agents complete, use the responses to collate all section summaries in
 
 Last updated: {CurrentDate}
 
-Links are relative to this file: `../src/components/` is the component source in the `utensil-vue` package (`node_modules/utensil-vue/src/components/` in a consumer project).
+Links are relative to this file: `../src/components/` is the component source in the `@gobistories/utensil-vue` package (`node_modules/@gobistories/utensil-vue/src/components/` in a consumer project).
 
 ## Basic UI
 
@@ -47,4 +47,4 @@ Links are relative to this file: `../src/components/` is the component source in
 
 Order sections in the same order the pages appear in `referencePages`.
 
-Overwrite the file if it already exists. The catalogue ships in the `utensil-vue` package and is copied into the consumer skills' references at build time, so keep the link format consistent.
+Overwrite the file if it already exists. The catalogue ships in the `@gobistories/utensil-vue` package and is copied into the consumer skills' references at build time, so keep the link format consistent.

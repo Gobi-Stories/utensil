@@ -177,7 +177,7 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import UtensilPillDoc from 'utensil-vue/components/pill/UtensilPillDoc.vue'
+import UtensilPillDoc from '@gobistories/utensil-vue/components/pill/UtensilPillDoc.vue'
 import { ReferencePill } from '@/theme/components/ReferencePill'
 import { ReferenceButton } from '@/theme/components/ReferenceButton'
 import { ReferenceRangeSlider } from '@/theme/components/ReferenceRangeSlider'

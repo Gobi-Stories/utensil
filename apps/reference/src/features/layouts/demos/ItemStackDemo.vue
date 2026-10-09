@@ -22,8 +22,8 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import UtensilItemStack from 'utensil-vue/components/item-stack/UtensilItemStack.vue'
-import UtensilItemStackDoc from 'utensil-vue/components/item-stack/UtensilItemStackDoc.vue'
+import UtensilItemStack from '@gobistories/utensil-vue/components/item-stack/UtensilItemStack.vue'
+import UtensilItemStackDoc from '@gobistories/utensil-vue/components/item-stack/UtensilItemStackDoc.vue'
 import { ReferenceButton } from '@/theme/components/ReferenceButton'
 import ReferenceComponentDemo from '@/features/components/ReferenceComponentDemo.vue'
 

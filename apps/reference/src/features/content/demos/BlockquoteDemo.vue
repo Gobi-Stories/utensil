@@ -79,7 +79,7 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import UtensilBlockquoteDoc from 'utensil-vue/components/blockquote/UtensilBlockquoteDoc.vue'
+import UtensilBlockquoteDoc from '@gobistories/utensil-vue/components/blockquote/UtensilBlockquoteDoc.vue'
 import ReferenceComponentDemo from '@/features/components/ReferenceComponentDemo.vue'
 import { ReferenceBlockquote } from '@/theme/components/ReferenceBlockquote'
 import { ReferenceRangeSlider } from '@/theme/components/ReferenceRangeSlider'

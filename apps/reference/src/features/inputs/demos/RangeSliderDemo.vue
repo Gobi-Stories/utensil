@@ -146,7 +146,7 @@
 import { ref } from 'vue'
 import sampleLandscape from '@/features/assets/sample-landscape.svg'
 import ReferenceComponentDemo from '@/features/components/ReferenceComponentDemo.vue'
-import UtensilRangeSliderDoc from 'utensil-vue/components/range-slider/UtensilRangeSliderDoc.vue'
+import UtensilRangeSliderDoc from '@gobistories/utensil-vue/components/range-slider/UtensilRangeSliderDoc.vue'
 import { ReferenceRangeSlider } from '@/theme/components/ReferenceRangeSlider'
 import { ReferenceBadge } from '@/theme/components/ReferenceBadge'
 

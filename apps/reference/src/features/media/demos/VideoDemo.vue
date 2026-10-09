@@ -46,8 +46,8 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import UtensilVideo from 'utensil-vue/components/media/UtensilVideo.vue'
-import UtensilVideoDoc from 'utensil-vue/components/media/UtensilVideoDoc.vue'
+import UtensilVideo from '@gobistories/utensil-vue/components/media/UtensilVideo.vue'
+import UtensilVideoDoc from '@gobistories/utensil-vue/components/media/UtensilVideoDoc.vue'
 import ReferenceComponentDemo from '@/features/components/ReferenceComponentDemo.vue'
 
 import sampleVideo from '@/features/assets/sample-video.mp4'

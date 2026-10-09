@@ -56,8 +56,8 @@ Add the generic parameter when the component accepts theme-typed props (colors, 
 
 <script setup lang="ts" generic="Theme extends ThemeConfig">
 import { computed } from 'vue'
-import type { ColorProp, ThemeConfig, ScaleProp, UtensilUIVariation } from 'utensil-vue/theme/utensil-theme'
-import { useTheme } from 'utensil-vue/theme/useTheme'
+import type { ColorProp, ThemeConfig, ScaleProp, UtensilUIVariation } from '@gobistories/utensil-vue/theme/utensil-theme'
+import { useTheme } from '@gobistories/utensil-vue/theme/useTheme'
 
 export interface Props<Theme extends ThemeConfig> {
   color?: ColorProp<Theme>
@@ -165,7 +165,7 @@ This indicates `useTheme` is unnecessary as no theme changes are being applied.
 Use these types when exposing color, icon, or scale props to allow theme-aware configuration:
 
 ```ts
-import type { ColorProp, IconProp, TextThemeProp, ScaleProp, RadiusScaleProp } from 'utensil-vue/theme/utensil-theme'
+import type { ColorProp, IconProp, TextThemeProp, ScaleProp, RadiusScaleProp } from '@gobistories/utensil-vue/theme/utensil-theme'
 
 interface Props {
   color?: ColorProp<Theme> // 'pen' | 'pencil' | variant name
@@ -822,7 +822,7 @@ When building components with floating/overlay behavior, compose existing primit
 
 ## Model Components
 
-Study these Utensil components (their source ships in `utensil-vue`'s `src/components/`):
+Study these Utensil components (their source ships in `@gobistories/utensil-vue`'s `src/components/`):
 
 - `UtensilButton` - UI variations, theme props, icons, busy/disabled states
 - `UtensilInput` - Input styling, surface/soft variations, icon positioning

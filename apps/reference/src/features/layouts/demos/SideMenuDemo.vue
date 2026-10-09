@@ -68,10 +68,10 @@
 
 <script setup lang="ts">
 import { ref, useTemplateRef } from 'vue'
-import UtensilSideMenu from 'utensil-vue/components/side-menu/UtensilSideMenu.vue'
-import UtensilSideMenuDoc from 'utensil-vue/components/side-menu/UtensilSideMenuDoc.vue'
-import UtensilSideMenuItemDoc from 'utensil-vue/components/side-menu/UtensilSideMenuItemDoc.vue'
-import UtensilButton from 'utensil-vue/components/button/UtensilButton.vue'
+import UtensilSideMenu from '@gobistories/utensil-vue/components/side-menu/UtensilSideMenu.vue'
+import UtensilSideMenuDoc from '@gobistories/utensil-vue/components/side-menu/UtensilSideMenuDoc.vue'
+import UtensilSideMenuItemDoc from '@gobistories/utensil-vue/components/side-menu/UtensilSideMenuItemDoc.vue'
+import UtensilButton from '@gobistories/utensil-vue/components/button/UtensilButton.vue'
 import { ReferenceSideMenuItem } from '@/theme/components/ReferenceSideMenuItem'
 import ReferenceComponentDemo from '@/features/components/ReferenceComponentDemo.vue'
 import { menuItems } from '../menu-items'

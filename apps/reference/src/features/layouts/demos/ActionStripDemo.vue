@@ -72,9 +72,9 @@
 
 <script setup lang="ts">
 import { ref, useTemplateRef } from 'vue'
-import UtensilActionStrip from 'utensil-vue/components/action-strip/UtensilActionStrip.vue'
-import UtensilActionStripDoc from 'utensil-vue/components/action-strip/UtensilActionStripDoc.vue'
-import UtensilActionStripItemDoc from 'utensil-vue/components/action-strip/UtensilActionStripItemDoc.vue'
+import UtensilActionStrip from '@gobistories/utensil-vue/components/action-strip/UtensilActionStrip.vue'
+import UtensilActionStripDoc from '@gobistories/utensil-vue/components/action-strip/UtensilActionStripDoc.vue'
+import UtensilActionStripItemDoc from '@gobistories/utensil-vue/components/action-strip/UtensilActionStripItemDoc.vue'
 import { ReferenceActionStripItem } from '@/theme/components/ReferenceActionStripItem'
 import { ReferenceCircleButton } from '@/theme/components/ReferenceCircleButton'
 import { ReferenceButton } from '@/theme/components/ReferenceButton'

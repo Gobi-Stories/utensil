@@ -1,6 +1,6 @@
 ---
 name: utensil-implement-component
-description: Implement a new component following Utensil Design System principles, with a unit test and API documentation. Use when a project using utensil-vue needs a UI component that Utensil does not provide.
+description: Implement a new component following Utensil Design System principles, with a unit test and API documentation. Use when a project using @gobistories/utensil-vue needs a UI component that Utensil does not provide.
 license: MIT
 argument-hint: <ComponentName> <description>
 ---
@@ -28,7 +28,7 @@ Put the component in a directory named after its feature in kebab-case (e.g., `U
 
 Do NOT add to barrel files — components are imported directly for tree-shaking.
 
-Prefer composing and extending Utensil components over duplicating their code. Run `/utensil-find-components` or check `node_modules/utensil-vue/src/components/` for existing primitives before implementing from scratch. Import Utensil components from the package (`utensil-vue/components/<feature>/Utensil<Name>.vue`). Never modify files in `node_modules/utensil-vue/`.
+Prefer composing and extending Utensil components over duplicating their code. Run `/utensil-find-components` or check `node_modules/@gobistories/utensil-vue/src/components/` for existing primitives before implementing from scratch. Import Utensil components from the package (`@gobistories/utensil-vue/components/<feature>/Utensil<Name>.vue`). Never modify files in `node_modules/@gobistories/utensil-vue/`.
 
 ## Step 2: Read the Utensil principles
 
@@ -45,7 +45,7 @@ Follow the patterns in the guide. Key areas to get right on the first pass:
 - **Design tokens** — use `--pen-*`, `--pencil-*`, `--space-*`, `--radius-*`, etc. for all spacing, sizing, and color. No hardcoded values.
 - **Accessibility** — support `.utensil-high-contrast` and `.utensil-reduced-motion`. Provide `:focus-visible` focus styles for interactive elements. Use semantic HTML where possible; add ARIA attributes for non-semantic interactive elements.
 - **Theme integration** — use `useTheme` only if the component changes pen/pencil/scale via props. Use `ColorProp<Theme>`, `IconProp<Theme>`, `ScaleProp` on theme-typed props with the `Theme extends ThemeConfig` generic.
-- **UI variations** — if the component supports variations, use the `UtensilUIVariation` type and shared `ui-<variation>` classes from the Utensil theme CSS (`utensil-vue/theme/utensil-theme.css`).
+- **UI variations** — if the component supports variations, use the `UtensilUIVariation` type and shared `ui-<variation>` classes from the Utensil theme CSS (`@gobistories/utensil-vue/theme/utensil-theme.css`).
 - **Composition** — for composite components, use `provide`/`inject` for built-in children and expose the same API via slot scope for custom children.
 - **CSS cvars** — namespace with the component name (e.g., `--user-avatar-size`) and fall back to design tokens.
 

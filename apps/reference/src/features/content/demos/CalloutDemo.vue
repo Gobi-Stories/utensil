@@ -111,7 +111,7 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import UtensilCalloutDoc from 'utensil-vue/components/callout/UtensilCalloutDoc.vue'
+import UtensilCalloutDoc from '@gobistories/utensil-vue/components/callout/UtensilCalloutDoc.vue'
 import ReferenceComponentDemo from '@/features/components/ReferenceComponentDemo.vue'
 import { ReferenceCallout } from '@/theme/components/ReferenceCallout'
 import { ReferenceRangeSlider } from '@/theme/components/ReferenceRangeSlider'

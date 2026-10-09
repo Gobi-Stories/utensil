@@ -65,9 +65,9 @@
 <script setup lang="ts">
 import { ref, onBeforeUnmount } from 'vue'
 import ReferenceComponentDemo from '@/features/components/ReferenceComponentDemo.vue'
-import UtensilImageProgress from 'utensil-vue/components/progress/UtensilImageProgress.vue'
-import UtensilImageProgressDoc from 'utensil-vue/components/progress/UtensilImageProgressDoc.vue'
-import UtensilButton from 'utensil-vue/components/button/UtensilButton.vue'
+import UtensilImageProgress from '@gobistories/utensil-vue/components/progress/UtensilImageProgress.vue'
+import UtensilImageProgressDoc from '@gobistories/utensil-vue/components/progress/UtensilImageProgressDoc.vue'
+import UtensilButton from '@gobistories/utensil-vue/components/button/UtensilButton.vue'
 
 // A waveform-like SVG so the demo needs no external image
 const waveformImage = (() => {

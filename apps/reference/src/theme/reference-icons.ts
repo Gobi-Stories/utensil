@@ -46,7 +46,7 @@ import { faFolder } from '@fortawesome/free-solid-svg-icons/faFolder'
 import { faPuzzlePiece } from '@fortawesome/free-solid-svg-icons/faPuzzlePiece'
 import { faBolt } from '@fortawesome/free-solid-svg-icons/faBolt'
 
-import { utensilIconMap, type ExtractIconMap } from 'utensil-vue/theme/utensil-icons'
+import { utensilIconMap, type ExtractIconMap } from '@gobistories/utensil-vue/theme/utensil-icons'
 import { faAlignRight } from '@fortawesome/free-solid-svg-icons'
 
 export const referenceIconMap = {

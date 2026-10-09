@@ -1,4 +1,4 @@
-import { useDialog } from 'utensil-vue/components/dialogs/useDialog'
+import { useDialog } from '@gobistories/utensil-vue/components/dialogs/useDialog'
 
 export const {
   isOpen: dialogIsOpen,

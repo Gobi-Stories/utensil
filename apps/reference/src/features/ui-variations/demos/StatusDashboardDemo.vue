@@ -86,7 +86,7 @@ import { ReferencePill } from '@/theme/components/ReferencePill'
 import { ReferenceAvatar } from '@/theme/components/ReferenceAvatar'
 import { ReferenceRadioButtons } from '@/theme/components/ReferenceRadioButtons'
 import { ReferenceRadioButton } from '@/theme/components/ReferenceRadioButton'
-import UtensilInput from 'utensil-vue/components/input/UtensilInput.vue'
+import UtensilInput from '@gobistories/utensil-vue/components/input/UtensilInput.vue'
 
 const viewMode = ref('grid')
 </script>

@@ -39,10 +39,10 @@
 
 <script setup lang="ts">
 import ReferenceComponentDemo from '@/features/components/ReferenceComponentDemo.vue'
-import UtensilMenuDividerDoc from 'utensil-vue/components/menu/UtensilMenuDividerDoc.vue'
-import UtensilMenuItemDoc from 'utensil-vue/components/menu/UtensilMenuItemDoc.vue'
+import UtensilMenuDividerDoc from '@gobistories/utensil-vue/components/menu/UtensilMenuDividerDoc.vue'
+import UtensilMenuItemDoc from '@gobistories/utensil-vue/components/menu/UtensilMenuItemDoc.vue'
 import { ReferenceMenuItem as UtensilMenuItem } from '@/theme/components/ReferenceMenuItem'
-import UtensilMenuDivider from 'utensil-vue/components/menu/UtensilMenuDivider.vue'
+import UtensilMenuDivider from '@gobistories/utensil-vue/components/menu/UtensilMenuDivider.vue'
 </script>
 
 <style scoped>

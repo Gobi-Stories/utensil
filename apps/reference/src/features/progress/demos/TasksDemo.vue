@@ -129,11 +129,11 @@
 
 <script setup lang="ts">
 import { computed, onBeforeUnmount, ref } from 'vue'
-import UtensilTasks from 'utensil-vue/components/tasks/UtensilTasks.vue'
+import UtensilTasks from '@gobistories/utensil-vue/components/tasks/UtensilTasks.vue'
 import { ReferenceTask } from '@/theme/components/ReferenceTask'
 import type { ReferenceIcon } from '@/theme/reference-icons'
-import UtensilTasksDoc from 'utensil-vue/components/tasks/UtensilTasksDoc.vue'
-import UtensilButton from 'utensil-vue/components/button/UtensilButton.vue'
+import UtensilTasksDoc from '@gobistories/utensil-vue/components/tasks/UtensilTasksDoc.vue'
+import UtensilButton from '@gobistories/utensil-vue/components/button/UtensilButton.vue'
 import ReferenceComponentDemo from '@/features/components/ReferenceComponentDemo.vue'
 
 const lastClicked = ref<unknown>(null)

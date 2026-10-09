@@ -1,5 +1,5 @@
 // Concatenates the core CSS into dist/utensil.css (and a minified copy) for plain HTML / CDN use.
-// The order matches utensil-vue's CSS include: the layer order must come first.
+// The order matches @gobistories/utensil-vue's CSS include: the layer order must come first.
 import { mkdirSync, readFileSync, writeFileSync } from 'node:fs'
 import { transform } from 'esbuild'
 

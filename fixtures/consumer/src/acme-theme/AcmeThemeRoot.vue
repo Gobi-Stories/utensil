@@ -6,9 +6,9 @@
 </template>
 
 <script setup lang="ts">
-import UtensilThemeRoot from 'utensil-vue/theme/UtensilThemeRoot.vue'
-import { useUtensilIcons } from 'utensil-vue/components/icon/use-utensil-icons'
-import type { ThemeMode } from 'utensil-vue/theme/utensil-theme'
+import UtensilThemeRoot from '@gobistories/utensil-vue/theme/UtensilThemeRoot.vue'
+import { useUtensilIcons } from '@gobistories/utensil-vue/components/icon/use-utensil-icons'
+import type { ThemeMode } from '@gobistories/utensil-vue/theme/utensil-theme'
 import { acmeVariantMap } from './acme-theme'
 import { acmeIconMap } from './acme-icons'
 

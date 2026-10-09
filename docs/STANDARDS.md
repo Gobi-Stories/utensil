@@ -31,11 +31,11 @@ Apply SOLID principles throughout.
 
 ## Barrel Files
 
-- Do not use barrel files. Every module is a public deep import (`utensil-vue/components/button/UtensilButton.vue`) so consumers' bundlers can tree-shake everything they don't use.
+- Do not use barrel files. Every module is a public deep import (`@gobistories/utensil-vue/components/button/UtensilButton.vue`) so consumers' bundlers can tree-shake everything they don't use.
 
 ## Public API
 
-Both packages are published to npm. A module's path, its exported names and types, a component's props, events, slots, root class and CSS cvars, and the CSS class and variable names in `utensil-css` are all public API.
+Both packages are published to npm. A module's path, its exported names and types, a component's props, events, slots, root class and CSS cvars, and the CSS class and variable names in `@gobistories/utensil-css` are all public API.
 
 - Prefer additive changes.
 - Never rename or move a public module, class or cvar without calling it out as a breaking change for the release.

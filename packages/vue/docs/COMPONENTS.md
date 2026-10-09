@@ -1,6 +1,6 @@
 # Utensil Component Catalogue
 
-Links are relative to this `docs/` folder. The source and API docs live in the `utensil-vue` package's `src/` folder (`node_modules/utensil-vue/src/` in a consumer project, `packages/vue/src/` in the Utensil repository).
+Links are relative to this `docs/` folder. The source and API docs live in the `@gobistories/utensil-vue` package's `src/` folder (`node_modules/@gobistories/utensil-vue/src/` in a consumer project, `packages/vue/src/` in the Utensil repository).
 
 ## Basic UI
 

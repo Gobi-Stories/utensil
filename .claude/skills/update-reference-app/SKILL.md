@@ -15,7 +15,7 @@ The reference application is implemented in `apps/reference/` (relative to the r
 - `apps/reference/src/theme/components/` contain type wrappers for Utensil components that have ThemeProps, and some reference specific components.
 - `apps/reference/src/features/showcase/demo-components/` contain showcase demos for the Showcase page
 
-The app imports the workspace packages as a consumer would (`utensil-vue/components/...`, `utensil-css/...`).
+The app imports the workspace packages as a consumer would (`@gobistories/utensil-vue/components/...`, `@gobistories/utensil-css/...`).
 
 To understand how to use Utensil and its components, refer to:
 @../../../packages/vue/docs/USAGE.md

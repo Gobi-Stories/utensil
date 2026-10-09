@@ -111,7 +111,7 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import UtensilCardDoc from 'utensil-vue/components/card/UtensilCardDoc.vue'
+import UtensilCardDoc from '@gobistories/utensil-vue/components/card/UtensilCardDoc.vue'
 import ReferenceComponentDemo from '@/features/components/ReferenceComponentDemo.vue'
 import { ReferenceCard } from '@/theme/components/ReferenceCard'
 import { ReferenceButton } from '@/theme/components/ReferenceButton'

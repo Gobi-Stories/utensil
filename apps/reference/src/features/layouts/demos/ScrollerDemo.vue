@@ -66,8 +66,8 @@
 </template>
 
 <script setup lang="ts">
-import UtensilScroller from 'utensil-vue/components/scroller/UtensilScroller.vue'
-import UtensilScrollerDoc from 'utensil-vue/components/scroller/UtensilScrollerDoc.vue'
+import UtensilScroller from '@gobistories/utensil-vue/components/scroller/UtensilScroller.vue'
+import UtensilScrollerDoc from '@gobistories/utensil-vue/components/scroller/UtensilScrollerDoc.vue'
 import ReferenceComponentDemo from '@/features/components/ReferenceComponentDemo.vue'
 </script>
 

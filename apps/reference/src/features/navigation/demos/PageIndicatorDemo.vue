@@ -40,7 +40,7 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import UtensilPageIndicatorDoc from 'utensil-vue/components/page-indicator/UtensilPageIndicatorDoc.vue'
+import UtensilPageIndicatorDoc from '@gobistories/utensil-vue/components/page-indicator/UtensilPageIndicatorDoc.vue'
 import ReferenceComponentDemo from '@/features/components/ReferenceComponentDemo.vue'
 import { ReferencePageIndicator } from '@/theme/components/ReferencePageIndicator'
 

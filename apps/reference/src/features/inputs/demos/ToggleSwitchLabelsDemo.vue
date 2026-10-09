@@ -57,7 +57,7 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import UtensilToggleSwitch from 'utensil-vue/components/toggle-switch/UtensilToggleSwitch.vue'
+import UtensilToggleSwitch from '@gobistories/utensil-vue/components/toggle-switch/UtensilToggleSwitch.vue'
 
 const switchLabelBlock = ref(true)
 const switchLabelInline = ref(false)

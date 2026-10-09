@@ -60,8 +60,8 @@
 import { ref, onBeforeUnmount } from 'vue'
 import ReferenceComponentDemo from '@/features/components/ReferenceComponentDemo.vue'
 import { ReferenceIoStatusStrip } from '@/theme/components/ReferenceIoStatusStrip'
-import UtensilIoStatusStripDoc from 'utensil-vue/components/progress/UtensilIoStatusStripDoc.vue'
-import UtensilButton from 'utensil-vue/components/button/UtensilButton.vue'
+import UtensilIoStatusStripDoc from '@gobistories/utensil-vue/components/progress/UtensilIoStatusStripDoc.vue'
+import UtensilButton from '@gobistories/utensil-vue/components/button/UtensilButton.vue'
 
 const statusLoading = ref(false)
 const statusSaving = ref(false)

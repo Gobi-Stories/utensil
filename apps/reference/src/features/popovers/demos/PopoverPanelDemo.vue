@@ -46,9 +46,9 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import ReferenceComponentDemo from '@/features/components/ReferenceComponentDemo.vue'
-import UtensilPopoverPanel from 'utensil-vue/components/popover/UtensilPopoverPanel.vue'
-import UtensilPopoverPanelDoc from 'utensil-vue/components/popover/UtensilPopoverPanelDoc.vue'
-import UtensilButton from 'utensil-vue/components/button/UtensilButton.vue'
+import UtensilPopoverPanel from '@gobistories/utensil-vue/components/popover/UtensilPopoverPanel.vue'
+import UtensilPopoverPanelDoc from '@gobistories/utensil-vue/components/popover/UtensilPopoverPanelDoc.vue'
+import UtensilButton from '@gobistories/utensil-vue/components/button/UtensilButton.vue'
 
 const controlledPopover = ref(false)
 </script>

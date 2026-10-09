@@ -100,9 +100,9 @@
 
 <script setup lang="ts">
 import { ref, computed, watch } from 'vue'
-import UtensilResourceLoader from 'utensil-vue/components/resource/UtensilResourceLoader.vue'
-import UtensilInput from 'utensil-vue/components/input/UtensilInput.vue'
-import UtensilButton from 'utensil-vue/components/button/UtensilButton.vue'
+import UtensilResourceLoader from '@gobistories/utensil-vue/components/resource/UtensilResourceLoader.vue'
+import UtensilInput from '@gobistories/utensil-vue/components/input/UtensilInput.vue'
+import UtensilButton from '@gobistories/utensil-vue/components/button/UtensilButton.vue'
 
 interface ProjectItem {
   id: string

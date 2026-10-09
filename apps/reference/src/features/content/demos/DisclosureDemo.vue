@@ -62,8 +62,8 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import UtensilDisclosure from 'utensil-vue/components/disclosure/UtensilDisclosure.vue'
-import UtensilDisclosureDoc from 'utensil-vue/components/disclosure/UtensilDisclosureDoc.vue'
+import UtensilDisclosure from '@gobistories/utensil-vue/components/disclosure/UtensilDisclosure.vue'
+import UtensilDisclosureDoc from '@gobistories/utensil-vue/components/disclosure/UtensilDisclosureDoc.vue'
 import ReferenceComponentDemo from '@/features/components/ReferenceComponentDemo.vue'
 
 const disclosureOpen = ref(false)

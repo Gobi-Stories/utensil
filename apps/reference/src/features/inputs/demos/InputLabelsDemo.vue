@@ -84,9 +84,9 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import UtensilInput from 'utensil-vue/components/input/UtensilInput.vue'
-import UtensilSearch from 'utensil-vue/components/input/UtensilSearch.vue'
-import UtensilPassword from 'utensil-vue/components/input/UtensilPassword.vue'
+import UtensilInput from '@gobistories/utensil-vue/components/input/UtensilInput.vue'
+import UtensilSearch from '@gobistories/utensil-vue/components/input/UtensilSearch.vue'
+import UtensilPassword from '@gobistories/utensil-vue/components/input/UtensilPassword.vue'
 
 const labelBlockInput = ref('')
 const labelInlineInput = ref('')

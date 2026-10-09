@@ -123,8 +123,8 @@
 import { ref, onBeforeUnmount } from 'vue'
 import ReferenceComponentDemo from '@/features/components/ReferenceComponentDemo.vue'
 import { ReferenceIoStrip } from '@/theme/components/ReferenceIoStrip'
-import UtensilIoStripDoc from 'utensil-vue/components/progress/UtensilIoStripDoc.vue'
-import UtensilButton from 'utensil-vue/components/button/UtensilButton.vue'
+import UtensilIoStripDoc from '@gobistories/utensil-vue/components/progress/UtensilIoStripDoc.vue'
+import UtensilButton from '@gobistories/utensil-vue/components/button/UtensilButton.vue'
 
 const loadingStripActive = ref(false)
 const slowStripActive = ref(false)

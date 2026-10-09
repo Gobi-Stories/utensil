@@ -189,7 +189,7 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import UtensilButtonDoc from 'utensil-vue/components/button/UtensilButtonDoc.vue'
+import UtensilButtonDoc from '@gobistories/utensil-vue/components/button/UtensilButtonDoc.vue'
 import { ReferenceButton } from '@/theme/components/ReferenceButton'
 import { ReferenceRangeSlider } from '@/theme/components/ReferenceRangeSlider'
 import ReferenceComponentDemo from '@/features/components/ReferenceComponentDemo.vue'

@@ -1,5 +1,5 @@
-import { defaultPaperOptions } from 'utensil-vue/colors/generate-colors'
-import type { ThemePreset } from 'utensil-vue/theme-editor/ThemeEditor.vue'
+import { defaultPaperOptions } from '@gobistories/utensil-vue/colors/generate-colors'
+import type { ThemePreset } from '@gobistories/utensil-vue/theme-editor/ThemeEditor.vue'
 
 export const DEFAULT_PEN_COLOR = '#0093ee'
 export const DEFAULT_PENCIL_COLOR = '#6b7280'

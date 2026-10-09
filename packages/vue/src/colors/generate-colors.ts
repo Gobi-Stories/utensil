@@ -1,2 +1,2 @@
-// Forwards utensil-css/colors/generate-colors, so Vue projects only depend on utensil-vue.
-export * from 'utensil-css/colors/generate-colors'
+// Forwards @gobistories/utensil-css/colors/generate-colors, so Vue projects only depend on @gobistories/utensil-vue.
+export * from '@gobistories/utensil-css/colors/generate-colors'

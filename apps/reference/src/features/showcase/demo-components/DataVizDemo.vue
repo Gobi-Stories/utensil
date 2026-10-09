@@ -23,8 +23,8 @@
 
 <script setup lang="ts">
 import { ref, computed } from 'vue'
-import UtensilDataViz from 'utensil-vue/components/data-viz/UtensilDataViz.vue'
-import type { ChartType } from 'utensil-vue/components/data-viz/utensil-data-viz'
+import UtensilDataViz from '@gobistories/utensil-vue/components/data-viz/UtensilDataViz.vue'
+import type { ChartType } from '@gobistories/utensil-vue/components/data-viz/utensil-data-viz'
 
 const tabs: { type: ChartType; label: string }[] = [
   { type: 'line', label: 'Line' },

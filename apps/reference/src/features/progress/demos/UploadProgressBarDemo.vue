@@ -86,11 +86,11 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import ReferenceComponentDemo from '@/features/components/ReferenceComponentDemo.vue'
-import UtensilUploadProgressBar from 'utensil-vue/components/progress/UtensilUploadProgressBar.vue'
-import UtensilUploadProgressBarDoc from 'utensil-vue/components/progress/UtensilUploadProgressBarDoc.vue'
-import UtensilButton from 'utensil-vue/components/button/UtensilButton.vue'
-import UtensilIcon from 'utensil-vue/components/icon/UtensilIcon.vue'
-import UtensilBox from 'utensil-vue/components/box/UtensilBox.vue'
+import UtensilUploadProgressBar from '@gobistories/utensil-vue/components/progress/UtensilUploadProgressBar.vue'
+import UtensilUploadProgressBarDoc from '@gobistories/utensil-vue/components/progress/UtensilUploadProgressBarDoc.vue'
+import UtensilButton from '@gobistories/utensil-vue/components/button/UtensilButton.vue'
+import UtensilIcon from '@gobistories/utensil-vue/components/icon/UtensilIcon.vue'
+import UtensilBox from '@gobistories/utensil-vue/components/box/UtensilBox.vue'
 
 const uploadDemo = ref<number>(0)
 

@@ -38,8 +38,8 @@
 </template>
 
 <script setup lang="ts">
-import UtensilToastHostDoc from 'utensil-vue/components/toast/UtensilToastHostDoc.vue'
-import UtensilButton from 'utensil-vue/components/button/UtensilButton.vue'
+import UtensilToastHostDoc from '@gobistories/utensil-vue/components/toast/UtensilToastHostDoc.vue'
+import UtensilButton from '@gobistories/utensil-vue/components/button/UtensilButton.vue'
 import ReferenceComponentDemo from '@/features/components/ReferenceComponentDemo.vue'
 import { toasts } from '@/app/reference-toast'
 

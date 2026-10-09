@@ -32,8 +32,8 @@
 </template>
 
 <script setup lang="ts">
-import UtensilDeferredVideo from 'utensil-vue/components/media/UtensilDeferredVideo.vue'
-import UtensilDeferredVideoDoc from 'utensil-vue/components/media/UtensilDeferredVideoDoc.vue'
+import UtensilDeferredVideo from '@gobistories/utensil-vue/components/media/UtensilDeferredVideo.vue'
+import UtensilDeferredVideoDoc from '@gobistories/utensil-vue/components/media/UtensilDeferredVideoDoc.vue'
 import ReferenceComponentDemo from '@/features/components/ReferenceComponentDemo.vue'
 
 import sampleLandscape from '@/features/assets/sample-landscape.svg'

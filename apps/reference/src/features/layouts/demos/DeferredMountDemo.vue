@@ -59,9 +59,9 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import UtensilDeferredMount from 'utensil-vue/components/deferred-mount/UtensilDeferredMount.vue'
-import UtensilDeferredMountDoc from 'utensil-vue/components/deferred-mount/UtensilDeferredMountDoc.vue'
-import UtensilButton from 'utensil-vue/components/button/UtensilButton.vue'
+import UtensilDeferredMount from '@gobistories/utensil-vue/components/deferred-mount/UtensilDeferredMount.vue'
+import UtensilDeferredMountDoc from '@gobistories/utensil-vue/components/deferred-mount/UtensilDeferredMountDoc.vue'
+import UtensilButton from '@gobistories/utensil-vue/components/button/UtensilButton.vue'
 import ReferenceComponentDemo from '@/features/components/ReferenceComponentDemo.vue'
 
 const deferredDemo = ref(false)

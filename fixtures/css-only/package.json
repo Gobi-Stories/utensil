@@ -3,8 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "type": "module",
-  "description": "A plain HTML page that installs only the packed utensil-css tarball. Used by scripts/verify-package.ts.",
+  "description": "A plain HTML page that installs only the packed @gobistories/utensil-css tarball. Used by scripts/verify-package.ts.",
   "dependencies": {
-    "utensil-css": "file:../utensil-css.tgz"
+    "@gobistories/utensil-css": "file:../utensil-css.tgz"
   }
 }

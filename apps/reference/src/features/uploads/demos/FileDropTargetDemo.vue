@@ -74,10 +74,10 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import UtensilFileDropTarget from 'utensil-vue/components/file-drop-target/UtensilFileDropTarget.vue'
-import UtensilFileDropTargetDoc from 'utensil-vue/components/file-drop-target/UtensilFileDropTargetDoc.vue'
-import UtensilIcon from 'utensil-vue/components/icon/UtensilIcon.vue'
-import UtensilButton from 'utensil-vue/components/button/UtensilButton.vue'
+import UtensilFileDropTarget from '@gobistories/utensil-vue/components/file-drop-target/UtensilFileDropTarget.vue'
+import UtensilFileDropTargetDoc from '@gobistories/utensil-vue/components/file-drop-target/UtensilFileDropTargetDoc.vue'
+import UtensilIcon from '@gobistories/utensil-vue/components/icon/UtensilIcon.vue'
+import UtensilButton from '@gobistories/utensil-vue/components/button/UtensilButton.vue'
 import ReferenceComponentDemo from '@/features/components/ReferenceComponentDemo.vue'
 
 const droppedFiles = ref<File[]>([])

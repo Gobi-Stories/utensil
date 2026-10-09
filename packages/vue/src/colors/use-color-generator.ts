@@ -1,6 +1,6 @@
 import { ref, watch, readonly, type Ref } from 'vue'
-import { generateColorCss, type ColorBackgrounds } from 'utensil-css/colors/generate-css'
-import type { PaperOptions, TextContrast } from 'utensil-css/colors/generate-colors'
+import { generateColorCss, type ColorBackgrounds } from '@gobistories/utensil-css/colors/generate-css'
+import type { PaperOptions, TextContrast } from '@gobistories/utensil-css/colors/generate-colors'
 
 export interface ColorGeneratorOptions {
   /** Reactive page backgrounds the pen/pencil scales are anchored to per mode */

@@ -5,8 +5,8 @@
 </template>
 
 <script setup lang="ts">
-import { useTheme } from 'utensil-vue/theme/useTheme'
-import type { ScaleProp } from 'utensil-vue/theme/utensil-theme'
+import { useTheme } from '@gobistories/utensil-vue/theme/useTheme'
+import type { ScaleProp } from '@gobistories/utensil-vue/theme/utensil-theme'
 import type { ReferenceColorProp, ReferenceThemeConfig } from '@/theme/reference-theme'
 
 // Feeds its raw props object to useTheme() the way UtensilTheme does. `primary`

@@ -22,7 +22,7 @@
 </template>
 
 <script setup lang="ts">
-import UtensilButton from 'utensil-vue/components/button/UtensilButton.vue'
+import UtensilButton from '@gobistories/utensil-vue/components/button/UtensilButton.vue'
 import { toasts } from '@/app/reference-toast'
 import { showReferenceDialog } from '@/app/reference-dialog'
 import { showReferenceConfirm } from '@/app/reference-confirm'

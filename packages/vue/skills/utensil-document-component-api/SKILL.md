@@ -1,6 +1,6 @@
 ---
 name: utensil-document-component-api
-description: Create or update the adjacent <Name>Doc.vue API documentation for a component, in the Utensil documentation format. Use after implementing or changing a component in a project that uses utensil-vue.
+description: Create or update the adjacent <Name>Doc.vue API documentation for a component, in the Utensil documentation format. Use after implementing or changing a component in a project that uses @gobistories/utensil-vue.
 license: MIT
 argument-hint: <ComponentName or path>
 context: fork
@@ -101,10 +101,10 @@ Create the file beside the component, as `<ComponentName>Doc.vue`.
 
 ### Documentation CSS
 
-The doc component uses CSS classes from Utensil's doc stylesheet, which `utensil-vue` exports as `utensil-vue/utensil-docs.css`. Import it in the doc component:
+The doc component uses CSS classes from Utensil's doc stylesheet, which `@gobistories/utensil-vue` exports as `@gobistories/utensil-vue/utensil-docs.css`. Import it in the doc component:
 
 ```vue
-<style src="utensil-vue/utensil-docs.css"></style>
+<style src="@gobistories/utensil-vue/utensil-docs.css"></style>
 ```
 
 This gives access to the `.text-code` text theme, the `.utensil-api-doc` layout and all `.doc-*` classes.
@@ -298,13 +298,13 @@ Use this template as a starting point. Remove sections that don't apply (e.g., n
 </template>
 
 <script setup lang="ts">
-import UtensilBadge from 'utensil-vue/components/badge/UtensilBadge.vue'
-import UtensilPopoverPanel from 'utensil-vue/components/popover/UtensilPopoverPanel.vue'
+import UtensilBadge from '@gobistories/utensil-vue/components/badge/UtensilBadge.vue'
+import UtensilPopoverPanel from '@gobistories/utensil-vue/components/popover/UtensilPopoverPanel.vue'
 
 // Typically no logic needed — pure documentation component.
 </script>
 
-<style src="utensil-vue/utensil-docs.css"></style>
+<style src="@gobistories/utensil-vue/utensil-docs.css"></style>
 ```
 
 ### Rules
@@ -319,8 +319,8 @@ import UtensilPopoverPanel from 'utensil-vue/components/popover/UtensilPopoverPa
 - For composite components, always include one example with both native children and custom children.
 - Only document the public API — do not document internal implementation details.
 - Remove any sections from the template that don't apply to the component.
-- Import Utensil components from the package: `utensil-vue/components/<feature>/Utensil<Name>.vue`.
-- For reference, every Utensil component has a `<Name>Doc.vue` alongside its source in `node_modules/utensil-vue/src/components/`; read one or two (e.g. `button/UtensilButtonDoc.vue`) to match the format.
+- Import Utensil components from the package: `@gobistories/utensil-vue/components/<feature>/Utensil<Name>.vue`.
+- For reference, every Utensil component has a `<Name>Doc.vue` alongside its source in `node_modules/@gobistories/utensil-vue/src/components/`; read one or two (e.g. `button/UtensilButtonDoc.vue`) to match the format.
 
 ## Step 4: Post Implementation
 

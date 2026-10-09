@@ -110,10 +110,10 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
 import ReferenceComponentDemo from '@/features/components/ReferenceComponentDemo.vue'
-import UtensilInput from 'utensil-vue/components/input/UtensilInput.vue'
-import UtensilInputDoc from 'utensil-vue/components/input/UtensilInputDoc.vue'
-import UtensilSearch from 'utensil-vue/components/input/UtensilSearch.vue'
-import UtensilPassword from 'utensil-vue/components/input/UtensilPassword.vue'
+import UtensilInput from '@gobistories/utensil-vue/components/input/UtensilInput.vue'
+import UtensilInputDoc from '@gobistories/utensil-vue/components/input/UtensilInputDoc.vue'
+import UtensilSearch from '@gobistories/utensil-vue/components/input/UtensilSearch.vue'
+import UtensilPassword from '@gobistories/utensil-vue/components/input/UtensilPassword.vue'
 
 const surfaceInput = ref('')
 const softInput = ref('')

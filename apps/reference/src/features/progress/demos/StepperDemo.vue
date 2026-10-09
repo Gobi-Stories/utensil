@@ -115,8 +115,8 @@
 import { ref } from 'vue'
 import ReferenceComponentDemo from '@/features/components/ReferenceComponentDemo.vue'
 import { ReferenceStepper } from '@/theme/components/ReferenceStepper'
-import UtensilStepperDoc from 'utensil-vue/components/stepper/UtensilStepperDoc.vue'
-import UtensilButton from 'utensil-vue/components/button/UtensilButton.vue'
+import UtensilStepperDoc from '@gobistories/utensil-vue/components/stepper/UtensilStepperDoc.vue'
+import UtensilButton from '@gobistories/utensil-vue/components/button/UtensilButton.vue'
 
 const stepperSteps = ['Account', 'Profile', 'Settings', 'Review']
 const stepperActiveStep = ref(0)

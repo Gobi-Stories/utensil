@@ -1,2 +1,2 @@
-/* Forwards utensil-reset.css, so Vue projects only depend on utensil-vue. */
-@import 'utensil-css/utensil-reset.css';
+/* Forwards utensil-reset.css, so Vue projects only depend on @gobistories/utensil-vue. */
+@import '@gobistories/utensil-css/utensil-reset.css';

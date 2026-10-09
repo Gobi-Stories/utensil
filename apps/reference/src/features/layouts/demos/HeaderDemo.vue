@@ -47,8 +47,8 @@
 </template>
 
 <script setup lang="ts">
-import UtensilHeader from 'utensil-vue/components/header/UtensilHeader.vue'
-import UtensilHeaderDoc from 'utensil-vue/components/header/UtensilHeaderDoc.vue'
+import UtensilHeader from '@gobistories/utensil-vue/components/header/UtensilHeader.vue'
+import UtensilHeaderDoc from '@gobistories/utensil-vue/components/header/UtensilHeaderDoc.vue'
 import { ReferenceButton } from '@/theme/components/ReferenceButton'
 import ReferenceComponentDemo from '@/features/components/ReferenceComponentDemo.vue'
 </script>

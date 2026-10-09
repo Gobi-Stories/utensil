@@ -48,7 +48,7 @@
 import { ref } from 'vue'
 import { ReferenceDatePicker } from '@/theme/components/ReferenceDatePicker'
 import ReferenceComponentDemo from '@/features/components/ReferenceComponentDemo.vue'
-import UtensilDatePickerDoc from 'utensil-vue/components/date-picker/UtensilDatePickerDoc.vue'
+import UtensilDatePickerDoc from '@gobistories/utensil-vue/components/date-picker/UtensilDatePickerDoc.vue'
 import { formatDisplayDate } from '../date-pickers'
 
 const pickerSurface = ref<Date | null>(null)

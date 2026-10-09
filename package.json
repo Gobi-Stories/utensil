@@ -8,7 +8,7 @@
     "apps/*"
   ],
   "scripts": {
-    "build": "bun run --filter utensil-css build && bun run --filter utensil-vue build",
+    "build": "bun run --filter @gobistories/utensil-css build && bun run --filter @gobistories/utensil-vue build",
     "build:reference": "bun run build && bun run --filter utensil-reference build",
     "dev": "bun run --filter utensil-reference dev",
     "typecheck": "vue-tsc --build",

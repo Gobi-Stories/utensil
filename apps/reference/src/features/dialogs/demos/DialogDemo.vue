@@ -122,10 +122,10 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import UtensilDialog from 'utensil-vue/components/dialogs/UtensilDialog.vue'
-import UtensilDialogDoc from 'utensil-vue/components/dialogs/UtensilDialogDoc.vue'
-import UtensilButton from 'utensil-vue/components/button/UtensilButton.vue'
-import UtensilCallout from 'utensil-vue/components/callout/UtensilCallout.vue'
+import UtensilDialog from '@gobistories/utensil-vue/components/dialogs/UtensilDialog.vue'
+import UtensilDialogDoc from '@gobistories/utensil-vue/components/dialogs/UtensilDialogDoc.vue'
+import UtensilButton from '@gobistories/utensil-vue/components/button/UtensilButton.vue'
+import UtensilCallout from '@gobistories/utensil-vue/components/callout/UtensilCallout.vue'
 import ReferenceComponentDemo from '@/features/components/ReferenceComponentDemo.vue'
 import { toasts } from '@/app/reference-toast'
 

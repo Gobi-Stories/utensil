@@ -24,8 +24,8 @@
 </template>
 
 <script setup lang="ts">
-import UtensilCloseButton from 'utensil-vue/components/circle-button/UtensilCloseButton.vue'
-import UtensilCloseButtonDoc from 'utensil-vue/components/circle-button/UtensilCloseButtonDoc.vue'
+import UtensilCloseButton from '@gobistories/utensil-vue/components/circle-button/UtensilCloseButton.vue'
+import UtensilCloseButtonDoc from '@gobistories/utensil-vue/components/circle-button/UtensilCloseButtonDoc.vue'
 import ReferenceComponentDemo from '@/features/components/ReferenceComponentDemo.vue'
 </script>
 

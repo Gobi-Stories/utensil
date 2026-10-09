@@ -7,9 +7,9 @@ This guide covers how to use Utensil's color system, design tokens, components, 
 Import components directly from their file path. There are no barrel files for components — this ensures tree-shaking works correctly.
 
 ```ts
-import UtensilButton from 'utensil-vue/components/button/UtensilButton.vue'
-import UtensilInput from 'utensil-vue/components/input/UtensilInput.vue'
-import UtensilIcon from 'utensil-vue/components/icon/UtensilIcon.vue'
+import UtensilButton from '@gobistories/utensil-vue/components/button/UtensilButton.vue'
+import UtensilInput from '@gobistories/utensil-vue/components/input/UtensilInput.vue'
+import UtensilIcon from '@gobistories/utensil-vue/components/icon/UtensilIcon.vue'
 ```
 
 ### Typed Components
@@ -18,7 +18,7 @@ Utensil components that accept theme props (colors, icons, variants) are generic
 
 ```ts
 // my-theme/components/MyButton.ts
-import UtensilButton from 'utensil-vue/components/button/UtensilButton.vue'
+import UtensilButton from '@gobistories/utensil-vue/components/button/UtensilButton.vue'
 import type { MyThemeConfig } from '../my-theme'
 
 export const MyButton = UtensilButton<MyThemeConfig>
@@ -64,11 +64,11 @@ Utensil covers general-purpose primitives. When your project needs a component U
 - Place and name components by your project's conventions. The skills below follow them, and ask where nothing says
 - Group related components in a feature directory
 - Do not add to barrel files — import directly for tree-shaking
-- Do not modify files under `node_modules/utensil-vue/` — the design system is installed from the `utensil-vue` package
+- Do not modify files under `node_modules/@gobistories/utensil-vue/` — the design system is installed from the `@gobistories/utensil-vue` package
 
 ### Skills
 
-`utensil-vue` ships agent skills in its `skills/` folder. Once installed with skills-npm (see the `utensil-vue` README → "AI Harness"), these are available in your project:
+`@gobistories/utensil-vue` ships agent skills in its `skills/` folder. Once installed with skills-npm (see the `@gobistories/utensil-vue` README → "AI Harness"), these are available in your project:
 
 | Skill                                               | Purpose                                                                                         |
 | --------------------------------------------------- | ----------------------------------------------------------------------------------------------- |
@@ -81,20 +81,20 @@ Utensil covers general-purpose primitives. When your project needs a component U
 
 `/utensil-implement-component` reads Utensil's component guide (`DEVELOPMENT.md`) up-front so components land production-grade on the first pass. `/utensil-audit-component` uses the checklist Utensil's own components are audited against.
 
-The skills are version-matched to the installed package: upgrading `utensil-vue` upgrades them.
+The skills are version-matched to the installed package: upgrading `@gobistories/utensil-vue` upgrades them.
 
 ## Pure CSS Usage
 
-Utensil's CSS framework works without Vue or any framework, and ships on its own as the `utensil-css` package. Load its all-in-one stylesheet, which leads with the layer order — from a bundler:
+Utensil's CSS framework works without Vue or any framework, and ships on its own as the `@gobistories/utensil-css` package. Load its all-in-one stylesheet, which leads with the layer order — from a bundler:
 
 ```ts
-import 'utensil-css/utensil.css' // or 'utensil-vue/utensil.css' in a Vue project
+import '@gobistories/utensil-css/utensil.css' // or '@gobistories/utensil-vue/utensil.css' in a Vue project
 ```
 
 or with a `<link>` to the package file (`utensil.min.css` is the minified copy):
 
 ```html
-<link rel="stylesheet" href="/node_modules/utensil-css/dist/utensil.css" />
+<link rel="stylesheet" href="/node_modules/@gobistories/utensil-css/dist/utensil.css" />
 ```
 
 It includes the gray color scale. Generate any other colors with `npx utensil-generate-color` (see SETUP.md) and load them after it.
@@ -338,7 +338,7 @@ Variations control visual weight and hierarchy:
 
 ### Available Components
 
-To discover available components, read [COMPONENTS.md](./COMPONENTS.md) or list `node_modules/utensil-vue/src/components/` — each subdirectory contains one or more related components.
+To discover available components, read [COMPONENTS.md](./COMPONENTS.md) or list `node_modules/@gobistories/utensil-vue/src/components/` — each subdirectory contains one or more related components.
 
 The library provides general-purpose UI primitives suitable for any application: buttons, form inputs, navigation, overlays, layout, display, media, data loading, and theme controls.
 
@@ -425,7 +425,7 @@ In practice, you'll typically use your own typed theme component (e.g., `AcmeThe
 </template>
 
 <script setup lang="ts">
-import { useTheme } from 'utensil-vue/theme/useTheme'
+import { useTheme } from '@gobistories/utensil-vue/theme/useTheme'
 
 const { classes, style } = useTheme({ pen: 'warning' })
 </script>
@@ -541,7 +541,7 @@ Feed it the `pointerdown` of the element that owns the gesture. `holding` is tru
 </template>
 
 <script setup lang="ts">
-import { useLongPress } from 'utensil-vue/composables/use-long-press'
+import { useLongPress } from '@gobistories/utensil-vue/composables/use-long-press'
 
 const longPress = useLongPress(openMenu, { fire: 'release' })
 const holding = longPress.holding
@@ -584,7 +584,7 @@ Capture-phase listeners on `document` or `window` are for generic DOM behavior o
 
 <script setup lang="ts">
 import { useTemplateRef } from 'vue'
-import { useKeys } from 'utensil-vue/composables/use-keys'
+import { useKeys } from '@gobistories/utensil-vue/composables/use-keys'
 
 const keys = useKeys(
   {
@@ -618,7 +618,7 @@ A region whose keys work from anywhere inside it, such as an editor, provides a 
 
 <script setup lang="ts">
 import { onMounted, useTemplateRef } from 'vue'
-import { provideKeyScope } from 'utensil-vue/composables/use-key-scope'
+import { provideKeyScope } from '@gobistories/utensil-vue/composables/use-key-scope'
 
 const editor = useTemplateRef('editor')
 provideKeyScope(editor)

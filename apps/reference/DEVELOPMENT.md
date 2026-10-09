@@ -9,7 +9,7 @@ The reference app is a Vue 3 application that demonstrates every Utensil compone
 - `src/theme/` — the app's Utensil theme: config, icon map, color scales, text themes, typed wrappers and shared demo CSS
 - `src/test/` — test setup for browser APIs jsdom lacks
 
-Utensil is imported from the workspace packages (`utensil-vue/...`, `utensil-css/...`), never by relative path into `packages/`. Follow `packages/vue/docs/USAGE.md` for Utensil conventions — color, tokens, layout utilities versus scoped styles, typed wrappers, icon naming — and check the available skills before implementing any UI.
+Utensil is imported from the workspace packages (`@gobistories/utensil-vue/...`, `@gobistories/utensil-css/...`), never by relative path into `packages/`. Follow `packages/vue/docs/USAGE.md` for Utensil conventions — color, tokens, layout utilities versus scoped styles, typed wrappers, icon naming — and check the available skills before implementing any UI.
 
 ## The App
 
@@ -78,8 +78,8 @@ The API documentation usually sits next to the implemented component with the su
 Add the necessary imports to the demo component's `<script setup>`:
 
 ```ts
-import UtensilComponentName from 'utensil-vue/components/<feature>/Utensil<ComponentName>.vue'
-import UtensilComponentNameDoc from 'utensil-vue/components/<feature>/Utensil<ComponentName>Doc.vue'
+import UtensilComponentName from '@gobistories/utensil-vue/components/<feature>/Utensil<ComponentName>.vue'
+import UtensilComponentNameDoc from '@gobistories/utensil-vue/components/<feature>/Utensil<ComponentName>Doc.vue'
 import ReferenceComponentDemo from '@/features/components/ReferenceComponentDemo.vue'
 ```
 

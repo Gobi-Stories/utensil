@@ -46,7 +46,7 @@
 <script setup lang="ts">
 import ReferenceComponentDemo from '@/features/components/ReferenceComponentDemo.vue'
 import { ReferenceSpinner } from '@/theme/components/ReferenceSpinner'
-import UtensilSpinnerDoc from 'utensil-vue/components/spinner/UtensilSpinnerDoc.vue'
+import UtensilSpinnerDoc from '@gobistories/utensil-vue/components/spinner/UtensilSpinnerDoc.vue'
 </script>
 
 <style scoped>

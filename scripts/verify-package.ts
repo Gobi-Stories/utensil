@@ -1,4 +1,4 @@
-// Verifies utensil-css and utensil-vue as a consumer installs them: packs both packages, installs
+// Verifies @gobistories/utensil-css and @gobistories/utensil-vue as a consumer installs them: packs both packages, installs
 // the tarballs into a copy of fixtures/consumer, then typechecks, builds and inspects the result.
 //
 //   bun scripts/verify-package.ts [--no-build] [--keep]
@@ -34,16 +34,16 @@ console.log(`Working in ${work}`)
 
 for (const pkg of ['css', 'vue']) {
   await $`bun pm pack --destination ${work} --quiet`.cwd(join(root, 'packages', pkg))
-  const tarball = readdirSync(work).find((f) => f.startsWith(`utensil-${pkg}-`) && f.endsWith('.tgz'))!
+  const tarball = readdirSync(work).find((f) => f.startsWith(`gobistories-utensil-${pkg}-`) && f.endsWith('.tgz'))!
   renameSync(join(work, tarball), join(work, `utensil-${pkg}.tgz`))
 }
 
-// Types resolve for bundler consumers (Vite); utensil-css also supports Node16 ESM.
+// Types resolve for bundler consumers (Vite); @gobistories/utensil-css also supports Node16 ESM.
 const attwCss =
   await $`bunx attw ${join(work, 'utensil-css.tgz')} --profile esm-only --entrypoints colors/generate-css colors/generate-colors colors/colors`
     .nothrow()
     .quiet()
-check(attwCss.exitCode === 0, 'attw utensil-css (node16 + bundler)')
+check(attwCss.exitCode === 0, 'attw @gobistories/utensil-css (node16 + bundler)')
 const vueEntrypoints = [
   'components/button/UtensilButton.vue',
   'theme/UtensilThemeRoot.vue',
@@ -59,7 +59,7 @@ const attwResult = JSON.parse(attwVue.stdout.toString())
 const bundlerProblems = (attwResult.analysis?.problems ?? []).filter(
   (p: { resolutionKind?: string }) => p.resolutionKind === 'bundler',
 )
-check(bundlerProblems.length === 0, 'attw utensil-vue (bundler)')
+check(bundlerProblems.length === 0, 'attw @gobistories/utensil-vue (bundler)')
 
 const app = join(work, 'consumer')
 cpSync(join(root, 'fixtures', 'consumer'), app, {
@@ -67,28 +67,34 @@ cpSync(join(root, 'fixtures', 'consumer'), app, {
   filter: (src) => !src.includes('node_modules') && !src.includes(`${join('consumer', 'dist')}`),
 })
 // An isolated install gives the app only its declared dependencies, as pnpm does, so anything the
-// app reaches through utensil-vue must be forwarded by utensil-vue rather than found by hoisting.
+// app reaches through @gobistories/utensil-vue must be forwarded by @gobistories/utensil-vue rather than found by hoisting.
 await $`bun install --no-save --linker isolated`.cwd(app).quiet()
-check(!existsSync(join(app, 'node_modules/utensil-css')), 'the Vue consumer depends on utensil-vue alone')
-
-const installed = JSON.parse(readFileSync(join(app, 'node_modules/utensil-vue/package.json'), 'utf8'))
-check(installed.dependencies['utensil-css'] === installed.version, 'utensil-vue pins utensil-css to its own version')
 check(
-  !existsSync(join(app, 'node_modules/utensil-vue/src/components/button/UtensilButton.test.ts')),
+  !existsSync(join(app, 'node_modules/@gobistories/utensil-css')),
+  'the Vue consumer depends on @gobistories/utensil-vue alone',
+)
+
+const installed = JSON.parse(readFileSync(join(app, 'node_modules/@gobistories/utensil-vue/package.json'), 'utf8'))
+check(
+  installed.dependencies['@gobistories/utensil-css'] === installed.version,
+  '@gobistories/utensil-vue pins @gobistories/utensil-css to its own version',
+)
+check(
+  !existsSync(join(app, 'node_modules/@gobistories/utensil-vue/src/components/button/UtensilButton.test.ts')),
   'tests are not shipped',
 )
 check(
-  existsSync(join(app, 'node_modules/utensil-vue/src/components/button/UtensilButtonDoc.vue')),
+  existsSync(join(app, 'node_modules/@gobistories/utensil-vue/src/components/button/UtensilButtonDoc.vue')),
   'source and API docs are shipped',
 )
-check(existsSync(join(app, 'node_modules/utensil-vue/docs/USAGE.md')), 'docs are shipped')
-check(existsSync(join(app, 'node_modules/utensil-vue/LICENSE.md')), 'license is shipped')
+check(existsSync(join(app, 'node_modules/@gobistories/utensil-vue/docs/USAGE.md')), 'docs are shipped')
+check(existsSync(join(app, 'node_modules/@gobistories/utensil-vue/LICENSE.md')), 'license is shipped')
 
 const typecheck = await $`bun run typecheck`.cwd(app).nothrow()
 check(typecheck.exitCode === 0, 'consumer typechecks with typed wrappers (and rejects an invalid color)')
 
 const test = await $`bun run test`.cwd(app).nothrow()
-check(test.exitCode === 0, 'consumer tests run with Vitest (utensil-vue inlined)')
+check(test.exitCode === 0, 'consumer tests run with Vitest (@gobistories/utensil-vue inlined)')
 
 const build = await $`bun run build`.cwd(app).nothrow()
 check(build.exitCode === 0, 'consumer builds')
@@ -124,24 +130,24 @@ if (build.exitCode === 0) {
 const forwardedCli = await $`node node_modules/.bin/utensil-generate-color blue '#0093ee'`.cwd(app).nothrow().quiet()
 check(
   forwardedCli.exitCode === 0 && forwardedCli.stdout.toString().includes('.blue-pen'),
-  'utensil-generate-color CLI runs through utensil-vue',
+  'utensil-generate-color CLI runs through @gobistories/utensil-vue',
 )
 
-// CSS-only usage: a plain HTML page with only utensil-css installed.
+// CSS-only usage: a plain HTML page with only @gobistories/utensil-css installed.
 const plain = join(work, 'css-only')
 cpSync(join(root, 'fixtures', 'css-only'), plain, { recursive: true, filter: (src) => !src.includes('node_modules') })
 await $`bun install --no-save --linker isolated`.cwd(plain).quiet()
 const generated = await $`node node_modules/.bin/utensil-generate-color blue '#0093ee'`.cwd(plain).nothrow().quiet()
 check(
   generated.exitCode === 0 && generated.stdout.toString().includes('.blue-pen'),
-  'utensil-generate-color CLI runs on Node from utensil-css',
+  'utensil-generate-color CLI runs on Node from @gobistories/utensil-css',
 )
 writeFileSync(join(plain, 'blue.css'), generated.stdout.toString())
-const bundle = readFileSync(join(plain, 'node_modules/utensil-css/dist/utensil.css'), 'utf8')
+const bundle = readFileSync(join(plain, 'node_modules/@gobistories/utensil-css/dist/utensil.css'), 'utf8')
 check(bundle.trimStart().startsWith('/* utensil-layers.css */'), 'utensil.css leads with the layer order')
 check(bundle.includes('.utensil-calculate'), 'utensil.css includes the theme calculations')
 
-const skillsDir = join(app, 'node_modules/utensil-vue/skills')
+const skillsDir = join(app, 'node_modules/@gobistories/utensil-vue/skills')
 const skills = existsSync(skillsDir) ? readdirSync(skillsDir) : []
 check(skills.length > 0, `skills are shipped (${skills.join(', ')})`)
 for (const skill of skills) {

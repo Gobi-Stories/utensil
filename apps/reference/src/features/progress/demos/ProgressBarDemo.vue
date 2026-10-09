@@ -129,8 +129,8 @@
 import { ref, onBeforeUnmount } from 'vue'
 import ReferenceComponentDemo from '@/features/components/ReferenceComponentDemo.vue'
 import { ReferenceProgressBar } from '@/theme/components/ReferenceProgressBar'
-import UtensilProgressBarDoc from 'utensil-vue/components/progress/UtensilProgressBarDoc.vue'
-import UtensilButton from 'utensil-vue/components/button/UtensilButton.vue'
+import UtensilProgressBarDoc from '@gobistories/utensil-vue/components/progress/UtensilProgressBarDoc.vue'
+import UtensilButton from '@gobistories/utensil-vue/components/button/UtensilButton.vue'
 
 const animatedProgress = ref(0)
 const isAnimating = ref(false)

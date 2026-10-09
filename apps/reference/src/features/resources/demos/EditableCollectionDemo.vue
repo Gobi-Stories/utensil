@@ -133,8 +133,8 @@
 
 <script setup lang="ts">
 import { ref, computed } from 'vue'
-import UtensilResourceLoader from 'utensil-vue/components/resource/UtensilResourceLoader.vue'
-import UtensilButton from 'utensil-vue/components/button/UtensilButton.vue'
+import UtensilResourceLoader from '@gobistories/utensil-vue/components/resource/UtensilResourceLoader.vue'
+import UtensilButton from '@gobistories/utensil-vue/components/button/UtensilButton.vue'
 
 interface TeamMember {
   id: string

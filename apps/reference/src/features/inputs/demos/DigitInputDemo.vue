@@ -56,7 +56,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import ReferenceComponentDemo from '@/features/components/ReferenceComponentDemo.vue'
-import UtensilDigitInputDoc from 'utensil-vue/components/input/UtensilDigitInputDoc.vue'
+import UtensilDigitInputDoc from '@gobistories/utensil-vue/components/input/UtensilDigitInputDoc.vue'
 import { ReferenceDigitInput } from '@/theme/components/ReferenceDigitInput'
 
 const digitCode = ref('')

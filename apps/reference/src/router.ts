@@ -1,6 +1,6 @@
 import type { Component } from 'vue'
 import { createRouter, createWebHistory } from 'vue-router'
-import type { IconProp } from 'utensil-vue/theme/utensil-theme'
+import type { IconProp } from '@gobistories/utensil-vue/theme/utensil-theme'
 import type { ReferenceThemeConfig } from '@/theme/reference-theme'
 
 export interface ReferencePage {

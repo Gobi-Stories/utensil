@@ -224,7 +224,7 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import UtensilBoxDoc from 'utensil-vue/components/box/UtensilBoxDoc.vue'
+import UtensilBoxDoc from '@gobistories/utensil-vue/components/box/UtensilBoxDoc.vue'
 import ReferenceComponentDemo from '@/features/components/ReferenceComponentDemo.vue'
 import { ReferenceBox } from '@/theme/components/ReferenceBox'
 import { ReferenceAvatar } from '@/theme/components/ReferenceAvatar'

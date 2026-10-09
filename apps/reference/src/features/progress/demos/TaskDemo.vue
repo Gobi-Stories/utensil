@@ -34,8 +34,8 @@
 
 <script setup lang="ts">
 import { ReferenceTask } from '@/theme/components/ReferenceTask'
-import UtensilTaskDoc from 'utensil-vue/components/tasks/UtensilTaskDoc.vue'
-import UtensilButton from 'utensil-vue/components/button/UtensilButton.vue'
+import UtensilTaskDoc from '@gobistories/utensil-vue/components/tasks/UtensilTaskDoc.vue'
+import UtensilButton from '@gobistories/utensil-vue/components/button/UtensilButton.vue'
 import ReferenceComponentDemo from '@/features/components/ReferenceComponentDemo.vue'
 </script>
 

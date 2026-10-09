@@ -5,6 +5,6 @@ import { fileURLToPath } from 'node:url'
 const root = fileURLToPath(new URL('..', import.meta.url))
 
 export const sourceAliases = [
-  { find: /^utensil-css\/(.*)$/, replacement: `${root}packages/css/src/$1` },
-  { find: /^utensil-vue\/(.*)$/, replacement: `${root}packages/vue/src/$1` },
+  { find: /^@gobistories\/utensil-css\/(.*)$/, replacement: `${root}packages/css/src/$1` },
+  { find: /^@gobistories\/utensil-vue\/(.*)$/, replacement: `${root}packages/vue/src/$1` },
 ]

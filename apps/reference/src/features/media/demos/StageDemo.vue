@@ -32,10 +32,10 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import UtensilStage from 'utensil-vue/components/stage/UtensilStage.vue'
-import UtensilStageDoc from 'utensil-vue/components/stage/UtensilStageDoc.vue'
-import UtensilImage from 'utensil-vue/components/media/UtensilImage.vue'
-import UtensilButton from 'utensil-vue/components/button/UtensilButton.vue'
+import UtensilStage from '@gobistories/utensil-vue/components/stage/UtensilStage.vue'
+import UtensilStageDoc from '@gobistories/utensil-vue/components/stage/UtensilStageDoc.vue'
+import UtensilImage from '@gobistories/utensil-vue/components/media/UtensilImage.vue'
+import UtensilButton from '@gobistories/utensil-vue/components/button/UtensilButton.vue'
 import ReferenceComponentDemo from '@/features/components/ReferenceComponentDemo.vue'
 
 import sampleLandscape from '@/features/assets/sample-landscape.svg'

@@ -49,11 +49,11 @@
 
 <script setup lang="ts">
 import ReferenceComponentDemo from '@/features/components/ReferenceComponentDemo.vue'
-import UtensilDropdownMenu from 'utensil-vue/components/dropdown-menu/UtensilDropdownMenu.vue'
-import UtensilDropdownMenuDoc from 'utensil-vue/components/dropdown-menu/UtensilDropdownMenuDoc.vue'
+import UtensilDropdownMenu from '@gobistories/utensil-vue/components/dropdown-menu/UtensilDropdownMenu.vue'
+import UtensilDropdownMenuDoc from '@gobistories/utensil-vue/components/dropdown-menu/UtensilDropdownMenuDoc.vue'
 import { ReferenceMenuItem as UtensilMenuItem } from '@/theme/components/ReferenceMenuItem'
-import UtensilMenuDivider from 'utensil-vue/components/menu/UtensilMenuDivider.vue'
-import UtensilButton from 'utensil-vue/components/button/UtensilButton.vue'
+import UtensilMenuDivider from '@gobistories/utensil-vue/components/menu/UtensilMenuDivider.vue'
+import UtensilButton from '@gobistories/utensil-vue/components/button/UtensilButton.vue'
 
 function handleMenuAction(action: string) {
   console.log(`Menu action: ${action}`)

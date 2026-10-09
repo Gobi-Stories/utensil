@@ -6,14 +6,21 @@ We'll build an example theme called "Acme" throughout this guide.
 
 ## Install
 
+Utensil is published to its own registry, not to npmjs. Map the `@gobistories` scope to it in your project's
+`.npmrc` (npm, pnpm and Bun all read it). Installing needs no credentials.
+
+```ini
+@gobistories:registry=https://europe-west1-npm.pkg.dev/gobi-tron-production/npm/
+```
+
 ```bash
-npm install utensil-vue
+npm install @gobistories/utensil-vue
 npm install vue @fortawesome/fontawesome-svg-core @fortawesome/free-solid-svg-icons @fortawesome/vue-fontawesome
 ```
 
 `vue` and the FontAwesome packages are peer dependencies, so your app and Utensil share one copy.
 
-`utensil-vue` brings the CSS framework, `utensil-css`, with it and forwards its files at the same subpaths, so import everything from `utensil-vue`. The packages are ESM, built for bundlers such as Vite. Use `"moduleResolution": "bundler"` in your `tsconfig` (the default with `@vue/tsconfig`). There is no barrel file: import each component, composable, and type from its own path (e.g. `utensil-vue/components/button/UtensilButton.vue`), and your bundler includes only the JavaScript and CSS you use.
+`@gobistories/utensil-vue` brings the CSS framework, `@gobistories/utensil-css`, with it and forwards its files at the same subpaths, so import everything from `@gobistories/utensil-vue`. The packages are ESM, built for bundlers such as Vite. Use `"moduleResolution": "bundler"` in your `tsconfig` (the default with `@vue/tsconfig`). There is no barrel file: import each component, composable, and type from its own path (e.g. `@gobistories/utensil-vue/components/button/UtensilButton.vue`), and your bundler includes only the JavaScript and CSS you use.
 
 ## 1. Generate Color Scales
 
@@ -25,7 +32,7 @@ The quickest way to generate a color scale is from the Utensil reference app at 
 
 ### From the CLI
 
-`utensil-vue` installs a `utensil-generate-color` command (it runs on Node):
+`@gobistories/utensil-vue` installs a `utensil-generate-color` command (it runs on Node):
 
 ```bash
 npx utensil-generate-color <color> <hex> [options] > path/to/colors/<color>.css
@@ -45,7 +52,7 @@ Run it without arguments to list the options (e.g. `--paper <hex>` to anchor the
 You can also generate color CSS in code, which is useful for theme builders or dynamic themes:
 
 ```ts
-import { generateColorCss } from 'utensil-vue/colors/generate-css'
+import { generateColorCss } from '@gobistories/utensil-vue/colors/generate-css'
 
 const css = generateColorCss('blue', '#0093ee')
 ```
@@ -158,7 +165,7 @@ import type {
   UtensilTextThemes,
   VariantMap,
   TextThemeClasses,
-} from 'utensil-vue/theme/utensil-theme'
+} from '@gobistories/utensil-vue/theme/utensil-theme'
 import { type AcmeIcons } from './acme-icons'
 
 // Declare your colors (must match the CSS files you generated)
@@ -235,7 +242,7 @@ import { faDownload } from '@fortawesome/free-solid-svg-icons/faDownload'
 import { faUser } from '@fortawesome/free-solid-svg-icons/faUser'
 // ... import each icon you need
 
-import { utensilIconMap, type ExtractIconMap } from 'utensil-vue/theme/utensil-icons'
+import { utensilIconMap, type ExtractIconMap } from '@gobistories/utensil-vue/theme/utensil-icons'
 
 export const acmeIconMap = {
   ...utensilIconMap, // Include Utensil's base icons
@@ -284,11 +291,16 @@ You can nest theme roots to embed one theme inside another (e.g., a documentatio
 <script setup lang="ts">
 /* Ensures your colors and text themes are loaded, see below */
 import './acme-css-include'
-import type { ThemeMode, ThemeContrast, ThemeReducedMotion, RadiusScaleProp } from 'utensil-vue/theme/utensil-theme'
+import type {
+  ThemeMode,
+  ThemeContrast,
+  ThemeReducedMotion,
+  RadiusScaleProp,
+} from '@gobistories/utensil-vue/theme/utensil-theme'
 import { acmeDefaultPen, acmeDefaultPencil, acmeVariantMap } from './acme-theme'
 import { acmeIconMap } from './acme-icons'
-import UtensilThemeRoot from 'utensil-vue/theme/UtensilThemeRoot.vue'
-import { useUtensilIcons } from 'utensil-vue/components/icon/use-utensil-icons'
+import UtensilThemeRoot from '@gobistories/utensil-vue/theme/UtensilThemeRoot.vue'
+import { useUtensilIcons } from '@gobistories/utensil-vue/components/icon/use-utensil-icons'
 
 defineProps<{
   mode?: ThemeMode
@@ -338,7 +350,7 @@ Utensil components that accept theme props (color, icon, variant) are generic. C
 
 ```ts
 // acme-theme/components/AcmeButton.ts
-import UtensilButton from 'utensil-vue/components/button/UtensilButton.vue'
+import UtensilButton from '@gobistories/utensil-vue/components/button/UtensilButton.vue'
 import type { AcmeThemeConfig } from '../acme-theme'
 
 export const AcmeButton = UtensilButton<AcmeThemeConfig>
@@ -346,7 +358,7 @@ export const AcmeButton = UtensilButton<AcmeThemeConfig>
 
 ```ts
 // acme-theme/components/AcmeIcon.ts
-import UtensilIcon from 'utensil-vue/components/icon/UtensilIcon.vue'
+import UtensilIcon from '@gobistories/utensil-vue/components/icon/UtensilIcon.vue'
 import type { AcmeThemeConfig } from '../acme-theme'
 
 export const AcmeIcon = UtensilIcon<AcmeThemeConfig>
@@ -369,16 +381,16 @@ Utensil's CSS is organized into cascade layers (see USAGE.md → "Cascade Layers
 
 ```ts
 // main.ts
-import 'utensil-vue/utensil-layers.css'
+import '@gobistories/utensil-vue/utensil-layers.css'
 
 import { createApp } from 'vue'
 // ...
 ```
 
-Web component / Shadow DOM consumers get the layer order from `utensil-vue/utensil-css-inline`, a string of Utensil's base CSS that leads with it — inject it into the shadow root before any other stylesheet:
+Web component / Shadow DOM consumers get the layer order from `@gobistories/utensil-vue/utensil-css-inline`, a string of Utensil's base CSS that leads with it — inject it into the shadow root before any other stylesheet:
 
 ```ts
-import utensilCss from 'utensil-vue/utensil-css-inline'
+import utensilCss from '@gobistories/utensil-vue/utensil-css-inline'
 
 const sheet = new CSSStyleSheet()
 sheet.replaceSync(utensilCss)
@@ -401,7 +413,7 @@ Wrap your application with your theme root:
 
 <script setup lang="ts">
 import AcmeThemeRoot from './acme-theme/AcmeThemeRoot.vue'
-import { useUserThemePreferences } from 'utensil-vue/theme/useUserThemePreferences'
+import { useUserThemePreferences } from '@gobistories/utensil-vue/theme/useUserThemePreferences'
 
 const { mode, contrast, reducedMotion } = useUserThemePreferences()
 </script>
@@ -459,7 +471,7 @@ export default defineConfig({
   plugins: [vue()],
   test: {
     environment: 'jsdom',
-    server: { deps: { inline: ['utensil-vue'] } },
+    server: { deps: { inline: ['@gobistories/utensil-vue'] } },
   },
 })
 ```

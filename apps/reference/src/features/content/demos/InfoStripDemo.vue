@@ -77,9 +77,9 @@
 </template>
 
 <script setup lang="ts">
-import UtensilInfoStripItem from 'utensil-vue/components/info-strip/UtensilInfoStripItem.vue'
-import UtensilInfoStripDoc from 'utensil-vue/components/info-strip/UtensilInfoStripDoc.vue'
-import UtensilInfoStripItemDoc from 'utensil-vue/components/info-strip/UtensilInfoStripItemDoc.vue'
+import UtensilInfoStripItem from '@gobistories/utensil-vue/components/info-strip/UtensilInfoStripItem.vue'
+import UtensilInfoStripDoc from '@gobistories/utensil-vue/components/info-strip/UtensilInfoStripDoc.vue'
+import UtensilInfoStripItemDoc from '@gobistories/utensil-vue/components/info-strip/UtensilInfoStripItemDoc.vue'
 import ReferenceComponentDemo from '@/features/components/ReferenceComponentDemo.vue'
 import { ReferenceInfoStrip } from '@/theme/components/ReferenceInfoStrip'
 import { ReferenceBadge } from '@/theme/components/ReferenceBadge'

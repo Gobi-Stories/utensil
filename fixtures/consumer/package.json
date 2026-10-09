@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "type": "module",
-  "description": "A fresh Vue consumer app that installs only the packed utensil-vue tarball (utensil-css arrives as its dependency). Used by scripts/verify-package.ts.",
+  "description": "A fresh Vue consumer app that installs only the packed @gobistories/utensil-vue tarball (@gobistories/utensil-css arrives as its dependency). Used by scripts/verify-package.ts.",
   "scripts": {
     "typecheck": "vue-tsc --noEmit -p tsconfig.json",
     "build": "vite build",
@@ -13,7 +13,7 @@
     "@fortawesome/fontawesome-svg-core": "^7.2.0",
     "@fortawesome/free-solid-svg-icons": "^7.2.0",
     "@fortawesome/vue-fontawesome": "^3.2.0",
-    "utensil-vue": "file:../utensil-vue.tgz",
+    "@gobistories/utensil-vue": "file:../utensil-vue.tgz",
     "vue": "3.5.34"
   },
   "devDependencies": {
@@ -27,6 +27,6 @@
     "vitest": "3.2.4"
   },
   "overrides": {
-    "utensil-css": "file:../utensil-css.tgz"
+    "@gobistories/utensil-css": "file:../utensil-css.tgz"
   }
 }

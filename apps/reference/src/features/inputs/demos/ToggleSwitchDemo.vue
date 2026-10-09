@@ -52,8 +52,8 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import ReferenceComponentDemo from '@/features/components/ReferenceComponentDemo.vue'
-import UtensilToggleSwitch from 'utensil-vue/components/toggle-switch/UtensilToggleSwitch.vue'
-import UtensilToggleSwitchDoc from 'utensil-vue/components/toggle-switch/UtensilToggleSwitchDoc.vue'
+import UtensilToggleSwitch from '@gobistories/utensil-vue/components/toggle-switch/UtensilToggleSwitch.vue'
+import UtensilToggleSwitchDoc from '@gobistories/utensil-vue/components/toggle-switch/UtensilToggleSwitchDoc.vue'
 
 const switchBasic = ref(true)
 const switchCustom = ref<string>('inactive')

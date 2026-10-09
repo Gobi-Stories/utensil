@@ -1,5 +1,5 @@
 import { faTrash } from '@fortawesome/free-solid-svg-icons/faTrash'
-import { utensilIconMap, type ExtractIconMap } from 'utensil-vue/theme/utensil-icons'
+import { utensilIconMap, type ExtractIconMap } from '@gobistories/utensil-vue/theme/utensil-icons'
 
 export const acmeIconMap = {
   ...utensilIconMap,

@@ -93,7 +93,7 @@
 <script setup lang="ts">
 import { ref, computed, watch } from 'vue'
 import ReferenceComponentDemo from '@/features/components/ReferenceComponentDemo.vue'
-import UtensilCheckboxDoc from 'utensil-vue/components/checkbox/UtensilCheckboxDoc.vue'
+import UtensilCheckboxDoc from '@gobistories/utensil-vue/components/checkbox/UtensilCheckboxDoc.vue'
 import { ReferenceCheckbox } from '@/theme/components/ReferenceCheckbox'
 
 const checkBasic = ref(false)

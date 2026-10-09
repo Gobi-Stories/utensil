@@ -27,7 +27,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { ReferenceCalendar } from '@/theme/components/ReferenceCalendar'
-import type { DateRange } from 'utensil-vue/components/date-picker/utensil-date-picker'
+import type { DateRange } from '@gobistories/utensil-vue/components/date-picker/utensil-date-picker'
 import { formatRangeDisplay } from '../date-pickers'
 
 const dateRange = ref<DateRange>({ start: null, end: null })

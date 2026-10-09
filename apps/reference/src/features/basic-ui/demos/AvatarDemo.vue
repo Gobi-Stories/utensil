@@ -131,8 +131,8 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import UtensilTheme from 'utensil-vue/theme/UtensilTheme.vue'
-import UtensilAvatarDoc from 'utensil-vue/components/avatar/UtensilAvatarDoc.vue'
+import UtensilTheme from '@gobistories/utensil-vue/theme/UtensilTheme.vue'
+import UtensilAvatarDoc from '@gobistories/utensil-vue/components/avatar/UtensilAvatarDoc.vue'
 import { ReferenceAvatar } from '@/theme/components/ReferenceAvatar'
 import { ReferenceIcon } from '@/theme/components/ReferenceIcon'
 import { ReferenceRangeSlider } from '@/theme/components/ReferenceRangeSlider'

@@ -90,7 +90,7 @@
 
 <script setup lang="ts">
 import { computed } from 'vue'
-import type { ColorProp } from 'utensil-vue/theme/utensil-theme'
+import type { ColorProp } from '@gobistories/utensil-vue/theme/utensil-theme'
 import type { ReferenceThemeConfig } from '@/theme/reference-theme'
 import { ReferenceTheme } from '@/theme/ReferenceTheme'
 

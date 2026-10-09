@@ -75,7 +75,7 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import UtensilCircleButtonDoc from 'utensil-vue/components/circle-button/UtensilCircleButtonDoc.vue'
+import UtensilCircleButtonDoc from '@gobistories/utensil-vue/components/circle-button/UtensilCircleButtonDoc.vue'
 import { ReferenceCircleButton } from '@/theme/components/ReferenceCircleButton'
 import { ReferenceRangeSlider } from '@/theme/components/ReferenceRangeSlider'
 import ReferenceComponentDemo from '@/features/components/ReferenceComponentDemo.vue'

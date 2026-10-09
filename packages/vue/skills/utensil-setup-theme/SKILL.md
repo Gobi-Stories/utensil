@@ -1,6 +1,6 @@
 ---
 name: utensil-setup-theme
-description: Create a Utensil theme for a project — generated color scales, variants, text themes, icon map, theme root component and typed component wrappers. Use when setting up utensil-vue in a new project or adding a new theme to an existing one.
+description: Create a Utensil theme for a project — generated color scales, variants, text themes, icon map, theme root component and typed component wrappers. Use when setting up @gobistories/utensil-vue in a new project or adding a new theme to an existing one.
 license: MIT
 argument-hint: <ThemeName> [brand colors…]
 ---
@@ -29,7 +29,7 @@ Determine:
 
 If brand colors are missing, ask the user for them. Never invent brand colors. Utensil provides `gray`; neutral colors may otherwise be chosen and stated as a default for the user to confirm.
 
-Check that `utensil-vue` (it brings `utensil-css` with it) and the FontAwesome peer dependencies (`@fortawesome/fontawesome-svg-core`, `@fortawesome/free-solid-svg-icons`, `@fortawesome/vue-fontawesome`) are installed. Install them if not.
+Check that `@gobistories/utensil-vue` (it brings `@gobistories/utensil-css` with it) and the FontAwesome peer dependencies (`@fortawesome/fontawesome-svg-core`, `@fortawesome/free-solid-svg-icons`, `@fortawesome/vue-fontawesome`) are installed. Install them if not.
 
 ## Step 3: Generate the color scales
 
@@ -55,8 +55,8 @@ Follow SETUP.md sections 2–6, naming everything after the theme (shown here fo
 
 ## Step 5: Wire it into the application
 
-1. Make `import 'utensil-vue/utensil-layers.css'` the first line of the application entry point (e.g., `main.ts`), before any other import.
-2. Wrap the application in the theme root, with user preferences from `useUserThemePreferences` (`utensil-vue/theme/useUserThemePreferences`):
+1. Make `import '@gobistories/utensil-vue/utensil-layers.css'` the first line of the application entry point (e.g., `main.ts`), before any other import.
+2. Wrap the application in the theme root, with user preferences from `useUserThemePreferences` (`@gobistories/utensil-vue/theme/useUserThemePreferences`):
 
 ```vue
 <template>
@@ -67,7 +67,7 @@ Follow SETUP.md sections 2–6, naming everything after the theme (shown here fo
 
 <script setup lang="ts">
 import AcmeThemeRoot from './theme/AcmeThemeRoot.vue'
-import { useUserThemePreferences } from 'utensil-vue/theme/useUserThemePreferences'
+import { useUserThemePreferences } from '@gobistories/utensil-vue/theme/useUserThemePreferences'
 
 const { mode, contrast, reducedMotion } = useUserThemePreferences()
 </script>

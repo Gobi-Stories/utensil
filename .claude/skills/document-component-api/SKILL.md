@@ -18,4 +18,4 @@ Read `packages/vue/skills/utensil-document-component-api/SKILL.md` and follow it
 - **Examples** use the component itself (`<UtensilButton label="Save" />`).
 - **Verify** with `./check` at the repository root.
 
-Doc components ship as readable source in the `utensil-vue` package (consumers' agents read them as API docs) but are not compiled into `dist/`.
+Doc components ship as readable source in the `@gobistories/utensil-vue` package (consumers' agents read them as API docs) but are not compiled into `dist/`.

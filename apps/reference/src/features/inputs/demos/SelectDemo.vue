@@ -105,10 +105,10 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import ReferenceComponentDemo from '@/features/components/ReferenceComponentDemo.vue'
-import UtensilSelect from 'utensil-vue/components/select/UtensilSelect.vue'
-import UtensilSelectDoc from 'utensil-vue/components/select/UtensilSelectDoc.vue'
-import UtensilIcon from 'utensil-vue/components/icon/UtensilIcon.vue'
-import type { SelectOption } from 'utensil-vue/components/select/utensil-select'
+import UtensilSelect from '@gobistories/utensil-vue/components/select/UtensilSelect.vue'
+import UtensilSelectDoc from '@gobistories/utensil-vue/components/select/UtensilSelectDoc.vue'
+import UtensilIcon from '@gobistories/utensil-vue/components/icon/UtensilIcon.vue'
+import type { SelectOption } from '@gobistories/utensil-vue/components/select/utensil-select'
 import type { ReferenceThemeConfig } from '@/theme/reference-theme'
 
 const basicSelect = ref<string | null>(null)

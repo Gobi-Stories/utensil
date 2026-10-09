@@ -1,2 +1,2 @@
-/* Forwards theme/colors/gray.css, so Vue projects only depend on utensil-vue. */
-@import 'utensil-css/theme/colors/gray.css';
+/* Forwards theme/colors/gray.css, so Vue projects only depend on @gobistories/utensil-vue. */
+@import '@gobistories/utensil-css/theme/colors/gray.css';

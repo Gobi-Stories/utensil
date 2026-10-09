@@ -50,7 +50,7 @@ Then output a single markdown table row for the component:
 
 **and** additional markdown table rows for each documented child, if any. Specify the API Docs as the same file as the parent.
 
-Links are relative to `packages/vue/docs/`, where the catalogue lives: `../src/components/...` is the component source in the `utensil-vue` package.
+Links are relative to `packages/vue/docs/`, where the catalogue lives: `../src/components/...` is the component source in the `@gobistories/utensil-vue` package.
 
 ## Rules
 

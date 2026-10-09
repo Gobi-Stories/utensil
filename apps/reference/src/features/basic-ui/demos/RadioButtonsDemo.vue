@@ -95,7 +95,7 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import UtensilRadioButtonsDoc from 'utensil-vue/components/radio-buttons/UtensilRadioButtonsDoc.vue'
+import UtensilRadioButtonsDoc from '@gobistories/utensil-vue/components/radio-buttons/UtensilRadioButtonsDoc.vue'
 import { ReferenceRadioButtons } from '@/theme/components/ReferenceRadioButtons'
 import { ReferenceRadioButton } from '@/theme/components/ReferenceRadioButton'
 import ReferenceComponentDemo from '@/features/components/ReferenceComponentDemo.vue'

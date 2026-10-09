@@ -1,5 +1,5 @@
 // Utensil layer order must load before any CSS that mentions the layers
-import 'utensil-vue/utensil-layers.css'
+import '@gobistories/utensil-vue/utensil-layers.css'
 
 import { createApp } from 'vue'
 import App from './App.vue'

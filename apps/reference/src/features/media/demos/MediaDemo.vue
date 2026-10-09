@@ -73,9 +73,9 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import UtensilMedia from 'utensil-vue/components/media/UtensilMedia.vue'
-import UtensilMediaDoc from 'utensil-vue/components/media/UtensilMediaDoc.vue'
-import UtensilButton from 'utensil-vue/components/button/UtensilButton.vue'
+import UtensilMedia from '@gobistories/utensil-vue/components/media/UtensilMedia.vue'
+import UtensilMediaDoc from '@gobistories/utensil-vue/components/media/UtensilMediaDoc.vue'
+import UtensilButton from '@gobistories/utensil-vue/components/button/UtensilButton.vue'
 import ReferenceComponentDemo from '@/features/components/ReferenceComponentDemo.vue'
 
 import sampleLandscape from '@/features/assets/sample-landscape.svg'

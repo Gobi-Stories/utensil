@@ -1,4 +1,4 @@
-// Prepares a release of utensil-css and utensil-vue, which are versioned in lockstep.
+// Prepares a release of @gobistories/utensil-css and @gobistories/utensil-vue, which are versioned in lockstep.
 //
 //   bun scripts/release.ts <patch | minor | major | x.y.z> [--dry]
 //
@@ -60,11 +60,11 @@ if (!dry) {
     pkg.version = version
     writeFileSync(path, `${JSON.stringify(pkg, null, 2)}\n`)
   }
-  // bun pm pack fills utensil-vue's workspace:* dependency on utensil-css from the version bun.lock
-  // records for the workspace, and bun install does not refresh it, so set it here.
+  // bun pm pack fills @gobistories/utensil-vue's workspace:* dependency on @gobistories/utensil-css from the
+  // version bun.lock records for the workspace, and bun install does not refresh it, so set it here.
   const lockPath = join(root, 'bun.lock')
   const lock = readFileSync(lockPath, 'utf8').replace(
-    /("name": "utensil-(?:css|vue|reference)",\s*"version": ")[^"]+"/g,
+    /("name": "(?:@gobistories\/utensil-(?:css|vue)|utensil-reference)",\s*"version": ")[^"]+"/g,
     `$1${version}"`,
   )
   writeFileSync(lockPath, lock)
@@ -81,11 +81,12 @@ for (const pkg of ['css', 'vue']) {
 }
 
 console.log(`
-Packed utensil-css@${version} and utensil-vue@${version} into temp/release/.
+Packed @gobistories/utensil-css@${version} and @gobistories/utensil-vue@${version} into temp/release/.
 
 Next steps:
   git commit -am "repo: release: ${version}" && git tag v${version}
-  npm publish temp/release/utensil-css-${version}.tgz
-  npm publish temp/release/utensil-vue-${version}.tgz
+  env -u GOOGLE_APPLICATION_CREDENTIALS npx google-artifactregistry-auth
+  npm publish temp/release/gobistories-utensil-css-${version}.tgz
+  npm publish temp/release/gobistories-utensil-vue-${version}.tgz
   git push && git push --tags
 `)

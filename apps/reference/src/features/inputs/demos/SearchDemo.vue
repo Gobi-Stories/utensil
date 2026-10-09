@@ -46,8 +46,8 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import ReferenceComponentDemo from '@/features/components/ReferenceComponentDemo.vue'
-import UtensilSearch from 'utensil-vue/components/input/UtensilSearch.vue'
-import UtensilSearchDoc from 'utensil-vue/components/input/UtensilSearchDoc.vue'
+import UtensilSearch from '@gobistories/utensil-vue/components/input/UtensilSearch.vue'
+import UtensilSearchDoc from '@gobistories/utensil-vue/components/input/UtensilSearchDoc.vue'
 
 const searchBasic = ref('')
 const searchDebounced = ref('')

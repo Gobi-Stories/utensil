@@ -60,9 +60,9 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import ReferenceComponentDemo from '@/features/components/ReferenceComponentDemo.vue'
-import UtensilColorPicker from 'utensil-vue/components/color-picker/UtensilColorPicker.vue'
-import UtensilColorPickerDoc from 'utensil-vue/components/color-picker/UtensilColorPickerDoc.vue'
-import type { ColorPickerOption } from 'utensil-vue/components/color-picker/utensil-color-picker'
+import UtensilColorPicker from '@gobistories/utensil-vue/components/color-picker/UtensilColorPicker.vue'
+import UtensilColorPickerDoc from '@gobistories/utensil-vue/components/color-picker/UtensilColorPickerDoc.vue'
+import type { ColorPickerOption } from '@gobistories/utensil-vue/components/color-picker/utensil-color-picker'
 
 const basicColor = ref('#2664eb')
 const swatchColor = ref('#10b981')

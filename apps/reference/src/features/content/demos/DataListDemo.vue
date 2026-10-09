@@ -72,10 +72,10 @@
 </template>
 
 <script setup lang="ts">
-import UtensilDataList from 'utensil-vue/components/data-list/UtensilDataList.vue'
-import UtensilDataListItem from 'utensil-vue/components/data-list/UtensilDataListItem.vue'
-import UtensilDataListDoc from 'utensil-vue/components/data-list/UtensilDataListDoc.vue'
-import UtensilAvatarStack from 'utensil-vue/components/avatar/UtensilAvatarStack.vue'
+import UtensilDataList from '@gobistories/utensil-vue/components/data-list/UtensilDataList.vue'
+import UtensilDataListItem from '@gobistories/utensil-vue/components/data-list/UtensilDataListItem.vue'
+import UtensilDataListDoc from '@gobistories/utensil-vue/components/data-list/UtensilDataListDoc.vue'
+import UtensilAvatarStack from '@gobistories/utensil-vue/components/avatar/UtensilAvatarStack.vue'
 import ReferenceComponentDemo from '@/features/components/ReferenceComponentDemo.vue'
 import { ReferenceBadge } from '@/theme/components/ReferenceBadge'
 import { ReferencePill } from '@/theme/components/ReferencePill'

@@ -50,8 +50,8 @@
 </template>
 
 <script setup lang="ts">
-import UtensilFontText from 'utensil-vue/components/font/UtensilFontText.vue'
-import UtensilFontTextDoc from 'utensil-vue/components/font/UtensilFontTextDoc.vue'
+import UtensilFontText from '@gobistories/utensil-vue/components/font/UtensilFontText.vue'
+import UtensilFontTextDoc from '@gobistories/utensil-vue/components/font/UtensilFontTextDoc.vue'
 import ReferenceComponentDemo from '@/features/components/ReferenceComponentDemo.vue'
 </script>
 

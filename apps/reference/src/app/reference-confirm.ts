@@ -1,4 +1,4 @@
-import { useConfirm } from 'utensil-vue/components/dialogs/useConfirm'
+import { useConfirm } from '@gobistories/utensil-vue/components/dialogs/useConfirm'
 
 export const {
   isOpen: confirmIsOpen,

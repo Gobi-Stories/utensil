@@ -6,7 +6,7 @@ export default defineConfig({
   plugins: [vue()],
   resolve: { alias: sourceAliases },
   test: {
-    name: 'utensil-vue',
+    name: '@gobistories/utensil-vue',
     environment: 'jsdom',
     include: ['src/**/*.{test,spec}.{js,ts,jsx,tsx}'],
     exclude: [...configDefaults.exclude],

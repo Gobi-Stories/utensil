@@ -51,7 +51,7 @@
 import { ref } from 'vue'
 import { ReferenceCalendar } from '@/theme/components/ReferenceCalendar'
 import ReferenceComponentDemo from '@/features/components/ReferenceComponentDemo.vue'
-import UtensilCalendarDoc from 'utensil-vue/components/date-picker/UtensilCalendarDoc.vue'
+import UtensilCalendarDoc from '@gobistories/utensil-vue/components/date-picker/UtensilCalendarDoc.vue'
 import { formatDisplayDate } from '../date-pickers'
 
 const singleDate = ref<Date | null>(null)

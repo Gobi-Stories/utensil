@@ -87,7 +87,7 @@
 </template>
 
 <script setup lang="ts">
-import UtensilBadgeDoc from 'utensil-vue/components/badge/UtensilBadgeDoc.vue'
+import UtensilBadgeDoc from '@gobistories/utensil-vue/components/badge/UtensilBadgeDoc.vue'
 import { ReferenceBadge } from '@/theme/components/ReferenceBadge'
 import ReferenceComponentDemo from '@/features/components/ReferenceComponentDemo.vue'
 </script>

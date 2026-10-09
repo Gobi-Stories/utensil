@@ -39,17 +39,17 @@
         "@fortawesome/free-regular-svg-icons": "^7.2.0",
         "@fortawesome/free-solid-svg-icons": "^7.2.0",
         "@fortawesome/vue-fontawesome": "^3.2.0",
-        "utensil-vue": "workspace:*",
+        "@gobistories/utensil-vue": "workspace:*",
         "vue": "^3.5.34",
         "vue-router": "^4.6.4",
       },
       "devDependencies": {
-        "utensil-css": "workspace:*",
+        "@gobistories/utensil-css": "workspace:*",
         "vite-plugin-vue-devtools": "^7.7.9",
       },
     },
     "packages/css": {
-      "name": "utensil-css",
+      "name": "@gobistories/utensil-css",
       "version": "1.0.2",
       "bin": {
         "utensil-generate-color": "./dist/bin/generate-color.js",
@@ -61,13 +61,13 @@
       },
     },
     "packages/vue": {
-      "name": "utensil-vue",
+      "name": "@gobistories/utensil-vue",
       "version": "1.0.2",
       "bin": {
         "utensil-generate-color": "./bin/generate-color.js",
       },
       "dependencies": {
-        "utensil-css": "workspace:*",
+        "@gobistories/utensil-css": "workspace:*",
       },
       "devDependencies": {
         "@fortawesome/fontawesome-svg-core": "^7.2.0",
@@ -273,6 +273,10 @@
     "@fortawesome/free-solid-svg-icons": ["@fortawesome/free-solid-svg-icons@7.3.1", "", { "dependencies": { "@fortawesome/fontawesome-common-types": "7.3.1" } }, "sha512-v0BLa0eqg7ubvVWeNSHVBs8fWH/GJicERZoJaxJ3FE/lj67VSqzoMg9pzfZVOfLMX10y0pGwQAuxoRVVH2patg=="],
 
     "@fortawesome/vue-fontawesome": ["@fortawesome/vue-fontawesome@3.3.3", "", { "peerDependencies": { "@fortawesome/fontawesome-svg-core": "~1 || ~6 || ~7", "vue": ">= 3.0.0 < 4" } }, "sha512-Jbjze98gGcVBSdkscLbnDlHECumMAFVWDarMtycctn9qL3p92ApnV36VW4PwVrcm9IWrHnnE6ZL9x7MXStSCfA=="],
+
+    "@gobistories/utensil-css": ["@gobistories/utensil-css@workspace:packages/css"],
+
+    "@gobistories/utensil-vue": ["@gobistories/utensil-vue@workspace:packages/vue"],
 
     "@humanfs/core": ["@humanfs/core@0.19.2", "", { "dependencies": { "@humanfs/types": "^0.15.0" } }, "sha512-UhXNm+CFMWcbChXywFwkmhqjs3PRCmcSa/hfBgLIb7oQ5HNb1wS0icWsGtSAUNgefHeI+eBrA8I1fxmbHsGdvA=="],
 
@@ -1002,11 +1006,7 @@
 
     "uri-js": ["uri-js@4.4.1", "", { "dependencies": { "punycode": "^2.1.0" } }, "sha512-7rKUyy33Q1yc98pQ1DAmLtwX109F7TIfWlW1Ydo8Wl1ii1SeHieeh0HHfPeL2fMXK6z0s8ecKs9frCuLJvndBg=="],
 
-    "utensil-css": ["utensil-css@workspace:packages/css"],
-
     "utensil-reference": ["utensil-reference@workspace:apps/reference"],
-
-    "utensil-vue": ["utensil-vue@workspace:packages/vue"],
 
     "util-deprecate": ["util-deprecate@1.0.2", "", {}, "sha512-EPD5q1uXyFxJpCrLnCc1nHnq3gOa6DZBocAIiI2TaSCA7VCJ1UJDMagCzIkXNsUYfD1daK//LTEQ8xiIbrHtcw=="],
 

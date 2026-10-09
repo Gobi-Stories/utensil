@@ -6,6 +6,6 @@ export default defineConfig({
   test: {
     environment: 'jsdom',
     // Utensil's compiled components import their CSS: let Vite process the package
-    server: { deps: { inline: ['utensil-vue'] } },
+    server: { deps: { inline: ['@gobistories/utensil-vue'] } },
   },
 })

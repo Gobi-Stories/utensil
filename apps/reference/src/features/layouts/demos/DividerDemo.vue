@@ -54,7 +54,7 @@
 </template>
 
 <script setup lang="ts">
-import UtensilDividerDoc from 'utensil-vue/components/divider/UtensilDividerDoc.vue'
+import UtensilDividerDoc from '@gobistories/utensil-vue/components/divider/UtensilDividerDoc.vue'
 import { ReferenceDivider } from '@/theme/components/ReferenceDivider'
 import ReferenceComponentDemo from '@/features/components/ReferenceComponentDemo.vue'
 </script>

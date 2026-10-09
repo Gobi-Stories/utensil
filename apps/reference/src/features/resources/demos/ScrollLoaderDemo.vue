@@ -244,12 +244,12 @@
 
 <script setup lang="ts">
 import { ref, computed } from 'vue'
-import UtensilScrollLoader from 'utensil-vue/components/scroll-loader/UtensilScrollLoader.vue'
-import UtensilScrollLoaderDoc from 'utensil-vue/components/scroll-loader/UtensilScrollLoaderDoc.vue'
+import UtensilScrollLoader from '@gobistories/utensil-vue/components/scroll-loader/UtensilScrollLoader.vue'
+import UtensilScrollLoaderDoc from '@gobistories/utensil-vue/components/scroll-loader/UtensilScrollLoaderDoc.vue'
 import ReferenceComponentDemo from '@/features/components/ReferenceComponentDemo.vue'
-import UtensilSpinner from 'utensil-vue/components/spinner/UtensilSpinner.vue'
-import UtensilButton from 'utensil-vue/components/button/UtensilButton.vue'
-import UtensilBadge from 'utensil-vue/components/badge/UtensilBadge.vue'
+import UtensilSpinner from '@gobistories/utensil-vue/components/spinner/UtensilSpinner.vue'
+import UtensilButton from '@gobistories/utensil-vue/components/button/UtensilButton.vue'
+import UtensilBadge from '@gobistories/utensil-vue/components/badge/UtensilBadge.vue'
 import { referenceVariants, type ReferenceColorProp } from '@/theme/reference-theme'
 import { ReferenceAvatar } from '@/theme/components/ReferenceAvatar'
 

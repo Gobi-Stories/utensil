@@ -36,8 +36,8 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { ReferenceDatePicker } from '@/theme/components/ReferenceDatePicker'
-import type { DateRange } from 'utensil-vue/components/date-picker/utensil-date-picker'
-import type { DatePreset } from 'utensil-vue/components/date-picker/UtensilDatePicker.vue'
+import type { DateRange } from '@gobistories/utensil-vue/components/date-picker/utensil-date-picker'
+import type { DatePreset } from '@gobistories/utensil-vue/components/date-picker/UtensilDatePicker.vue'
 import { formatRangeDisplay, today } from '../date-pickers'
 
 const pickerRange = ref<DateRange>({ start: null, end: null })

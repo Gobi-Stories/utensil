@@ -1,2 +1,2 @@
-/* Forwards utensil.min.css, so Vue projects only depend on utensil-vue. */
-@import 'utensil-css/utensil.min.css';
+/* Forwards utensil.min.css, so Vue projects only depend on @gobistories/utensil-vue. */
+@import '@gobistories/utensil-css/utensil.min.css';

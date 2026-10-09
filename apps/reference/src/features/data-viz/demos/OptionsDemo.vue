@@ -32,7 +32,7 @@
 </template>
 
 <script setup lang="ts">
-import UtensilDataViz from 'utensil-vue/components/data-viz/UtensilDataViz.vue'
+import UtensilDataViz from '@gobistories/utensil-vue/components/data-viz/UtensilDataViz.vue'
 import { monthLabels, singleSeries } from '../chart-data'
 </script>
 

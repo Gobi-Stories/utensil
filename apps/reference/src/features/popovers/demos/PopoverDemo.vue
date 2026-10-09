@@ -26,9 +26,9 @@
 
 <script setup lang="ts">
 import ReferenceComponentDemo from '@/features/components/ReferenceComponentDemo.vue'
-import UtensilPopover from 'utensil-vue/components/popover/UtensilPopover.vue'
-import UtensilPopoverDoc from 'utensil-vue/components/popover/UtensilPopoverDoc.vue'
-import UtensilButton from 'utensil-vue/components/button/UtensilButton.vue'
+import UtensilPopover from '@gobistories/utensil-vue/components/popover/UtensilPopover.vue'
+import UtensilPopoverDoc from '@gobistories/utensil-vue/components/popover/UtensilPopoverDoc.vue'
+import UtensilButton from '@gobistories/utensil-vue/components/button/UtensilButton.vue'
 </script>
 
 <style scoped>

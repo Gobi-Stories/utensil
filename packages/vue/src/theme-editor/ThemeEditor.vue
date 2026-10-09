@@ -298,7 +298,7 @@ import {
   defaultTextContrast,
   type PaperOptions,
   type TextContrast,
-} from 'utensil-css/colors/generate-colors'
+} from '@gobistories/utensil-css/colors/generate-colors'
 import UtensilDivider from '../components/divider/UtensilDivider.vue'
 
 export interface ThemePreset {

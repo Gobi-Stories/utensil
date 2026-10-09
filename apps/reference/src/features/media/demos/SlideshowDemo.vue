@@ -48,9 +48,9 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import UtensilSlideshow from 'utensil-vue/components/slideshow/UtensilSlideshow.vue'
-import UtensilSlideshowDoc from 'utensil-vue/components/slideshow/UtensilSlideshowDoc.vue'
-import UtensilButton from 'utensil-vue/components/button/UtensilButton.vue'
+import UtensilSlideshow from '@gobistories/utensil-vue/components/slideshow/UtensilSlideshow.vue'
+import UtensilSlideshowDoc from '@gobistories/utensil-vue/components/slideshow/UtensilSlideshowDoc.vue'
+import UtensilButton from '@gobistories/utensil-vue/components/button/UtensilButton.vue'
 import ReferenceComponentDemo from '@/features/components/ReferenceComponentDemo.vue'
 
 const slideshowIndex = ref(0)

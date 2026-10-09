@@ -46,8 +46,8 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import ReferenceComponentDemo from '@/features/components/ReferenceComponentDemo.vue'
-import UtensilPassword from 'utensil-vue/components/input/UtensilPassword.vue'
-import UtensilPasswordDoc from 'utensil-vue/components/input/UtensilPasswordDoc.vue'
+import UtensilPassword from '@gobistories/utensil-vue/components/input/UtensilPassword.vue'
+import UtensilPasswordDoc from '@gobistories/utensil-vue/components/input/UtensilPasswordDoc.vue'
 
 const passwordBasic = ref('')
 const passwordReadonly = ref('readonly123')

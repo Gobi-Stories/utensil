@@ -104,9 +104,9 @@
 import { ref, computed, watch, nextTick } from 'vue'
 import { RouterView, useRoute, useRouter } from 'vue-router'
 import ReferenceThemeRoot from '@/theme/ReferenceThemeRoot.vue'
-import UtensilSideMenu from 'utensil-vue/components/side-menu/UtensilSideMenu.vue'
-import UtensilScroller from 'utensil-vue/components/scroller/UtensilScroller.vue'
-import UtensilDialog from 'utensil-vue/components/dialogs/UtensilDialog.vue'
+import UtensilSideMenu from '@gobistories/utensil-vue/components/side-menu/UtensilSideMenu.vue'
+import UtensilScroller from '@gobistories/utensil-vue/components/scroller/UtensilScroller.vue'
+import UtensilDialog from '@gobistories/utensil-vue/components/dialogs/UtensilDialog.vue'
 import { ReferenceSideMenuItem } from '@/theme/components/ReferenceSideMenuItem'
 import { ReferenceButton } from '@/theme/components/ReferenceButton'
 import { referenceColorPresets, referencePrimaryColors } from '@/theme/reference-color-presets'
@@ -137,7 +137,7 @@ import {
   contrast,
   reducedMotion,
 } from '@/app/reference-theme-state'
-import ThemeEditor from 'utensil-vue/theme-editor/ThemeEditor.vue'
+import ThemeEditor from '@gobistories/utensil-vue/theme-editor/ThemeEditor.vue'
 import { ReferenceToastHost } from '@/theme/components/ReferenceToastHost'
 import { ReferenceIoStrip } from '@/theme/components/ReferenceIoStrip'
 import { useRouteLoading } from '@/app/use-route-loading'

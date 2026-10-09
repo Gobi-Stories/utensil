@@ -64,9 +64,9 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import UtensilFader from 'utensil-vue/components/fader/UtensilFader.vue'
-import UtensilFaderDoc from 'utensil-vue/components/fader/UtensilFaderDoc.vue'
-import UtensilButton from 'utensil-vue/components/button/UtensilButton.vue'
+import UtensilFader from '@gobistories/utensil-vue/components/fader/UtensilFader.vue'
+import UtensilFaderDoc from '@gobistories/utensil-vue/components/fader/UtensilFaderDoc.vue'
+import UtensilButton from '@gobistories/utensil-vue/components/button/UtensilButton.vue'
 import ReferenceComponentDemo from '@/features/components/ReferenceComponentDemo.vue'
 
 const faderDemo = ref(false)

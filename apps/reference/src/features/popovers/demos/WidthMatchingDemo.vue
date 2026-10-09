@@ -34,8 +34,8 @@
 </template>
 
 <script setup lang="ts">
-import UtensilPopoverPanel from 'utensil-vue/components/popover/UtensilPopoverPanel.vue'
-import UtensilButton from 'utensil-vue/components/button/UtensilButton.vue'
+import UtensilPopoverPanel from '@gobistories/utensil-vue/components/popover/UtensilPopoverPanel.vue'
+import UtensilButton from '@gobistories/utensil-vue/components/button/UtensilButton.vue'
 </script>
 
 <style scoped>

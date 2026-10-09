@@ -105,10 +105,10 @@
 
 <script setup lang="ts">
 import { reactive } from 'vue'
-import UtensilResourceLoader from 'utensil-vue/components/resource/UtensilResourceLoader.vue'
-import UtensilResourceLoaderDoc from 'utensil-vue/components/resource/UtensilResourceLoaderDoc.vue'
+import UtensilResourceLoader from '@gobistories/utensil-vue/components/resource/UtensilResourceLoader.vue'
+import UtensilResourceLoaderDoc from '@gobistories/utensil-vue/components/resource/UtensilResourceLoaderDoc.vue'
 import ReferenceComponentDemo from '@/features/components/ReferenceComponentDemo.vue'
-import UtensilButton from 'utensil-vue/components/button/UtensilButton.vue'
+import UtensilButton from '@gobistories/utensil-vue/components/button/UtensilButton.vue'
 
 type LoaderDemoResource<T> = {
   resource: T

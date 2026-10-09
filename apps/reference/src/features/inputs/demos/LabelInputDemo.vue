@@ -49,7 +49,7 @@ import { ref, computed } from 'vue'
 import ReferenceComponentDemo from '@/features/components/ReferenceComponentDemo.vue'
 import { ReferenceBadge } from '@/theme/components/ReferenceBadge'
 import { ReferenceLabelInput, type ReferenceLabel } from '@/theme/components/ReferenceLabelInput'
-import UtensilLabelInputDoc from 'utensil-vue/components/label-input/UtensilLabelInputDoc.vue'
+import UtensilLabelInputDoc from '@gobistories/utensil-vue/components/label-input/UtensilLabelInputDoc.vue'
 
 const availableLabels = [
   { title: 'colorspace test', icon: 'palette' },

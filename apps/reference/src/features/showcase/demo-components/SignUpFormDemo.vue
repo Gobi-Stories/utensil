@@ -25,9 +25,9 @@
 
 <script setup lang="ts">
 import { computed } from 'vue'
-import UtensilInput from 'utensil-vue/components/input/UtensilInput.vue'
-import UtensilPassword from 'utensil-vue/components/input/UtensilPassword.vue'
-import UtensilDivider from 'utensil-vue/components/divider/UtensilDivider.vue'
+import UtensilInput from '@gobistories/utensil-vue/components/input/UtensilInput.vue'
+import UtensilPassword from '@gobistories/utensil-vue/components/input/UtensilPassword.vue'
+import UtensilDivider from '@gobistories/utensil-vue/components/divider/UtensilDivider.vue'
 import { ReferenceButton } from '@/theme/components/ReferenceButton'
 import GoogleLogo from '@/features/components/GoogleLogo.vue'
 import { useShowcaseContext } from '../showcase-context'

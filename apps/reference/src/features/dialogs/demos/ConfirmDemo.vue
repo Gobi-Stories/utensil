@@ -137,9 +137,9 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import UtensilConfirm from 'utensil-vue/components/dialogs/UtensilConfirm.vue'
-import UtensilConfirmDoc from 'utensil-vue/components/dialogs/UtensilConfirmDoc.vue'
-import UtensilButton from 'utensil-vue/components/button/UtensilButton.vue'
+import UtensilConfirm from '@gobistories/utensil-vue/components/dialogs/UtensilConfirm.vue'
+import UtensilConfirmDoc from '@gobistories/utensil-vue/components/dialogs/UtensilConfirmDoc.vue'
+import UtensilButton from '@gobistories/utensil-vue/components/button/UtensilButton.vue'
 import ReferenceComponentDemo from '@/features/components/ReferenceComponentDemo.vue'
 import { toasts } from '@/app/reference-toast'
 

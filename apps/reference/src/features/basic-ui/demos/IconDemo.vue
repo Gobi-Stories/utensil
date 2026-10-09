@@ -64,8 +64,8 @@
 </template>
 
 <script setup lang="ts">
-import UtensilIcon from 'utensil-vue/components/icon/UtensilIcon.vue'
-import UtensilIconDoc from 'utensil-vue/components/icon/UtensilIconDoc.vue'
+import UtensilIcon from '@gobistories/utensil-vue/components/icon/UtensilIcon.vue'
+import UtensilIconDoc from '@gobistories/utensil-vue/components/icon/UtensilIconDoc.vue'
 import ReferenceComponentDemo from '@/features/components/ReferenceComponentDemo.vue'
 </script>
 

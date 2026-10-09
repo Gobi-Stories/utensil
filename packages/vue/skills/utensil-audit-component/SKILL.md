@@ -1,6 +1,6 @@
 ---
 name: utensil-audit-component
-description: Audit a component against Utensil Design System patterns and standards, optionally fixing the findings. Use after implementing or changing a component in a project that uses utensil-vue.
+description: Audit a component against Utensil Design System patterns and standards, optionally fixing the findings. Use after implementing or changing a component in a project that uses @gobistories/utensil-vue.
 license: MIT
 argument-hint: <ComponentName or path> [--fix] [--rule number] | --rules
 context: fork

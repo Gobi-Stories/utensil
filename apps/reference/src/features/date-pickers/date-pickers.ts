@@ -1,5 +1,5 @@
-import type { DateRange } from 'utensil-vue/components/date-picker/utensil-date-picker'
-import { formatDate, formatDateRange } from 'utensil-vue/components/date-picker/utensil-date-picker'
+import type { DateRange } from '@gobistories/utensil-vue/components/date-picker/utensil-date-picker'
+import { formatDate, formatDateRange } from '@gobistories/utensil-vue/components/date-picker/utensil-date-picker'
 
 const locale = navigator?.language || 'en-US'
 

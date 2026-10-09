@@ -84,7 +84,7 @@ For reference implementations (already in `demo-components/`), the component its
 </template>
 
 <script setup lang="ts">
-import UtensilSkeleton from 'utensil-vue/components/skeleton/UtensilSkeleton.vue'
+import UtensilSkeleton from '@gobistories/utensil-vue/components/skeleton/UtensilSkeleton.vue'
 </script>
 
 <style scoped>

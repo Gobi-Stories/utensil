@@ -1,5 +1,5 @@
 import type { ReferenceColorProp } from '@/theme/reference-theme'
-import type { RadiusScaleProp, ScaleProp, ThemeContrast, ThemeMode } from 'utensil-vue/theme/utensil-theme'
+import type { RadiusScaleProp, ScaleProp, ThemeContrast, ThemeMode } from '@gobistories/utensil-vue/theme/utensil-theme'
 
 // Every control includes Inherit (→ undefined prop) so the block falls back to
 // its parent context — ultimately the app root theme from the topbar editor.

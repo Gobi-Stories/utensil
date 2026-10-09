@@ -1,4 +1,4 @@
-import UtensilLabelInput, { type Label } from 'utensil-vue/components/label-input/UtensilLabelInput.vue'
+import UtensilLabelInput, { type Label } from '@gobistories/utensil-vue/components/label-input/UtensilLabelInput.vue'
 import type { ReferenceThemeConfig as ThemeConfig } from '../reference-theme'
 
 export type ReferenceLabel = Label<ThemeConfig>
