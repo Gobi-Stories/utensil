@@ -61,6 +61,12 @@ what the promotion needs that the consumer couldn't make in its own folder. Foll
 The notes were written against the release the consumer had installed. Where Utensil has moved on since (a path
 moved, a file renamed), carry out the instruction's intent in the current source.
 
+Notes can stand alone, with no component or composable beside them: changes the consumer needs in one Utensil already
+has. The consumer may have switched to the released component and deleted its local copy while notes for it were still
+to come, or written notes for a released component without copying it at all. Such notes are an item of their own, a
+**notes-only** item, named for the component or composable they change (`utensil-sparkline-pr.md` changes
+`UtensilSparkline`). Report notes that name nothing in Utensil, rather than guessing what they meant.
+
 ### Evaluating Changes
 
 The consumer built its changes with the same guides and judgement you have, so respect its implementation: promote
@@ -97,7 +103,9 @@ Find each item's changes, then evaluate each one against the current source in `
 Changes):
 
 - **New** — the component or composable itself, and each instruction in its notes. Look for an existing component
-  that serves the same purpose, not only one at the mirrored path.
+  that serves the same purpose, not only one at the mirrored path. Where one does, the component is covered but its
+  notes are not: evaluate each instruction against the existing component, as for a notes-only item.
+- **Notes-only** — each instruction in the notes, against the component or composable they change.
 - **Wrapper** — what it adds: props, emits, slots and slot scope, provided context, exposed methods, changed
   defaults, and the behaviour behind them (a preset resolved into the base's props is the component's own logic
   once promoted).
@@ -125,6 +133,8 @@ Work through the items in dependency order (an item another imports goes first),
   than replacing the file, keeping anything Utensil changed since the copy was made.
 - **New** — follow `.claude/skills/implement-component/SKILL.md` from Step 1 (its questions are already answered),
   at the path the local folder mirrors.
+- **Notes-only** — follow `.claude/skills/update-component/SKILL.md`, making each instruction to promote in the
+  component or composable the notes change.
 - **Partly promoted** — only the parts still to do.
 
 Then follow each item's PR notes. Promote only changes evaluated as to promote; skip covered and unclear ones.
