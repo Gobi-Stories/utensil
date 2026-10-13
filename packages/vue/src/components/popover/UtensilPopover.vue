@@ -307,6 +307,13 @@ defineExpose({
     }
   }
 
+  /* Workaround: Safari 27.0.1 - a closed popover that keeps its position-try fallbacks hangs the page in
+     endless style resolution when a stylesheet is added later, such as a lazy route's CSS (as WebKit bug
+     299742). The fallbacks apply only while the popover is open. */
+  .utensil-popover-content:not(:popover-open) {
+    position-try-fallbacks: none;
+  }
+
   /* Flip fallback for viewport boundaries */
   @position-try --flip {
     position-area: var(--flip-position-area);
