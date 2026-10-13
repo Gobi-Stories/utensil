@@ -2,6 +2,7 @@ import { readFileSync } from 'fs'
 import { createRequire } from 'module'
 import { describe, it, expect } from 'vitest'
 import { generateColorCss } from '@gobistories/utensil-vue/colors/generate-css'
+import { getPaperPageColors } from '@gobistories/utensil-vue/colors/generate-colors'
 
 // The committed color files are the generator's recorded output: regenerating each one
 // from the source color in its header must reproduce its declarations exactly.
@@ -57,5 +58,19 @@ describe('color generation', () => {
 
     const regenerated = generateColorCss('gray', sourceColor(grayCss))
     expect(declarations(regenerated, 'gray', 'paper')).toEqual(committed)
+  })
+
+  it("anchors pen and pencil to the paper color's pages and records the paper color", () => {
+    const css = generateColorCss('mint', '#8fd5a6', { paperColor: '#001C38', paper: { tint: 1.6 } })
+    const pages = getPaperPageColors('#001c38', { tint: 1.6 })
+
+    expect(css).toContain(' * paper-color #001c38\n')
+    expect(css).toContain(` * light-background ${pages.light}\n`)
+    expect(css).toContain(` * dark-background ${pages.dark}\n`)
+    expect(css).toContain(' * paper-tint 1.6\n')
+  })
+
+  it('records no paper color without one', () => {
+    expect(generateColorCss('mint', '#8fd5a6')).not.toContain('paper-color')
   })
 })

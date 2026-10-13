@@ -2,14 +2,12 @@ import { watch, computed, ref } from 'vue'
 import { useColorGenerator } from '../colors/use-color-generator'
 import {
   applyHsl,
-  getPaperPageColors,
   defaultPaperOptions,
   defaultTextContrast,
   resolveTextContrast,
   type PaperOptions,
   type TextContrast,
 } from '@gobistories/utensil-css/colors/generate-colors'
-import type { ColorBackgrounds } from '@gobistories/utensil-css/colors/generate-css'
 import { DebouncerEnd } from '../lib/debouncer/debouncer-end'
 import type { RadiusScaleProp } from '../theme/utensil-theme'
 
@@ -70,10 +68,10 @@ function store<T>(key: string, value: T) {
  * `<style>` elements into the document head, making the generated color scales
  * available as CSS custom properties.
  *
- * The paper color is the page background. Its page colors (paper step 1 per mode) are
- * passed to the pen, pencil, and variant generators as the backgrounds their scales are
- * anchored to and composited against, so every scale adapts when the paper changes.
- * The paper generation knobs are managed and persisted alongside it.
+ * The paper color is the page background. It is passed, with the paper generation knobs,
+ * to the pen, pencil, and variant generators, which anchor their scales to the page it
+ * produces (paper step 1 per mode) and composite against it, so every scale adapts when
+ * the paper changes. The knobs are managed and persisted alongside it.
  *
  * All settings are persisted to localStorage and restored on next use.
  *
@@ -144,14 +142,12 @@ export function useCustomTheme(
   const textContrast = ref<TextContrast | undefined>(initialTextContrast)
   const radiusScale = ref<RadiusScaleProp>(initialRadiusScale)
 
-  // The page colors the pen/pencil/variant scales are generated against
-  const scaleBackgrounds = ref<ColorBackgrounds | undefined>(getPaperPageColors(initialPaper, initialPaperOptions))
+  // The paper the pen/pencil/variant scales are anchored to, updated with the paper scale
+  const scalePaper = ref<string | undefined>(initialPaper)
+  const scaleOptions = { paperColor: scalePaper, paper: paperOptions, textContrast }
 
-  const penGenerator = useColorGenerator(scaleNames.pen, initialPen, { backgrounds: scaleBackgrounds, textContrast })
-  const pencilGenerator = useColorGenerator(scaleNames.pencil, initialPencil, {
-    backgrounds: scaleBackgrounds,
-    textContrast,
-  })
+  const penGenerator = useColorGenerator(scaleNames.pen, initialPen, scaleOptions)
+  const pencilGenerator = useColorGenerator(scaleNames.pencil, initialPencil, scaleOptions)
   const paperGenerator = useColorGenerator(scaleNames.paper, initialPaper, { paper: paperOptions, textContrast })
 
   // Debounce pen/pencil/paper CSS updates
@@ -168,15 +164,9 @@ export function useCustomTheme(
   watch(pendingPaper, () => {
     paperDebouncer.run(async () => {
       paperGenerator.baseColor.value = pendingPaper.value
-      // Re-anchor every other scale to the new page colors
-      scaleBackgrounds.value = getPaperPageColors(pendingPaper.value, paperOptions.value)
+      // Re-anchor every other scale to the new paper
+      scalePaper.value = pendingPaper.value
     })
-  })
-
-  // Knob changes are discrete clicks; the paper generator watches the options itself,
-  // so only the other scales' page anchoring needs recomputing.
-  watch(paperOptions, () => {
-    scaleBackgrounds.value = getPaperPageColors(pendingPaper.value, paperOptions.value)
   })
 
   // Create generators for variant colors that adapt to the pen color
@@ -188,7 +178,7 @@ export function useCustomTheme(
 
     for (const [name, baseColor] of Object.entries(primaryColors)) {
       const adapted = applyHsl(baseColor, initialPen, { saturation: 0.5, lightness: 0.75 })
-      variantGenerators.set(name, useColorGenerator(name, adapted, { backgrounds: scaleBackgrounds, textContrast }))
+      variantGenerators.set(name, useColorGenerator(name, adapted, scaleOptions))
     }
 
     // When pen color changes, debounce variant color adaptation

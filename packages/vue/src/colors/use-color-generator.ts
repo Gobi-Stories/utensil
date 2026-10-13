@@ -1,10 +1,10 @@
 import { ref, watch, readonly, type Ref } from 'vue'
-import { generateColorCss, type ColorBackgrounds } from '@gobistories/utensil-css/colors/generate-css'
+import { generateColorCss } from '@gobistories/utensil-css/colors/generate-css'
 import type { PaperOptions, TextContrast } from '@gobistories/utensil-css/colors/generate-colors'
 
 export interface ColorGeneratorOptions {
-  /** Reactive page backgrounds the pen/pencil scales are anchored to per mode */
-  backgrounds?: Ref<ColorBackgrounds | undefined>
+  /** Reactive theme paper color whose page the pen/pencil scales are anchored to per mode */
+  paperColor?: Ref<string | undefined>
   /** Reactive paper generation knobs */
   paper?: Ref<PaperOptions | undefined>
   /** Reactive WCAG contrast the text step (11) is solved to against the page, single or per-mode */
@@ -16,12 +16,12 @@ export interface ColorGeneratorOptions {
  *
  * Creates a style element in the DOM that contains the generated CSS for a color scale.
  * The style element is identified by a data attribute with the color name.
- * When the base color, the page backgrounds, or the paper options change, new CSS is
+ * When the base color, the paper color, or the paper options change, new CSS is
  * generated and the style element is updated.
  *
  * @param name - The name of the color (e.g., 'custom-pen', 'custom-pencil')
  * @param initialColor - The initial base color in hex format (e.g., '#0093ee')
- * @param options - Optional reactive backgrounds and paper generation knobs
+ * @param options - Optional reactive paper color and paper generation knobs
  * @returns An object containing the baseColor ref and the generated CSS string ref
  */
 export function useColorGenerator(name: string, initialColor: string, options?: ColorGeneratorOptions) {
@@ -53,7 +53,7 @@ export function useColorGenerator(name: string, initialColor: string, options?: 
     }
 
     const css = generateColorCss(name, color, {
-      backgrounds: options?.backgrounds?.value,
+      paperColor: options?.paperColor?.value,
       paper: options?.paper?.value,
       textContrast: options?.textContrast?.value,
     })
@@ -79,8 +79,8 @@ export function useColorGenerator(name: string, initialColor: string, options?: 
     updateCss(newColor)
   })
 
-  if (options?.backgrounds) {
-    watch(options.backgrounds, () => {
+  if (options?.paperColor) {
+    watch(options.paperColor, () => {
       updateCss(baseColor.value)
     })
   }

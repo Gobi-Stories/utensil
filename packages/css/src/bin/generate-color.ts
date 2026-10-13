@@ -3,7 +3,7 @@
 // and generated scales are locked to Node's output.
 //   utensil-generate-color <name> <hex> [options] > colors/<name>.css
 import { generateColorCss, type ColorCssOptions } from '../colors/generate-css.js'
-import { getPaperPageColors, type PaperOptions } from '../colors/generate-colors.js'
+import type { PaperOptions } from '../colors/generate-colors.js'
 
 function usage(): never {
   console.error('Usage: utensil-generate-color <name> <baseColor> [options]')
@@ -98,7 +98,7 @@ if (paperHex !== undefined) {
     console.error('Error: --paper must be a valid hex color (e.g., #001c38)')
     process.exit(1)
   }
-  options.backgrounds = getPaperPageColors(paperHex, paper)
+  options.paperColor = paperHex
 }
 
 try {
