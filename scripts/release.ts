@@ -89,9 +89,11 @@ Packed @gobistories/utensil-css@${version} and @gobistories/utensil-vue@${versio
 
 Next steps:
   git commit -am "repo: release: ${version}" && git tag v${version}
-  CLOUDSDK_CORE_ACCOUNT=<account> env -u GOOGLE_APPLICATION_CREDENTIALS npx google-artifactregistry-auth
+  printf '@gobistories:registry=${registry}\\n' > /tmp/utensil-registry.npmrc
+  CLOUDSDK_CORE_ACCOUNT=<account> env -u GOOGLE_APPLICATION_CREDENTIALS npx google-artifactregistry-auth --repo-config=/tmp/utensil-registry.npmrc --credential-config=$HOME/.npmrc
   npm publish temp/release/gobistories-utensil-css-${version}.tgz
   npm publish temp/release/gobistories-utensil-vue-${version}.tgz
   npm config delete ${registryToken} --location=user
+  rm /tmp/utensil-registry.npmrc
   git push && git push --tags
 `)

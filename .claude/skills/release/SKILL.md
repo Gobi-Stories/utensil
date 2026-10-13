@@ -99,15 +99,22 @@ git commit -am "repo: release: <v>" && git tag v<v>
 `@gobistories/utensil-css` first: `@gobistories/utensil-vue` depends on it.
 
 ```bash
-CLOUDSDK_CORE_ACCOUNT=<account> env -u GOOGLE_APPLICATION_CREDENTIALS npx google-artifactregistry-auth
+printf '@gobistories:registry=<registry>\n' > /tmp/utensil-registry.npmrc
+CLOUDSDK_CORE_ACCOUNT=<account> env -u GOOGLE_APPLICATION_CREDENTIALS npx google-artifactregistry-auth --repo-config=/tmp/utensil-registry.npmrc --credential-config=$HOME/.npmrc
+grep -c <registry without https:>:_authToken ~/.npmrc
 npm publish temp/release/gobistories-utensil-css-<v>.tgz
 npm publish temp/release/gobistories-utensil-vue-<v>.tgz
 npm config delete <registry without https:>:_authToken --location=user
+rm /tmp/utensil-registry.npmrc
 ```
 
-- The first command writes a short-lived token for the maintainer's account to `~/.npmrc`. `CLOUDSDK_CORE_ACCOUNT`
-  picks that account for this command only, whatever gcloud's active account is, and the tool runs without
-  `GOOGLE_APPLICATION_CREDENTIALS` because it prefers that variable's service account over gcloud.
+- The first two commands write a short-lived token for the maintainer's account to `~/.npmrc`. The tool only makes
+  tokens for the registries named in `--repo-config`, which defaults to the project's `.npmrc`; this repository has
+  none, so without the small config naming `<registry>` it writes no token and `npm publish` fails with `ENEEDAUTH`.
+  `CLOUDSDK_CORE_ACCOUNT` picks the maintainer's account for this command only, whatever gcloud's active account is,
+  and the tool runs without `GOOGLE_APPLICATION_CREDENTIALS` because it prefers that variable's service account over
+  gcloud.
+- The `grep` prints `1` once the token is in place. If it prints `0`, the maintainer stops before publishing.
 - Each publish should end with `+ @gobistories/utensil-<css|vue>@<v>`; `publishConfig` sends it to `<registry>`.
 - The last command removes the token again. The registry rejects a request that carries an expired or revoked token
   instead of treating it as anonymous, so a token left in `~/.npmrc` breaks every install from the registry on this

@@ -121,8 +121,15 @@ Publishing authenticates with a short-lived token that `npx google-artifactregis
 for an account with write access to the repository:
 
 ```bash
-CLOUDSDK_CORE_ACCOUNT=<account> env -u GOOGLE_APPLICATION_CREDENTIALS npx google-artifactregistry-auth
+printf '@gobistories:registry=https://europe-west1-npm.pkg.dev/gobi-tron-production/npm/\n' > /tmp/utensil-registry.npmrc
+CLOUDSDK_CORE_ACCOUNT=<account> env -u GOOGLE_APPLICATION_CREDENTIALS npx google-artifactregistry-auth \
+  --repo-config=/tmp/utensil-registry.npmrc --credential-config=$HOME/.npmrc
+rm /tmp/utensil-registry.npmrc
 ```
+
+The tool only makes tokens for the registries named in `--repo-config`, which defaults to the project's `.npmrc`. This
+repository has none, since the registry is set in `publishConfig`, so a small config naming it is passed instead;
+without it the tool writes no token and `npm publish` fails with `ENEEDAUTH`.
 
 `CLOUDSDK_CORE_ACCOUNT` picks the account for this command alone, so gcloud's active account can stay a development
 account without write access (add the publishing account with `gcloud auth login <account> --no-activate`). The tool
