@@ -8,6 +8,7 @@
     <BoxDemo />
     <CardDemo />
     <UserProfileCardDemo />
+    <TableDemo />
   </div>
 </template>
 
@@ -20,4 +21,5 @@ import InfoStripDemo from './demos/InfoStripDemo.vue'
 import BoxDemo from './demos/BoxDemo.vue'
 import CardDemo from './demos/CardDemo.vue'
 import UserProfileCardDemo from './demos/UserProfileCardDemo.vue'
+import TableDemo from './demos/TableDemo.vue'
 </script>
