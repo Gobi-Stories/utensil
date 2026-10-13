@@ -1,6 +1,7 @@
 <template>
   <div class="demo-page">
     <CalloutDemo />
+    <BannerDemo />
     <DisclosureDemo />
     <BlockquoteDemo />
     <DataListDemo />
@@ -14,6 +15,7 @@
 
 <script setup lang="ts">
 import CalloutDemo from './demos/CalloutDemo.vue'
+import BannerDemo from './demos/BannerDemo.vue'
 import DisclosureDemo from './demos/DisclosureDemo.vue'
 import BlockquoteDemo from './demos/BlockquoteDemo.vue'
 import DataListDemo from './demos/DataListDemo.vue'
