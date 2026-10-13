@@ -82,6 +82,7 @@ Both packages are published to npm. A module's path, its exported names and type
 
 - Avoid comments where code is self-explanatory through naming and structure.
 - Do comment when code is counter-intuitive, provides backwards compatibility, or works around external issues (browser, library).
+- Start a workaround's comment with `Workaround: <product> <version> - <description>`, naming the version the issue was found in (`/* Workaround: Safari 27.0.1 - … */`). Workarounds are swept by searching for `Workaround:` and removed once the issue is fixed.
 - Never comment out code then commit it — we have git history. Remove the code if it is unused.
 - Comment the present state, not the change that produced it. No "now works", "no longer needed", "changed from X", "previously…". A comment is read in the present tense by someone who never saw the prior version; the change itself belongs in the commit message.
 
