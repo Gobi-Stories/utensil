@@ -1,16 +1,16 @@
 <template>
   <UtensilSpinnerOverlay
     class="utensil-resource-loader"
-    :show="showSpinner && !loaded && syncing"
-    :delay="loaderDelay"
+    :show="spinning"
+    :delay="0"
     :scale="spinnerScale"
     :lift="liftUi"
     :vanish="!fadeSpinner"
   >
-    <UtensilFader :show="loaded" :enabled="fadeContent" :fadeOut="fadeOut" once>
-      <slot v-if="loaded" />
+    <UtensilFader :show="loaded && !spinning" :enabled="fadeContent" :fadeOut="fadeOut" once>
+      <slot v-if="loaded && !spinning" />
     </UtensilFader>
-    <template v-if="showErrors && !loaded && hasError" #default>
+    <template v-if="showErrors && !loaded && hasError && !spinning" #default>
       <slot name="error">
         <div v-if="notFound" class="resource-error not-found" :class="{ lift: liftUi }">
           <p>We couldn't find what you are looking for.</p>
@@ -27,12 +27,13 @@
 </template>
 
 <script setup lang="ts">
+import { computed, onBeforeUnmount, ref, watch } from 'vue'
 import UtensilButton from '../button/UtensilButton.vue'
 import UtensilFader from '../fader/UtensilFader.vue'
 import UtensilSpinnerOverlay from '../spinner/UtensilSpinnerOverlay.vue'
 import type { ScaleProp } from '../../theme/utensil-theme'
 
-interface Props {
+export interface Props {
   load?: () => void
   loaded?: boolean
   syncing?: boolean
@@ -42,6 +43,8 @@ interface Props {
   showSpinner?: boolean
   showErrors?: boolean
   loaderDelay?: number
+  /** Milliseconds a spinner stays once it appears */
+  loaderMinimum?: number
   spinnerScale?: ScaleProp
   fadeSpinner?: boolean
   fadeContent?: boolean
@@ -49,22 +52,61 @@ interface Props {
   liftUi?: boolean
 }
 
-withDefaults(defineProps<Props>(), {
+const props = withDefaults(defineProps<Props>(), {
   load: undefined,
   loaded: false,
   syncing: false,
   hasError: false,
   mayRetry: false,
-  error: undefined,
   showSpinner: true,
   showErrors: true,
   loaderDelay: 1750,
+  loaderMinimum: 1000,
   spinnerScale: 1,
   fadeSpinner: false,
   fadeContent: false,
   fadeOut: false,
   liftUi: false,
 })
+
+const waiting = computed(() => props.showSpinner && !props.loaded && props.syncing)
+
+const spinning = ref(false)
+let shownAt = 0
+let timer: ReturnType<typeof setTimeout> | undefined
+
+function spin() {
+  spinning.value = true
+  shownAt = Date.now()
+}
+
+watch(
+  waiting,
+  (now) => {
+    clearTimeout(timer)
+    timer = undefined
+    if (now) {
+      if (!spinning.value) {
+        if (props.loaderDelay > 0) {
+          timer = setTimeout(spin, props.loaderDelay)
+        } else {
+          spin()
+        }
+      }
+      return
+    }
+
+    const left = props.loaderMinimum - (Date.now() - shownAt)
+    if (spinning.value && left > 0) {
+      timer = setTimeout(() => (spinning.value = false), left)
+    } else {
+      spinning.value = false
+    }
+  },
+  { immediate: true },
+)
+
+onBeforeUnmount(() => clearTimeout(timer))
 </script>
 
 <style scoped>

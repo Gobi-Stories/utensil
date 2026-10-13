@@ -95,6 +95,30 @@
         </div>
         <div class="demo-label">Error Handling (succeeds after 2 retries)</div>
       </div>
+      <div class="demo-item">
+        <div class="demo-content resource-demo">
+          <div class="demo-container">
+            <UtensilResourceLoader
+              :load="loaderQuickState.load"
+              :loaded="loaderQuickState.loaded"
+              :syncing="loaderQuickState.syncing"
+              :has-error="loaderQuickState.hasError"
+              :may-retry="loaderQuickState.mayRetry"
+              :loader-delay="300"
+              :fade-content="true"
+            >
+              <div class="loader-demo-content">
+                <h4>{{ loaderQuickState.resource.title }}</h4>
+                <p>{{ loaderQuickState.resource.description }}</p>
+              </div>
+            </UtensilResourceLoader>
+            <UtensilButton class="loader-trigger" scale="small" @click="loaderQuickState.load?.()"
+              >Load Quickly</UtensilButton
+            >
+          </div>
+        </div>
+        <div class="demo-label always-visible">Ends just after the spinner appears: it stays its minimum</div>
+      </div>
     </div>
 
     <template #api>
@@ -141,6 +165,15 @@ const loaderDelayedState = reactive<LoaderDemoResource<LoaderCollectionItem[]>>(
   load: () => loadLoaderCollection(),
 })
 
+const loaderQuickState = reactive<LoaderDemoResource<LoaderBasicItem>>({
+  resource: { id: '', title: '', description: '' },
+  loaded: false,
+  syncing: false,
+  hasError: false,
+  mayRetry: true,
+  load: () => loadLoaderQuick(),
+})
+
 const loaderErrorState = reactive<LoaderDemoResource<LoaderBasicItem>>({
   resource: { id: '', title: '', description: '' },
   loaded: false,
@@ -170,6 +203,21 @@ function loadLoaderBasic() {
     loaderBasicState.loaded = true
     loaderBasicState.syncing = false
   }, 1500)
+}
+
+// Ends 100ms after the 300ms delay shows the spinner, which then stays its minimum rather than flashing
+function loadLoaderQuick() {
+  resetLoaderState(loaderQuickState)
+  loaderQuickState.syncing = true
+  setTimeout(() => {
+    loaderQuickState.resource = {
+      id: 'item-002',
+      title: 'Quick Resource Item',
+      description: 'Loaded in 400ms, while the spinner had shown for only 100ms.',
+    }
+    loaderQuickState.loaded = true
+    loaderQuickState.syncing = false
+  }, 400)
 }
 
 function loadLoaderCollection() {

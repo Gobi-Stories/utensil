@@ -4,8 +4,9 @@
       <h1>UtensilResourceLoader</h1>
     </div>
     <p>
-      Displays loading, error, and content states for an asynchronous resource. Wraps content in a spinner overlay while
-      loading, shows contextual error messages with optional retry, and fades content in once loaded.
+      Displays loading, error, and content states for an asynchronous resource. Shows nothing while a load is quick,
+      then a spinner, kept for a minimum time once it appears; shows contextual error messages with optional retry, and
+      fades content in once loaded.
     </p>
 
     <!-- Props -->
@@ -63,15 +64,6 @@
           <td>Shows a "Try Again" button in the default error state that calls <code>load</code>.</td>
         </tr>
         <tr>
-          <td><code>error</code></td>
-          <td><code>unknown</code></td>
-          <td>—</td>
-          <td>
-            The error object. If <code>notFound</code> is true, a "not found" message is shown instead of the generic
-            error.
-          </td>
-        </tr>
-        <tr>
           <td><code>showSpinner</code></td>
           <td><code>boolean</code></td>
           <td><code>true</code></td>
@@ -88,6 +80,15 @@
           <td><code>number</code></td>
           <td><code>1750</code></td>
           <td>Milliseconds to wait before showing the spinner. Prevents flash on fast loads.</td>
+        </tr>
+        <tr>
+          <td><code>loaderMinimum</code></td>
+          <td><code>number</code></td>
+          <td><code>1000</code></td>
+          <td>
+            Milliseconds a spinner stays once it appears. The content, or the error, shows when it goes. Prevents a
+            flash when a load ends just after the spinner appears.
+          </td>
         </tr>
         <tr>
           <td><code>spinnerScale</code></td>
@@ -174,7 +175,6 @@
   :syncing="item.syncing.value"
   :has-error="item.hasError.value"
   :not-found="item.notFound.value"
-  :error="item.error.value"
   :may-retry="item.mayRetry.value"
 &gt;
   &lt;div&gt;{{ item.resource.value?.title }}&lt;/div&gt;
@@ -187,7 +187,6 @@
   :syncing="collection.syncing.value"
   :has-error="collection.hasError.value"
   :not-found="collection.notFound.value"
-  :error="collection.error.value"
   :may-retry="true"
   :loader-delay="300"
   :fade-content="true"
@@ -207,7 +206,6 @@
   :syncing="syncing"
   :has-error="hasError"
   :not-found="notFound"
-  :error="error"
 &gt;
   &lt;div&gt;Content here&lt;/div&gt;
 
