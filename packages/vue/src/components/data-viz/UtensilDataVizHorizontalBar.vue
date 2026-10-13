@@ -1,5 +1,10 @@
 <template>
-  <svg class="chart-svg" :viewBox="`0 0 ${viewBox.width} ${viewBox.height}`" preserveAspectRatio="xMidYMid meet">
+  <svg
+    ref="svg"
+    class="utensil-data-viz-horizontal-bar chart-svg"
+    :viewBox="`0 0 ${viewBox.width} ${viewBox.height}`"
+    preserveAspectRatio="xMidYMid meet"
+  >
     <!-- Vertical grid lines -->
     <g v-if="showGrid" class="grid-lines">
       <line
@@ -11,6 +16,16 @@
         :y2="viewBox.height - hPadding.bottom"
       />
     </g>
+
+    <!-- Dashed where values below the baseline fall short of it -->
+    <line
+      v-if="baselineX !== undefined"
+      class="baseline"
+      :x1="baselineX"
+      :y1="hPadding.top"
+      :x2="baselineX"
+      :y2="viewBox.height - hPadding.bottom"
+    />
 
     <!-- X-axis tick labels (values along bottom) -->
     <g class="axis-labels">
@@ -49,7 +64,7 @@
           :width="bar.width"
           :height="bar.height"
           :fill="bar.color"
-          :class="{ animated: animate }"
+          :class="{ animated: animate, below: bar.below }"
           :style="animate ? { animationDelay: `${groupIndex * 50}ms` } : undefined"
           rx="2"
         />
@@ -57,39 +72,49 @@
     </g>
 
     <g v-if="showValues" class="value-labels">
-      <text
-        v-for="(label, labelIndex) in valueLabels"
-        :key="'val-' + labelIndex"
-        :x="label.x"
-        :y="label.y"
-        dominant-baseline="middle"
-      >
-        {{ label.label }}
-      </text>
+      <template v-for="(group, groupIndex) in barGroups" :key="'val-' + groupIndex">
+        <text
+          v-for="(bar, barIndex) in group"
+          :key="'val-' + barIndex"
+          :x="bar.below ? bar.x - 6 : bar.x + bar.width + 6"
+          :y="bar.y + bar.height / 2"
+          :text-anchor="bar.below ? 'end' : 'start'"
+          dominant-baseline="middle"
+        >
+          {{ bar.label }}
+        </text>
+      </template>
     </g>
   </svg>
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
-import { type DataSeries, getSeriesColor, formatValue, VIEW_BOX } from './utensil-data-viz'
+import { computed, useTemplateRef } from 'vue'
+import { type DataSeries, getSeriesColor, getValueAxis, formatValue, VIEW_BOX } from './utensil-data-viz'
+import { useFittedViewBox } from './use-fitted-view-box'
 
-interface Props {
+export interface Props {
   series: DataSeries[]
   labels?: string[]
   animate?: boolean
   showGrid?: boolean
   showValues?: boolean
+  /** What the bars run from, rightward for higher values and leftward for lower; the value axis always includes it */
+  baseline?: number
 }
 
 const props = withDefaults(defineProps<Props>(), {
   animate: true,
   showGrid: true,
+  baseline: 0,
 })
 
 // Horizontal bars need more left padding for category labels, less bottom
 const hPadding = { top: 16, right: 16, bottom: 24, left: 72 }
-const chartWidth = VIEW_BOX.width - hPadding.left - hPadding.right
+
+const { viewBox } = useFittedViewBox(useTemplateRef<SVGSVGElement>('svg'))
+
+const chartWidth = computed(() => viewBox.value.width - hPadding.left - hPadding.right)
 const chartHeight = VIEW_BOX.height - hPadding.top - hPadding.bottom
 
 const categoryCount = computed(() => {
@@ -97,19 +122,19 @@ const categoryCount = computed(() => {
   return Math.max(...props.series.map((s) => s.values.length))
 })
 
-const valueMax = computed(() => {
-  const all = props.series.flatMap((s) => s.values)
-  const max = Math.max(...all, 0)
-  if (max === 0) return 100
-  const magnitude = Math.pow(10, Math.floor(Math.log10(max)))
-  const normalized = max / magnitude
-  const nice = normalized <= 1 ? 1 : normalized <= 2 ? 2 : normalized <= 5 ? 5 : 10
-  return nice * magnitude
-})
+const axis = computed(() =>
+  getValueAxis(
+    props.series.flatMap((s) => s.values),
+    props.baseline,
+  ),
+)
 
-function scaleValue(value: number): number {
-  return (value / valueMax.value) * chartWidth
+function scaleX(value: number): number {
+  const { min, max } = axis.value
+  return hPadding.left + ((value - min) / (max - min)) * chartWidth.value
 }
+
+const baselineX = computed(() => (props.baseline > axis.value.min ? scaleX(props.baseline) : undefined))
 
 const barGroups = computed(() => {
   const seriesCount = props.series.length
@@ -117,61 +142,37 @@ const barGroups = computed(() => {
   const barGap = 2
   const totalBarHeight = groupHeight * 0.7
   const barHeight = (totalBarHeight - barGap * (seriesCount - 1)) / seriesCount
+  const foot = scaleX(props.baseline)
 
-  const groups: { x: number; y: number; width: number; height: number; color: string }[][] = []
-
-  for (let i = 0; i < categoryCount.value; i++) {
+  return Array.from({ length: categoryCount.value }, (_, i) => {
     const groupY = hPadding.top + i * groupHeight + (groupHeight - totalBarHeight) / 2
-    const bars: { x: number; y: number; width: number; height: number; color: string }[] = []
 
-    for (let seriesIndex = 0; seriesIndex < seriesCount; seriesIndex++) {
-      const value = props.series[seriesIndex].values[i] ?? 0
-      bars.push({
-        x: hPadding.left,
+    return props.series.map((s, seriesIndex) => {
+      const value = s.values[i] ?? 0
+      const end = scaleX(value)
+      return {
+        x: Math.min(foot, end),
         y: groupY + seriesIndex * (barHeight + barGap),
-        width: Math.max(scaleValue(value), 0),
+        width: Math.abs(end - foot),
         height: Math.max(barHeight, 1),
-        color: getSeriesColor(seriesIndex),
-      })
-    }
-    groups.push(bars)
-  }
-  return groups
-})
-
-const valueLabels = computed(() => {
-  const labels: { x: number; y: number; label: string }[] = []
-  const seriesCount = props.series.length
-  const groupHeight = chartHeight / categoryCount.value
-  const barGap = 2
-  const totalBarHeight = groupHeight * 0.7
-  const barHeight = (totalBarHeight - barGap * (seriesCount - 1)) / seriesCount
-
-  for (let i = 0; i < categoryCount.value; i++) {
-    const groupY = hPadding.top + i * groupHeight + (groupHeight - totalBarHeight) / 2
-
-    for (let seriesIndex = 0; seriesIndex < seriesCount; seriesIndex++) {
-      const value = props.series[seriesIndex].values[i] ?? 0
-      labels.push({
-        x: hPadding.left + scaleValue(value) + 6,
-        y: groupY + seriesIndex * (barHeight + barGap) + barHeight / 2,
+        color: getSeriesColor(seriesIndex, s),
+        below: value < props.baseline,
         label: formatValue(value),
-      })
-    }
-  }
-  return labels
+      }
+    })
+  })
 })
 
 const verticalGridLines = computed(() => {
-  const count = 4
-  return Array.from({ length: count + 1 }, (_, i) => hPadding.left + (i / count) * chartWidth)
+  const count = axis.value.steps
+  return Array.from({ length: count + 1 }, (_, i) => hPadding.left + (i / count) * chartWidth.value)
 })
 
 const xAxisTicks = computed(() => {
-  const count = 4
+  const { min, max, steps: count } = axis.value
   return Array.from({ length: count + 1 }, (_, i) => ({
-    x: hPadding.left + (i / count) * chartWidth,
-    label: formatValue((valueMax.value * i) / count),
+    x: hPadding.left + (i / count) * chartWidth.value,
+    label: formatValue(min + (i / count) * (max - min)),
   }))
 })
 
@@ -183,19 +184,28 @@ const categoryLabels = computed(() => {
     text,
   }))
 })
-
-const viewBox = VIEW_BOX
 </script>
 
 <style scoped>
 @layer utensil {
+  /* Fills what the chart is given, or the drawing's natural height in a box without one. The svg's height never
+     follows its viewBox, so the viewBox can follow the box. */
   .chart-svg {
-    align-self: center;
+    display: block;
+    flex: 1 1 220px;
+    width: 100%;
+    min-height: 0;
   }
 
   .grid-lines line {
     stroke: var(--pencil-a3);
     stroke-width: 1;
+  }
+
+  .baseline {
+    stroke: var(--pencil-a9);
+    stroke-width: 1.5;
+    stroke-dasharray: 6 4;
   }
 
   .axis-labels text {
@@ -207,6 +217,11 @@ const viewBox = VIEW_BOX
     animation: utensil-data-viz-hbar-grow 0.5s ease-out both;
     transform-box: fill-box;
     transform-origin: left center;
+  }
+
+  /* A bar below the baseline grows leftward from it */
+  .horizontal-bars rect.animated.below {
+    transform-origin: right center;
   }
 
   .value-labels text {

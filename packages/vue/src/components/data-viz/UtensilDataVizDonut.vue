@@ -10,6 +10,7 @@
         cx="100"
         cy="100"
         r="70"
+        pathLength="100"
         fill="none"
         :stroke="segment.color"
         stroke-width="24"
@@ -28,7 +29,7 @@
 import { computed } from 'vue'
 import { type DataSeries, getSeriesColor } from './utensil-data-viz'
 
-interface Props {
+export interface Props {
   series: DataSeries[]
   animate?: boolean
 }
@@ -42,22 +43,22 @@ const donutTotal = computed(() => {
   return props.series.reduce((sum, s) => sum + (s.values[0] ?? 0), 0)
 })
 
+// Measured in hundredths of the ring (its pathLength), so the draw-in from 0 covers each segment exactly
 const donutSegments = computed(() => {
   if (donutTotal.value === 0) return []
-  const circumference = 2 * Math.PI * 70
-  const gap = 4
+  const gap = (4 / (2 * Math.PI * 70)) * 100
   let cumulative = 0
 
   return props.series.map((s, index) => {
     const value = s.values[0] ?? 0
-    const proportion = value / donutTotal.value
-    const arcLength = proportion * circumference - gap
+    const proportion = (value / donutTotal.value) * 100
+    const arcLength = Math.max(proportion - gap, 0)
     const segment = {
-      color: getSeriesColor(index),
-      dashArray: `${Math.max(arcLength, 0)} ${circumference - Math.max(arcLength, 0)}`,
+      color: getSeriesColor(index, s),
+      dashArray: `${arcLength} ${100 - arcLength}`,
       dashOffset: String(-cumulative - gap / 2),
     }
-    cumulative += proportion * circumference
+    cumulative += proportion
     return segment
   })
 })
@@ -96,7 +97,7 @@ const donutSegments = computed(() => {
 
   @keyframes utensil-data-viz-donut-fill {
     from {
-      stroke-dasharray: 0 440;
+      stroke-dasharray: 0 100;
       stroke-dashoffset: 0;
     }
   }

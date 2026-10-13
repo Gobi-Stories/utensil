@@ -11,6 +11,16 @@
     />
   </g>
 
+  <!-- Dashed where values below the baseline fall under -->
+  <line
+    v-if="baselineY !== undefined"
+    class="baseline"
+    :x1="padding.left"
+    :y1="baselineY"
+    :x2="viewBox.width - padding.right"
+    :y2="baselineY"
+  />
+
   <!-- Y-axis labels -->
   <g class="axis-labels y-axis-labels">
     <text
@@ -39,23 +49,25 @@
 </template>
 
 <script setup lang="ts">
-interface AxisTick {
+export interface AxisTick {
   y: number
   label: string
 }
 
-interface AxisLabel {
+export interface AxisLabel {
   x: number
   text: string
 }
 
-interface Props {
+export interface Props {
   showGrid: boolean
   gridLines: number[]
   yAxisTicks: AxisTick[]
   xAxisLabels: AxisLabel[]
   padding: { top: number; right: number; bottom: number; left: number }
   viewBox: { width: number; height: number }
+  /** The y of the baseline, drawn dashed while the axis extends below it */
+  baselineY?: number
 }
 
 defineProps<Props>()
@@ -66,6 +78,12 @@ defineProps<Props>()
   .grid-lines line {
     stroke: var(--pencil-a3);
     stroke-width: 1;
+  }
+
+  .baseline {
+    stroke: var(--pencil-a9);
+    stroke-width: 1.5;
+    stroke-dasharray: 6 4;
   }
 
   .axis-labels text {

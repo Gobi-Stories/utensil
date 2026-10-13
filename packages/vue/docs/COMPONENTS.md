@@ -149,7 +149,7 @@ Links are relative to this `docs/` folder. The source and API docs live in the `
 
 | Component          | Description                                                                                                                                                                                    | Docs                                                                                                                       |
 | ------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
-| **UtensilDataViz** | An SVG chart component supporting 8 chart types with animated transitions, built-in legends, and screen reader descriptions. Delegates rendering to specialized sub-components per chart type. | [Component](../src/components/data-viz/UtensilDataViz.vue) \| [API Docs](../src/components/data-viz/UtensilDataVizDoc.vue) |
+| **UtensilDataViz** | An SVG chart component supporting 8 chart types with animated transitions, built-in legends, and screen reader descriptions. Line, area and bar charts fill their box at their natural size, measure from a `baseline` (values below it extend the axis down), and line and area charts add an `interactive` crosshair and tooltip, `referenceLines`, and dashed comparison series. | [Component](../src/components/data-viz/UtensilDataViz.vue) \| [API Docs](../src/components/data-viz/UtensilDataVizDoc.vue) |
 
 ## Media
 

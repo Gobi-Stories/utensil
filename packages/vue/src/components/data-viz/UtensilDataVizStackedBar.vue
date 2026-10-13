@@ -1,5 +1,10 @@
 <template>
-  <svg class="chart-svg" :viewBox="`0 0 ${viewBox.width} ${viewBox.height}`" preserveAspectRatio="xMidYMid meet">
+  <svg
+    ref="svg"
+    class="utensil-data-viz-stacked-bar chart-svg"
+    :viewBox="`0 0 ${viewBox.width} ${viewBox.height}`"
+    preserveAspectRatio="xMidYMid meet"
+  >
     <DataVizGrid
       :show-grid="showGrid"
       :grid-lines="gridLines"
@@ -7,14 +12,11 @@
       :x-axis-labels="xAxisLabels"
       :padding="padding"
       :view-box="viewBox"
+      :baseline-y="baselineY"
     />
 
     <defs>
-      <clipPath
-        v-for="(column, columnIndex) in stackedColumns"
-        :id="'stack-clip-' + columnIndex"
-        :key="'clip-' + columnIndex"
-      >
+      <clipPath v-for="(column, columnIndex) in stackedColumns" :id="clipId(columnIndex)" :key="'clip-' + columnIndex">
         <path :d="column.clipPath" />
       </clipPath>
     </defs>
@@ -24,10 +26,10 @@
         v-for="(column, columnIndex) in stackedColumns"
         :key="'column-' + columnIndex"
         :class="{ animated: animate }"
-        :clip-path="`url(#stack-clip-${columnIndex})`"
+        :clip-path="`url(#${clipId(columnIndex)})`"
         :style="{
           ...(animate ? { animationDelay: `${columnIndex * 50}ms` } : undefined),
-          transformOrigin: `${column.centerX}px ${baseline}px`,
+          transformOrigin: `${column.centerX}px ${zeroY}px`,
         }"
       >
         <rect
@@ -57,141 +59,166 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
-import {
-  type DataSeries,
-  getSeriesColor,
-  formatValue,
-  PADDING,
-  CHART_WIDTH,
-  CHART_HEIGHT,
-  VIEW_BOX,
-} from './utensil-data-viz'
+import { computed, useId, useTemplateRef } from 'vue'
+import { type DataSeries, getSeriesColor, getValueAxis, formatValue, PADDING, CHART_HEIGHT } from './utensil-data-viz'
+import { useFittedViewBox } from './use-fitted-view-box'
 import DataVizGrid from './DataVizGrid.vue'
 
-interface Props {
+export interface Props {
   series: DataSeries[]
   labels?: string[]
   animate?: boolean
   showGrid?: boolean
   showValues?: boolean
+  /** A value the y-axis always includes, dashed across the plot while values fall below it */
+  baseline?: number
 }
 
 const props = withDefaults(defineProps<Props>(), {
   animate: true,
   showGrid: true,
+  baseline: 0,
 })
+
+const id = useId()
+
+function clipId(columnIndex: number): string {
+  return `${id}-stack-clip-${columnIndex}`
+}
+
+const { viewBox } = useFittedViewBox(useTemplateRef<SVGSVGElement>('svg'))
+
+const chartWidth = computed(() => viewBox.value.width - PADDING.left - PADDING.right)
 
 const pointCount = computed(() => {
   if (props.series.length === 0) return 0
   return Math.max(...props.series.map((s) => s.values.length))
 })
 
-const stackMax = computed(() => {
-  let max = 0
-  for (let i = 0; i < pointCount.value; i++) {
-    let sum = 0
-    for (const s of props.series) {
-      sum += s.values[i] ?? 0
+// Each column's positive values stack up from zero, its negative values down from it
+const stackExtents = computed(() =>
+  Array.from({ length: pointCount.value }, (_, i) => {
+    const values = props.series.map((s) => s.values[i] ?? 0)
+    return {
+      top: values.filter((value) => value > 0).reduce((sum, value) => sum + value, 0),
+      bottom: values.filter((value) => value < 0).reduce((sum, value) => sum + value, 0),
     }
-    max = Math.max(max, sum)
-  }
-  if (max === 0) return 100
-  const magnitude = Math.pow(10, Math.floor(Math.log10(max)))
-  const normalized = max / magnitude
-  const nice = normalized <= 1 ? 1 : normalized <= 2 ? 2 : normalized <= 5 ? 5 : 10
-  return nice * magnitude
-})
+  }),
+)
+
+const axis = computed(() =>
+  getValueAxis(
+    stackExtents.value.flatMap(({ top, bottom }) => [top, bottom]),
+    props.baseline,
+  ),
+)
 
 function scaleY(value: number): number {
-  return PADDING.top + CHART_HEIGHT - (value / stackMax.value) * CHART_HEIGHT
+  const { min, max } = axis.value
+  return PADDING.top + CHART_HEIGHT - ((value - min) / (max - min)) * CHART_HEIGHT
 }
 
-const baseline = scaleY(0)
+const zeroY = computed(() => scaleY(0))
+
+const baselineY = computed(() => (props.baseline > axis.value.min ? scaleY(props.baseline) : undefined))
+
+const groupWidth = computed(() => chartWidth.value / pointCount.value)
 
 const stackedColumns = computed(() => {
-  const columns: {
-    centerX: number
-    clipPath: string
-    rects: { x: number; y: number; width: number; height: number; color: string }[]
-  }[] = []
-  const groupWidth = CHART_WIDTH / pointCount.value
-  const barWidth = groupWidth * 0.6
+  const barWidth = groupWidth.value * 0.6
   const r = 2
 
-  for (let i = 0; i < pointCount.value; i++) {
-    let cumulative = 0
-    const groupX = PADDING.left + i * groupWidth + (groupWidth - barWidth) / 2
-    const rects: { x: number; y: number; width: number; height: number; color: string }[] = []
+  return stackExtents.value.map(({ top, bottom }, i) => {
+    const groupX = PADDING.left + i * groupWidth.value + (groupWidth.value - barWidth) / 2
+    let above = 0
+    let below = 0
 
-    for (let seriesIndex = 0; seriesIndex < props.series.length; seriesIndex++) {
-      const value = props.series[seriesIndex].values[i] ?? 0
-      const bottom = scaleY(cumulative)
-      const top = scaleY(cumulative + value)
-      rects.push({
+    const rects = props.series.map((s, seriesIndex) => {
+      const value = s.values[i] ?? 0
+      const start = value < 0 ? below : above
+      const end = start + value
+      if (value < 0) {
+        below = end
+      } else {
+        above = end
+      }
+      return {
         x: groupX,
-        y: top,
+        y: Math.min(scaleY(start), scaleY(end)),
         width: barWidth,
-        height: Math.max(bottom - top, 0),
-        color: getSeriesColor(seriesIndex),
-      })
-      cumulative += value
-    }
+        height: Math.abs(scaleY(start) - scaleY(end)),
+        color: getSeriesColor(seriesIndex, s),
+      }
+    })
 
-    // Clip path: rounded top corners, sharp bottom
-    const topY = rects.length > 0 ? Math.min(...rects.map((rect) => rect.y)) : baseline
-    const clipPath = `M ${groupX + r} ${topY} Q ${groupX} ${topY} ${groupX} ${topY + r} L ${groupX} ${baseline} L ${groupX + barWidth} ${baseline} L ${groupX + barWidth} ${topY + r} Q ${groupX + barWidth} ${topY} ${groupX + barWidth - r} ${topY} Z`
+    // Rounded at the column's ends, square where it meets zero
+    const topY = scaleY(top)
+    const bottomY = scaleY(bottom)
+    const left = groupX
+    const right = groupX + barWidth
+    const topCorner = top > 0 ? r : 0
+    const bottomCorner = bottom < 0 ? r : 0
+    const clipPath = [
+      `M ${left + topCorner} ${topY}`,
+      `Q ${left} ${topY} ${left} ${topY + topCorner}`,
+      `L ${left} ${bottomY - bottomCorner}`,
+      `Q ${left} ${bottomY} ${left + bottomCorner} ${bottomY}`,
+      `L ${right - bottomCorner} ${bottomY}`,
+      `Q ${right} ${bottomY} ${right} ${bottomY - bottomCorner}`,
+      `L ${right} ${topY + topCorner}`,
+      `Q ${right} ${topY} ${right - topCorner} ${topY}`,
+      'Z',
+    ].join(' ')
 
-    columns.push({ centerX: groupX + barWidth / 2, clipPath, rects })
-  }
-  return columns
+    return { centerX: groupX + barWidth / 2, clipPath, rects }
+  })
 })
 
-const valueLabels = computed(() => {
-  const labels: { x: number; y: number; label: string }[] = []
-  const groupWidth = CHART_WIDTH / pointCount.value
-
-  for (let i = 0; i < pointCount.value; i++) {
-    let total = 0
-    for (const s of props.series) {
-      total += s.values[i] ?? 0
+// Each column's total, above it, or below it when the total is negative
+const valueLabels = computed(() =>
+  stackExtents.value.map(({ top, bottom }, i) => {
+    const total = top + bottom
+    return {
+      x: PADDING.left + i * groupWidth.value + groupWidth.value / 2,
+      y: total < 0 ? scaleY(bottom) + 12 : scaleY(top) - 6,
+      label: formatValue(total),
     }
-    const groupX = PADDING.left + i * groupWidth + groupWidth / 2
-    labels.push({ x: groupX, y: scaleY(total) - 6, label: formatValue(total) })
-  }
-  return labels
-})
+  }),
+)
 
 const gridLines = computed(() => {
-  const count = 4
+  const count = axis.value.steps
   return Array.from({ length: count + 1 }, (_, i) => PADDING.top + (i / count) * CHART_HEIGHT)
 })
 
 const yAxisTicks = computed(() => {
-  const count = 4
-  return Array.from({ length: count + 1 }, (_, i) => {
-    const value = stackMax.value * (1 - i / count)
-    return { y: PADDING.top + (i / count) * CHART_HEIGHT, label: formatValue(value) }
-  })
+  const { min, max, steps: count } = axis.value
+  return Array.from({ length: count + 1 }, (_, i) => ({
+    y: PADDING.top + (i / count) * CHART_HEIGHT,
+    label: formatValue(max - (i / count) * (max - min)),
+  }))
 })
 
 const xAxisLabels = computed(() => {
   if (!props.labels) return []
-  const groupWidth = CHART_WIDTH / pointCount.value
   return props.labels.map((text, i) => ({
-    x: PADDING.left + i * groupWidth + groupWidth / 2,
+    x: PADDING.left + i * groupWidth.value + groupWidth.value / 2,
     text,
   }))
 })
 
 const padding = PADDING
-const viewBox = VIEW_BOX
 </script>
 
 <style scoped>
 @layer utensil {
+  /* Fills what the chart is given, or the drawing's natural height in a box without one. The svg's height never
+     follows its viewBox, so the viewBox can follow the box. */
   .chart-svg {
-    align-self: center;
+    display: block;
+    flex: 1 1 220px;
+    width: 100%;
+    min-height: 0;
   }
 
   .stacked-bars g.animated {

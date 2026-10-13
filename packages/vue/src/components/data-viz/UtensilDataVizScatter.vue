@@ -40,7 +40,7 @@ import {
 } from './utensil-data-viz'
 import DataVizGrid from './DataVizGrid.vue'
 
-interface Props {
+export interface Props {
   series: DataSeries[]
   labels?: string[]
   animate?: boolean
@@ -88,7 +88,7 @@ const allPoints = computed(() => {
       points.push({
         x: scaleX(xVals[i] ?? i),
         y: scaleY(yVal),
-        color: getSeriesColor(seriesIndex),
+        color: getSeriesColor(seriesIndex, s),
       })
     })
   })

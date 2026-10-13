@@ -9,7 +9,15 @@
       :animate="animate"
       :show-grid="showGrid"
       :show-values="showValues"
-    />
+      :interactive="interactive"
+      :reference-lines="referenceLines"
+      :baseline="baseline"
+      @hover="emit('hover', $event)"
+    >
+      <template v-if="$slots.tooltip" #tooltip="{ index }">
+        <slot name="tooltip" :index="index"></slot>
+      </template>
+    </UtensilDataVizLine>
 
     <UtensilDataVizBar
       v-else-if="type === 'bar'"
@@ -18,6 +26,7 @@
       :animate="animate"
       :show-grid="showGrid"
       :show-values="showValues"
+      :baseline="baseline"
     />
 
     <UtensilDataVizArea
@@ -27,7 +36,15 @@
       :animate="animate"
       :show-grid="showGrid"
       :show-values="showValues"
-    />
+      :interactive="interactive"
+      :reference-lines="referenceLines"
+      :baseline="baseline"
+      @hover="emit('hover', $event)"
+    >
+      <template v-if="$slots.tooltip" #tooltip="{ index }">
+        <slot name="tooltip" :index="index"></slot>
+      </template>
+    </UtensilDataVizArea>
 
     <UtensilDataVizDonut v-else-if="type === 'donut'" :series="series" :animate="animate" />
 
@@ -48,6 +65,7 @@
       :animate="animate"
       :show-grid="showGrid"
       :show-values="showValues"
+      :baseline="baseline"
     />
 
     <UtensilDataVizHorizontalBar
@@ -57,12 +75,13 @@
       :animate="animate"
       :show-grid="showGrid"
       :show-values="showValues"
+      :baseline="baseline"
     />
 
     <!-- Legend -->
     <div v-if="showLegend && series.length > 0" class="chart-legend">
       <div v-for="(s, index) in series" :key="'legend-' + index" class="legend-item">
-        <span class="legend-swatch" :style="{ backgroundColor: getSeriesColor(index) }"></span>
+        <span class="legend-swatch" :style="{ backgroundColor: getSeriesColor(index, s) }"></span>
         <span class="legend-label">{{ s.label }}</span>
       </div>
     </div>
@@ -74,7 +93,7 @@
 
 <script setup lang="ts">
 import { computed } from 'vue'
-import { type ChartType, type DataSeries, getSeriesColor } from './utensil-data-viz'
+import { type ChartType, type DataSeries, type ReferenceLine, getSeriesColor } from './utensil-data-viz'
 import UtensilDataVizLine from './UtensilDataVizLine.vue'
 import UtensilDataVizBar from './UtensilDataVizBar.vue'
 import UtensilDataVizArea from './UtensilDataVizArea.vue'
@@ -84,7 +103,7 @@ import UtensilDataVizScatter from './UtensilDataVizScatter.vue'
 import UtensilDataVizStackedBar from './UtensilDataVizStackedBar.vue'
 import UtensilDataVizHorizontalBar from './UtensilDataVizHorizontalBar.vue'
 
-interface Props {
+export interface Props {
   type?: ChartType
   series: DataSeries[]
   labels?: string[]
@@ -94,6 +113,16 @@ interface Props {
   showValues?: boolean
   animate?: boolean
   ariaLabel?: string
+  /** A hover crosshair, a tooltip per point and the `hover` event, on line and area charts */
+  interactive?: boolean
+  /** Horizontal lines across line and area charts, which the y-axis includes */
+  referenceLines?: ReferenceLine[]
+  /**
+   * The value line, area and bar charts measure from, which their value axis always includes: values below it extend
+   * the axis down, bars run from it, an area fills to it, and a dashed line marks it while values fall below it.
+   * Stacked bars stack from zero, and their axis includes it.
+   */
+  baseline?: number
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -102,7 +131,19 @@ const props = withDefaults(defineProps<Props>(), {
   showGrid: true,
   animate: true,
   ariaLabel: 'Data visualization',
+  interactive: false,
+  baseline: 0,
 })
+
+const emit = defineEmits<{
+  /** The hovered point's index on an interactive line or area chart, or null when the pointer leaves it */
+  hover: [index: number | null]
+}>()
+
+defineSlots<{
+  /** The hovered point's tooltip on an interactive line or area chart */
+  tooltip?(props: { index: number }): unknown
+}>()
 
 const screenReaderDescription = computed(() => {
   const chartDesc = `${props.type} chart`

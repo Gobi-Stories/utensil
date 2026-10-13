@@ -59,7 +59,7 @@
 import { computed } from 'vue'
 import { type DataSeries, getSeriesColor } from './utensil-data-viz'
 
-interface Props {
+export interface Props {
   series: DataSeries[]
   labels?: string[]
   animate?: boolean
@@ -119,7 +119,7 @@ const seriesPolygons = computed(() => {
         return `${point.x},${point.y}`
       })
       .join(' ')
-    return { points, color: getSeriesColor(seriesIndex) }
+    return { points, color: getSeriesColor(seriesIndex, s) }
   })
 })
 
@@ -129,7 +129,7 @@ const seriesDots = computed(() => {
     s.values.forEach((v, i) => {
       const r = (v / maxValue.value) * RADIUS
       const point = getPoint(i, r)
-      dots.push({ ...point, color: getSeriesColor(seriesIndex) })
+      dots.push({ ...point, color: getSeriesColor(seriesIndex, s) })
     })
   })
   return dots

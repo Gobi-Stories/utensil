@@ -1,5 +1,10 @@
 <template>
-  <svg class="chart-svg" :viewBox="`0 0 ${viewBox.width} ${viewBox.height}`" preserveAspectRatio="xMidYMid meet">
+  <svg
+    ref="svg"
+    class="utensil-data-viz-bar chart-svg"
+    :viewBox="`0 0 ${viewBox.width} ${viewBox.height}`"
+    preserveAspectRatio="xMidYMid meet"
+  >
     <DataVizGrid
       :show-grid="showGrid"
       :grid-lines="gridLines"
@@ -7,19 +12,20 @@
       :x-axis-labels="xAxisLabels"
       :padding="padding"
       :view-box="viewBox"
+      :baseline-y="baselineY"
     />
 
     <g class="bars">
       <g v-for="(s, seriesIndex) in series" :key="'bar-series-' + seriesIndex">
         <rect
-          v-for="(bar, barIndex) in getBarRects(seriesIndex)"
+          v-for="(bar, barIndex) in barRects[seriesIndex]"
           :key="'bar-' + barIndex"
           :x="bar.x"
           :y="bar.y"
           :width="bar.width"
           :height="bar.height"
-          :fill="getSeriesColor(seriesIndex)"
-          :class="{ animated: animate }"
+          :fill="getSeriesColor(seriesIndex, s)"
+          :class="{ animated: animate, below: bar.below }"
           :style="animate ? { animationDelay: `${barIndex * 50}ms` } : undefined"
           rx="2"
         />
@@ -28,83 +34,108 @@
 
     <g v-if="showValues" class="value-labels">
       <text
-        v-for="(point, pointIndex) in valueLabels"
-        :key="'val-' + pointIndex"
-        :x="point.x"
-        :y="point.y - 10"
+        v-for="(label, labelIndex) in valueLabels"
+        :key="'val-' + labelIndex"
+        :x="label.x"
+        :y="label.y"
         text-anchor="middle"
       >
-        {{ point.label }}
+        {{ label.label }}
       </text>
     </g>
   </svg>
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
-import { type DataSeries, getSeriesColor, formatValue, PADDING, CHART_WIDTH } from './utensil-data-viz'
+import { computed, useTemplateRef } from 'vue'
+import { type DataSeries, getSeriesColor, formatValue, PADDING } from './utensil-data-viz'
 import { useCartesianChart } from './use-cartesian-chart'
 import DataVizGrid from './DataVizGrid.vue'
 
-interface Props {
+export interface Props {
   series: DataSeries[]
   labels?: string[]
   animate?: boolean
   showGrid?: boolean
   showValues?: boolean
+  /** What the bars rise from, or hang below for lower values; the y-axis always includes it */
+  baseline?: number
 }
 
 const props = withDefaults(defineProps<Props>(), {
   animate: true,
   showGrid: true,
+  baseline: 0,
 })
 
-const { padding, viewBox, getY, pointCount, gridLines, yAxisTicks, xAxisLabels } = useCartesianChart({
-  series: () => props.series,
-  labels: () => props.labels,
-  isBar: true,
-})
+const { padding, viewBox, chartWidth, baselineY, getY, pointCount, gridLines, yAxisTicks, xAxisLabels } =
+  useCartesianChart({
+    series: () => props.series,
+    svg: useTemplateRef<SVGSVGElement>('svg'),
+    labels: () => props.labels,
+    isBar: true,
+    baseline: () => props.baseline,
+  })
 
-function getBarRects(seriesIndex: number) {
-  const values = props.series[seriesIndex].values
+// Each series' bars, spread over the width the chart has, from the baseline to their values
+const barRects = computed(() => {
   const seriesCount = props.series.length
-  const groupWidth = CHART_WIDTH / pointCount.value
+  const groupWidth = chartWidth.value / pointCount.value
   const barGap = 2
   const totalBarWidth = groupWidth * 0.7
   const barWidth = (totalBarWidth - barGap * (seriesCount - 1)) / seriesCount
+  const foot = getY(props.baseline)
 
-  return values.map((v, i) => {
-    const groupX = PADDING.left + i * groupWidth + (groupWidth - totalBarWidth) / 2
-    const x = groupX + seriesIndex * (barWidth + barGap)
-    const y = getY(v)
-    const height = getY(0) - y
-    return { x, y, width: Math.max(barWidth, 1), height: Math.max(height, 0) }
-  })
-}
-
-const valueLabels = computed(() => {
-  const labels: { x: number; y: number; label: string }[] = []
-  props.series.forEach((s, seriesIndex) => {
-    s.values.forEach((v, i) => {
-      const bars = getBarRects(seriesIndex)
-      const bar = bars[i]
-      labels.push({ x: bar.x + bar.width / 2, y: getY(v), label: formatValue(v) })
-    })
-  })
-  return labels
+  return props.series.map((s, seriesIndex) =>
+    s.values.map((v, i) => {
+      const groupX = PADDING.left + i * groupWidth + (groupWidth - totalBarWidth) / 2
+      const top = getY(v)
+      return {
+        x: groupX + seriesIndex * (barWidth + barGap),
+        y: Math.min(top, foot),
+        width: Math.max(barWidth, 1),
+        height: Math.abs(foot - top),
+        below: v < props.baseline,
+      }
+    }),
+  )
 })
+
+// Above a bar that rises, below one that hangs
+const valueLabels = computed(() =>
+  props.series.flatMap((s, seriesIndex) =>
+    s.values.map((v, i) => {
+      const bar = barRects.value[seriesIndex][i]
+      return {
+        x: bar.x + bar.width / 2,
+        y: bar.below ? bar.y + bar.height + 12 : bar.y - 10,
+        label: formatValue(v),
+      }
+    }),
+  ),
+)
 </script>
 
 <style scoped>
 @layer utensil {
+  /* Fills what the chart is given, or the drawing's natural height in a box without one. The svg's height never
+     follows its viewBox, so the viewBox can follow the box. */
   .chart-svg {
-    align-self: center;
+    display: block;
+    flex: 1 1 220px;
+    width: 100%;
+    min-height: 0;
   }
 
   .bars rect.animated {
     animation: utensil-data-viz-bar-grow 0.5s ease-out both;
     transform-box: fill-box;
     transform-origin: center bottom;
+  }
+
+  /* A bar below the baseline grows down from it */
+  .bars rect.animated.below {
+    transform-origin: center top;
   }
 
   .value-labels text {
