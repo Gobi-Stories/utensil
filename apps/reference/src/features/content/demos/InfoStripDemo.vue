@@ -67,6 +67,20 @@
         </div>
         <div class="demo-label always-visible">Coloured &middot; rich value</div>
       </div>
+      <div class="demo-item info-strip-wrap-item">
+        <div class="demo-content info-strip-demo">
+          <ReferenceInfoStrip variation="unstyled" align="start" wrap dividers>
+            <UtensilInfoStripItem label="Release">2</UtensilInfoStripItem>
+            <UtensilInfoStripItem label="Title">Faster search across every project</UtensilInfoStripItem>
+            <UtensilInfoStripItem label="Shipped">Oct 11, 2026</UtensilInfoStripItem>
+            <UtensilInfoStripItem label="Owner">Platform team</UtensilInfoStripItem>
+            <UtensilInfoStripItem label="Status">
+              <ReferenceBadge variation="soft" color="success" scale="small">Live</ReferenceBadge>
+            </UtensilInfoStripItem>
+          </ReferenceInfoStrip>
+        </div>
+        <div class="demo-label always-visible">Wrapping &middot; facts of different lengths</div>
+      </div>
     </div>
 
     <template #api>
@@ -90,6 +104,10 @@ import { ReferenceBadge } from '@/theme/components/ReferenceBadge'
   flex-direction: column;
   align-items: stretch;
   gap: var(--space-4);
+}
+
+.info-strip-wrap-item {
+  grid-column: 1 / -1;
 }
 
 /* A vertical strip is content-width; centre it in the demo cell. */

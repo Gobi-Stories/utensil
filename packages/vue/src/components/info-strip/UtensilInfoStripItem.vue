@@ -32,11 +32,11 @@ defineProps<Props>()
 
   .utensil-info-strip-label {
     order: var(--info-strip-label-order, 0);
-    font-size: var(--font-size-0);
-    font-weight: 600;
-    letter-spacing: 0.05em;
+    font-size: var(--font-size-1);
+    line-height: var(--line-height-1);
+    letter-spacing: 0.04em;
     text-transform: uppercase;
-    color: var(--pencil-a10);
+    color: var(--pencil-a11);
   }
 
   .utensil-info-strip-value {
@@ -48,7 +48,7 @@ defineProps<Props>()
   }
 
   .utensil-high-contrast .utensil-info-strip-label {
-    color: var(--pencil-a11);
+    color: var(--pencil-12);
   }
 }
 </style>

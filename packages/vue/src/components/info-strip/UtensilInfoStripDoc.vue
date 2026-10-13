@@ -55,6 +55,16 @@
           <td>Draw a separator between items.</td>
         </tr>
         <tr>
+          <td><code>wrap</code></td>
+          <td><code>boolean</code></td>
+          <td><code>false</code></td>
+          <td>
+            A horizontal strip sizes each item to its value and wraps onto further lines, rather than sharing one row.
+            With <code>dividers</code>, the first item of each line draws none: the strip clips what draws past its
+            padding, so keep its inline padding under half the column gap.
+          </td>
+        </tr>
+        <tr>
           <td><code>color</code></td>
           <td><code>ColorProp&lt;Theme&gt;</code></td>
           <td>—</td>
@@ -86,6 +96,24 @@
       </tbody>
     </table>
 
+    <h2>CSS Custom Properties</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Property</th>
+          <th>Default</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>--utensil-info-strip-column-gap</code></td>
+          <td><code>var(--space-8)</code></td>
+          <td>The space between items on a line of a wrapping strip, where its dividers sit.</td>
+        </tr>
+      </tbody>
+    </table>
+
     <!-- Examples -->
     <h2>Examples</h2>
 
@@ -100,6 +128,13 @@
     <pre v-pre><code>&lt;UtensilInfoStrip orientation="vertical" dividers label-placement="bottom"&gt;
   &lt;UtensilInfoStripItem label="Views"&gt;12,480&lt;/UtensilInfoStripItem&gt;
   &lt;UtensilInfoStripItem label="Completes"&gt;9,213&lt;/UtensilInfoStripItem&gt;
+&lt;/UtensilInfoStrip&gt;</code></pre>
+
+    <h3>Facts of different lengths, wrapping</h3>
+    <pre v-pre><code>&lt;UtensilInfoStrip variation="unstyled" align="start" wrap dividers&gt;
+  &lt;UtensilInfoStripItem label="Release"&gt;2&lt;/UtensilInfoStripItem&gt;
+  &lt;UtensilInfoStripItem label="Title"&gt;Faster search across every project&lt;/UtensilInfoStripItem&gt;
+  &lt;UtensilInfoStripItem label="Shipped"&gt;Oct 11, 2026&lt;/UtensilInfoStripItem&gt;
 &lt;/UtensilInfoStrip&gt;</code></pre>
 
     <h3>Coloured, chrome-less</h3>

@@ -37,6 +37,15 @@ describe('UtensilInfoStrip', () => {
     expect(classes).toContain('dividers')
   })
 
+  it('shares one row unless it wraps', () => {
+    expect(mount(UtensilInfoStrip).find('.utensil-info-strip').classes()).not.toContain('wrap')
+    expect(
+      mount(UtensilInfoStrip, { props: { wrap: true } })
+        .find('.utensil-info-strip')
+        .classes(),
+    ).toContain('wrap')
+  })
+
   it('drops the neutral pencil modifier when a colour is set', () => {
     const wrapper = mount(UtensilInfoStrip, { props: { color: 'pen' } })
     expect(wrapper.find('.utensil-info-strip').classes()).not.toContain('pencil')

@@ -7,7 +7,7 @@
       orientation,
       `align-${align}`,
       `label-${labelPlacement}`,
-      { pencil: !color, dividers },
+      { pencil: !color, dividers, wrap },
     ]"
     :style="style"
   >
@@ -39,6 +39,8 @@ export interface Props<Theme extends ThemeConfig> {
   labelPlacement?: InfoStripLabelPlacement
   /** Draw a separator between items. */
   dividers?: boolean
+  /** A horizontal strip sizes each item to its value and wraps onto further lines, rather than sharing one row. */
+  wrap?: boolean
   /** Theme colour for the strip; defaults to the neutral pencil palette. */
   color?: ColorProp<Theme>
   /** Relative scale applied to the whole strip. */
@@ -51,6 +53,7 @@ const props = withDefaults(defineProps<Props<Theme>>(), {
   align: 'center',
   labelPlacement: 'top',
   dividers: false,
+  wrap: false,
 })
 
 const penColor = computed<ColorProp<Theme>>(() => props.color || 'pen')
@@ -81,6 +84,19 @@ const { classes: themeClasses, style } = useTheme({
 
   .utensil-info-strip.horizontal {
     flex-direction: row;
+  }
+
+  .utensil-info-strip.horizontal.wrap {
+    --column-gap: var(--utensil-info-strip-column-gap, var(--space-8));
+
+    flex-wrap: wrap;
+    gap: var(--space-6) var(--column-gap);
+  }
+
+  /* Clips the divider drawn before the first item of each line, which falls outside the strip as long as its inline
+     padding is under half the column gap */
+  .utensil-info-strip.horizontal.wrap.dividers {
+    overflow: clip;
   }
 
   /* A vertical strip is a slim bar: segments stacked and centred (each keeping its label above the
@@ -114,6 +130,10 @@ const { classes: themeClasses, style } = useTheme({
     min-width: 0;
   }
 
+  .utensil-info-strip.horizontal.wrap > * {
+    flex: 0 1 auto;
+  }
+
   .utensil-info-strip.vertical > * {
     width: 100%;
     /* Breathing room around each segment's content, since a content-width strip can't rely on the
@@ -125,8 +145,29 @@ const { classes: themeClasses, style } = useTheme({
     border-inline-start: 1px solid var(--pencil-a6);
   }
 
+  /* Wrapping, each item's divider sits in the middle of the gap before it. Which item starts a line isn't known, so
+     every item draws one and the strip clips those before the first item of each line. */
+  .utensil-info-strip.dividers.horizontal.wrap > * {
+    position: relative;
+    border-inline-start: none;
+  }
+
+  .utensil-info-strip.dividers.horizontal.wrap > *::before {
+    content: '';
+    position: absolute;
+    inset-block: 0;
+    inset-inline-start: calc(var(--column-gap) / -2);
+    border-inline-start: 1px solid var(--pencil-a6);
+  }
+
   .utensil-info-strip.dividers.vertical > * + * {
     border-block-start: 1px solid var(--pencil-a6);
+  }
+
+  .utensil-high-contrast .utensil-info-strip.dividers.horizontal > * + *,
+  .utensil-high-contrast .utensil-info-strip.dividers.horizontal.wrap > *::before,
+  .utensil-high-contrast .utensil-info-strip.dividers.vertical > * + * {
+    border-color: var(--pencil-a9);
   }
 }
 </style>
