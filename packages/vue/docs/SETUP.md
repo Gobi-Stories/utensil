@@ -15,7 +15,7 @@ Utensil is published to its own registry, not to npmjs. Map the `@gobistories` s
 
 ```bash
 npm install @gobistories/utensil-vue
-npm install vue @fortawesome/fontawesome-svg-core @fortawesome/free-solid-svg-icons @fortawesome/vue-fontawesome
+npm install vue @fortawesome/fontawesome-svg-core @fortawesome/free-solid-svg-icons @fortawesome/free-regular-svg-icons @fortawesome/vue-fontawesome
 ```
 
 `vue` and the FontAwesome packages are peer dependencies, so your app and Utensil share one copy.

@@ -17,6 +17,11 @@ import { faEnvelope } from '@fortawesome/free-solid-svg-icons/faEnvelope'
 import { faExclamationTriangle } from '@fortawesome/free-solid-svg-icons/faExclamationTriangle'
 import { faEye } from '@fortawesome/free-solid-svg-icons/faEye'
 import { faEyeSlash } from '@fortawesome/free-solid-svg-icons/faEyeSlash'
+import { faFaceAngry } from '@fortawesome/free-solid-svg-icons/faFaceAngry'
+import { faFaceFrown } from '@fortawesome/free-solid-svg-icons/faFaceFrown'
+import { faFaceLaughBeam } from '@fortawesome/free-solid-svg-icons/faFaceLaughBeam'
+import { faFaceMeh } from '@fortawesome/free-solid-svg-icons/faFaceMeh'
+import { faFaceSmile } from '@fortawesome/free-solid-svg-icons/faFaceSmile'
 import { faFile } from '@fortawesome/free-solid-svg-icons/faFile'
 import { faFont } from '@fortawesome/free-solid-svg-icons/faFont'
 import { faHashtag } from '@fortawesome/free-solid-svg-icons/faHashtag'
@@ -46,6 +51,13 @@ import { faVideo } from '@fortawesome/free-solid-svg-icons/faVideo'
 import { faVolumeHigh } from '@fortawesome/free-solid-svg-icons/faVolumeHigh'
 import { faVolumeMute } from '@fortawesome/free-solid-svg-icons/faVolumeMute'
 import { faWifi } from '@fortawesome/free-solid-svg-icons/faWifi'
+
+import { faStar as faStarRegular } from '@fortawesome/free-regular-svg-icons/faStar'
+import { faFaceAngry as faFaceAngryRegular } from '@fortawesome/free-regular-svg-icons/faFaceAngry'
+import { faFaceFrown as faFaceFrownRegular } from '@fortawesome/free-regular-svg-icons/faFaceFrown'
+import { faFaceMeh as faFaceMehRegular } from '@fortawesome/free-regular-svg-icons/faFaceMeh'
+import { faFaceSmile as faFaceSmileRegular } from '@fortawesome/free-regular-svg-icons/faFaceSmile'
+import { faFaceLaughBeam as faFaceLaughBeamRegular } from '@fortawesome/free-regular-svg-icons/faFaceLaughBeam'
 
 // Used to inject a UtensilIconMap
 export const utensilIconMapKey = Symbol('utensil-icon-map')
@@ -89,6 +101,20 @@ export const utensilIconMap = {
   play: faPlay,
   plus: faPlus,
   'plus-circle': faPlusCircle,
+  // UtensilRating's points: filled at or below the rating, outline above it. Smilies run from the scale's most
+  // negative point to its most positive.
+  'rating-star': faStar,
+  'rating-star-outline': faStarRegular,
+  'rating-very-negative': faFaceAngry,
+  'rating-very-negative-outline': faFaceAngryRegular,
+  'rating-negative': faFaceFrown,
+  'rating-negative-outline': faFaceFrownRegular,
+  'rating-neutral': faFaceMeh,
+  'rating-neutral-outline': faFaceMehRegular,
+  'rating-positive': faFaceSmile,
+  'rating-positive-outline': faFaceSmileRegular,
+  'rating-very-positive': faFaceLaughBeam,
+  'rating-very-positive-outline': faFaceLaughBeamRegular,
   refresh: faRefresh,
   swap: faArrowRightArrowLeft,
   search: faSearch,

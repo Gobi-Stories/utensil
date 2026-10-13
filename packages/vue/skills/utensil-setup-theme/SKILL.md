@@ -29,7 +29,7 @@ Determine:
 
 If brand colors are missing, ask the user for them. Never invent brand colors. Utensil provides `gray`; neutral colors may otherwise be chosen and stated as a default for the user to confirm.
 
-Check that `@gobistories/utensil-vue` (it brings `@gobistories/utensil-css` with it) and the FontAwesome peer dependencies (`@fortawesome/fontawesome-svg-core`, `@fortawesome/free-solid-svg-icons`, `@fortawesome/vue-fontawesome`) are installed. Install them if not.
+Check that `@gobistories/utensil-vue` (it brings `@gobistories/utensil-css` with it) and the FontAwesome peer dependencies (`@fortawesome/fontawesome-svg-core`, `@fortawesome/free-solid-svg-icons`, `@fortawesome/free-regular-svg-icons`, `@fortawesome/vue-fontawesome`) are installed. Install them if not.
 
 ## Step 3: Generate the color scales
 

@@ -63,7 +63,7 @@ See the [@gobistories/utensil-css README](packages/css/README.md).
 ### Vue
 
 ```bash
-npm install @gobistories/utensil-vue vue @fortawesome/fontawesome-svg-core @fortawesome/free-solid-svg-icons @fortawesome/vue-fontawesome
+npm install @gobistories/utensil-vue vue @fortawesome/fontawesome-svg-core @fortawesome/free-solid-svg-icons @fortawesome/free-regular-svg-icons @fortawesome/vue-fontawesome
 ```
 
 ```ts

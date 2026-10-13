@@ -5,6 +5,7 @@
     <ToggleButtonDemo />
     <RadioButtonsDemo />
     <RadioGroupDemo />
+    <RatingDemo />
     <RadioCardsDemo />
     <BadgeDemo />
     <MediaBadgeDemo />
@@ -23,6 +24,7 @@ import ButtonDemo from './demos/ButtonDemo.vue'
 import ToggleButtonDemo from './demos/ToggleButtonDemo.vue'
 import RadioButtonsDemo from './demos/RadioButtonsDemo.vue'
 import RadioGroupDemo from './demos/RadioGroupDemo.vue'
+import RatingDemo from './demos/RatingDemo.vue'
 import RadioCardsDemo from './demos/RadioCardsDemo.vue'
 import BadgeDemo from './demos/BadgeDemo.vue'
 import MediaBadgeDemo from './demos/MediaBadgeDemo.vue'

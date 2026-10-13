@@ -27,7 +27,7 @@ Utensil is published to its own registry, not to npmjs. Map the `@gobistories` s
 
 ```bash
 npm install @gobistories/utensil-vue
-npm install vue @fortawesome/fontawesome-svg-core @fortawesome/free-solid-svg-icons @fortawesome/vue-fontawesome
+npm install vue @fortawesome/fontawesome-svg-core @fortawesome/free-solid-svg-icons @fortawesome/free-regular-svg-icons @fortawesome/vue-fontawesome
 ```
 
 `vue` and the FontAwesome packages are peer dependencies. Both packages are ESM, built for bundlers such as Vite (`"moduleResolution": "bundler"`). There is no barrel file: import each component from its own path and your bundler includes only the JavaScript and CSS you use.
