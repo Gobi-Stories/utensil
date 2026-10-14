@@ -18,7 +18,7 @@ npm install @gobistories/utensil-vue
 npm install vue @fortawesome/fontawesome-svg-core @fortawesome/free-solid-svg-icons @fortawesome/free-regular-svg-icons @fortawesome/vue-fontawesome
 ```
 
-`vue` and the FontAwesome packages are peer dependencies, so your app and Utensil share one copy.
+`vue` and the FontAwesome packages are peer dependencies, so your app and Utensil share one copy. Keep `@fortawesome/fontawesome-svg-core`, `@fortawesome/free-solid-svg-icons` and `@fortawesome/free-regular-svg-icons` on the same version, and upgrade them together: each depends on an exact version of `@fortawesome/fontawesome-common-types`, so packs on different versions install separate copies of its types, and an icon from one pack may not type-check where an `IconDefinition` from another is expected, such as in your theme's icon map.
 
 `@gobistories/utensil-vue` brings the CSS framework, `@gobistories/utensil-css`, with it and forwards its files at the same subpaths, so import everything from `@gobistories/utensil-vue`. The packages are ESM, built for bundlers such as Vite. Use `"moduleResolution": "bundler"` in your `tsconfig` (the default with `@vue/tsconfig`). There is no barrel file: import each component, composable, and type from its own path (e.g. `@gobistories/utensil-vue/components/button/UtensilButton.vue`), and your bundler includes only the JavaScript and CSS you use.
 
