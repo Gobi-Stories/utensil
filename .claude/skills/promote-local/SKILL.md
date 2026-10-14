@@ -14,7 +14,8 @@ The consumer doesn't take the release automatically. Its local copies keep worki
 when it does it updates its package, its local folder and its own code that uses them, adapting that code to any
 change the promotion made. An import-only switch is the most convenient upgrade, so prefer it where it costs nothing,
 but never at the expense of a change the component needs: a fix, an audit finding, consistency with the rest of
-Utensil, or completing it for general use. Make the change and list what the consumer rewrites in the report.
+Utensil, or completing it for general use. Make the change, and record what the consumer rewrites in upgrade notes
+left in its folder (Step 4) and in the report.
 
 First confirm the answers to these questions:
 @../../QUESTIONS.md
@@ -26,18 +27,18 @@ First confirm the answers to these questions:
 - Names (optional): the components or composables to promote, in any form that identifies one: `UtensilButton`,
   `Button`, its folder `button`, `use-focus-home`, `useFocusHome`. Omitted, promote everything in the folder.
 
-The folder is read-only: never change, move or delete anything in it. The consumer removes its local copies itself,
-once a release includes them.
+The folder is read-only but for the upgrade notes you leave in it (Step 4): never change, move or delete anything
+else in it. The consumer removes its local copies itself, once a release includes them.
 
 ## The Local Folder
 
 It is usually organised by kind, each mirroring Utensil's layout (`<kind>/<feature>/Utensil<Name>.vue`, composables
 as `use-<name>.ts`):
 
-| Folder        | Holds                                                                                                                                                                             | Promotes as                                               |
-| ------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------- |
-| `components/` | New components and composables                                                                                                                                                    | A new component or composable at the mirrored path        |
-| `wrappers/`   | A wrapper with the name of the Utensil component or composable it wraps, importing the original aliased (`BaseUtensilButton`) and adding props, slots, slot scope or context      | The additions, made in the component or composable itself |
+| Folder        | Holds                                                                                                                                                                                                       | Promotes as                                               |
+| ------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------- |
+| `components/` | New components and composables                                                                                                                                                                              | A new component or composable at the mirrored path        |
+| `wrappers/`   | A wrapper with the name of the Utensil component or composable it wraps, importing the original aliased (`BaseUtensilButton`) and adding props, slots, slot scope or context                                | The additions, made in the component or composable itself |
 | `fixed/`      | A vendored copy, changed: a fix, or an addition a wrapper couldn't reach. A header comment names the `@gobistories/utensil-vue` version it was copied from (`Vendored from @gobistories/utensil-vue 1.0.2`) | The changes, made in the current component or composable  |
 
 Classify each item by what its code shows, not only by where it sits. An item is a component or composable's folder
@@ -45,7 +46,7 @@ Classify each item by what its code shows, not only by where it sits. An item is
 beside them. A family (a parent component and its children, e.g. `deck/`) is one item. Each file in the folder is
 there to support the implementation (types, a context key, helpers, a composable or styles of its own), so consider
 it part of the change: promote it with the item, or find what in Utensil it changes or duplicates. Only the PR notes
-are not promoted as files.
+and upgrade notes are not promoted as files.
 
 ### PR Notes
 
@@ -120,7 +121,8 @@ still to do); the rest are **to promote**. For each covered change, check whethe
 release.
 
 If every item is promoted, list them with what covers each and its release status, say there's nothing to promote,
-and stop. Otherwise list the promoted items as already done and carry on with the rest.
+write upgrade notes for those with rewrites (Step 4), and stop. Otherwise list the promoted items as already done and
+carry on with the rest.
 
 ## Step 2: Promote
 
@@ -176,7 +178,39 @@ UAT in the reference app, whose theme has full color scales and a variant map, n
 If you handle git, commit each item on its own (`vue: <feature>: <message>`, per `docs/STANDARDS.md`). Never push,
 bump versions or release: the promotion goes out in the next release on the maintainer's cadence.
 
-## Step 4: Report
+## Step 4: Upgrade Notes
+
+When the consumer upgrades to a release that includes the promotion, the agent doing the upgrade reads the local
+folder. Leave it notes there for each item whose switch-over is more than changing imports: a covered change (the
+consumer switches to what covers it), or a change the promotion made to the consumer's API or behaviour. An item that
+switches by imports alone gets none.
+
+Write them to `<component-name>-upgrade.md` beside the item's PR notes (`utensil-sparkline-upgrade.md`), a family's
+in one file. If the file is already there from an earlier promotion, update it: keep the entries that still apply. The
+notes are written in the consumer's terms, for an agent that has the consumer's code and the release, not this
+repository:
+
+```markdown
+# Upgrade notes: UtensilSparkline
+
+Promoted into @gobistories/utensil-vue after v0.2.0, in `vue: sparkline: <message>`. Switching over takes these
+rewrites as well as the imports. The release's code is the source of truth where it differs from these notes.
+
+## Rewrites
+
+- `speed="fast"` → `preset="quick"`: Utensil already had a preset for the same purpose.
+- `#label` slot scope `{ text }` → `{ label }`: matches the slot scope of the other data-viz components.
+
+## Left out
+
+- `compact` prop: <why it wasn't promoted, and what the consumer can do instead>.
+```
+
+Each rewrite gives the usage from what to what and why, so the upgrade can find every usage and adapt it. Add a
+**Left out** section only for changes the consumer used that the release won't have. Never commit in the consumer's
+repository: the consumer commits the notes with its own work.
+
+## Step 5: Report
 
 - **Already promoted** — each item, and whether it's released (in which version) or waiting for the next release.
 - **Covered** — each change skipped because Utensil already serves its purpose: the local name and what covers it
@@ -184,6 +218,7 @@ bump versions or release: the promotion goes out in the next release on the main
 - **Promoted** — each item and the purpose of what changed in Utensil.
 - **Left out** — each change whose purpose was unclear or added no clear value, and why.
 - **Breaking** — anything breaking, worded for the release notes.
+- **Upgrade notes** — each file written or updated in the local folder, or that none were needed.
 - **Audit** — recommendations not made, and why: outside the promoted work, or breaking for other consumers.
 - **Switching over** — for the consumer, whenever it chooses to upgrade to a release that includes the promotion:
   each local import and the `@gobistories/utensil-vue/...` path that replaces it, the local files to delete, and the notes'
