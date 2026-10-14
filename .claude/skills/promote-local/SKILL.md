@@ -17,9 +17,6 @@ but never at the expense of a change the component needs: a fix, an audit findin
 Utensil, or completing it for general use. Make the change, and record what the consumer rewrites in upgrade notes
 left in its folder (Step 4) and in the report.
 
-First confirm the answers to these questions:
-@../../QUESTIONS.md
-
 ## Arguments
 
 - `path`: the consumer's local Utensil folder, often `src/lib/utensil-local` in the consumer project. Use the path
@@ -133,7 +130,7 @@ Work through the items in dependency order (an item another imports goes first),
   test and `<Name>Doc.vue` into the component's own.
 - **Vendored** — follow `.claude/skills/update-component/SKILL.md`. Apply the changes to the current source rather
   than replacing the file, keeping anything Utensil changed since the copy was made.
-- **New** — follow `.claude/skills/implement-component/SKILL.md` from Step 1 (its questions are already answered),
+- **New** — follow `.claude/skills/implement-component/SKILL.md` from Step 1,
   at the path the local folder mirrors.
 - **Notes-only** — follow `.claude/skills/update-component/SKILL.md`, making each instruction to promote in the
   component or composable the notes change.
@@ -175,7 +172,7 @@ Utensil API that would break other consumers.
 
 UAT in the reference app, whose theme has full color scales and a variant map, never under Utensil's gray default.
 
-If you handle git, commit each item on its own (`vue: <feature>: <message>`, per `docs/STANDARDS.md`). Never push,
+Commit each item on its own (`vue: <feature>: <message>`, per `docs/STANDARDS.md`). Never push,
 bump versions or release: the promotion goes out in the next release on the maintainer's cadence.
 
 ## Step 4: Upgrade Notes

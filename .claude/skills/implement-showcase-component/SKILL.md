@@ -8,9 +8,6 @@ argument-hint: <ComponentName> <description>
 
 Implement a component and create a showcase demo for it. The demo appears automatically on the reference app's Showcase page via hot reload.
 
-First confirm the answer to these questions:
-@../../QUESTIONS.md
-
 ## Arguments
 
 - `ComponentName`: PascalCase name (e.g., "Skeleton", "AudioEqualizer", "CheckoutFlow")
@@ -141,6 +138,6 @@ For new components in `packages/vue/src/components/`, also run `bun run verify:p
 
 Fix any errors found related to your work.
 
-Test in Chrome _if_ the user answered that you should do it. The showcase is at `http://localhost:12911/showcase` (`bun run dev` from the repository root) — the new demo should appear second in the paginator, after the sign up demo.
+Test in Chrome, unless asked not to. The showcase is at `http://localhost:12911/showcase` (`bun run dev` from the repository root) — the new demo should appear second in the paginator, after the sign up demo.
 
 For components in `packages/vue/src/components/`: tell a sub-agent to run the /audit-component skill on the component. Don't use --fix. Consider the recommendations returned and update if required.

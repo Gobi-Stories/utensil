@@ -8,9 +8,6 @@ argument-hint: <ComponentName> <description>
 
 Create a production-grade Utensil component in `@gobistories/utensil-vue`.
 
-First confirm the answer to these questions:
-@../../QUESTIONS.md
-
 ## Arguments
 
 - `ComponentName`: PascalCase name (e.g., "Dropdown" or "UtensilDropdown")
@@ -69,7 +66,7 @@ bun run verify:package
 
 Fix any errors found related to your work.
 
-Test in Chrome _if_ the user answered that you should do it. The reference app runs at `http://localhost:12911` (`bun run dev` from the repository root, or `docker compose up utensil-reference`).
+Test in Chrome, unless asked not to. The reference app runs at `http://localhost:12911` (`bun run dev` from the repository root, or `docker compose up utensil-reference`).
 
 Tell a sub-agent to run the /audit-component skill on the component. Don't use --fix. Consider the recommendations returned and update if required.
 

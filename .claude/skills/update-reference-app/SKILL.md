@@ -5,9 +5,6 @@ description: Update the Utensil reference application
 
 Update the Utensil Reference Application as instructed by the user.
 
-First confirm the answer to these questions:
-@../../QUESTIONS.md
-
 The reference application is implemented in `apps/reference/` (relative to the repository root).
 
 - `apps/reference/src/features/` contains the reference pages (Basic UI, Dialogs, Popovers, Inputs, Color Scales, Date Pickers, etc) — each page is a feature at `apps/reference/src/features/<feature>/<Feature>Page.vue` with its component demos in a `demos/` subfolder, registered in `referencePages` in `apps/reference/src/router.ts`
@@ -26,7 +23,7 @@ Always use our own components in your examples. Ie, don't add custom buttons whe
 
 For more information on the Reference Application and how it is organized and navigated, see @../../../apps/reference/DEVELOPMENT.md
 
-When done, run `./check` from the repository root and fix any errors related to your work.
+When done, run `./check` from the repository root and fix any errors related to your work, then test the change in Chrome at `http://localhost:12911`, unless asked not to.
 
 ## Notes
 

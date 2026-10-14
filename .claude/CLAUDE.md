@@ -24,6 +24,12 @@ Read the guide that matches the task before starting:
 
 Importing a module must never do work: no I/O, listeners, timers or reactive effects at module scope. State is created when a function is first called. See `docs/STANDARDS.md` → Module Scope; `packages/vue/src/no-import-side-effects.test.ts` enforces it.
 
+## Git and UAT
+
+**Git**: You handle git unless asked not to. Work on a feature branch; harness and documentation changes may land directly on `main` when they don't refer to work in another branch. Commit each completed, verified piece of work atomically as you finish it (`docs/STANDARDS.md` → Git Conventions), without waiting to be asked. Pushing is the user's call, never bump versions or release unless asked, and nothing destructive — rewriting shared history, discarding work — happens unless explicitly asked.
+
+**UAT**: You verify in the browser unless asked not to. Drive the reference app through the **Chrome DevTools MCP** in feature-sized batches: when a coherent piece of behavior is complete, before committing it, rather than after every edit or only at the end.
+
 ## Consumer Compatibility
 
 Both packages are used by other projects, installed from Utensil's own registry (`DEVELOPMENT.md` → Releasing). Everything a consumer can import or target is public API: module paths (`@gobistories/utensil-vue/components/<feature>/Utensil<Name>.vue`), exported names and types, props, events, slots, component root classes (`.utensil-<name>`), CSS cvars (`--utensil-<component>-*`), and `@gobistories/utensil-css` class, layer and token names. `@gobistories/utensil-vue` forwards every public `@gobistories/utensil-css` file at the same subpath (CSS `@import` forwards, generator re-exports, the CLI) so Vue apps depend on `@gobistories/utensil-vue` alone — add a forward when `@gobistories/utensil-css` gains a public file. No barrel files — every module is a deep import so consumers can tree-shake.

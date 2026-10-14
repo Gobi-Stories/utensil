@@ -37,8 +37,5 @@ tasks/*
 # Generated at build: each shipped skill's references/ is copied from packages/vue/docs
 packages/vue/skills/*/references/
 
-# Saved answers to .claude/QUESTIONS.md
-.claude/answers.json
-
 # Copied from the repository root at build
 packages/*/LICENSE.md
