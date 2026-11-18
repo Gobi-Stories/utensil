@@ -76,6 +76,13 @@
       </tbody>
     </table>
 
+    <h2>Header</h2>
+    <p>
+      <code>UtensilTableHeader</code> is the optional column header row, laid out on the same column template. Its cells
+      sit on the row's bottom edge: a label that wraps in a narrow column grows upward, so its last line stays beside
+      the other headers and directly above the column's values.
+    </p>
+
     <h2>Row Links</h2>
     <p>
       Give a link in the row the <code>utensil-table-row-link</code> class, usually on the cell that names the row, and

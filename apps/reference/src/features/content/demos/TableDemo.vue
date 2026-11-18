@@ -66,6 +66,23 @@
       </div>
       <div class="demo-item table-demo-item">
         <div class="demo-content table-demo">
+          <UtensilTable :columns="['1fr', '88px', '88px']">
+            <UtensilTableHeader>
+              <span role="columnheader">Story</span>
+              <span role="columnheader">Plays</span>
+              <span role="columnheader">Watched to the end</span>
+            </UtensilTableHeader>
+            <UtensilTableRow v-for="story in stories" :key="story.id">
+              <span role="cell">{{ story.title }}</span>
+              <span role="cell">{{ story.views.toLocaleString() }}</span>
+              <span role="cell">{{ story.completion }}%</span>
+            </UtensilTableRow>
+          </UtensilTable>
+        </div>
+        <div class="demo-label always-visible">A wrapping header label grows upward from the row's bottom edge</div>
+      </div>
+      <div class="demo-item table-demo-item">
+        <div class="demo-content table-demo">
           <UtensilTable :columns="['72px', '1fr']">
             <UtensilTableRow
               v-for="entry in log"
@@ -98,9 +115,9 @@ import { ReferenceCircleButton } from '@/theme/components/ReferenceCircleButton'
 import { showReferenceDialog } from '@/app/reference-dialog'
 
 const stories = [
-  { id: 'launch', title: 'Spring launch', views: 12480 },
-  { id: 'tour', title: 'Product tour', views: 9213 },
-  { id: 'recap', title: 'Year in review', views: 1024 },
+  { id: 'launch', title: 'Spring launch', views: 12480, completion: 64 },
+  { id: 'tour', title: 'Product tour', views: 9213, completion: 41 },
+  { id: 'recap', title: 'Year in review', views: 1024, completion: 78 },
 ]
 
 const members = [
