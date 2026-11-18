@@ -8,9 +8,9 @@
       <div class="demo-item">
         <div class="demo-content">
           <UtensilButton @click="basicModal = true">Open Basic Modal</UtensilButton>
-          <UtensilModal v-model="basicModal" class="modal-demo">
+          <UtensilModal v-model="basicModal" class="modal-demo" aria-labelledby="modal-demo-basic-title">
             <div class="modal-content-demo">
-              <h3>Basic Modal</h3>
+              <h3 id="modal-demo-basic-title">Basic Modal</h3>
               <p>This is a basic modal without any built-in structure.</p>
               <p>You can put any content here and handle the layout yourself.</p>
               <div class="modal-actions">
@@ -31,9 +31,14 @@
             <UtensilButton size="small" @click="openSizeModal('medium')">Medium</UtensilButton>
             <UtensilButton size="small" @click="openSizeModal('large')">Large</UtensilButton>
           </div>
-          <UtensilModal v-model="sizeModal.show" :size="sizeModal.size" class="modal-demo">
+          <UtensilModal
+            v-model="sizeModal.show"
+            :size="sizeModal.size"
+            class="modal-demo"
+            aria-labelledby="modal-demo-size-title"
+          >
             <div class="modal-content-demo">
-              <h3>{{ ucfirst(sizeModal.size) }} Modal</h3>
+              <h3 id="modal-demo-size-title">{{ ucfirst(sizeModal.size) }} Modal</h3>
               <p>This modal demonstrates the {{ sizeModal.size }} size variant.</p>
               <div class="modal-actions">
                 <UtensilButton @click="sizeModal.show = false">Close</UtensilButton>
@@ -49,9 +54,15 @@
       <div class="demo-item">
         <div class="demo-content">
           <UtensilButton @click="blurModal = true">Blurred Backdrop</UtensilButton>
-          <UtensilModal v-model="blurModal" blur size="small" class="modal-demo">
+          <UtensilModal
+            v-model="blurModal"
+            blur
+            size="small"
+            class="modal-demo"
+            aria-labelledby="modal-demo-blur-title"
+          >
             <div class="modal-content-demo">
-              <h3>Blurred Backdrop</h3>
+              <h3 id="modal-demo-blur-title">Blurred Backdrop</h3>
               <p>The page behind the backdrop is blurred. Tune the level with --utensil-modal-backdrop-blur.</p>
               <div class="modal-actions">
                 <UtensilButton @click="blurModal = false">Close</UtensilButton>
@@ -67,9 +78,15 @@
       <div class="demo-item">
         <div class="demo-content">
           <UtensilButton @click="scrollableModal = true">Scrollable Content</UtensilButton>
-          <UtensilModal v-model="scrollableModal" :expand="true" size="medium" class="modal-demo">
+          <UtensilModal
+            v-model="scrollableModal"
+            :expand="true"
+            size="medium"
+            class="modal-demo"
+            aria-labelledby="modal-demo-scrollable-title"
+          >
             <div class="modal-content-demo scrollable">
-              <h3>Scrollable Modal</h3>
+              <h3 id="modal-demo-scrollable-title">Scrollable Modal</h3>
               <p>This modal has a lot of content that demonstrates scrolling behavior.</p>
               <div v-for="i in 20" :key="i" class="content-block">
                 <p>
