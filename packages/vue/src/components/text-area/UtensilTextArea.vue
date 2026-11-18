@@ -33,16 +33,25 @@
         :disabled="disabled"
         :readonly="readonly"
         :aria-label="ariaLabel"
-        :aria-describedby="ariaDescribedBy"
+        :aria-describedby="describedBy()"
         :aria-required="ariaRequired"
         :aria-invalid="ariaInvalid"
       />
     </div>
+    <p
+      v-if="$slots.description || description || reserveDescription"
+      :id="`${textAreaId}-description`"
+      class="description"
+      :class="[...themeClasses, { invalid: ariaInvalid }]"
+      :style="style"
+    >
+      <slot name="description">{{ description }}</slot>
+    </p>
   </div>
 </template>
 
 <script setup lang="ts" generic="Theme extends ThemeConfig">
-import { ref, computed, useId } from 'vue'
+import { ref, computed, useId, useSlots } from 'vue'
 import type { ThemeConfig } from '../../theme/utensil-theme'
 import { useTheme } from '../../theme/useTheme'
 
@@ -51,6 +60,10 @@ export interface Props {
   name?: string
   label?: string
   labelPlacement?: 'block' | 'inline'
+  /** Text under the text area, such as a hint or an error, that describes it */
+  description?: string
+  /** Holds the description's line while there is none, for a message that comes and goes */
+  reserveDescription?: boolean
   placeholder?: string
   variation?: 'surface' | 'soft' | 'outline'
   rows?: number
@@ -79,11 +92,25 @@ const props = withDefaults(defineProps<Props>(), {
   readonly: false,
   ariaRequired: false,
   ariaInvalid: false,
+  reserveDescription: false,
   stopKeyboardPropagation: false,
 })
 
 const generatedId = `utensil-text-area-${useId()}`
 const textAreaId = computed(() => props.id || generatedId)
+
+// The description describes the text area while it has content, unless ariaDescribedBy names another element.
+// Called while rendering: slots aren't reactive, so a computed would miss a slot added later
+const slots = useSlots()
+function describedBy() {
+  if (props.ariaDescribedBy) {
+    return props.ariaDescribedBy
+  }
+  if (slots.description || props.description) {
+    return `${textAreaId.value}-description`
+  }
+  return undefined
+}
 
 // An invalid text area takes the warning variant as its pen
 const { classes: themeClasses, style } = useTheme<Theme>({ pen: () => (props.ariaInvalid ? 'warning' : undefined) })
@@ -151,13 +178,15 @@ defineExpose({
   }
 
   .utensil-text-area.label-inline {
-    flex-direction: row;
-    align-items: flex-start;
-    gap: var(--space-3);
+    display: grid;
+    grid-template-columns: auto 1fr;
+    align-items: start;
+    gap: var(--space-1) var(--space-3);
   }
 
-  .utensil-text-area.label-inline .utensil-text-area-control {
-    flex: 1;
+  /* The description sits under the text area, beside no label */
+  .utensil-text-area.label-inline p.description {
+    grid-column: 2;
   }
 
   .utensil-text-area-label {
@@ -267,6 +296,18 @@ defineExpose({
   .utensil-text-area-control.invalid.surface textarea:not(:focus),
   .utensil-text-area-control.invalid.soft textarea:not(:focus) {
     box-shadow: inset 0 0 0 1px var(--pen-8);
+  }
+
+  /* Description */
+  p.description {
+    min-height: 1lh;
+    margin: 0;
+    font-size: var(--font-size-1);
+    color: var(--pencil-a11);
+  }
+
+  p.description.invalid {
+    color: var(--pen-11);
   }
 }
 </style>

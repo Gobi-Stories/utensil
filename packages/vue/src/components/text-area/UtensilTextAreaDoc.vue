@@ -52,6 +52,24 @@
           <td>Label layout. Block places the label above; inline places it beside the textarea.</td>
         </tr>
         <tr>
+          <td><code>description</code></td>
+          <td><code>string</code></td>
+          <td>—</td>
+          <td>
+            Text under the text area, such as a hint or an error, that describes it. Drawn in the
+            <code>warning</code> variant while <code>ariaInvalid</code>.
+          </td>
+        </tr>
+        <tr>
+          <td><code>reserveDescription</code></td>
+          <td><code>boolean</code></td>
+          <td><code>false</code></td>
+          <td>
+            Holds the description's line while there is none, so a message that comes and goes, such as an error shown
+            once the field is left, doesn't move what follows.
+          </td>
+        </tr>
+        <tr>
           <td><code>placeholder</code></td>
           <td><code>string</code></td>
           <td><code>''</code></td>
@@ -129,15 +147,31 @@
           <td><code>false</code></td>
           <td>
             Sets <code>aria-invalid</code> and draws the text area's outline in the theme's
-            <code>warning</code> variant. Point <code>ariaDescribedBy</code> at the error message, so it is announced
-            with the text area.
+            <code>warning</code> variant. Give the error as its <code>description</code>, or point
+            <code>ariaDescribedBy</code> at it, so it is announced with the text area.
           </td>
         </tr>
         <tr>
           <td><code>ariaDescribedBy</code></td>
           <td><code>string</code></td>
           <td>—</td>
-          <td>Sets <code>aria-describedby</code>.</td>
+          <td>Sets <code>aria-describedby</code>, in place of the description's id.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>Slots</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Slot</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>description</code></td>
+          <td>Replaces the description's text, e.g. with a link.</td>
         </tr>
       </tbody>
     </table>
@@ -250,6 +284,16 @@
   v-model="content"
   resize="both"
   placeholder="Resize in any direction"
+/&gt;</code></pre>
+
+    <h3>An Error Shown Once the Field Is Left</h3>
+    <pre v-pre><code>&lt;UtensilTextArea
+  v-model="bio"
+  label="Bio"
+  reserve-description
+  :description="bioError"
+  :aria-invalid="!!bioError"
+  @blur="validateBio"
 /&gt;</code></pre>
 
     <h3>Inline Label</h3>

@@ -91,6 +91,24 @@
       </div>
       <div class="demo-item">
         <div class="demo-content input-demo">
+          <UtensilInput
+            v-model="websiteInput"
+            label="Website"
+            reserve-description
+            :aria-invalid="!!websiteError"
+            :description="websiteError"
+            @blur="checkWebsite"
+            @input="websiteError = ''"
+          />
+          <UtensilInput v-model="firstNameInput" label="First name" :maxlength="20" reserve-description />
+        </div>
+        <div class="demo-label always-visible">An error on leaving the field, its line reserved</div>
+        <div class="demo-code">
+          <code>&lt;UtensilInput reserve-description :description="error" @blur="check" :maxlength="20" /&gt;</code>
+        </div>
+      </div>
+      <div class="demo-item">
+        <div class="demo-content input-demo">
           <UtensilInput v-model="largeInput" placeholder="Large input" height="large" />
           <UtensilInput v-model="largeSoftInput" placeholder="Large soft" variation="soft" height="large" />
         </div>
@@ -124,6 +142,14 @@ const iconStartInput = ref('')
 const iconEndInput = ref('')
 const emailInput = ref('')
 const numberInput = ref('')
+const websiteInput = ref('example')
+const websiteError = ref('')
+const firstNameInput = ref('')
+
+function checkWebsite() {
+  websiteError.value = /^\S+\.\S+$/.test(websiteInput.value) ? '' : 'Enter a web address like example.com.'
+}
+
 const invalidEmailInput = ref('sam@')
 const invalidEmailError = computed(() =>
   /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(invalidEmailInput.value) ? '' : 'Enter an email address like sam@example.com.',

@@ -64,6 +64,21 @@
           <td>Visible label rendered above the trigger and associated with it.</td>
         </tr>
         <tr>
+          <td><code>description</code></td>
+          <td><code>string</code></td>
+          <td>—</td>
+          <td>Text under the select, such as a hint, that describes it.</td>
+        </tr>
+        <tr>
+          <td><code>reserveDescription</code></td>
+          <td><code>boolean</code></td>
+          <td><code>false</code></td>
+          <td>
+            Holds the description's line while there is none, so a message that comes and goes doesn't move what
+            follows, and a form can hold every field's line the same way.
+          </td>
+        </tr>
+        <tr>
           <td><code>multiple</code></td>
           <td><code>boolean</code></td>
           <td><code>false</code></td>
@@ -144,6 +159,11 @@
         </tr>
       </thead>
       <tbody>
+        <tr>
+          <td><code>description</code></td>
+          <td>—</td>
+          <td>Replaces the description's text, e.g. with a link.</td>
+        </tr>
         <tr>
           <td><code>prepend</code></td>
           <td>

@@ -34,6 +34,7 @@
           aria-haspopup="listbox"
           :aria-controls="listboxId"
           :aria-activedescendant="activeDescendant"
+          :aria-describedby="hasDescription() ? descriptionId : undefined"
           @click="toggle"
           @keydown="handleKeydown"
         >
@@ -81,11 +82,14 @@
         />
       </template>
     </UtensilSelectBase>
+    <p v-if="hasDescription() || reserveDescription" :id="descriptionId" class="utensil-select-description">
+      <slot name="description">{{ description }}</slot>
+    </p>
   </div>
 </template>
 
 <script setup lang="ts" generic="Theme extends ThemeConfig">
-import { ref, computed, useId } from 'vue'
+import { ref, computed, useId, useSlots } from 'vue'
 import type { ThemeConfig, IconProp } from '../../theme/utensil-theme'
 import { useTheme } from '../../theme/useTheme'
 import UtensilIcon from '../icon/UtensilIcon.vue'
@@ -98,6 +102,10 @@ export interface Props<Theme extends ThemeConfig> {
   options: SelectOption<Theme>[]
   /** Visible label rendered above the trigger */
   label?: string
+  /** Text under the select, such as a hint, that describes it */
+  description?: string
+  /** Holds the description's line while there is none, for a message that comes and goes */
+  reserveDescription?: boolean
   /** Placeholder text when no value is selected */
   placeholder?: string
   /** Visual style variation */
@@ -117,6 +125,7 @@ const props = withDefaults(defineProps<Props<Theme>>(), {
   variation: 'surface',
   disabled: false,
   multiple: false,
+  reserveDescription: false,
 })
 
 const emit = defineEmits<{
@@ -141,6 +150,13 @@ const selectBaseRef = ref<{ open: () => void; close: () => void; toggle: () => v
 
 const triggerId = `utensil-select-${useId()}`
 const labelId = `${triggerId}-label`
+const descriptionId = `${triggerId}-description`
+
+// Called while rendering: slots aren't reactive, so a computed would miss a slot added later
+const slots = useSlots()
+function hasDescription() {
+  return !!(slots.description || props.description)
+}
 
 const { classes: themeClasses, style: themeStyle } = useTheme({})
 
@@ -283,6 +299,13 @@ defineExpose({
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+  }
+
+  .utensil-select-description {
+    min-height: 1lh;
+    margin: 0;
+    font-size: var(--font-size-1);
+    color: var(--pencil-a11);
   }
 
   .select-chevron {

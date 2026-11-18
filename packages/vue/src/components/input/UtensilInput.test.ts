@@ -50,4 +50,34 @@ describe('UtensilInput', () => {
 
     expect(control()).toEqual(validClasses)
   })
+
+  it('renders no description line by default', () => {
+    const wrapper = mount(UtensilInput, { props: { label: 'Website' } })
+
+    expect(wrapper.find('p.description').exists()).toBe(false)
+  })
+
+  it('holds an empty description line when asked to reserve one', () => {
+    const wrapper = mount(UtensilInput, { props: { label: 'Website', reserveDescription: true } })
+
+    expect(wrapper.find('p.description').exists()).toBe(true)
+    expect(wrapper.find('p.description').text()).toBe('')
+    expect(wrapper.find('input').attributes('aria-describedby')).toBeUndefined()
+  })
+
+  it('describes the input with a description shown in the reserved line', () => {
+    const wrapper = mount(UtensilInput, {
+      props: { label: 'Website', reserveDescription: true, description: 'Enter a web address', ariaInvalid: true },
+    })
+    const description = wrapper.find('p.description')
+
+    expect(description.text()).toBe('Enter a web address')
+    expect(wrapper.find('input').attributes('aria-describedby')).toBe(description.attributes('id'))
+  })
+
+  it('limits the input to its maxlength', () => {
+    const wrapper = mount(UtensilInput, { props: { label: 'First name', maxlength: 64 } })
+
+    expect(wrapper.find('input').attributes('maxlength')).toBe('64')
+  })
 })

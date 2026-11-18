@@ -48,6 +48,7 @@
           :disabled="disabled"
           :min="min"
           :max="max"
+          :maxlength="maxlength"
           :size="size"
           :readonly="readonly"
           :pattern="pattern"
@@ -57,7 +58,11 @@
           :aria-invalid="ariaInvalid"
         />
       </div>
-      <p v-if="$slots.description || props.description" :id="`${inputId}-description`" class="description">
+      <p
+        v-if="$slots.description || props.description || reserveDescription"
+        :id="`${inputId}-description`"
+        class="description"
+      >
         <slot name="description">
           {{ props.description }}
         </slot>
@@ -79,6 +84,8 @@ export interface Props<Theme extends ThemeConfig> {
   label?: string
   labelPlacement?: 'block' | 'inline'
   description?: string
+  // Holds the description's line while there is none, for a message that comes and goes
+  reserveDescription?: boolean
   placeholder?: string
   variation?: 'surface' | 'soft' | 'outline'
   height?: 'normal' | 'large'
@@ -88,6 +95,8 @@ export interface Props<Theme extends ThemeConfig> {
   disabled?: boolean
   min?: string | number
   max?: string | number
+  // The most characters the input takes
+  maxlength?: number
   size?: string | number
   readonly?: boolean
   pattern?: string
@@ -115,6 +124,7 @@ const props = withDefaults(defineProps<Props<Theme>>(), {
   pattern: '.+',
   ariaRequired: false,
   ariaInvalid: false,
+  reserveDescription: false,
   blurOnEnterKey: false,
   stopKeyboardPropagation: false,
   iconPosition: 'start',
@@ -195,7 +205,8 @@ defineExpose({
 <style scoped>
 @layer utensil {
   .utensil-input {
-    --font-size: var(--utensil-input-font-size, var(--font-size-2));
+    /* Not --font-size: theme text classes set that, and an invalid input's control is re-themed */
+    --input-font-size: var(--utensil-input-font-size, var(--font-size-2));
 
     display: flex;
     flex-direction: column;
@@ -214,7 +225,7 @@ defineExpose({
   }
 
   .utensil-input-label {
-    font-size: var(--font-size);
+    font-size: var(--input-font-size);
     font-weight: 500;
     color: var(--pencil-11);
   }
@@ -234,7 +245,7 @@ defineExpose({
     border: none;
     border-radius: var(--radius-3);
     padding: var(--space-2) var(--space-3);
-    font-size: var(--font-size);
+    font-size: var(--input-font-size);
     font-family: inherit;
     color: var(--pencil-12);
     transition:
@@ -384,6 +395,7 @@ defineExpose({
 
   /* Description */
   p.description {
+    min-height: 1lh;
     margin: 0;
     font-size: var(--font-size-1);
     color: var(--pencil-a11);

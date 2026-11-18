@@ -61,4 +61,31 @@ describe('UtensilTextArea', () => {
 
     expect(control()).toEqual(validClasses)
   })
+
+  it('describes the text area with its description', () => {
+    const wrapper = mount(UtensilTextArea, { props: { label: 'Bio', description: 'Up to 200 characters' } })
+    const description = wrapper.find('p.description')
+
+    expect(description.text()).toBe('Up to 200 characters')
+    expect(wrapper.find('textarea').attributes('aria-describedby')).toBe(description.attributes('id'))
+  })
+
+  it('renders no description line by default', () => {
+    const wrapper = mount(UtensilTextArea, { props: { label: 'Bio' } })
+
+    expect(wrapper.find('p.description').exists()).toBe(false)
+  })
+
+  it('holds an empty description line when asked to reserve one', () => {
+    const wrapper = mount(UtensilTextArea, { props: { label: 'Bio', reserveDescription: true } })
+
+    expect(wrapper.find('p.description').text()).toBe('')
+    expect(wrapper.find('textarea').attributes('aria-describedby')).toBeUndefined()
+  })
+
+  it('draws an invalid description as the error', () => {
+    const wrapper = mount(UtensilTextArea, { props: { description: 'Too long', ariaInvalid: true } })
+
+    expect(wrapper.find('p.description').classes()).toContain('invalid')
+  })
 })

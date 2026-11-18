@@ -116,4 +116,21 @@ describe('UtensilSelect', () => {
     const wrapper = mount(UtensilSelect, { props: { options } })
     expect(wrapper.find('[role="listbox"]').attributes('aria-multiselectable')).toBeUndefined()
   })
+
+  it('describes the trigger with its description', () => {
+    const wrapper = mount(UtensilSelect, { props: { options, label: 'Fruit', description: 'Ripe today' } })
+    const description = wrapper.find('.utensil-select-description')
+
+    expect(description.text()).toBe('Ripe today')
+    expect(trigger(wrapper).attributes('aria-describedby')).toBe(description.attributes('id'))
+  })
+
+  it('holds an empty description line when asked to reserve one', () => {
+    const plain = mount(UtensilSelect, { props: { options, label: 'Fruit' } })
+    expect(plain.find('.utensil-select-description').exists()).toBe(false)
+
+    const reserved = mount(UtensilSelect, { props: { options, label: 'Fruit', reserveDescription: true } })
+    expect(reserved.find('.utensil-select-description').text()).toBe('')
+    expect(trigger(reserved).attributes('aria-describedby')).toBeUndefined()
+  })
 })

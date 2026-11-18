@@ -70,6 +70,21 @@
           </td>
         </tr>
         <tr>
+          <td><code>maxlength</code></td>
+          <td><code>number</code></td>
+          <td>—</td>
+          <td>The most characters the input takes, passed to the native input.</td>
+        </tr>
+        <tr>
+          <td><code>reserveDescription</code></td>
+          <td><code>boolean</code></td>
+          <td><code>false</code></td>
+          <td>
+            Holds the description's line while there is none, so a message that comes and goes, such as an error shown
+            once the field is left, doesn't move what follows.
+          </td>
+        </tr>
+        <tr>
           <td><code>placeholder</code></td>
           <td><code>string</code></td>
           <td><code>''</code></td>

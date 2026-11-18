@@ -33,6 +33,21 @@
       <div class="demo-item">
         <div class="demo-content input-demo">
           <UtensilSelect
+            v-model="describedSelect"
+            :options="fruitOptions"
+            label="Snack"
+            reserve-description
+            :description="describedSelect ? '' : 'Choose one for the afternoon.'"
+          />
+        </div>
+        <div class="demo-label always-visible">A description, its line reserved</div>
+        <div class="demo-code">
+          <code>&lt;UtensilSelect label="Snack" description="..." reserve-description /&gt;</code>
+        </div>
+      </div>
+      <div class="demo-item">
+        <div class="demo-content input-demo">
+          <UtensilSelect
             v-model:selection="multipleSelection"
             :options="fruitOptions"
             label="Fruit basket"
@@ -170,6 +185,7 @@ import type { ReferenceThemeConfig } from '@/theme/reference-theme'
 
 const basicSelect = ref<string | null>(null)
 const labelledSelect = ref<string | null>('banana')
+const describedSelect = ref<string | null>(null)
 const multipleSelection = ref<string[]>(['apple', 'cherry'])
 const softSelect = ref<string | null>(null)
 const iconSelect = ref<string | null>(null)

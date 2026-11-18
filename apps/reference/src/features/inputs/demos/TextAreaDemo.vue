@@ -43,6 +43,39 @@
       </div>
       <div class="demo-item">
         <div class="demo-content input-demo">
+          <UtensilTextArea
+            v-model="textAreaBio"
+            label="Bio"
+            :rows="3"
+            reserve-description
+            :aria-invalid="!!textAreaBioError"
+            :description="textAreaBioError"
+            @blur="checkBio"
+            @input="textAreaBioError = ''"
+          />
+        </div>
+        <div class="demo-label always-visible">An error on leaving the field, its line reserved</div>
+        <div class="demo-code">
+          <code>&lt;UtensilTextArea reserve-description :description="error" @blur="check" /&gt;</code>
+        </div>
+      </div>
+      <div class="demo-item">
+        <div class="demo-content input-demo">
+          <UtensilTextArea
+            v-model="textAreaInline"
+            label="Notes"
+            label-placement="inline"
+            description="Only your team sees these."
+            :rows="3"
+          />
+        </div>
+        <div class="demo-label always-visible">Inline label with a description</div>
+        <div class="demo-code">
+          <code>&lt;UtensilTextArea label="Notes" label-placement="inline" description="..." /&gt;</code>
+        </div>
+      </div>
+      <div class="demo-item">
+        <div class="demo-content input-demo">
           <UtensilTextArea v-model="textAreaNoResize" placeholder="Cannot resize" resize="none" />
         </div>
         <div class="demo-label">No Resize</div>
@@ -95,6 +128,14 @@ import { ref } from 'vue'
 import ReferenceComponentDemo from '@/features/components/ReferenceComponentDemo.vue'
 import UtensilTextArea from '@gobistories/utensil-vue/components/text-area/UtensilTextArea.vue'
 import UtensilTextAreaDoc from '@gobistories/utensil-vue/components/text-area/UtensilTextAreaDoc.vue'
+
+const textAreaBio = ref('Hi')
+const textAreaBioError = ref('')
+const textAreaInline = ref('')
+
+function checkBio() {
+  textAreaBioError.value = textAreaBio.value.trim().length >= 10 ? '' : 'Write at least 10 characters.'
+}
 
 const textAreaSurface = ref('')
 const textAreaSoft = ref('')
