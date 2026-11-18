@@ -76,7 +76,7 @@
         <ReferenceButton
           :variation="contentDeckAnimateHeight ? 'solid' : 'soft'"
           scale="small"
-          :pressed="contentDeckAnimateHeight ? 'pressed' : false"
+          :pressed="contentDeckAnimateHeight"
           @click="contentDeckAnimateHeight = !contentDeckAnimateHeight"
         >
           Animate height

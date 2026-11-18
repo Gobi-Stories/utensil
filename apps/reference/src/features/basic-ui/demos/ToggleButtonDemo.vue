@@ -137,15 +137,18 @@
             <ReferenceToggleButton
               icon="lock"
               label="Sync"
-              aria-disabled
+              blocked
+              blocked-described-by="toggle-button-demo-sync-reason"
               @click="toggleNotReadyMessage = 'Sign in to sync.'"
             />
-            <span class="toggle-not-ready-message" aria-live="polite">{{ toggleNotReadyMessage }}</span>
+            <span id="toggle-button-demo-sync-reason" class="toggle-not-ready-message" role="alert">{{
+              toggleNotReadyMessage
+            }}</span>
           </div>
         </div>
         <div class="demo-label always-visible">Not Ready Yet</div>
         <div class="demo-code">
-          <code>&lt;UtensilToggleButton aria-disabled @click="explainWhy" /&gt;</code>
+          <code>&lt;UtensilToggleButton blocked blocked-described-by="reason" @click="explainWhy" /&gt;</code>
         </div>
       </div>
       <div class="demo-item">

@@ -8,13 +8,13 @@
 
     <ReferenceTheme pen="pencil" class="toolbar">
       <div class="toolbar-group">
-        <ReferenceToggleButton variation="text" icon="bold" :pressed="true" size="tiny">Bold</ReferenceToggleButton>
+        <ReferenceToggleButton v-model="bold" variation="text" icon="bold" size="tiny">Bold</ReferenceToggleButton>
         <ReferenceToggleButton variation="text" icon="italic" size="tiny">Italic</ReferenceToggleButton>
         <ReferenceToggleButton variation="text" icon="underline" size="tiny">Underline</ReferenceToggleButton>
       </div>
       <div class="toolbar-separator"></div>
       <div class="toolbar-group">
-        <ReferenceRadioButtons variation="text">
+        <ReferenceRadioButtons variation="text" aria-label="Alignment">
           <ReferenceRadioButton value="align-left" icon="align-left" icon-only size="tiny" />
           <ReferenceRadioButton value="align-center" icon="align-center" icon-only size="tiny" />
           <ReferenceRadioButton value="align-right" icon="align-right" icon-only size="tiny" />
@@ -31,11 +31,14 @@
 </template>
 
 <script setup lang="ts">
+import { ref } from 'vue'
 import { ReferenceTheme } from '@/theme/ReferenceTheme'
 import { ReferenceButton } from '@/theme/components/ReferenceButton'
 import { ReferenceToggleButton } from '@/theme/components/ReferenceToggleButton'
 import { ReferenceRadioButtons } from '@/theme/components/ReferenceRadioButtons'
 import { ReferenceRadioButton } from '@/theme/components/ReferenceRadioButton'
+
+const bold = ref(true)
 </script>
 
 <style scoped>

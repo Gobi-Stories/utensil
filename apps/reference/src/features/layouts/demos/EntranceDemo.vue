@@ -6,16 +6,19 @@
   >
     <div class="entrance-demo-wrapper">
       <div class="entrance-demo-toolbar">
-        <ReferenceButton
-          v-for="option in entranceSpeeds"
-          :key="option"
-          :variation="entranceSpeed === option ? 'solid' : 'soft'"
+        <ReferenceRadioGroup
+          :model-value="entranceSpeed"
+          aria-label="Entrance speed"
           scale="small"
-          :pressed="entranceSpeed === option ? 'pressed' : false"
-          @click="playAtSpeed(option)"
+          @update:model-value="playAtSpeed"
         >
-          {{ option === 'normal' ? 'Normal' : 'Fast' }}
-        </ReferenceButton>
+          <ReferenceRadioGroupButton
+            v-for="option in entranceSpeeds"
+            :key="option"
+            :value="option"
+            :label="option === 'normal' ? 'Normal' : 'Fast'"
+          />
+        </ReferenceRadioGroup>
         <ReferenceButton variation="soft" scale="small" icon="refresh" @click="replayEntrance">Replay</ReferenceButton>
       </div>
       <div class="entrance-demo-stage">
@@ -77,13 +80,20 @@ import { nextTick, ref } from 'vue'
 import UtensilEntrance, { type EntranceSpeed } from '@gobistories/utensil-vue/components/entrance/UtensilEntrance.vue'
 import UtensilEntranceDoc from '@gobistories/utensil-vue/components/entrance/UtensilEntranceDoc.vue'
 import { ReferenceButton } from '@/theme/components/ReferenceButton'
+import { ReferenceRadioGroup } from '@/theme/components/ReferenceRadioGroup'
+import { ReferenceRadioGroupButton } from '@/theme/components/ReferenceRadioGroupButton'
 import ReferenceComponentDemo from '@/features/components/ReferenceComponentDemo.vue'
 
 const entranceRef = ref<InstanceType<typeof UtensilEntrance>>()
 const entranceSpeeds: EntranceSpeed[] = ['normal', 'fast']
 const entranceSpeed = ref<EntranceSpeed>('normal')
 
-async function playAtSpeed(speed: EntranceSpeed) {
+function isEntranceSpeed(value: unknown): value is EntranceSpeed {
+  return entranceSpeeds.some((speed) => speed === value)
+}
+
+async function playAtSpeed(speed: string | undefined) {
+  if (!isEntranceSpeed(speed)) return
   entranceSpeed.value = speed
   await nextTick()
   replayEntrance()

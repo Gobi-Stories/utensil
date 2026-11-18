@@ -134,8 +134,9 @@
           </ReferenceButton>
           <ReferenceButton variation="overlay">Overlay</ReferenceButton>
           <ReferenceButton disabled>Disabled</ReferenceButton>
+          <ReferenceButton aria-disabled title="Exports are on the Pro plan">Export</ReferenceButton>
         </div>
-        <div class="demo-label always-visible">Busy, Overlay &amp; Disabled</div>
+        <div class="demo-label always-visible">Busy, Overlay, Disabled &amp; Aria-Disabled</div>
         <div class="demo-code">
           <code>&lt;UtensilButton :busy="loading"&gt;Save&lt;/UtensilButton&gt;</code>
         </div>
@@ -146,13 +147,22 @@
             <ReferenceButton variation="soft" color="pencil" @click="toggleNotReadyChosen">
               {{ notReadyChosen ? 'Clear plan' : 'Choose a plan' }}
             </ReferenceButton>
-            <ReferenceButton :aria-disabled="!notReadyChosen" @click="continueWhenReady">Continue</ReferenceButton>
+            <ReferenceButton
+              :blocked="!notReadyChosen"
+              blocked-described-by="button-demo-continue-reason"
+              @click="continueWhenReady"
+            >
+              Continue
+            </ReferenceButton>
           </div>
-          <p class="not-ready-message" aria-live="polite">{{ notReadyMessage }}</p>
+          <p id="button-demo-continue-reason" class="not-ready-message" role="alert">{{ notReadyMessage }}</p>
         </div>
         <div class="demo-label always-visible">Not Ready Yet</div>
         <div class="demo-code">
-          <code>&lt;UtensilButton :aria-disabled="!ready" @click="ready ? next() : explainWhy()"&gt;</code>
+          <code
+            >&lt;UtensilButton :blocked="!ready" blocked-described-by="reason" @click="ready ? next() :
+            explainWhy()"&gt;</code
+          >
         </div>
       </div>
       <div class="demo-item">
