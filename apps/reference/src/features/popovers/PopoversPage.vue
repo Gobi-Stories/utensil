@@ -7,6 +7,7 @@
     <PlacementOptionsDemo />
     <WidthMatchingDemo />
     <TooltipDemo />
+    <HintLabelDemo />
     <PopoverDemo />
   </div>
 </template>
@@ -19,5 +20,6 @@ import PopoverPanelDemo from './demos/PopoverPanelDemo.vue'
 import PlacementOptionsDemo from './demos/PlacementOptionsDemo.vue'
 import WidthMatchingDemo from './demos/WidthMatchingDemo.vue'
 import TooltipDemo from './demos/TooltipDemo.vue'
+import HintLabelDemo from './demos/HintLabelDemo.vue'
 import PopoverDemo from './demos/PopoverDemo.vue'
 </script>
