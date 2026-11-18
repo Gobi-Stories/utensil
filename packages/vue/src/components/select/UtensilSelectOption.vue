@@ -1,13 +1,18 @@
 <template generic="Theme extends ThemeConfig">
+  <!-- tabindex="-1" makes the option focusable, which keeps it in the accessibility tree inside the listbox; the
+       mousedown default is cancelled so pressing it leaves DOM focus on the trigger -->
   <div
+    :id="optionId"
     class="utensil-select-option"
     :class="{ selected, disabled }"
+    tabindex="-1"
     :data-focusable="!disabled || undefined"
     :data-value="value"
     :data-focused="focused || undefined"
     role="option"
     :aria-selected="selected"
     :aria-disabled="disabled"
+    @mousedown.prevent
     @click="handleClick"
   >
     <UtensilIcon v-if="icon" :icon="icon" class="option-icon" />
@@ -19,6 +24,7 @@
 </template>
 
 <script setup lang="ts" generic="Theme extends ThemeConfig">
+import { useId } from 'vue'
 import type { ThemeConfig, IconProp } from '../../theme/utensil-theme'
 import UtensilIcon from '../icon/UtensilIcon.vue'
 
@@ -46,6 +52,9 @@ const props = withDefaults(defineProps<Props<Theme>>(), {
 const emit = defineEmits<{
   click: []
 }>()
+
+// The trigger points aria-activedescendant at this id while the option is focused
+const optionId = `utensil-select-option-${useId()}`
 
 function handleClick(event: MouseEvent) {
   // Cancel the click's default action so a wrapping <label> doesn't forward a

@@ -13,6 +13,8 @@
         :value="model"
         :is-open="popoverOpen"
         :placement="placement"
+        :listbox-id="listboxId"
+        :active-descendant="popoverOpen ? (listboxRef?.activeDescendant ?? undefined) : undefined"
         :toggle="popoverToggle"
         :open="openPopover"
         :close="closePopover"
@@ -21,10 +23,13 @@
     </template>
     <template #default="{ close }">
       <UtensilListbox
+        :id="listboxId"
         ref="listboxRef"
         :values="values"
         :focused-value="focusedValue"
         :aria-label="ariaLabel"
+        :aria-labelledby="ariaLabelledby"
+        :multiselectable="multiple"
         @update:focused-value="setFocusedValue"
       >
         <template #default="{ focusedValue: listboxFocused, setFocusedValue: setListboxFocused }">
@@ -43,7 +48,7 @@
 </template>
 
 <script setup lang="ts" generic="Theme extends ThemeConfig">
-import { ref, computed, watch, nextTick } from 'vue'
+import { ref, computed, watch, nextTick, useId } from 'vue'
 import type { ThemeConfig } from '../../theme/utensil-theme'
 import UtensilPopover from '../popover/UtensilPopover.vue'
 import UtensilListbox from '../listbox/UtensilListbox.vue'
@@ -59,6 +64,8 @@ export interface Props {
   multiple?: boolean
   /** Accessible label for screen readers */
   ariaLabel?: string
+  /** Id of the element that names the listbox, such as the field's visible label */
+  ariaLabelledby?: string
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -78,6 +85,8 @@ const popoverRef = ref<InstanceType<typeof UtensilPopover>>()
 const listboxRef = ref<InstanceType<typeof UtensilListbox>>()
 const focusedValue = ref<string | null>(null)
 const placement = ref<'top' | 'bottom'>('bottom')
+// The trigger's aria-controls points at the listbox
+const listboxId = `utensil-select-listbox-${useId()}`
 
 const isOpen = computed(() => popoverRef.value?.isOpen ?? false)
 

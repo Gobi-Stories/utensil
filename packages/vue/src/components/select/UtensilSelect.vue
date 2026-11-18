@@ -1,6 +1,6 @@
 <template generic="Theme extends ThemeConfig">
   <div class="utensil-select-field">
-    <label v-if="label" class="utensil-select-label" :for="triggerId">{{ label }}</label>
+    <label v-if="label" :id="labelId" class="utensil-select-label" :for="triggerId">{{ label }}</label>
     <UtensilSelectBase
       ref="selectBaseRef"
       class="utensil-select"
@@ -9,10 +9,12 @@
       :variation="variation"
       :disabled="disabled"
       :multiple="multiple"
-      :aria-label="ariaLabel"
+      :aria-label="label ? undefined : ariaLabel"
+      :aria-labelledby="label ? labelId : undefined"
       @change="handleChange"
     >
-      <template #trigger="{ value, isOpen, placement, toggle, handleKeydown }">
+      <!-- A select-only combobox: named by the label, with the chosen option's text as its value -->
+      <template #trigger="{ value, isOpen, placement, listboxId, activeDescendant, toggle, handleKeydown }">
         <button
           :id="triggerId"
           type="button"
@@ -25,9 +27,13 @@
           ]"
           :style="themeStyle"
           :disabled="disabled"
-          :aria-label="ariaLabel"
+          role="combobox"
+          :aria-label="label ? undefined : ariaLabel"
+          :aria-labelledby="label ? labelId : undefined"
           :aria-expanded="isOpen"
-          :aria-haspopup="'listbox'"
+          aria-haspopup="listbox"
+          :aria-controls="listboxId"
+          :aria-activedescendant="activeDescendant"
           @click="toggle"
           @keydown="handleKeydown"
         >
@@ -100,7 +106,7 @@ export interface Props<Theme extends ThemeConfig> {
   disabled?: boolean
   /** Selects multiple values via the selection model instead of a single value */
   multiple?: boolean
-  /** Accessible label for screen readers */
+  /** Names the select where there is no visible label */
   ariaLabel?: string
   /** Icon to display when an option is selected (overrides option icon) */
   icon?: IconProp<Theme>
@@ -134,6 +140,7 @@ function handleChange(value: string) {
 const selectBaseRef = ref<{ open: () => void; close: () => void; toggle: () => void; isOpen: boolean }>()
 
 const triggerId = `utensil-select-${useId()}`
+const labelId = `${triggerId}-label`
 
 const { classes: themeClasses, style: themeStyle } = useTheme({})
 

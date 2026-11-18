@@ -17,6 +17,19 @@
       keyboard handling.
     </p>
 
+    <h2>Accessibility</h2>
+    <p>
+      The trigger is a select-only combobox: <code>role="combobox"</code>, named by the visible <code>label</code> (or
+      <code>ariaLabel</code> without one), with the chosen option's text, or the placeholder, as its value. It sets
+      <code>aria-expanded</code>, <code>aria-controls</code> to the listbox, and, while open,
+      <code>aria-activedescendant</code> to the option the arrow keys are on. DOM focus stays on the trigger.
+    </p>
+    <p>
+      Each option has an id, <code>aria-selected</code>, and <code>tabindex="-1"</code> so it appears in the
+      accessibility tree and can be pressed through it; pressing one leaves focus on the trigger. In
+      <code>multiple</code> mode the listbox is <code>aria-multiselectable</code>.
+    </p>
+
     <!-- Props -->
     <h2>Props</h2>
     <table>
@@ -81,7 +94,9 @@
           <td><code>ariaLabel</code></td>
           <td><code>string</code></td>
           <td>—</td>
-          <td>Accessible label for screen readers.</td>
+          <td>
+            Names the select where there is no visible <code>label</code>. Ignored when <code>label</code> is set.
+          </td>
         </tr>
         <tr>
           <td><code>icon</code></td>
@@ -219,6 +234,14 @@
           <td><code>data-focusable</code></td>
           <td>Add to custom elements in prepend/append slots so keyboard navigation discovers them.</td>
         </tr>
+        <tr>
+          <td><code>id</code>, <code>role="option"</code>, <code>tabindex="-1"</code></td>
+          <td>
+            Give custom elements these too, with <code>aria-selected="false"</code> and <code>@mousedown.prevent</code>,
+            so they read as options in the listbox, the trigger can point at them while they're focused, and pressing
+            one keeps focus on the trigger.
+          </td>
+        </tr>
       </tbody>
     </table>
 
@@ -286,7 +309,15 @@
     <h3>With Append Slot</h3>
     <pre><code>&lt;UtensilSelect v-model="folder" :options="folderOptions"&gt;
   &lt;template #append="{ close }"&gt;
-    &lt;div data-focusable @click="manageFolders(); close()"&gt;
+    &lt;div
+      id="manage-folders"
+      role="option"
+      aria-selected="false"
+      tabindex="-1"
+      data-focusable
+      @mousedown.prevent
+      @click="manageFolders(); close()"
+    &gt;
       Manage folders...
     &lt;/div&gt;
   &lt;/template&gt;

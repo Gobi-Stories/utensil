@@ -1,5 +1,12 @@
 <template>
-  <div ref="listboxRef" class="utensil-listbox" role="listbox" :aria-label="ariaLabel">
+  <div
+    ref="listboxRef"
+    class="utensil-listbox"
+    role="listbox"
+    :aria-label="ariaLabelledby ? undefined : ariaLabel"
+    :aria-labelledby="ariaLabelledby"
+    :aria-multiselectable="multiselectable || undefined"
+  >
     <slot :focused-value="currentFocusedValue" :set-focused-value="setFocusedValue" />
   </div>
 </template>
@@ -15,11 +22,16 @@ interface Props {
   focusedValue?: string | null
   /** Accessible label for screen readers */
   ariaLabel?: string
+  /** Id of the element that names the listbox, such as a visible label; takes precedence over ariaLabel */
+  ariaLabelledby?: string
+  /** Whether more than one option can be selected */
+  multiselectable?: boolean
 }
 
 const props = withDefaults(defineProps<Props>(), {
   values: () => [],
   focusedValue: null,
+  multiselectable: false,
 })
 
 const emit = defineEmits<{
@@ -43,6 +55,9 @@ const {
 const currentFocusedValue = computed(() => {
   return focusedElement.value?.dataset.value ?? null
 })
+
+// The focused item's id, for the aria-activedescendant of the element that keeps DOM focus
+const activeDescendant = computed(() => focusedElement.value?.id || null)
 
 // Sync with prop changes - only when value changes to a specific value
 // Don't clear focus when value becomes null (element without data-value may be focused)
@@ -116,6 +131,7 @@ function reset() {
 
 defineExpose({
   focusedValue: currentFocusedValue,
+  activeDescendant,
   setFocusedValue,
   focusNext,
   focusPrev,
