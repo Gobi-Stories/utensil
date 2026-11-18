@@ -6,6 +6,7 @@
     <PopoverPanelDemo />
     <PlacementOptionsDemo />
     <WidthMatchingDemo />
+    <TooltipDemo />
     <PopoverDemo />
   </div>
 </template>
@@ -17,5 +18,6 @@ import MenuItemVariantsDemo from './demos/MenuItemVariantsDemo.vue'
 import PopoverPanelDemo from './demos/PopoverPanelDemo.vue'
 import PlacementOptionsDemo from './demos/PlacementOptionsDemo.vue'
 import WidthMatchingDemo from './demos/WidthMatchingDemo.vue'
+import TooltipDemo from './demos/TooltipDemo.vue'
 import PopoverDemo from './demos/PopoverDemo.vue'
 </script>
