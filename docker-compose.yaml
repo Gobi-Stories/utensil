@@ -6,6 +6,8 @@ services:
       target: dev
     # Build on every up, so the source and dependencies in the image are always current
     pull_policy: build
+    # Bun as PID 1 mishandles SIGTERM (it crashes or ignores it), so an init process takes PID 1 and forwards signals
+    init: true
     environment:
       APP_ENVIRONMENT: development
       PORT: ${UTENSIL_REFERENCE_PORT:-12911}
