@@ -284,20 +284,30 @@
               <!-- Toggle buttons -->
               <div class="panel-section toggle-switches">
                 <div class="theme-option">
-                  <UtensilToggleSwitch v-model="themeMode" onValue="dark" offValue="light" />
-                  <span class="theme-label">Dark mode</span>
+                  <UtensilToggleSwitch id="showcase-dark-mode" v-model="themeMode" onValue="dark" offValue="light" />
+                  <label for="showcase-dark-mode" class="theme-label">Dark mode</label>
                 </div>
                 <div class="theme-option">
-                  <UtensilToggleSwitch v-model="themeContrast" onValue="high" offValue="normal" />
-                  <span class="theme-label">High contrast</span>
+                  <UtensilToggleSwitch
+                    id="showcase-high-contrast"
+                    v-model="themeContrast"
+                    onValue="high"
+                    offValue="normal"
+                  />
+                  <label for="showcase-high-contrast" class="theme-label">High contrast</label>
                 </div>
                 <div class="theme-option">
-                  <UtensilToggleSwitch v-model="themeReducedMotion" onValue="reduced" offValue="normal" />
-                  <span class="theme-label">Reduced motion</span>
+                  <UtensilToggleSwitch
+                    id="showcase-reduced-motion"
+                    v-model="themeReducedMotion"
+                    onValue="reduced"
+                    offValue="normal"
+                  />
+                  <label for="showcase-reduced-motion" class="theme-label">Reduced motion</label>
                 </div>
                 <div class="theme-option">
-                  <UtensilToggleSwitch v-model="enableAnimations" />
-                  <span class="theme-label">Demo mode</span>
+                  <UtensilToggleSwitch id="showcase-demo-mode" v-model="enableAnimations" />
+                  <label for="showcase-demo-mode" class="theme-label">Demo mode</label>
                 </div>
               </div>
 
@@ -782,6 +792,7 @@ function menuAction(action: string, close: () => void) {
 }
 
 .theme-label {
+  cursor: pointer;
   font-size: var(--font-size-2);
   color: var(--pencil-11);
 }

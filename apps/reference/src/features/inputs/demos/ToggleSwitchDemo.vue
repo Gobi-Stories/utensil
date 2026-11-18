@@ -8,7 +8,7 @@
       <div class="demo-item">
         <div class="demo-content">
           <div class="toggle-switch-demo">
-            <UtensilToggleSwitch v-model="switchBasic" />
+            <UtensilToggleSwitch v-model="switchBasic" aria-label="Basic toggle" />
             <div class="input-value">{{ switchBasic ? 'on' : 'off' }}</div>
           </div>
         </div>
@@ -20,7 +20,12 @@
       <div class="demo-item">
         <div class="demo-content">
           <div class="toggle-switch-demo">
-            <UtensilToggleSwitch v-model="switchCustom" onValue="active" offValue="inactive" />
+            <UtensilToggleSwitch
+              v-model="switchCustom"
+              onValue="active"
+              offValue="inactive"
+              aria-label="Custom values"
+            />
             <div class="input-value">{{ switchCustom }}</div>
           </div>
         </div>
@@ -32,8 +37,8 @@
       <div class="demo-item">
         <div class="demo-content">
           <div class="toggle-switch-demo">
-            <UtensilToggleSwitch :model-value="true" disabled />
-            <UtensilToggleSwitch :model-value="false" disabled />
+            <UtensilToggleSwitch :model-value="true" disabled aria-label="Disabled on" />
+            <UtensilToggleSwitch :model-value="false" disabled aria-label="Disabled off" />
           </div>
         </div>
         <div class="demo-label">Disabled</div>

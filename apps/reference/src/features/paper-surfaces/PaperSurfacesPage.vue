@@ -324,16 +324,31 @@
                 <!-- Theme toggles -->
                 <div class="panel-section toggle-switches">
                   <div class="theme-option">
-                    <UtensilToggleSwitch v-model="themeMode" onValue="dark" offValue="light" />
-                    <span class="theme-label">Dark mode</span>
+                    <UtensilToggleSwitch
+                      id="paper-surfaces-dark-mode"
+                      v-model="themeMode"
+                      onValue="dark"
+                      offValue="light"
+                    />
+                    <label for="paper-surfaces-dark-mode" class="theme-label">Dark mode</label>
                   </div>
                   <div class="theme-option">
-                    <UtensilToggleSwitch v-model="contrast" onValue="high" offValue="normal" />
-                    <span class="theme-label">High contrast</span>
+                    <UtensilToggleSwitch
+                      id="paper-surfaces-high-contrast"
+                      v-model="contrast"
+                      onValue="high"
+                      offValue="normal"
+                    />
+                    <label for="paper-surfaces-high-contrast" class="theme-label">High contrast</label>
                   </div>
                   <div class="theme-option">
-                    <UtensilToggleSwitch v-model="reducedMotion" onValue="reduced" offValue="normal" />
-                    <span class="theme-label">Reduced motion</span>
+                    <UtensilToggleSwitch
+                      id="paper-surfaces-reduced-motion"
+                      v-model="reducedMotion"
+                      onValue="reduced"
+                      offValue="normal"
+                    />
+                    <label for="paper-surfaces-reduced-motion" class="theme-label">Reduced motion</label>
                   </div>
                 </div>
 
@@ -913,6 +928,7 @@ onUnmounted(() => {
 }
 
 .theme-label {
+  cursor: pointer;
   font-size: var(--font-size-2);
   color: var(--pencil-11);
 }
