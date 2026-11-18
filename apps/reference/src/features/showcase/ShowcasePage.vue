@@ -268,17 +268,23 @@
 
               <!-- Toolbar -->
               <div class="panel-section theme-options">
-                <ReferenceTheme pen="pencil" class="toolbar-simulation">
+                <ReferenceToolbar aria-label="Formatting" class="toolbar-simulation">
                   <ReferenceToggleButton variation="text" icon="bold" size="tiny">Bold</ReferenceToggleButton>
                   <ReferenceToggleButton variation="text" icon="italic" size="tiny">Italic</ReferenceToggleButton>
                   <ReferenceToggleButton variation="text" icon="underline" size="tiny">Underline</ReferenceToggleButton>
-                  <div class="toolbar-divider"></div>
-                  <ReferenceRadioButtons variation="text">
-                    <ReferenceRadioButton value="align-left" icon="align-left" icon-only size="tiny" />
-                    <ReferenceRadioButton value="align-center" icon="align-center" icon-only size="tiny" />
-                    <ReferenceRadioButton value="align-right" icon="align-right" icon-only size="tiny" />
+                  <UtensilToolbarSeparator />
+                  <ReferenceRadioButtons variation="text" aria-label="Alignment">
+                    <ReferenceRadioButton value="align-left" icon="align-left" icon-only size="tiny"
+                      >Align left</ReferenceRadioButton
+                    >
+                    <ReferenceRadioButton value="align-center" icon="align-center" icon-only size="tiny"
+                      >Align center</ReferenceRadioButton
+                    >
+                    <ReferenceRadioButton value="align-right" icon="align-right" icon-only size="tiny"
+                      >Align right</ReferenceRadioButton
+                    >
                   </ReferenceRadioButtons>
-                </ReferenceTheme>
+                </ReferenceToolbar>
               </div>
 
               <!-- Toggle buttons -->
@@ -379,6 +385,8 @@ import { ReferenceBadge } from '@/theme/components/ReferenceBadge'
 import { ReferenceCircleButton } from '@/theme/components/ReferenceCircleButton'
 import { ReferenceSideMenuItem } from '@/theme/components/ReferenceSideMenuItem'
 import { ReferenceRadioButtons } from '@/theme/components/ReferenceRadioButtons'
+import { ReferenceToolbar } from '@/theme/components/ReferenceToolbar'
+import UtensilToolbarSeparator from '@gobistories/utensil-vue/components/toolbar/UtensilToolbarSeparator.vue'
 import { ReferenceRadioButton } from '@/theme/components/ReferenceRadioButton'
 import { ReferenceTabsList } from '@/theme/components/ReferenceTabsList'
 import UtensilAvatarStack from '@gobistories/utensil-vue/components/avatar/UtensilAvatarStack.vue'
@@ -774,21 +782,7 @@ function menuAction(action: string, close: () => void) {
 }
 
 .toolbar-simulation {
-  display: flex;
   width: fit-content;
-  gap: var(--space-2);
-  padding: var(--space-1);
-  background-color: var(--panel-solid);
-  border: 1px solid var(--pencil-a6);
-  border-radius: var(--radius-2);
-  align-items: center;
-}
-
-.toolbar-divider {
-  width: 1px;
-  height: 24px;
-  background-color: var(--pencil-7);
-  margin: 0 var(--space-1);
 }
 
 .theme-label {

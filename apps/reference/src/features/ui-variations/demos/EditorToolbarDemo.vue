@@ -6,39 +6,45 @@
       soft when active, blending naturally with grouped controls.
     </p>
 
-    <ReferenceTheme pen="pencil" class="toolbar">
-      <div class="toolbar-group">
-        <ReferenceToggleButton v-model="bold" variation="text" icon="bold" size="tiny">Bold</ReferenceToggleButton>
-        <ReferenceToggleButton variation="text" icon="italic" size="tiny">Italic</ReferenceToggleButton>
-        <ReferenceToggleButton variation="text" icon="underline" size="tiny">Underline</ReferenceToggleButton>
-      </div>
-      <div class="toolbar-separator"></div>
-      <div class="toolbar-group">
-        <ReferenceRadioButtons variation="text" aria-label="Alignment">
-          <ReferenceRadioButton value="align-left" icon="align-left" icon-only size="tiny" />
-          <ReferenceRadioButton value="align-center" icon="align-center" icon-only size="tiny" />
-          <ReferenceRadioButton value="align-right" icon="align-right" icon-only size="tiny" />
-        </ReferenceRadioButtons>
-      </div>
-      <div class="toolbar-separator"></div>
-      <div class="toolbar-group">
-        <ReferenceButton variation="text" icon="image" icon-only size="tiny">Image</ReferenceButton>
-        <ReferenceButton variation="text" icon="video" icon-only size="tiny">Video</ReferenceButton>
-        <ReferenceButton variation="text" icon="music" icon-only size="tiny">Audio</ReferenceButton>
-      </div>
-    </ReferenceTheme>
+    <ReferenceToolbar aria-label="Formatting" class="editor-toolbar">
+      <ReferenceToggleButton v-model="bold" variation="text" icon="bold" size="tiny">Bold</ReferenceToggleButton>
+      <ReferenceToggleButton v-model="italic" variation="text" icon="italic" size="tiny">Italic</ReferenceToggleButton>
+      <ReferenceToggleButton v-model="underline" variation="text" icon="underline" size="tiny">
+        Underline
+      </ReferenceToggleButton>
+      <UtensilToolbarSeparator />
+      <ReferenceRadioButtons v-model="align" variation="text" aria-label="Alignment">
+        <ReferenceRadioButton value="align-left" icon="align-left" icon-only size="tiny"
+          >Align left</ReferenceRadioButton
+        >
+        <ReferenceRadioButton value="align-center" icon="align-center" icon-only size="tiny"
+          >Align center</ReferenceRadioButton
+        >
+        <ReferenceRadioButton value="align-right" icon="align-right" icon-only size="tiny"
+          >Align right</ReferenceRadioButton
+        >
+      </ReferenceRadioButtons>
+      <UtensilToolbarSeparator />
+      <ReferenceButton variation="text" icon="image" icon-only size="tiny">Image</ReferenceButton>
+      <ReferenceButton variation="text" icon="video" icon-only size="tiny">Video</ReferenceButton>
+      <ReferenceButton variation="text" icon="music" icon-only size="tiny">Audio</ReferenceButton>
+    </ReferenceToolbar>
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import { ReferenceTheme } from '@/theme/ReferenceTheme'
+import UtensilToolbarSeparator from '@gobistories/utensil-vue/components/toolbar/UtensilToolbarSeparator.vue'
+import { ReferenceToolbar } from '@/theme/components/ReferenceToolbar'
 import { ReferenceButton } from '@/theme/components/ReferenceButton'
 import { ReferenceToggleButton } from '@/theme/components/ReferenceToggleButton'
 import { ReferenceRadioButtons } from '@/theme/components/ReferenceRadioButtons'
 import { ReferenceRadioButton } from '@/theme/components/ReferenceRadioButton'
 
 const bold = ref(true)
+const italic = ref(false)
+const underline = ref(false)
+const align = ref('align-left')
 </script>
 
 <style scoped>
@@ -47,26 +53,7 @@ const bold = ref(true)
   flex-direction: column;
 }
 
-.toolbar {
-  display: flex;
-  align-items: center;
-  gap: var(--space-1);
+.editor-toolbar {
   width: fit-content;
-  padding: var(--space-2);
-  background-color: var(--pen-2);
-  border: 1px solid var(--pencil-a6);
-  border-radius: var(--radius-3);
-}
-
-.toolbar-group {
-  display: flex;
-  gap: var(--space-1);
-}
-
-.toolbar-separator {
-  width: 1px;
-  height: 20px;
-  background-color: var(--pencil-a6);
-  margin: 0 var(--space-2);
 }
 </style>
