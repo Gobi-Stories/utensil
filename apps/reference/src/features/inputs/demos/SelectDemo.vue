@@ -7,7 +7,12 @@
     <div class="demo-grid">
       <div class="demo-item">
         <div class="demo-content input-demo">
-          <UtensilSelect v-model="basicSelect" :options="fruitOptions" placeholder="Select a fruit..." />
+          <UtensilSelect
+            v-model="basicSelect"
+            :options="fruitOptions"
+            placeholder="Select a fruit..."
+            aria-label="Basic select"
+          />
           <div class="input-value">Value: "{{ basicSelect ?? 'null' }}"</div>
         </div>
         <div class="demo-label">Basic Select</div>
@@ -17,7 +22,39 @@
       </div>
       <div class="demo-item">
         <div class="demo-content input-demo">
-          <UtensilSelect v-model="softSelect" :options="fruitOptions" variation="soft" placeholder="Soft variation" />
+          <UtensilSelect v-model="labelledSelect" :options="fruitOptions" label="Favourite fruit" />
+          <div class="input-value">Value: "{{ labelledSelect ?? 'null' }}"</div>
+        </div>
+        <div class="demo-label">With Label</div>
+        <div class="demo-code">
+          <code>&lt;UtensilSelect v-model="value" :options="options" label="Favourite fruit" /&gt;</code>
+        </div>
+      </div>
+      <div class="demo-item">
+        <div class="demo-content input-demo">
+          <UtensilSelect
+            v-model:selection="multipleSelection"
+            :options="fruitOptions"
+            label="Fruit basket"
+            placeholder="Pick some fruit..."
+            multiple
+          />
+          <div class="input-value">Selection: {{ JSON.stringify(multipleSelection) }}</div>
+        </div>
+        <div class="demo-label">Multiple</div>
+        <div class="demo-code">
+          <code>&lt;UtensilSelect v-model:selection="values" :options="options" multiple /&gt;</code>
+        </div>
+      </div>
+      <div class="demo-item">
+        <div class="demo-content input-demo">
+          <UtensilSelect
+            v-model="softSelect"
+            :options="fruitOptions"
+            variation="soft"
+            placeholder="Soft variation"
+            aria-label="Soft variation"
+          />
           <div class="input-value">Value: "{{ softSelect ?? 'null' }}"</div>
         </div>
         <div class="demo-label">Soft Variation</div>
@@ -27,7 +64,12 @@
       </div>
       <div class="demo-item">
         <div class="demo-content input-demo">
-          <UtensilSelect v-model="iconSelect" :options="iconOptions" placeholder="Select a file type..." />
+          <UtensilSelect
+            v-model="iconSelect"
+            :options="iconOptions"
+            placeholder="Select a file type..."
+            aria-label="File type"
+          />
           <div class="input-value">Value: "{{ iconSelect ?? 'null' }}"</div>
         </div>
         <div class="demo-label">With Icons</div>
@@ -37,7 +79,7 @@
       </div>
       <div class="demo-item">
         <div class="demo-content input-demo">
-          <UtensilSelect :options="fruitOptions" placeholder="Disabled select" disabled />
+          <UtensilSelect :options="fruitOptions" placeholder="Disabled select" disabled aria-label="Disabled select" />
           <div class="input-value">Disabled state</div>
         </div>
         <div class="demo-label">Disabled</div>
@@ -51,6 +93,7 @@
             v-model="disabledOptionsSelect"
             :options="disabledOptions"
             placeholder="Some options disabled"
+            aria-label="Some options disabled"
           />
           <div class="input-value">Value: "{{ disabledOptionsSelect ?? 'null' }}"</div>
         </div>
@@ -61,7 +104,12 @@
       </div>
       <div class="demo-item">
         <div class="demo-content input-demo">
-          <UtensilSelect v-model="longListSelect" :options="longOptions" placeholder="Scrollable list..." />
+          <UtensilSelect
+            v-model="longListSelect"
+            :options="longOptions"
+            placeholder="Scrollable list..."
+            aria-label="Long list"
+          />
           <div class="input-value">Value: "{{ longListSelect ?? 'null' }}"</div>
         </div>
         <div class="demo-label">Long List (Scrollable)</div>
@@ -71,12 +119,21 @@
       </div>
       <div class="demo-item">
         <div class="demo-content input-demo">
-          <UtensilSelect v-model="folderSelect" :options="folderOptions" placeholder="Custom actions...">
+          <UtensilSelect
+            v-model="folderSelect"
+            :options="folderOptions"
+            placeholder="Custom actions..."
+            aria-label="Folder"
+          >
             <template #append="{ close }">
               <div
+                id="select-demo-manage-folders"
                 class="select-action"
+                role="option"
+                aria-selected="false"
                 data-focusable
                 tabindex="-1"
+                @mousedown.prevent
                 @click="handleManageFolders(close)"
                 @keydown.enter="handleManageFolders(close)"
                 @keydown.space.prevent="handleManageFolders(close)"
@@ -112,6 +169,8 @@ import type { SelectOption } from '@gobistories/utensil-vue/components/select/ut
 import type { ReferenceThemeConfig } from '@/theme/reference-theme'
 
 const basicSelect = ref<string | null>(null)
+const labelledSelect = ref<string | null>('banana')
+const multipleSelection = ref<string[]>(['apple', 'cherry'])
 const softSelect = ref<string | null>(null)
 const iconSelect = ref<string | null>(null)
 const disabledOptionsSelect = ref<string | null>(null)

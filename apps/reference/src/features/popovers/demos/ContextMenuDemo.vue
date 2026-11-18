@@ -2,13 +2,13 @@
   <ReferenceComponentDemo
     title="Context Menu"
     anchor="context-menu"
-    description="Right-click on the target area to open the context menu. The menu positions at the cursor location and closes on click outside or Escape."
+    description="Right-click on the target area, or focus it and press Shift+F10 or the Menu key, to open the context menu. The menu positions at the cursor location and closes on click outside or Escape."
   >
     <div class="demo-grid">
       <div class="demo-item no-border">
         <UtensilContextMenuArea>
-          <div class="demo-content context-target">
-            <span class="target-text">Right-click here</span>
+          <div class="demo-content context-target" tabindex="0" aria-label="Context menu target">
+            <span class="target-text">Right-click here, or focus and press Shift+F10</span>
           </div>
           <template #menu="{ isFocused, focus, close }">
             <UtensilMenuItem icon="info-circle" label="View Details" @click="handleMenuAction('details')" />
@@ -113,6 +113,11 @@ function handleMenuAction(action: string) {
 .context-target:hover {
   background-color: var(--pencil-4);
   border-color: var(--pencil-8);
+}
+
+.context-target:focus-visible {
+  outline: 2px solid var(--pen-8);
+  outline-offset: 2px;
 }
 
 .target-text {
