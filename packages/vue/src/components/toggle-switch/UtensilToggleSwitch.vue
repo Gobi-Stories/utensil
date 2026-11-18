@@ -5,12 +5,14 @@
       <input
         :id="inputId"
         type="checkbox"
+        role="switch"
+        :aria-label="ariaLabel"
         :checked="isOn"
         :disabled="disabled"
         @change="toggle"
-        @keydown.enter="toggle"
+        @keydown.enter.prevent="toggle"
       />
-      <svg class="toggle-svg" viewBox="0 0 34 18" xmlns="http://www.w3.org/2000/svg">
+      <svg class="toggle-svg" viewBox="0 0 34 18" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
         <!-- Track background -->
         <rect class="track" x="2" y="1" width="30" height="16" rx="8" />
         <!-- Handle -->
@@ -30,6 +32,8 @@ interface Props {
   disabled?: boolean
   id?: string
   label?: string
+  /** Names the switch where no visible label does, such as a switch beside text that isn't its label */
+  ariaLabel?: string
   labelPlacement?: 'block' | 'inline'
 }
 
@@ -100,16 +104,20 @@ function toggle() {
     cursor: default;
   }
 
+  /* The input covers the drawn switch so it takes the click, focus and hit test wherever the switch is pressed */
   .utensil-toggle-switch-control input {
     position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    margin: 0;
     opacity: 0;
-    width: 0;
-    height: 0;
-    pointer-events: none;
+    cursor: inherit;
   }
 
   .toggle-svg {
     display: block;
+    pointer-events: none;
     width: 2.125rem;
     height: 1.125rem;
   }

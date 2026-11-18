@@ -12,19 +12,22 @@
     ]"
     :style="style"
   >
-    <input
-      type="checkbox"
-      :checked="model"
-      :indeterminate="indeterminate"
-      :disabled="disabled"
-      @change="toggle"
-      @keydown.enter="toggle"
-    />
-    <svg class="checkbox-svg" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-      <rect class="box" x="1" y="1" width="14" height="14" rx="3" />
-      <path v-if="indeterminate" class="indicator" d="M4 8h8" />
-      <path v-else class="indicator" d="M4 8l3 3 5-6" />
-    </svg>
+    <span class="utensil-checkbox-control">
+      <input
+        type="checkbox"
+        :aria-label="ariaLabel"
+        :checked="model"
+        :indeterminate="indeterminate"
+        :disabled="disabled"
+        @change="toggle"
+        @keydown.enter.prevent="toggle"
+      />
+      <svg class="checkbox-svg" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <rect class="box" x="1" y="1" width="14" height="14" rx="3" />
+        <path v-if="indeterminate" class="indicator" d="M4 8h8" />
+        <path v-else class="indicator" d="M4 8l3 3 5-6" />
+      </svg>
+    </span>
     <span v-if="label" class="utensil-checkbox-label">{{ label }}</span>
     <slot v-else />
   </label>
@@ -39,6 +42,8 @@ export interface Props<Theme extends ThemeConfig> {
   color?: ColorProp<Theme>
   scale?: ScaleProp
   label?: string
+  /** Names the checkbox where no visible label does, such as a row's select box */
+  ariaLabel?: string
   labelPosition?: 'start' | 'end'
   disabled?: boolean
   indeterminate?: boolean
@@ -88,19 +93,28 @@ function toggle() {
     order: -1;
   }
 
-  .utensil-checkbox input {
+  .utensil-checkbox-control {
+    position: relative;
+    display: block;
+    flex-shrink: 0;
+  }
+
+  /* The input covers the drawn box so it takes the click, focus and hit test wherever the box is pressed */
+  .utensil-checkbox-control input {
     position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    margin: 0;
     opacity: 0;
-    width: 0;
-    height: 0;
-    pointer-events: none;
+    cursor: inherit;
   }
 
   .checkbox-svg {
     display: block;
     width: 1rem;
     height: 1rem;
-    flex-shrink: 0;
+    pointer-events: none;
   }
 
   .box {

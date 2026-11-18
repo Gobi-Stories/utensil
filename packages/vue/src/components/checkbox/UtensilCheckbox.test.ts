@@ -124,4 +124,29 @@ describe('UtensilCheckbox', () => {
     await wrapper.find('input').trigger('keydown.enter')
     expect(wrapper.emitted('update:modelValue')?.[0]).toEqual([true])
   })
+
+  it('prevents the default action of Enter so it toggles once', async () => {
+    const wrapper = mount(UtensilCheckbox, { props: { modelValue: false } })
+    const event = new KeyboardEvent('keydown', { key: 'Enter', cancelable: true })
+    wrapper.find('input').element.dispatchEvent(event)
+    expect(event.defaultPrevented).toBe(true)
+  })
+
+  it('reflects the checked state on the input from the first render', () => {
+    const wrapper = mount(UtensilCheckbox, { props: { modelValue: true } })
+    expect(wrapper.find<HTMLInputElement>('input').element.checked).toBe(true)
+  })
+
+  it('names the input with ariaLabel', () => {
+    const wrapper = mount(UtensilCheckbox, { props: { ariaLabel: 'Select row' } })
+    expect(wrapper.find('input').attributes('aria-label')).toBe('Select row')
+  })
+
+  it('wraps the input and the drawn box together so the input can cover it', () => {
+    const wrapper = mount(UtensilCheckbox, { props: { label: 'Accept' } })
+    const control = wrapper.find('.utensil-checkbox-control')
+    expect(control.find('input').exists()).toBe(true)
+    expect(control.find('svg').exists()).toBe(true)
+    expect(control.find('.utensil-checkbox-label').exists()).toBe(false)
+  })
 })

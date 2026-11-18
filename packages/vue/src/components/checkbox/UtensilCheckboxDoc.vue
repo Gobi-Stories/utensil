@@ -15,6 +15,10 @@
       A checkbox input with theme color support, indeterminate state, and configurable label positioning. Renders an SVG
       checkbox with animated transitions for check and indeterminate indicators.
     </p>
+    <p>
+      A native checkbox covers the drawn box, so a click, a voice command or an automation tool pressing the element
+      lands on it. Space and Enter toggle it. Give a checkbox without a visible label an <code>ariaLabel</code>.
+    </p>
 
     <h2>Props</h2>
     <table>
@@ -44,6 +48,12 @@
           <td><code>string</code></td>
           <td>—</td>
           <td>Label text displayed next to the checkbox. Overridden by the default slot.</td>
+        </tr>
+        <tr>
+          <td><code>ariaLabel</code></td>
+          <td><code>string</code></td>
+          <td>—</td>
+          <td>Names the checkbox where no visible label does, such as a row's select box.</td>
         </tr>
         <tr>
           <td><code>labelPosition</code></td>
