@@ -58,7 +58,7 @@
           :key="'val-' + pointIndex"
           :x="point.x"
           :y="point.y - 10"
-          text-anchor="middle"
+          :text-anchor="point.anchor"
         >
           {{ point.label }}
         </text>
@@ -97,7 +97,7 @@
 <script setup lang="ts">
 import { computed, useId, useTemplateRef, watch } from 'vue'
 import { type DataSeries, type ReferenceLine, getSeriesColor, formatValue, CHART_HEIGHT } from './utensil-data-viz'
-import { useCartesianChart } from './use-cartesian-chart'
+import { useCartesianChart, type XAnchor } from './use-cartesian-chart'
 import { useChartHover } from './use-chart-hover'
 import DataVizGrid from './DataVizGrid.vue'
 import DataVizReferenceLines from './DataVizReferenceLines.vue'
@@ -143,6 +143,7 @@ const {
   pointCount,
   baselineY,
   getX,
+  getXAnchor,
   getY,
   gridLines,
   yAxisTicks,
@@ -199,10 +200,10 @@ function getAreaPath(seriesIndex: number): string {
 }
 
 const valueLabels = computed(() => {
-  const labels: { x: number; y: number; label: string }[] = []
+  const labels: { x: number; y: number; anchor: XAnchor; label: string }[] = []
   props.series.forEach((s) => {
     s.values.forEach((v, i) => {
-      labels.push({ x: getX(i), y: getY(v), label: formatValue(v) })
+      labels.push({ x: getX(i), y: getY(v), anchor: getXAnchor(i), label: formatValue(v) })
     })
   })
   return labels

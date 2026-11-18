@@ -41,7 +41,7 @@
       :key="'x-' + index"
       :x="label.x"
       :y="viewBox.height - padding.bottom + 18"
-      text-anchor="middle"
+      :text-anchor="label.anchor ?? 'middle'"
     >
       {{ label.text }}
     </text>
@@ -57,6 +57,8 @@ export interface AxisTick {
 export interface AxisLabel {
   x: number
   text: string
+  /** Where the label sits against x; the labels of the edge points run inward so they aren't cut off */
+  anchor?: 'start' | 'middle' | 'end'
 }
 
 export interface Props {

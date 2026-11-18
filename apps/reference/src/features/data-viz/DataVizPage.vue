@@ -4,6 +4,7 @@
     <InteractiveDemo />
     <BaselineDemo />
     <LongSeriesDemo />
+    <EdgeLabelsDemo />
     <OptionsDemo />
     <SparklineDemo />
   </div>
@@ -14,6 +15,7 @@ import DataVizDemo from './demos/DataVizDemo.vue'
 import InteractiveDemo from './demos/InteractiveDemo.vue'
 import BaselineDemo from './demos/BaselineDemo.vue'
 import LongSeriesDemo from './demos/LongSeriesDemo.vue'
+import EdgeLabelsDemo from './demos/EdgeLabelsDemo.vue'
 import OptionsDemo from './demos/OptionsDemo.vue'
 import SparklineDemo from './demos/SparklineDemo.vue'
 </script>

@@ -98,6 +98,23 @@ describe('UtensilDataViz', () => {
     expect(labels[0].text()).toBe('Jan')
   })
 
+  it("runs the edge points' labels inward, so they are not cut off", () => {
+    const wrapper = mount(UtensilDataViz, {
+      props: { series: singleSeries, labels: ['Jul 2026', 'Aug 2026', 'Sep 2026'], showValues: true },
+    })
+    const anchors = (selector: string) => wrapper.findAll(selector).map((label) => label.attributes('text-anchor'))
+    expect(anchors('.x-axis-labels text')).toEqual(['start', 'middle', 'end'])
+    expect(anchors('.value-labels text')).toEqual(['start', 'middle', 'end'])
+  })
+
+  it('centres x-axis labels on bars', () => {
+    const wrapper = mount(UtensilDataViz, {
+      props: { series: singleSeries, type: 'bar', labels: ['Jan', 'Feb', 'Mar'] },
+    })
+    const anchors = wrapper.findAll('.x-axis-labels text').map((label) => label.attributes('text-anchor'))
+    expect(anchors).toEqual(['middle', 'middle', 'middle'])
+  })
+
   it('renders value labels when showValues is true', () => {
     const wrapper = mount(UtensilDataViz, { props: { series: singleSeries, showValues: true } })
     expect(wrapper.find('.value-labels').exists()).toBe(true)

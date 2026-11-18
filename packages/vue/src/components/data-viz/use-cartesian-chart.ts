@@ -3,6 +3,8 @@ import { PADDING, CHART_HEIGHT, formatValue, getValueAxis } from './utensil-data
 import { useFittedViewBox } from './use-fitted-view-box'
 import type { DataSeries } from './utensil-data-viz'
 
+export type XAnchor = 'start' | 'middle' | 'end'
+
 // The most x-axis labels drawn before thinning starts skipping between them
 const MAX_AXIS_LABELS = 12
 // Horizontal room a label needs; narrower charts fit fewer before thinning
@@ -48,6 +50,14 @@ export function useCartesianChart({ series, svg, labels, isBar, extraValues, bas
     return PADDING.top + CHART_HEIGHT - ((value - min) / (max - min)) * CHART_HEIGHT
   }
 
+  // The first and last points sit on the drawing's edges, so their labels run inward rather than centring off the edge
+  function getXAnchor(index: number): XAnchor {
+    if (toValue(isBar) || pointCount.value <= 1) return 'middle'
+    if (index === 0) return 'start'
+    if (index === pointCount.value - 1) return 'end'
+    return 'middle'
+  }
+
   function getBarCenterX(index: number): number {
     if (toValue(isBar)) {
       const groupWidth = chartWidth.value / pointCount.value
@@ -75,7 +85,9 @@ export function useCartesianChart({ series, svg, labels, isBar, extraValues, bas
     if (!l) return []
     const maxLabels = Math.max(3, Math.min(MAX_AXIS_LABELS, Math.floor(chartWidth.value / AXIS_LABEL_SPACE)))
     const step = Math.max(1, Math.ceil(l.length / maxLabels))
-    return l.map((text, index) => ({ x: getBarCenterX(index), text })).filter((_, index) => index % step === 0)
+    return l
+      .map((text, index) => ({ x: getBarCenterX(index), anchor: getXAnchor(index), text }))
+      .filter((_, index) => index % step === 0)
   })
 
   // The y of the baseline, while the axis extends below it
@@ -102,6 +114,7 @@ export function useCartesianChart({ series, svg, labels, isBar, extraValues, bas
     getX,
     getY,
     getBarCenterX,
+    getXAnchor,
     gridLines,
     yAxisTicks,
     xAxisLabels,
