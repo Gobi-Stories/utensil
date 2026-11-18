@@ -1,15 +1,16 @@
 <template generic="Theme extends ThemeConfig">
   <button
+    v-bind="$attrs"
     class="utensil-button"
     :class="[
       ...themeClasses,
       `ui-${variation}`,
       {
         // Disabled buttons drop the interactive styling so hover states don't light them up.
-        interactive: !disabled && !ariaDisabled && !busy,
+        interactive: !disabled && !ariaDisabled && !blocked && !busy,
         busy: busy,
-        disabled: (disabled || ariaDisabled) && !busy,
-        selected: pressed === 'pressed' || pressed === 'checked',
+        disabled: (disabled || ariaDisabled || blocked) && !busy,
+        selected: pressed === true,
         'icon-only': iconOnly,
         'icon-start': icon && !iconOnly && iconPosition === 'start',
         'icon-end': icon && !iconOnly && iconPosition === 'end',
@@ -21,8 +22,8 @@
     :style="style"
     :disabled="disabled || busy"
     :aria-disabled="(ariaDisabled && !disabled && !busy) || undefined"
-    :aria-pressed="pressed === 'pressed' || undefined"
-    :aria-checked="pressed === 'checked' ? true : pressed === 'unchecked' ? false : undefined"
+    :aria-pressed="pressed"
+    :aria-describedby="describedBy"
     :autofocus="autofocus"
     @click="handleClick"
   >
@@ -40,7 +41,7 @@
 </template>
 
 <script setup lang="ts" generic="Theme extends ThemeConfig">
-import { computed, type CSSProperties } from 'vue'
+import { computed, useAttrs, type CSSProperties } from 'vue'
 import UtensilIcon from '../icon/UtensilIcon.vue'
 import UtensilSpinner from '../spinner/UtensilSpinner.vue'
 import type { IconProp, ColorProp, ThemeConfig, ScaleProp, UtensilUIVariation } from '../../theme/utensil-theme'
@@ -55,11 +56,16 @@ export interface Props<Theme extends ThemeConfig> {
   iconPosition?: 'start' | 'end'
   iconOnly?: boolean
   round?: boolean
-  pressed?: 'pressed' | 'checked' | 'unchecked' | false
+  /** Makes the button a toggle, announced pressed or not pressed; leave it unset for a button that isn't one */
+  pressed?: boolean
   busy?: boolean
   disabled?: boolean
-  // Looks and is announced disabled, but stays focusable and still emits click
+  /** Looks and is announced disabled, and emits no click, but stays focusable so it can be found and its tooltip read */
   ariaDisabled?: boolean
+  /** Not ready yet: looks unavailable but is announced as an ordinary button and emits click, so it can say why */
+  blocked?: boolean
+  /** Id of the element that says why a blocked button isn't ready, set as its aria-describedby while blocked */
+  blockedDescribedBy?: string
   autofocus?: boolean
   scale?: ScaleProp
   block?: boolean
@@ -72,19 +78,30 @@ const props = withDefaults(defineProps<Props<Theme>>(), {
   iconPosition: 'start',
   iconOnly: false,
   round: false,
-  pressed: false,
+  pressed: undefined,
   busy: false,
   disabled: false,
   ariaDisabled: false,
+  blocked: false,
   autofocus: false,
   justify: 'center',
   scale: 1,
   block: false,
 })
 
+defineOptions({ inheritAttrs: false })
+
 const emit = defineEmits<{
   click: [event: MouseEvent]
 }>()
+
+const attrs = useAttrs()
+
+// A blocked button's reason joins any description the consumer gives it
+const describedBy = computed(() => {
+  const ids = [attrs['aria-describedby'], props.blocked ? props.blockedDescribedBy : undefined]
+  return ids.filter((id) => typeof id === 'string' && id !== '').join(' ') || undefined
+})
 
 const penColor = computed<ColorProp<Theme>>(() => {
   return props.color || 'pen'
@@ -119,13 +136,14 @@ const style = computed<CSSProperties>(() => {
 })
 
 function handleClick(event: MouseEvent): void {
-  // An unavailable action doesn't submit its form, but still emits click so it can say why
-  if (props.ariaDisabled) {
+  // Neither an unavailable nor a not-ready action submits its form
+  if (props.ariaDisabled || props.blocked) {
     event.preventDefault()
   }
-  if (!props.disabled && !props.busy) {
-    emit('click', event)
+  if (props.disabled || props.busy || props.ariaDisabled) {
+    return
   }
+  emit('click', event)
 }
 </script>
 

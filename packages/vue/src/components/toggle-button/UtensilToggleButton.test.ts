@@ -1,4 +1,4 @@
-import { describe, it, expect } from 'vitest'
+import { describe, it, expect, vi } from 'vitest'
 import { mount } from '@vue/test-utils'
 import UtensilToggleButton from './UtensilToggleButton.vue'
 
@@ -47,6 +47,24 @@ describe('UtensilToggleButton', () => {
     expect(wrapper.find('button').attributes('aria-pressed')).toBe('true')
   })
 
+  it('announces a toggle that is off as not pressed', () => {
+    const wrapper = mount(UtensilToggleButton, { props: { icon: 'star', modelValue: false } })
+    expect(wrapper.find('button').attributes('aria-pressed')).toBe('false')
+  })
+
+  it('is a radio with aria-checked, and no aria-pressed, in the radio role', async () => {
+    const wrapper = mount(UtensilToggleButton, { props: { icon: 'star', modelValue: false, role: 'radio' } })
+    const button = wrapper.find('button')
+    expect(button.attributes('role')).toBe('radio')
+    expect(button.attributes('aria-checked')).toBe('false')
+    expect(button.attributes('aria-pressed')).toBeUndefined()
+    expect(button.classes()).not.toContain('selected')
+
+    await wrapper.setProps({ modelValue: true })
+    expect(button.attributes('aria-checked')).toBe('true')
+    expect(button.classes()).toContain('selected')
+  })
+
   it('renders label when provided', () => {
     const wrapper = mount(UtensilToggleButton, {
       props: { icon: 'star', label: 'Star' },
@@ -83,16 +101,35 @@ describe('UtensilToggleButton', () => {
     expect(wrapper.emitted('update:modelValue')).toBeUndefined()
   })
 
-  it('stays clickable without toggling when aria-disabled', async () => {
+  it('stays focusable but neither toggles nor emits click when aria-disabled', async () => {
+    const onClick = vi.fn()
     const wrapper = mount(UtensilToggleButton, {
       props: { icon: 'star', modelValue: false, ariaDisabled: true },
+      attrs: { onClick },
     })
     const button = wrapper.find('button')
     await button.trigger('click')
     expect(wrapper.emitted('update:modelValue')).toBeUndefined()
+    expect(onClick).not.toHaveBeenCalled()
     expect(button.attributes('aria-disabled')).toBe('true')
     expect(button.attributes('disabled')).toBeUndefined()
     expect(wrapper.find('.utensil-toggle-button').classes()).toContain('disabled')
+  })
+
+  it('emits click without toggling when blocked, announced as an ordinary toggle described by its reason', async () => {
+    const onClick = vi.fn()
+    const wrapper = mount(UtensilToggleButton, {
+      props: { icon: 'star', modelValue: false, blocked: true, blockedDescribedBy: 'why' },
+      attrs: { onClick },
+    })
+    const button = wrapper.find('button')
+    await button.trigger('click')
+    expect(wrapper.emitted('update:modelValue')).toBeUndefined()
+    expect(onClick).toHaveBeenCalledOnce()
+    expect(button.attributes('aria-disabled')).toBeUndefined()
+    expect(button.attributes('aria-pressed')).toBe('false')
+    expect(button.attributes('aria-describedby')).toBe('why')
+    expect(wrapper.find('.utensil-toggle-button').classes()).toEqual(expect.arrayContaining(['disabled', 'blocked']))
   })
 
   it('applies disabled class when disabled', () => {

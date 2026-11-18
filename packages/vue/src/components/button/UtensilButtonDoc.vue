@@ -71,9 +71,16 @@
         </tr>
         <tr>
           <td><code>pressed</code></td>
-          <td><code>'pressed' | 'checked' | 'unchecked' | false</code></td>
-          <td><code>false</code></td>
-          <td>Toggle or checkbox state. Sets <code>aria-pressed</code> or <code>aria-checked</code>.</td>
+          <td><code>boolean</code></td>
+          <td>—</td>
+          <td>
+            Makes the button a standalone on/off toggle, such as Loop or Show details: <code>true</code> sets
+            <code>aria-pressed="true"</code> and draws it selected, <code>false</code> sets
+            <code>aria-pressed="false"</code>. Leave it unset for a button that isn't a toggle. For one choice among
+            several, use <code>UtensilRadioButtons</code>, <code>UtensilRadioGroup</code>,
+            <code>UtensilRadioCards</code> or <code>UtensilToggleButton</code> with <code>role="radio"</code> instead:
+            they provide the named group, arrow keys and single tab stop a choice needs.
+          </td>
         </tr>
         <tr>
           <td><code>busy</code></td>
@@ -92,8 +99,29 @@
           <td><code>boolean</code></td>
           <td><code>false</code></td>
           <td>
-            Draw the button disabled and set <code>aria-disabled</code>, but keep it focusable and clickable. Use it for
-            an action that isn't available yet, where pressing it should say why. It doesn't submit a form.
+            Draw the button disabled and announce it disabled, but keep it focusable so it can be found and its tooltip
+            read. It emits no <code>click</code>, by mouse, Enter or Space, and doesn't submit a form. For an action
+            that should say why it isn't available when pressed, use <code>blocked</code>.
+          </td>
+        </tr>
+        <tr>
+          <td><code>blocked</code></td>
+          <td><code>boolean</code></td>
+          <td><code>false</code></td>
+          <td>
+            Not ready yet, and says why when pressed. Drawn like <code>ariaDisabled</code>, but announced as an ordinary
+            button, since pressing it is expected: it emits <code>click</code> so the handler can show the reason. It
+            doesn't submit a form.
+          </td>
+        </tr>
+        <tr>
+          <td><code>blockedDescribedBy</code></td>
+          <td><code>string</code></td>
+          <td>—</td>
+          <td>
+            Id of the element holding the reason a blocked button isn't ready. Set as its
+            <code>aria-describedby</code> while blocked, after any <code>aria-describedby</code> you pass, so a screen
+            reader hears why on focus.
           </td>
         </tr>
         <tr>
@@ -137,8 +165,8 @@
           <td><code>click</code></td>
           <td><code>MouseEvent</code></td>
           <td>
-            Fires on click. Suppressed when <code>disabled</code> or <code>busy</code>, but not when
-            <code>ariaDisabled</code>.
+            Fires on click. Suppressed when <code>disabled</code>, <code>ariaDisabled</code> or <code>busy</code>, but
+            not when <code>blocked</code>.
           </td>
         </tr>
       </tbody>
@@ -208,7 +236,7 @@
 
     <h3>Toggle Button</h3>
     <pre><code>&lt;UtensilButton
-  :pressed="isActive ? 'pressed' : false"
+  :pressed="isActive"
   variation="text"
   icon="bold"
   iconOnly
@@ -217,11 +245,17 @@
 /&gt;</code></pre>
 
     <h3>Not Ready Yet</h3>
+    <p>
+      The reason sits in a <code>role="alert"</code> line that fills in when the button is pressed early, and the button
+      is described by it.
+    </p>
     <pre><code>&lt;UtensilButton
   label="Continue"
-  :aria-disabled="!ready"
-  @click="ready ? next() : explainWhy()"
-/&gt;</code></pre>
+  :blocked="!ready"
+  blocked-described-by="continue-reason"
+  @click="ready ? next() : (reason = 'Choose a plan to continue')"
+/&gt;
+&lt;p id="continue-reason" role="alert"&gt;<span v-pre>{{ reason }}</span>&lt;/p&gt;</code></pre>
   </article>
 </template>
 

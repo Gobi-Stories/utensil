@@ -4,8 +4,9 @@
     :class="[
       $attrs.class,
       {
-        disabled: disabled || ariaDisabled,
+        disabled: disabled || ariaDisabled || blocked,
         'aria-disabled': ariaDisabled && !disabled,
+        blocked: blocked && !disabled,
         'label-start': label && labelPosition === 'start',
         'label-end': label && labelPosition === 'end',
       },
@@ -21,9 +22,13 @@
       :scale="scale"
       :disabled="disabled"
       :aria-disabled="ariaDisabled"
+      :blocked="blocked"
+      :blocked-described-by="blockedDescribedBy"
       :round="round"
-      :pressed="pressedValue"
+      :pressed="role === 'button' ? model : undefined"
       :role="role === 'radio' ? 'radio' : undefined"
+      :aria-checked="role === 'radio' ? model : undefined"
+      :class="{ selected: role === 'radio' && model }"
       :autofocus="autofocus"
       @click="toggle"
     >
@@ -56,8 +61,12 @@ export interface Props<Theme extends ThemeConfig> {
   offColor?: ColorProp<Theme>
   scale?: ScaleProp
   disabled?: boolean
-  /** Drawn disabled and announced unavailable, but stays focusable and emits click without toggling */
+  /** Drawn disabled and announced unavailable, and neither toggles nor emits click, but stays focusable */
   ariaDisabled?: boolean
+  /** Not ready yet: drawn unavailable and doesn't toggle, but is announced as an ordinary toggle and emits click */
+  blocked?: boolean
+  /** Id of the element that says why a blocked toggle isn't ready */
+  blockedDescribedBy?: string
   round?: boolean
   autofocus?: boolean
   /** Controls ARIA semantics: 'button' uses aria-pressed, 'radio' uses aria-checked with role="radio" */
@@ -70,6 +79,7 @@ const props = withDefaults(defineProps<Props<Theme>>(), {
   color: 'pen',
   disabled: false,
   ariaDisabled: false,
+  blocked: false,
   round: false,
   autofocus: false,
   scale: 1,
@@ -95,15 +105,8 @@ const buttonColor = computed<ColorProp<Theme>>(() => {
   return props.offColor ?? props.color
 })
 
-const pressedValue = computed(() => {
-  if (props.role === 'radio') {
-    return model.value ? 'checked' : 'unchecked'
-  }
-  return model.value ? 'pressed' : false
-})
-
 function toggle() {
-  if (!props.disabled && !props.ariaDisabled) {
+  if (!props.disabled && !props.ariaDisabled && !props.blocked) {
     model.value = !model.value
   }
 }
@@ -146,8 +149,8 @@ function clickButton() {
     cursor: default;
   }
 
-  /* An aria-disabled label still routes its clicks through the button */
-  .utensil-toggle-button.disabled:not(.aria-disabled) .utensil-toggle-button-label {
+  /* An aria-disabled or blocked label still routes its clicks through the button */
+  .utensil-toggle-button.disabled:not(.aria-disabled, .blocked) .utensil-toggle-button-label {
     pointer-events: none;
   }
 }

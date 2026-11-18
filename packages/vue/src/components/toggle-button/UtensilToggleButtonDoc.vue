@@ -108,8 +108,25 @@
           <td><code>boolean</code></td>
           <td><code>false</code></td>
           <td>
-            Draw the toggle disabled and set <code>aria-disabled</code>, but keep it focusable and clickable. It doesn't
-            toggle, and still emits <code>click</code>, so pressing it can say why it isn't available.
+            Draw the toggle disabled and announce it disabled, but keep it focusable. It neither toggles nor emits
+            <code>click</code>.
+          </td>
+        </tr>
+        <tr>
+          <td><code>blocked</code></td>
+          <td><code>boolean</code></td>
+          <td><code>false</code></td>
+          <td>
+            Not ready yet, and says why when pressed. Drawn like <code>ariaDisabled</code> and doesn't toggle, but is
+            announced as an ordinary toggle and emits <code>click</code>, so pressing it can show the reason.
+          </td>
+        </tr>
+        <tr>
+          <td><code>blockedDescribedBy</code></td>
+          <td><code>string</code></td>
+          <td>—</td>
+          <td>
+            Id of the element holding the reason a blocked toggle isn't ready, set as its <code>aria-describedby</code>.
           </td>
         </tr>
         <tr>
@@ -155,7 +172,8 @@
           <td><code>click</code></td>
           <td><code>MouseEvent</code></td>
           <td>
-            The inner button's click, as an attribute listener. Fires while <code>ariaDisabled</code>, without toggling.
+            The inner button's click, as an attribute listener. Fires while <code>blocked</code>, without toggling, but
+            not while <code>disabled</code> or <code>ariaDisabled</code>.
           </td>
         </tr>
       </tbody>
