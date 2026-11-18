@@ -1,0 +1,24 @@
+#!/bin/bash
+# Run the reference app in Docker at http://localhost:12911, with source edits synced into the container as you work.
+#   ./utensil up       build the image and start the app with watch (Ctrl-C stops it)
+#   ./utensil down     stop and remove the app's container
+#   ./utensil rebuild  stop the app, rebuild its image without the layer cache, then start it again with watch
+cd "$(dirname "$0")" || exit $?
+
+service=utensil-reference
+
+case "$1" in
+  up)
+    docker compose up --watch "$service"
+    ;;
+  down)
+    docker compose down
+    ;;
+  rebuild)
+    docker compose down && docker compose build --no-cache "$service" && docker compose up --watch "$service"
+    ;;
+  *)
+    echo "Usage: ./utensil up | down | rebuild" >&2
+    exit 1
+    ;;
+esac

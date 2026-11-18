@@ -28,7 +28,8 @@ Run from the repository root.
 | Script                    | Does                                                                                        |
 | ------------------------- | ------------------------------------------------------------------------------------------- |
 | `./check`                 | Format, lint, typecheck and test everything. Run before every commit                        |
-| `bun run dev`             | Serve the reference app at http://localhost:12911                                           |
+| `./utensil up`            | Run the reference app in Docker at http://localhost:12911 with watch (see below)            |
+| `bun run dev`             | Serve the reference app on the host at http://localhost:12911                               |
 | `bun run build`           | Build `@gobistories/utensil-css` then `@gobistories/utensil-vue` into their `dist/` folders |
 | `bun run build:reference` | Build the packages, then the reference app against their `dist/` output                     |
 | `bun run test`            | Run all tests (use this, not `bun test`)                                                    |
@@ -42,12 +43,23 @@ Generate a color scale in the repository with
 ## The reference app
 
 ```bash
+./utensil up        # build the image and run the app in Docker with watch (Ctrl-C stops it)
+./utensil down      # stop and remove the app's container
+./utensil rebuild   # rebuild the image without the layer cache, then run the app again
+# or, on the host
 bun run dev
-# or
-docker compose up utensil-reference
 ```
 
-Both serve at http://localhost:12911 (set `UTENSIL_REFERENCE_PORT` to change the Docker port). In development the
+Both serve at http://localhost:12911 (set `UTENSIL_REFERENCE_PORT` to change the Docker port). Prefer `./utensil up`.
+
+In Docker the app uses the dependencies the image installed. The host's `node_modules` never reaches the container:
+packages with native binaries (esbuild, Rollup) install the build for the host's platform, not the container's Alpine.
+Every `up` builds the image (`pull_policy: build`), so the source and dependencies it starts with are current, and
+`--watch` (compose watch, the `develop` section of `docker-compose.yaml`) syncs source edits into the container and
+rebuilds the image when `bun.lock` or the image's own files change. A plain `docker compose up` runs without watch, so
+edits never reach the app: use `./utensil up`.
+
+In development the
 reference app resolves `@gobistories/utensil-vue/...` and `@gobistories/utensil-css/...` imports to the workspace source
 (`scripts/source-aliases.ts`), so changes to the packages hot-reload. Production builds resolve the packages through
 their `exports` to `dist/`, exactly as consumers do, so the reference app is also a full consumer of the published

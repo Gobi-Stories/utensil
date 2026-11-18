@@ -86,7 +86,7 @@ Run from the repository root:
 
 - `./check` — format, lint, typecheck and test everything
 - `bun run format`, `bun run lint`, `bun run typecheck`, `bun run test`
-- `bun run dev` — reference app at `http://localhost:12911` (or `docker compose up utensil-reference`)
+- `./utensil up` — the recommended way to run the reference app: Docker at `http://localhost:12911`, with source edits synced into the container (compose watch). It runs in the foreground, so start it in the background. `./utensil down` stops it; `./utensil rebuild` rebuilds the image without the layer cache. Never a plain `docker compose up`: without watch, edits never reach the app. `bun run dev` serves the app on the host instead
 - `bun run build` — build both packages
 - `bun run verify:package` — pack both packages, install them into a fresh consumer and check types, build and tree-shaking
 - `bun run release` — see `DEVELOPMENT.md`, or `/release` for the guided walkthrough. Only when explicitly asked: releases are cut on a cadence and may bundle several changes, so never bump versions or release as part of a task.

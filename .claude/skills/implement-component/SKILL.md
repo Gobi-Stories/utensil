@@ -66,7 +66,7 @@ bun run verify:package
 
 Fix any errors found related to your work.
 
-Test in Chrome, unless asked not to. The reference app runs at `http://localhost:12911` (`bun run dev` from the repository root, or `docker compose up utensil-reference`).
+Test in Chrome, unless asked not to. The reference app runs at `http://localhost:12911` (`./utensil up` from the repository root, or `bun run dev`).
 
 Tell a sub-agent to run the /audit-component skill on the component. Don't use --fix. Consider the recommendations returned and update if required.
 

@@ -15,7 +15,7 @@ Produce a single self-contained HTML file that captures the rendered output of e
 **The reference dev server must be running** at `http://localhost:12911/`.
 
 - Do _not_ use a built/static version: Vite's build step inlines/moves stylesheets in ways that break per-section CSS harvest.
-- If the server is unreachable, ask the user to start it (`bun run dev` from the repository root, or `docker compose up utensil-reference`) and abort.
+- If the server is unreachable, ask the user to start it (`./utensil up` from the repository root, or `bun run dev`) and abort.
 
 Use the Chrome DevTools MCP for navigation and evaluation against the live app.
 

@@ -30,11 +30,13 @@ RUN bun install --frozen-lockfile
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
 
 ## DEV: This stage will be skipped unless it is the target
-## Build with --target=dev and mount the repository at /app on run
+## Build with --target=dev; docker compose up --watch syncs source edits into /app on run
 FROM builder AS dev
 
 COPY apps/reference/development.sh /usr/local/bin/development.sh
 RUN chmod +x /usr/local/bin/development.sh
+
+COPY . .
 
 ENTRYPOINT ["/usr/local/bin/development.sh"]
 CMD ["bun", "run", "dev"]

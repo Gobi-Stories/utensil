@@ -12,7 +12,7 @@ Maintainer skills and the repository router are in the root `.claude/` — see `
 
 Run from the repository root:
 
-- `bun run dev` — serve the app at `http://localhost:12911` (or `docker compose up utensil-reference`)
+- `./utensil up` — run the app in Docker at `http://localhost:12911` with watch (recommended; `./utensil down` stops it). `bun run dev` serves it on the host instead
 - `./check` — format, lint, typecheck and test
 - `bun run build:reference` — build the packages, then the app
 
