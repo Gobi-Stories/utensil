@@ -39,7 +39,16 @@
           <td><code>indeterminate</code></td>
           <td><code>boolean</code></td>
           <td><code>false</code></td>
-          <td>Shows a pulsing animation instead of a fixed fill width.</td>
+          <td>Shows a pulsing animation instead of a fixed fill width. Leaving it shows <code>value</code> at once.</td>
+        </tr>
+        <tr>
+          <td><code>indeterminateFill</code></td>
+          <td><code>'full' | 'none'</code></td>
+          <td><code>'full'</code></td>
+          <td>
+            What the indeterminate pulse runs over: the full fill, for a bar finalizing after reaching 100%, or the
+            empty track, for a wait before anything has progressed.
+          </td>
         </tr>
         <tr>
           <td><code>size</code></td>
@@ -76,6 +85,9 @@
 
     <h3>Indeterminate</h3>
     <pre v-pre><code>&lt;UtensilProgressBar indeterminate /&gt;</code></pre>
+
+    <h3>Indeterminate Over the Empty Track</h3>
+    <pre v-pre><code>&lt;UtensilProgressBar indeterminate indeterminateFill="none" /&gt;</code></pre>
 
     <h3>Rounded with Color</h3>
     <pre v-pre><code>&lt;UtensilProgressBar :value="75" rounded color="success" /&gt;</code></pre>

@@ -1,7 +1,7 @@
 <template generic="Theme extends ThemeConfig">
   <div
     class="utensil-progress-bar"
-    :class="[`size-${size}`, ...themeClasses, rounded ? 'rounded' : '']"
+    :class="[`size-${size}`, `indeterminate-fill-${indeterminateFill}`, ...themeClasses, rounded ? 'rounded' : '']"
     :style="themeStyle"
     role="progressbar"
     :aria-valuenow="indeterminate ? undefined : value"
@@ -10,8 +10,12 @@
     :aria-label="ariaLabel"
   >
     <div class="track">
-      <div class="fill" :style="{ width: `${indeterminate ? 100 : value}%` }"></div>
-      <div v-if="indeterminate" class="fill indeterminate"></div>
+      <!-- Separate fills, so leaving the indeterminate state shows the value at once instead of transitioning down to it -->
+      <template v-if="indeterminate">
+        <div v-if="indeterminateFill === 'full'" class="fill full"></div>
+        <div class="fill indeterminate"></div>
+      </template>
+      <div v-else class="fill" :style="{ width: `${value}%` }"></div>
     </div>
   </div>
 </template>
@@ -24,6 +28,8 @@ import { useTheme } from '../../theme/useTheme'
 export interface Props<Theme extends ThemeConfig> {
   value?: number
   indeterminate?: boolean
+  // What the indeterminate pulse runs over: the full fill, or the empty track
+  indeterminateFill?: 'full' | 'none'
   size?: 'small' | 'medium' | 'large'
   ariaLabel?: string
   rounded?: boolean
@@ -32,6 +38,7 @@ export interface Props<Theme extends ThemeConfig> {
 
 const props = withDefaults(defineProps<Props<Theme>>(), {
   value: 0,
+  indeterminateFill: 'full',
   size: 'medium',
   ariaLabel: 'Progress',
   color: 'pen',
@@ -52,7 +59,8 @@ if (props.value < 0 || props.value > 100) {
 <style scoped>
 @layer utensil {
   .utensil-progress-bar {
-    --border-radius: 0 display: block;
+    --border-radius: 0;
+    display: block;
     width: 100%;
 
     &.rounded {
@@ -74,6 +82,14 @@ if (props.value < 0 || props.value > 100) {
     border-radius: var(--border-radius);
     background-color: var(--pen-9);
     transition: width 0.3s ease;
+  }
+
+  .utensil-progress-bar .fill.full {
+    width: 100%;
+  }
+
+  .utensil-progress-bar.indeterminate-fill-none .fill.indeterminate {
+    background-color: var(--pen-9);
   }
 
   .utensil-progress-bar .fill.indeterminate {

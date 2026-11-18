@@ -36,13 +36,39 @@
       <div class="demo-item">
         <div class="demo-content progress-demo">
           <div class="progress-container">
-            <div class="progress-label">Indeterminate</div>
-            <ReferenceProgressBar :indeterminate="true" />
+            <div class="progress-label">Over the full fill</div>
+            <ReferenceProgressBar indeterminate aria-label="Finalizing" />
+          </div>
+          <div class="progress-container">
+            <div class="progress-label">Over the empty track</div>
+            <ReferenceProgressBar indeterminate indeterminate-fill="none" aria-label="Waiting to start" />
           </div>
         </div>
-        <div class="demo-label">Indeterminate Progress</div>
+        <div class="demo-label always-visible">Indeterminate fills</div>
         <div class="demo-code">
-          <code>&lt;UtensilProgressBar :indeterminate="true" /&gt;</code>
+          <code>&lt;UtensilProgressBar indeterminate indeterminateFill="none" /&gt;</code>
+        </div>
+      </div>
+      <div class="demo-item">
+        <div class="demo-content progress-demo">
+          <div class="progress-container">
+            <div class="progress-controls">
+              <ReferenceButton scale="small" @click="toggleWaiting">
+                {{ waiting ? 'Start' : 'Wait again' }}
+              </ReferenceButton>
+            </div>
+            <div class="progress-label">{{ waiting ? 'Waiting' : `${startedProgress}%` }}</div>
+            <ReferenceProgressBar
+              :value="startedProgress"
+              :indeterminate="waiting"
+              indeterminate-fill="none"
+              aria-label="Download"
+            />
+          </div>
+        </div>
+        <div class="demo-label always-visible">Leaving the indeterminate state shows the value at once</div>
+        <div class="demo-code">
+          <code>&lt;UtensilProgressBar :value="20" :indeterminate="waiting" /&gt;</code>
         </div>
       </div>
       <div class="demo-item">
@@ -69,9 +95,9 @@
         <div class="demo-content progress-demo">
           <div class="progress-container">
             <div class="progress-controls">
-              <UtensilButton size="small" @click="startAnimation">
+              <ReferenceButton scale="small" @click="startAnimation">
                 {{ isAnimating ? 'Reset' : 'Animate' }}
-              </UtensilButton>
+              </ReferenceButton>
             </div>
             <div class="progress-label">{{ Math.round(animatedProgress) }}%</div>
             <ReferenceProgressBar :value="animatedProgress" />
@@ -130,7 +156,15 @@ import { ref, onBeforeUnmount } from 'vue'
 import ReferenceComponentDemo from '@/features/components/ReferenceComponentDemo.vue'
 import { ReferenceProgressBar } from '@/theme/components/ReferenceProgressBar'
 import UtensilProgressBarDoc from '@gobistories/utensil-vue/components/progress/UtensilProgressBarDoc.vue'
-import UtensilButton from '@gobistories/utensil-vue/components/button/UtensilButton.vue'
+import { ReferenceButton } from '@/theme/components/ReferenceButton'
+
+const waiting = ref(true)
+const startedProgress = ref(0)
+
+function toggleWaiting() {
+  waiting.value = !waiting.value
+  startedProgress.value = waiting.value ? 0 : 20
+}
 
 const animatedProgress = ref(0)
 const isAnimating = ref(false)
