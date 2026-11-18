@@ -43,7 +43,10 @@ Before auditing, load these files in order:
 Not every checklist item applies to every component. Use these guidelines:
 
 - **Always applies**: Items 1–5, 9, 33–34 (structure, tokens, types, quality)
-- **Interactive components only**: Items 10–14, 25–31 (focus, keyboard, ARIA, disabled)
+- **Interactive components only**: Items 10–14, 25–31, 66–69 (focus, keyboard, ARIA, naming, toggles, disabled states)
+- **Components with a drawn control over a native input**: Item 67
+- **Popups whose focus stays on the trigger** (selects, autocompletes): Item 70
+- **Dialog components**: Item 71
 - **Theme prop components only**: Items 15–20, 50–51 (generics, useTheme, theme selectors)
 - **Components with variations**: Item 21 (UI variations)
 - **Components with borders**: Item 22 (box-shadow borders)

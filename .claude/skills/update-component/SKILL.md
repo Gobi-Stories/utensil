@@ -54,4 +54,4 @@ If implementing or updating a reference demo see @../../../apps/reference/DEVELO
 1. Make the requested changes following the component guide and addendum above.
 2. Update the Reference application if there are new features to demonstrate (or features were removed).
 3. From the repository root, run `./check` (format, lint, typecheck, test) and `bun run verify:package`. Fix any errors related to your work.
-4. Test the change in Chrome in the reference app (`http://localhost:12911`), unless asked not to.
+4. Test the change in Chrome in the reference app (`http://localhost:12911`), unless asked not to, including through the accessibility tree (`docs/DEVELOPMENT-ADDENDUM.md` → Verification).

@@ -138,6 +138,6 @@ For new components in `packages/vue/src/components/`, also run `bun run verify:p
 
 Fix any errors found related to your work.
 
-Test in Chrome, unless asked not to. The showcase is at `http://localhost:12911/showcase` (`./utensil up` from the repository root, or `bun run dev`) — the new demo should appear second in the paginator, after the sign up demo.
+Test in Chrome, unless asked not to, including through the accessibility tree (`docs/DEVELOPMENT-ADDENDUM.md` → Verification). The showcase is at `http://localhost:12911/showcase` (`./utensil up` from the repository root, or `bun run dev`) — the new demo should appear second in the paginator, after the sign up demo.
 
 For components in `packages/vue/src/components/`: tell a sub-agent to run the /audit-component skill on the component. Don't use --fix. Consider the recommendations returned and update if required.

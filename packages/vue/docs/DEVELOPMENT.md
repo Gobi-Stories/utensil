@@ -56,7 +56,12 @@ Add the generic parameter when the component accepts theme-typed props (colors, 
 
 <script setup lang="ts" generic="Theme extends ThemeConfig">
 import { computed } from 'vue'
-import type { ColorProp, ThemeConfig, ScaleProp, UtensilUIVariation } from '@gobistories/utensil-vue/theme/utensil-theme'
+import type {
+  ColorProp,
+  ThemeConfig,
+  ScaleProp,
+  UtensilUIVariation,
+} from '@gobistories/utensil-vue/theme/utensil-theme'
 import { useTheme } from '@gobistories/utensil-vue/theme/useTheme'
 
 export interface Props<Theme extends ThemeConfig> {
@@ -165,7 +170,13 @@ This indicates `useTheme` is unnecessary as no theme changes are being applied.
 Use these types when exposing color, icon, or scale props to allow theme-aware configuration:
 
 ```ts
-import type { ColorProp, IconProp, TextThemeProp, ScaleProp, RadiusScaleProp } from '@gobistories/utensil-vue/theme/utensil-theme'
+import type {
+  ColorProp,
+  IconProp,
+  TextThemeProp,
+  ScaleProp,
+  RadiusScaleProp,
+} from '@gobistories/utensil-vue/theme/utensil-theme'
 
 interface Props {
   color?: ColorProp<Theme> // 'pen' | 'pencil' | variant name
@@ -360,14 +371,14 @@ This gives the element the correct background, color, and border for the chosen 
 
 Combine with modifier classes to adapt behaviour:
 
-| Modifier       | Purpose                                               | Example                                        |
-| -------------- | ----------------------------------------------------- | ---------------------------------------------- |
-| `.interactive` | Adds hover and active states                          | Buttons, cards, menu items                     |
-| `.selected`    | Pressed/checked resting state (one step above active) | Toggle buttons, radio cards                    |
+| Modifier       | Purpose                                               | Example                                          |
+| -------------- | ----------------------------------------------------- | ------------------------------------------------ |
+| `.interactive` | Adds hover and active states                          | Buttons, cards, menu items                       |
+| `.selected`    | Pressed/checked resting state (one step above active) | Toggle buttons, radio cards                      |
 | `.pencil`      | Resting state uses pencil tokens instead of pen       | Buttons and cards that switch to pen when chosen |
-| `.disabled`    | Reduces opacity and disables pointer events           | Any interactive element in a disabled state    |
-| `.wireframe`   | Keeps outline backgrounds transparent                 | Radio cards that shouldn't fill on interaction |
-| `.thick`       | Uses 2px border width for outline                     | Selected outline radio cards                   |
+| `.disabled`    | Reduces opacity and disables pointer events           | Any interactive element in a disabled state      |
+| `.wireframe`   | Keeps outline backgrounds transparent                 | Radio cards that shouldn't fill on interaction   |
+| `.thick`       | Uses 2px border width for outline                     | Selected outline radio cards                     |
 
 ```vue
 <!-- Interactive button with selected state -->
@@ -491,9 +502,104 @@ Non-semantic elements (`<div>`, `<span>`) used as interactive controls must be a
 - `role="button"` exposes the element as a button in the accessibility tree
 - `tabindex="0"` makes it keyboard focusable
 - `aria-pressed` indicates toggle state (for toggle buttons)
-- `aria-disabled` indicates disabled state (prefer over removing from tab order)
+- `aria-disabled` indicates disabled state (see Unavailable States)
 
 When possible, use semantic HTML (`<button>`, `<a>`, `<input>`) instead of ARIA roles.
+
+### Role, Name, Value and State
+
+Every interactive control exposes, in the accessibility tree, what it is (role), what it's called (name), what it's set
+to (value) and its state (pressed, checked, selected, expanded, disabled), and can be pressed where it is drawn. Screen
+readers, voice control ("click Dark mode") and automation tools that drive a page through the accessibility tree all
+depend on it. Design it in from the first pass:
+
+- **Name.** A visible label names its control (`<label for>` on the control's id, or `aria-labelledby` on the label's
+  id). A control that can be used without a visible label takes an `ariaLabel` prop. A placeholder, a tooltip or text
+  beside the control is not a name. When a component's label replaces the control's content as its name, make sure
+  the content wasn't the value (see Popups That Keep Focus on the Trigger).
+- **Decoration is hidden.** Drawn SVGs, icons and chevrons inside a control are `aria-hidden="true"`, so they don't add
+  stray `img` nodes or noise to the name.
+- **State from the first render.** Bind the state attribute so it is right before any interaction, not only after the
+  first toggle.
+
+### Drawn Controls Over Native Inputs
+
+When a control is drawn (an SVG switch, a styled checkbox) over a native input, the input covers the drawing exactly,
+transparent, rather than hiding at zero size. A zero-size input has no box to hit: clicks, voice control and
+automation tools that press the element itself miss it.
+
+```css
+.utensil-switch-control {
+  position: relative;
+}
+
+.utensil-switch-control input {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  opacity: 0;
+  cursor: inherit;
+}
+
+.utensil-switch-control svg {
+  pointer-events: none;
+}
+```
+
+The focus ring still draws on the drawing (`input:focus-visible + svg`). Give a switch `role="switch"` on its native
+checkbox, so it reads on/off. If Enter toggles a checkbox, cancel its default (`@keydown.enter.prevent`) so no browser
+toggles it twice or submits the form.
+
+### Toggles and Choices
+
+- A standalone on/off toggle (Loop, Show details, Bold) is a button with `aria-pressed`. Once a button is a toggle,
+  render `aria-pressed="false"` when it is off, not nothing: a toggle that is off must still read as a toggle. A button
+  that isn't a toggle has no `aria-pressed`.
+- `aria-checked` is only valid with a role that takes it (`radio`, `checkbox`, `switch`, `menuitemradio`,
+  `menuitemcheckbox`). On a plain button, assistive technology ignores it.
+- One choice among several (a view mode, a color, a font, a speed) is a radio group, not a row of pressed buttons: a
+  `role="radiogroup"` with a name, `role="radio"` and `aria-checked` on each option, arrow keys moving between them and
+  a single tab stop. Compose `UtensilRadioButtons`, `UtensilRadioGroup`, `UtensilRadioCards` or `UtensilToggleButton`
+  with `role="radio"` rather than building one from buttons.
+
+### Unavailable States
+
+Three different states, kept apart:
+
+| State                 | Looks       | Focusable | Announced          | Activates                         |
+| --------------------- | ----------- | --------- | ------------------ | --------------------------------- |
+| `disabled`            | Unavailable | No        | Disabled           | No                                |
+| `aria-disabled`       | Unavailable | Yes       | Disabled           | No — by mouse, Enter or Space     |
+| Not ready, says why\* | Unavailable | Yes       | An ordinary button | Yes, to show why; submits no form |
+
+\* `UtensilButton`'s `blocked`. It is described by its reason (`aria-describedby` on the element holding it), and the
+reason fills a `role="alert"` line when pressed early. A control announced disabled never acts when pressed; one that
+acts is never announced disabled. `aria-disabled` keeps a control focusable so it can be found and its tooltip read.
+
+### Popups That Keep Focus on the Trigger
+
+A popup whose keyboard focus stays on its trigger (a select's listbox, an autocomplete) follows the ARIA combobox
+pattern:
+
+- The trigger has `role="combobox"`, `aria-expanded`, `aria-haspopup`, `aria-controls` with the popup's id, and, while
+  open, `aria-activedescendant` with the id of the item the arrow keys are on.
+- It is named by its label (`aria-labelledby`), and its text content is its value, such as the chosen option.
+- Each item has an id and its state (`aria-selected`). A multi-select listbox is `aria-multiselectable`.
+- Each item is focusable with `tabindex="-1"`. Chrome's default accessibility tree leaves out descendants of a control
+  that can't take focus, so without it an open listbox reads as empty and its options can't be pressed through the
+  tree. Cancel the item's `mousedown` default so pressing it leaves focus on the trigger.
+
+A menu whose items take focus themselves (`UtensilMenu`) needs none of this: its items are focusable already. A
+context menu opens from the keyboard through the platform's own `contextmenu` event (Shift+F10, the Menu key) on a
+focused element, so its area must contain one.
+
+### Dialogs
+
+A dialog is named by its heading (`aria-labelledby` on the heading's id), or by `aria-label` when it has none. A
+confirmation that interrupts to ask is `role="alertdialog"`, described by its message (`aria-describedby`), so both are
+read when it opens. A native `<dialog>` opened with `showModal()` is already modal.
 
 ### Focus Ring
 
@@ -801,6 +907,8 @@ Components whose width is intrinsic to their content (badges, pills, icon button
 
 Run the project's format, lint, typecheck and test commands before finishing. Check styling, colors and layout in the running UI, in light and dark mode, with high contrast and reduced motion.
 
+For an interactive component, also check it through the browser's accessibility tree rather than by looking: its role, name, value and states, before and after interaction. Use the default (interesting-only) tree, such as Chrome DevTools' accessibility pane or an automation tool's accessibility snapshot, since a node only in the full tree is one Chrome ignores. Press the controls through the tree as well, by their node rather than a screen position: a press that fails with "did not become interactive" means the element has no box to hit.
+
 Demos and examples never use a browser native `alert` or `confirm`: they block execution and complicate testing.
 
 ## Popover Composition
@@ -850,6 +958,13 @@ Study these Utensil components (their source ships in `@gobistories/utensil-vue`
 - [ ] Disabled state styling
 - [ ] Keyboard accessible (`tabindex="0"` for non-semantic elements)
 - [ ] ARIA attributes (`role`, `aria-pressed`, `aria-disabled`, etc.)
+- [ ] Every control has a name, its role, value and state, from the first render; decoration is `aria-hidden`
+- [ ] A native input behind a drawn control covers it
+- [ ] Toggles render `aria-pressed` true or false; one-of-many choices are a named radio group
+- [ ] `disabled`, `aria-disabled` and "not ready, says why" kept apart
+- [ ] A popup with focus on its trigger follows the combobox pattern; its items are in the default accessibility tree
+- [ ] A dialog is named by its heading; a confirmation is an `alertdialog`
+- [ ] Checked through the accessibility tree, pressing controls by their node
 
 **If needed:**
 

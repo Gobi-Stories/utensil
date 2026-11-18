@@ -76,6 +76,18 @@ both packages, installs them into a fresh consumer app, and checks typechecking,
 A **Chrome DevTools MCP** is available for inspecting the running UI (the reference app) - use it to verify styling,
 colors, and layout. Judge colors there, in its full theme, never under Utensil's gray default (see Theme Colors).
 
+Check an interactive component through the accessibility tree too (the guide's Accessibility and Verification
+sections), with the MCP's `take_snapshot`:
+
+- Use the default snapshot, not `verbose`: it is what automation tools and our consumers' agent-driven acceptance runs
+  see. A node that appears only in the verbose snapshot is one Chrome ignores.
+- Read each control's role, name, value and states (pressed, checked, selected, expanded, disabled) before and after
+  interaction, and open popups to check their items are listed.
+- Press controls by their snapshot uid (`click`), not by screen position: a press that fails with "did not become
+  interactive" is a control with no box to hit.
+- The reference demos name every control they render, as a consumer must, so an unnamed control in a snapshot is a
+  finding.
+
 ## Checklist
 
 On top of the guide's checklist:

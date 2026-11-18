@@ -43,7 +43,7 @@ Apply these principles on the first pass — they are the quality bar, not a pos
 Follow the patterns in the guide. Key areas to get right on the first pass:
 
 - **Design tokens** — use `--pen-*`, `--pencil-*`, `--space-*`, `--radius-*`, etc. for all spacing, sizing, and color. No hardcoded values.
-- **Accessibility** — support `.utensil-high-contrast` and `.utensil-reduced-motion`. Provide `:focus-visible` focus styles for interactive elements. Use semantic HTML where possible; add ARIA attributes for non-semantic interactive elements.
+- **Accessibility** — support `.utensil-high-contrast` and `.utensil-reduced-motion`. Provide `:focus-visible` focus styles for interactive elements. Use semantic HTML where possible; add ARIA attributes for non-semantic interactive elements. Every control exposes its role, name, value and state, and can be pressed where it's drawn: follow the guide's Accessibility section for naming, drawn controls over native inputs, toggles and choices, unavailable states, popups that keep focus on the trigger, and dialogs.
 - **Theme integration** — use `useTheme` only if the component changes pen/pencil/scale via props. Use `ColorProp<Theme>`, `IconProp<Theme>`, `ScaleProp` on theme-typed props with the `Theme extends ThemeConfig` generic.
 - **UI variations** — if the component supports variations, use the `UtensilUIVariation` type and shared `ui-<variation>` classes from the Utensil theme CSS (`@gobistories/utensil-vue/theme/utensil-theme.css`).
 - **Composition** — for composite components, use `provide`/`inject` for built-in children and expose the same API via slot scope for custom children.
@@ -69,6 +69,8 @@ Run the consumer project's verification commands. Check the project's `package.j
 - `test`
 
 Fix any errors related to your work.
+
+If you can drive the running app in a browser, check an interactive component through its accessibility tree (role, name, value, states) and press it by its node, as the guide's Verification section describes.
 
 ## Step 7: Audit
 
