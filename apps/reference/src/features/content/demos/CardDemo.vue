@@ -50,8 +50,8 @@
     <div id="card-media" class="component-demo">
       <h3><a class="demo-anchor" href="#card-media">Media and Actions</a></h3>
       <p>
-        Inset media, or media that bleeds to the card's edges. The second card links as a whole with a stretched link,
-        while its action stays clickable.
+        Inset media, or media that bleeds to the card's edges. The second and third cards link as a whole with a
+        stretched link, while their actions, and a link in the description, stay clickable.
       </p>
       <div class="card-grid">
         <ReferenceCard title="Quarterly report" title-element="h4" description="8 pages">
@@ -76,6 +76,15 @@
           <template #actions>
             <ReferenceButton variation="text" color="pencil" icon="share-alt" icon-only>Share</ReferenceButton>
           </template>
+        </ReferenceCard>
+        <ReferenceCard interactive media-bleed title-element="h4">
+          <template #media>
+            <div class="card-media-art bleed" aria-hidden="true"></div>
+          </template>
+          <template #title>
+            <a class="utensil-card-link" href="#card-media">Product tour</a>
+          </template>
+          <template #description> From the <a href="#card-grid">Spring launch</a> collection </template>
         </ReferenceCard>
       </div>
     </div>

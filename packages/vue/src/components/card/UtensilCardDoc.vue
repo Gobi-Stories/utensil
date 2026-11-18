@@ -129,6 +129,13 @@
           <td>Replaces the title's text inside its element, e.g. with a stretched link.</td>
         </tr>
         <tr>
+          <td><code>description</code></td>
+          <td>—</td>
+          <td>
+            Replaces the description's text, e.g. with a link. Links and controls in it stay above a stretched link.
+          </td>
+        </tr>
+        <tr>
           <td><code>header-end</code></td>
           <td>—</td>
           <td>Content at the end of the header, such as a badge, a picker or a menu.</td>

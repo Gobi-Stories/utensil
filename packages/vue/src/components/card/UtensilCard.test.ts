@@ -107,6 +107,19 @@ describe('UtensilCard', () => {
     expect(wrapper.find('.utensil-card-description').text()).toBe('Description')
   })
 
+  it('renders the description slot in the description, for a link or other markup', () => {
+    const wrapper = mount(UtensilCard, {
+      props: { title: 'Title' },
+      slots: { description: '<a href="https://example.com">example.com</a>' },
+    })
+    expect(wrapper.find('.utensil-card-heading .utensil-card-description a').text()).toBe('example.com')
+  })
+
+  it('renders a header from the description slot alone', () => {
+    const wrapper = mount(UtensilCard, { slots: { description: 'Description' } })
+    expect(wrapper.find('.utensil-card-header .utensil-card-description').text()).toBe('Description')
+  })
+
   it('bleeds media to the edges and divides the footer when asked', () => {
     const plain = mount(UtensilCard, { slots: { media: '<img alt="" />', footer: 'Meta' } })
     expect(plain.classes()).not.toContain('media-bleed')

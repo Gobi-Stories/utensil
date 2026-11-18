@@ -25,11 +25,13 @@
         <UtensilTheme v-if="icon" class="utensil-card-icon" :pen="iconColor">
           <UtensilIcon :icon="icon" />
         </UtensilTheme>
-        <div v-if="title || $slots.title || description" class="utensil-card-heading">
+        <div v-if="title || $slots.title || description || $slots.description" class="utensil-card-heading">
           <component :is="titleElement" v-if="title || $slots.title" class="utensil-card-title">
             <slot name="title">{{ title }}</slot>
           </component>
-          <div v-if="description" class="utensil-card-description">{{ description }}</div>
+          <div v-if="description || $slots.description" class="utensil-card-description">
+            <slot name="description">{{ description }}</slot>
+          </div>
         </div>
       </slot>
       <div v-if="$slots['header-end']" class="utensil-card-header-end">
@@ -122,7 +124,15 @@ const slots = useSlots()
 
 // Called while rendering: slots aren't reactive, so a computed would miss slots added later
 function hasHeader() {
-  return !!(slots.header || slots['header-end'] || slots.title || props.title || props.description || props.icon)
+  return !!(
+    slots.header ||
+    slots['header-end'] ||
+    slots.title ||
+    slots.description ||
+    props.title ||
+    props.description ||
+    props.icon
+  )
 }
 </script>
 
@@ -262,7 +272,9 @@ function hasHeader() {
     position: relative;
   }
 
-  .utensil-card .utensil-card-link {
+  /* Hovered too, out-specifying a text theme's a:hover */
+  .utensil-card .utensil-card-link,
+  .utensil-card .utensil-card-link:hover {
     color: inherit;
     text-decoration: none;
     outline: none;
@@ -290,9 +302,9 @@ function hasHeader() {
     content: none;
   }
 
-  /* Controls in the content and footer stay above the link, positioned after it */
+  /* Controls in the description, content and footer stay above the link, positioned after it */
   .utensil-card:has(.utensil-card-link)
-    :where(.utensil-card-content, .utensil-card-footer-start)
+    :where(.utensil-card-description, .utensil-card-content, .utensil-card-footer-start)
     :where(a, button, input, select, textarea, label, [tabindex]) {
     position: relative;
   }
