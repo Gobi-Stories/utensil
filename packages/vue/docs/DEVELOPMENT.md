@@ -364,7 +364,7 @@ Combine with modifier classes to adapt behaviour:
 | -------------- | ----------------------------------------------------- | ---------------------------------------------- |
 | `.interactive` | Adds hover and active states                          | Buttons, cards, menu items                     |
 | `.selected`    | Pressed/checked resting state (one step above active) | Toggle buttons, radio cards                    |
-| `.pencil`      | Resting state uses pencil tokens instead of pen       | Cards that switch to pen when highlighted      |
+| `.pencil`      | Resting state uses pencil tokens instead of pen       | Buttons and cards that switch to pen when chosen |
 | `.disabled`    | Reduces opacity and disables pointer events           | Any interactive element in a disabled state    |
 | `.wireframe`   | Keeps outline backgrounds transparent                 | Radio cards that shouldn't fill on interaction |
 | `.thick`       | Uses 2px border width for outline                     | Selected outline radio cards                   |
@@ -377,7 +377,7 @@ Combine with modifier classes to adapt behaviour:
 <div :class="[`ui-${variation}`, { pencil: !highlighted, interactive }]"></div>
 ```
 
-The modifiers compose naturally — `.selected.interactive` provides hover states that step down toward deselection, and `.pencil` resting states switch to pen on hover/active.
+The modifiers compose naturally — `.selected.interactive` provides hover states that step down toward deselection, and `.pencil` resting states switch to pen on hover/active. `.pencil` adds no specificity and steps aside on a `.selected` element, so a pencil button that is pressed draws as a selected pen button in every variation: keep `.pencil` on and toggle `.selected`, rather than swapping the color by state.
 
 Components may still need scoped CSS for component-specific overrides (focus ring offsets, transforms, sub-element styling, alternative disabled treatments).
 

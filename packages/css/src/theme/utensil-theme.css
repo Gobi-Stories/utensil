@@ -626,47 +626,47 @@
       background-color: var(--pen-a5);
     }
 
-    /* Pencil modifier — resting state uses pencil tokens */
-    .pencil.ui-solid:not(.interactive:active):not(.interactive:hover) {
+    /* Pencil modifier — the resting state draws in pencil tokens. It adds no specificity and steps aside once the
+       element is selected, so a selected pencil element draws as a selected pen one in every variation. */
+    .ui-solid:where(.pencil:not(.selected, .interactive:active, .interactive:hover)) {
       background-color: var(--pencil-9);
       color: var(--pencil-contrast);
     }
 
-    .pencil.ui-soft {
+    .ui-soft:where(.pencil:not(.selected)) {
       background-color: var(--pencil-a3);
       color: var(--pencil-a11);
     }
 
-    .pencil.ui-outline:not(.interactive:active):not(.interactive:hover) {
+    .ui-outline:where(.pencil:not(.selected, .interactive:active, .interactive:hover)) {
       color: var(--pencil-a11);
       box-shadow: inset 0 0 0 1px var(--pencil-a8);
     }
 
-    .pencil.ui-surface:not(.interactive:active):not(.interactive:hover) {
+    .ui-surface:where(.pencil:not(.selected, .interactive:active, .interactive:hover)) {
       background-color: var(--pencil-surface);
       color: var(--pencil-a11);
       box-shadow: inset 0 0 0 1px var(--pencil-a6);
     }
 
-    .pencil.ui-text {
+    .ui-text:where(.pencil:not(.selected)) {
       color: var(--pencil-11);
     }
 
-    /* Disabled modifier — every variation keeps its shape, drawn in muted
-       pencil. The :not() qualifiers only outweigh the pencil rules above. */
-    .disabled.ui-solid:not(.interactive:active):not(.interactive:hover),
+    /* Disabled modifier — every variation keeps its shape, drawn in muted pencil */
+    .disabled.ui-solid,
     .disabled.ui-soft {
       background-color: var(--pencil-a3);
       color: var(--pencil-a8);
     }
 
-    .disabled.ui-outline:not(.interactive:active):not(.interactive:hover) {
+    .disabled.ui-outline {
       background-color: transparent;
       color: var(--pencil-a8);
       box-shadow: inset 0 0 0 var(--interactive-border-width) var(--pencil-a6);
     }
 
-    .disabled.ui-surface:not(.interactive:active):not(.interactive:hover) {
+    .disabled.ui-surface {
       background-color: transparent;
       color: var(--pencil-a8);
       box-shadow: inset 0 0 0 1px var(--pencil-a6);
