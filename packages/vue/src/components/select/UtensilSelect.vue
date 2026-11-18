@@ -11,6 +11,7 @@
       :multiple="multiple"
       :aria-label="label ? undefined : ariaLabel"
       :aria-labelledby="label ? labelId : undefined"
+      :full="full"
       @change="handleChange"
     >
       <!-- A select-only combobox: named by the label, with the chosen option's text as its value -->
@@ -41,7 +42,18 @@
           <UtensilIcon v-if="selectedOption?.icon" :icon="selectedOption.icon" class="select-icon" />
           <!-- Custom trigger value content; without it the trigger renders the label text -->
           <span class="select-value">
-            <slot name="value" :option="selectedOption" :display="displayValue">{{ displayValue }}</slot>
+            <span class="select-display">
+              <slot name="value" :option="selectedOption" :display="displayValue">{{ displayValue }}</slot>
+            </span>
+            <!-- Every label, stacked unseen under the value, widens the trigger to the widest. Drawn as generated
+                 content, so the trigger's text stays its value -->
+            <span
+              v-for="option in options"
+              :key="option.value"
+              class="select-sizer"
+              :data-label="option.label"
+              aria-hidden="true"
+            />
           </span>
           <UtensilIcon icon="chevron-down" class="select-chevron" />
         </button>
@@ -118,6 +130,8 @@ export interface Props<Theme extends ThemeConfig> {
   ariaLabel?: string
   /** Icon to display when an option is selected (overrides option icon) */
   icon?: IconProp<Theme>
+  /** Shows every option, however many, rather than scrolling past the list's maximum height */
+  full?: boolean
 }
 
 const props = withDefaults(defineProps<Props<Theme>>(), {
@@ -126,6 +140,7 @@ const props = withDefaults(defineProps<Props<Theme>>(), {
   disabled: false,
   multiple: false,
   reserveDescription: false,
+  full: false,
 })
 
 const emit = defineEmits<{
@@ -294,11 +309,29 @@ defineExpose({
     color: var(--pencil-11);
   }
 
+  /* The value and the unseen labels share one cell, so the widest sizes the trigger */
   .select-value {
+    display: grid;
     flex: 1;
+    overflow: hidden;
+  }
+
+  .select-display,
+  .select-sizer {
+    grid-area: 1 / 1;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+  }
+
+  .select-sizer::before {
+    content: attr(data-label);
+  }
+
+  .select-sizer {
+    visibility: hidden;
+    /* The list is inset from the trigger's edges by the popover's inset on each side */
+    padding-inline-end: calc(var(--utensil-popover-inset, 1px) * 2);
   }
 
   .utensil-select-description {

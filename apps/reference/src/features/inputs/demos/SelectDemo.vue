@@ -47,6 +47,17 @@
       </div>
       <div class="demo-item">
         <div class="demo-content input-demo">
+          <div class="flex">
+            <UtensilSelect v-model="periodSelect" :options="periodOptions" aria-label="Period" full />
+          </div>
+        </div>
+        <div class="demo-label always-visible">Every option shown, as wide as the widest</div>
+        <div class="demo-code">
+          <code>&lt;UtensilSelect :options="periods" full /&gt;</code>
+        </div>
+      </div>
+      <div class="demo-item">
+        <div class="demo-content input-demo">
           <UtensilSelect
             v-model:selection="multipleSelection"
             :options="fruitOptions"
@@ -186,6 +197,16 @@ import type { ReferenceThemeConfig } from '@/theme/reference-theme'
 const basicSelect = ref<string | null>(null)
 const labelledSelect = ref<string | null>('banana')
 const describedSelect = ref<string | null>(null)
+const periodSelect = ref<string | null>('week')
+const periodOptions: SelectOption<ReferenceThemeConfig>[] = [
+  { value: 'today', label: 'Today' },
+  { value: 'week', label: 'Last 7 days' },
+  { value: 'month', label: 'Last 30 days' },
+  { value: 'quarter', label: 'Last 90 days' },
+  { value: 'year', label: 'Last 12 months' },
+  { value: 'all', label: 'All time' },
+  { value: 'custom', label: 'Custom range…' },
+]
 const multipleSelection = ref<string[]>(['apple', 'cherry'])
 const softSelect = ref<string | null>(null)
 const iconSelect = ref<string | null>(null)

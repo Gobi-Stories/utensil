@@ -30,6 +30,7 @@
         :aria-label="ariaLabel"
         :aria-labelledby="ariaLabelledby"
         :multiselectable="multiple"
+        :full="full"
         @update:focused-value="setFocusedValue"
       >
         <template #default="{ focusedValue: listboxFocused, setFocusedValue: setListboxFocused }">
@@ -66,6 +67,8 @@ export interface Props {
   ariaLabel?: string
   /** Id of the element that names the listbox, such as the field's visible label */
   ariaLabelledby?: string
+  /** Shows every option, however many, rather than scrolling past the list's maximum height */
+  full?: boolean
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -73,6 +76,7 @@ const props = withDefaults(defineProps<Props>(), {
   variation: 'surface',
   disabled: false,
   multiple: false,
+  full: false,
 })
 
 const emit = defineEmits<{

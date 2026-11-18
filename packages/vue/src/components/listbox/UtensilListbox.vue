@@ -2,6 +2,7 @@
   <div
     ref="listboxRef"
     class="utensil-listbox"
+    :class="{ full }"
     role="listbox"
     :aria-label="ariaLabelledby ? undefined : ariaLabel"
     :aria-labelledby="ariaLabelledby"
@@ -26,12 +27,15 @@ interface Props {
   ariaLabelledby?: string
   /** Whether more than one option can be selected */
   multiselectable?: boolean
+  /** Shows every option, however many, rather than scrolling past the maximum height */
+  full?: boolean
 }
 
 const props = withDefaults(defineProps<Props>(), {
   values: () => [],
   focusedValue: null,
   multiselectable: false,
+  full: false,
 })
 
 const emit = defineEmits<{
@@ -147,8 +151,12 @@ defineExpose({
   .utensil-listbox {
     display: flex;
     flex-direction: column;
-    max-height: 240px;
+    max-height: var(--utensil-listbox-max-height, 240px);
     overflow-y: auto;
+  }
+
+  .utensil-listbox.full {
+    max-height: none;
   }
 }
 </style>

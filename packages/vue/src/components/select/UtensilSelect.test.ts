@@ -133,4 +133,26 @@ describe('UtensilSelect', () => {
     expect(reserved.find('.utensil-select-description').text()).toBe('')
     expect(trigger(reserved).attributes('aria-describedby')).toBeUndefined()
   })
+
+  it('lets its list scroll past the maximum height by default', () => {
+    const wrapper = mount(UtensilSelect, { props: { options } })
+
+    expect(wrapper.find('.utensil-listbox').classes()).not.toContain('full')
+  })
+
+  it('shows every option when full', () => {
+    const wrapper = mount(UtensilSelect, { props: { options, full: true } })
+
+    expect(wrapper.find('.utensil-listbox').classes()).toContain('full')
+  })
+
+  it('sizes its trigger with every option label, hidden from assistive technology', () => {
+    const wrapper = mount(UtensilSelect, { props: { options, modelValue: 'apple' } })
+
+    const sizers = wrapper.findAll('.select-sizer')
+    expect(sizers.map((sizer) => sizer.attributes('data-label'))).toEqual(['Apple', 'Banana', 'Cherry'])
+    expect(wrapper.find('.utensil-select-trigger').text()).toBe('Apple')
+    expect(sizers.every((sizer) => sizer.attributes('aria-hidden') === 'true')).toBe(true)
+    expect(wrapper.find('.select-display').text()).toBe('Apple')
+  })
 })

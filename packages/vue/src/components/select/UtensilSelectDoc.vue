@@ -119,6 +119,15 @@
           <td>—</td>
           <td>Icon to display when an option is selected (overrides option icon).</td>
         </tr>
+        <tr>
+          <td><code>full</code></td>
+          <td><code>boolean</code></td>
+          <td><code>false</code></td>
+          <td>
+            Shows every option, however many, rather than scrolling past the list's maximum height. For a short, fixed
+            list whose last options shouldn't hide behind a scroll.
+          </td>
+        </tr>
       </tbody>
     </table>
 
@@ -184,6 +193,33 @@
     </table>
 
     <!-- Variations -->
+    <h2>CSS Custom Properties</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Property</th>
+          <th>Default</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>--utensil-listbox-max-height</code></td>
+          <td><code>240px</code></td>
+          <td>
+            The height the open list scrolls past. Set it on the select or an ancestor; <code>full</code> overrides it.
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>Sizing</h2>
+    <p>
+      The trigger is as wide as its widest option, as a native <code>&lt;select&gt;</code> is, so the list, which
+      matches the trigger's width, shows every label in full and the trigger keeps its width as the selection changes. A
+      trigger given a narrower width truncates its value.
+    </p>
+
     <h2>Variations</h2>
     <div class="text-ui ui-variations-reference">
       <UtensilBadge variation="surface" scale="giant">Surface</UtensilBadge>
