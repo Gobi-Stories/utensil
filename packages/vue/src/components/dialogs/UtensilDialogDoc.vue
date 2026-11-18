@@ -16,6 +16,10 @@
       body area, and a footer with configurable OK/Cancel buttons. Supports async loading states and custom footer
       content.
     </p>
+    <p>
+      It's announced as a modal <code>dialog</code> named by its <code>title</code>. Without a title, name it with
+      <code>aria-label</code> or <code>aria-labelledby</code>.
+    </p>
 
     <h2>Props</h2>
     <table>

@@ -17,4 +17,19 @@ describe('UtensilDialog', () => {
 
     expect(wrapper.find('.footer-message').exists()).toBe(false)
   })
+
+  it('is named by its title', () => {
+    const wrapper = mount(UtensilDialog, { props: { title: 'Rename story' } })
+
+    const title = wrapper.find('.dialog-title')
+    expect(wrapper.find('dialog').attributes('aria-labelledby')).toBe(title.attributes('id'))
+    expect(title.text()).toBe('Rename story')
+  })
+
+  it('leaves its name to the consumer without a title', () => {
+    const wrapper = mount(UtensilDialog, { attrs: { 'aria-label': 'Settings' } })
+
+    expect(wrapper.find('dialog').attributes('aria-labelledby')).toBeUndefined()
+    expect(wrapper.find('dialog').attributes('aria-label')).toBe('Settings')
+  })
 })

@@ -16,6 +16,10 @@
       slot and receives a <code>confirm</code> callback that opens the dialog. Supports an
       <code>adoptChildButton</code> mode that moves the trigger into the dialog footer as the OK button.
     </p>
+    <p>
+      It's announced as a modal <code>alertdialog</code>, named by its <code>title</code> and described by its message,
+      so a screen reader reads both when it opens.
+    </p>
 
     <h2>Props</h2>
     <table>

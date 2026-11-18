@@ -2,6 +2,7 @@
   <UtensilModal
     ref="modal"
     class="utensil-dialog"
+    :aria-labelledby="title ? titleId : undefined"
     :model-value="modelValue"
     @update:model-value="emit('update:modelValue', $event)"
     :closeOnBackdrop="closeOnBackdrop"
@@ -22,7 +23,7 @@
       <!-- Header -->
       <div v-if="title || showCloseButton || $slots.actions" class="dialog-header">
         <div class="header-content">
-          <h2 v-if="title" class="dialog-title">{{ title }}</h2>
+          <h2 v-if="title" :id="titleId" class="dialog-title">{{ title }}</h2>
           <div v-if="$slots.actions || showCloseButton" class="header-actions">
             <div class="header-actions-desktop">
               <slot name="actions" :ok="ok" :cancel="cancel" :close="() => close()" :isOpen="isOpen" />
@@ -72,7 +73,7 @@
 </template>
 
 <script setup lang="ts" generic="Theme extends ThemeConfig">
-import { ref } from 'vue'
+import { ref, useId } from 'vue'
 import UtensilModal from './UtensilModal.vue'
 import UtensilCloseButton from '../circle-button/UtensilCloseButton.vue'
 import UtensilButton from '../button/UtensilButton.vue'
@@ -136,6 +137,9 @@ const {
   blur = true,
   noShade = false,
 } = defineProps<Props<Theme>>()
+
+// The dialog is named by its title
+const titleId = `utensil-dialog-title-${useId()}`
 
 const emit = defineEmits<{
   'update:modelValue': [value: boolean]

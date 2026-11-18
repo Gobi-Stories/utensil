@@ -8,6 +8,11 @@
       and positioning. Use directly for fully custom modal layouts, or use UtensilDialog for a structured dialog with
       header, body, and footer.
     </p>
+    <p>
+      The native dialog is announced as a modal <code>dialog</code>. It has no title of its own, so name it: pass
+      <code>aria-labelledby</code> with the id of your heading (or <code>aria-label</code>), which lands on the
+      <code>&lt;dialog&gt;</code>.
+    </p>
 
     <h2>Props</h2>
     <table>

@@ -6,6 +6,8 @@
     <!-- Confirmation dialog -->
     <UtensilDialog
       ref="dialog"
+      role="alertdialog"
+      :aria-describedby="messageId"
       :model-value="isOpen"
       @update:model-value="isOpen = $event"
       :title="title"
@@ -33,9 +35,11 @@
     >
       <!-- Message content -->
       <template #default="{ ok, cancel }">
-        <slot name="message" :ok="ok" :cancel="cancel" :close="() => close()">
-          {{ message }}
-        </slot>
+        <div :id="messageId">
+          <slot name="message" :ok="ok" :cancel="cancel" :close="() => close()">
+            {{ message }}
+          </slot>
+        </div>
       </template>
 
       <!-- Custom footer for adoptChildButton mode -->
@@ -58,7 +62,7 @@
 </template>
 
 <script setup lang="ts" generic="Theme extends ThemeConfig">
-import { computed, ref } from 'vue'
+import { computed, ref, useId } from 'vue'
 import UtensilDialog from './UtensilDialog.vue'
 import UtensilButton from '../button/UtensilButton.vue'
 import type { UtensilDialogComponent } from './dialogs'
@@ -96,6 +100,9 @@ const props = withDefaults(defineProps<Props<Theme>>(), {
   size: 'medium',
   blur: true,
 })
+
+// The confirmation is described by its message, read out when it opens
+const messageId = `utensil-confirm-message-${useId()}`
 
 const cancelVariationProp = computed<UtensilUIVariation>(() => props.cancelVariation || 'soft')
 const cancelColorProp = computed<ColorProp<Theme>>(() => props.cancelColor || 'pencil')
