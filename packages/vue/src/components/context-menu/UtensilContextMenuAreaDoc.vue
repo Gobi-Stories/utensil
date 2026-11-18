@@ -8,6 +8,12 @@
       <code>UtensilContextMenu</code> which positions a <code>UtensilMenu</code> at the cursor location with
       light-dismiss behavior.
     </p>
+    <p>
+      The keyboard route is the platform's own: Shift+F10 or the Menu key on a focused element inside the area fires the
+      same <code>contextmenu</code> event, opening the menu at that element, and focus returns to it when the menu
+      closes. So the region, or something in it, must be focusable: put the area around a focusable element, or give the
+      content <code>tabindex="0"</code> and a name.
+    </p>
 
     <!-- Props -->
     <h2>Props</h2>
