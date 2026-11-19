@@ -53,6 +53,16 @@
             width via a <code>ResizeObserver</code>.
           </td>
         </tr>
+        <tr>
+          <td><code>mode</code></td>
+          <td><code>'auto' | 'manual'</code></td>
+          <td><code>'auto'</code></td>
+          <td>
+            The native popover type. <code>auto</code> closes other open auto popovers when it opens and closes on a
+            press outside or Escape. <code>manual</code> does neither and leaves closing to its host, for a popover that
+            shows beside others, such as a tooltip.
+          </td>
+        </tr>
       </tbody>
     </table>
 

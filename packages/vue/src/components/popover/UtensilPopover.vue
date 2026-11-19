@@ -11,7 +11,7 @@
     />
     <div
       ref="popoverRef"
-      popover="auto"
+      :popover="mode"
       class="utensil-popover-content"
       :class="themeClasses"
       :style="[themeStyle, popoverStyle]"
@@ -32,6 +32,8 @@ interface Props {
   placement?: PopoverPlacement
   offset?: number
   width?: 'auto' | 'anchor'
+  /** `auto` closes other auto popovers and light-dismisses; `manual` leaves both to its host, as a tooltip does */
+  mode?: 'auto' | 'manual'
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -39,6 +41,7 @@ const props = withDefaults(defineProps<Props>(), {
   placement: 'bottom-start',
   offset: 8,
   width: 'auto',
+  mode: 'auto',
 })
 
 const emit = defineEmits<{

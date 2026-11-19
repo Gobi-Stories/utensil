@@ -33,7 +33,7 @@
         <div class="demo-content">
           <UtensilTooltip text="Of everyone who visited the page, the share who signed up." placement="top" multiline>
             <template #default="{ tooltipId }">
-              <span class="tooltip-term" tabindex="0" :aria-describedby="tooltipId">Conversion rate</span>
+              <button type="button" class="tooltip-term" :aria-describedby="tooltipId">Conversion rate</button>
             </template>
           </UtensilTooltip>
         </div>
@@ -47,7 +47,9 @@
           <div class="tooltip-media">
             <UtensilTooltip :text="mediaTitle" placement="top" variation="overlay">
               <template #default="{ tooltipId }">
-                <span class="tooltip-media-label" tabindex="0" :aria-describedby="tooltipId">{{ mediaTitle }}</span>
+                <button type="button" class="tooltip-media-label" :aria-describedby="tooltipId">
+                  {{ mediaTitle }}
+                </button>
               </template>
             </UtensilTooltip>
           </div>
@@ -76,7 +78,20 @@ const mediaTitle = 'Behind the scenes of the spring launch shoot'
 </script>
 
 <style scoped>
+/* Buttons drawn as text, so the explained term and the clipped title can take focus */
+.tooltip-term,
+.tooltip-media-label {
+  border: none;
+  font: inherit;
+  text-transform: inherit;
+  letter-spacing: inherit;
+  text-align: start;
+}
+
 .tooltip-term {
+  padding: 0;
+  background: none;
+  color: inherit;
   text-decoration: underline dotted var(--pencil-a8);
   text-underline-offset: 3px;
   cursor: help;

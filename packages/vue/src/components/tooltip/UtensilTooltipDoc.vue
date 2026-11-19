@@ -15,6 +15,12 @@
       trigger; it never names it. A trigger that has a name of its own (an icon button's description, a label's text)
       takes the tooltip as its description through <code>aria-describedby</code> and the slot's <code>tooltipId</code>.
     </p>
+    <p>
+      Hover and keyboard focus each hold it open, so it stays while either does. The pointer can move onto the tooltip
+      without it hiding, and Escape hides it without moving the pointer or focus, going no further, so a dialog behind
+      it stays open. It is a <code>manual</code> popover: opening it leaves other open popovers, such as a select's
+      list, as they are.
+    </p>
 
     <h2>Props</h2>
     <table>
@@ -43,7 +49,7 @@
           <td><code>delay</code></td>
           <td><code>number</code></td>
           <td><code>200</code></td>
-          <td>Delay in milliseconds before showing on hover or focus.</td>
+          <td>Delay in milliseconds before showing on hover or focus. It hides 100ms after both have left.</td>
         </tr>
         <tr>
           <td><code>offset</code></td>
@@ -55,7 +61,7 @@
           <td><code>disabled</code></td>
           <td><code>boolean</code></td>
           <td><code>false</code></td>
-          <td>Prevents the tooltip from showing.</td>
+          <td>Prevents the tooltip from showing, and hides it if it is showing.</td>
         </tr>
         <tr>
           <td><code>variation</code></td>
@@ -107,7 +113,7 @@
       <tbody>
         <tr>
           <td><code>show()</code></td>
-          <td>Opens the tooltip programmatically.</td>
+          <td>Opens the tooltip at once, until a press elsewhere, Escape, or focus leaving.</td>
         </tr>
         <tr>
           <td><code>hide()</code></td>
@@ -155,7 +161,7 @@
   multiline
 &gt;
   &lt;template #default="{ tooltipId }"&gt;
-    &lt;span tabindex="0" :aria-describedby="tooltipId"&gt;Conversion rate&lt;/span&gt;
+    &lt;button type="button" class="term" :aria-describedby="tooltipId"&gt;Conversion rate&lt;/button&gt;
   &lt;/template&gt;
 &lt;/UtensilTooltip&gt;</code></pre>
     <p>For a term explained this way, <code>UtensilHintLabel</code> does all of it.</p>
@@ -163,7 +169,7 @@
     <h3>Over Media</h3>
     <pre v-pre><code>&lt;UtensilTooltip :text="title" :disabled="!truncated" placement="top" variation="overlay"&gt;
   &lt;template #default="{ tooltipId }"&gt;
-    &lt;span class="media-label" tabindex="0" :aria-describedby="tooltipId"&gt;{{ title }}&lt;/span&gt;
+    &lt;button type="button" class="media-label" :aria-describedby="tooltipId"&gt;{{ title }}&lt;/button&gt;
   &lt;/template&gt;
 &lt;/UtensilTooltip&gt;</code></pre>
   </article>
