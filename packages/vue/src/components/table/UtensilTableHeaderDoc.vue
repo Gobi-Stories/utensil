@@ -47,6 +47,11 @@
       </thead>
       <tbody>
         <tr>
+          <td><code>--utensil-table-columns</code>, <code>--utensil-table-gap</code></td>
+          <td><code>1fr</code>, <code>--space-4</code></td>
+          <td>The column template and gap, set by the table, so the header lines up with its rows.</td>
+        </tr>
+        <tr>
           <td><code>--utensil-table-padding-block</code>, <code>--utensil-table-padding-inline</code></td>
           <td><code>--space-3</code>, <code>--space-4</code></td>
           <td>Padding of the row, shared with the table's rows.</td>
