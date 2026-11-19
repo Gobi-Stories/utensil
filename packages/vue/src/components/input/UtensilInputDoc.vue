@@ -65,8 +65,8 @@
           <td>—</td>
           <td>
             Helper text shown below the input. Overridden by the <code>description</code> slot. When present (as prop or
-            slot) and <code>ariaDescribedBy</code> is not set, the input's <code>aria-describedby</code> is
-            automatically wired to it.
+            slot), it describes the input through <code>aria-describedby</code>, read after any elements
+            <code>ariaDescribedBy</code> names.
           </td>
         </tr>
         <tr>

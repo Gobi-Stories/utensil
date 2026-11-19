@@ -28,7 +28,7 @@ import UtensilInput from './UtensilInput.vue'
 import type { Debouncer } from '../../lib/debouncer/debouncer'
 import { DebouncerEnd } from '../../lib/debouncer/debouncer-end'
 
-interface Props {
+export interface Props {
   modelValue?: string
   label?: string
   labelPlacement?: 'block' | 'inline'

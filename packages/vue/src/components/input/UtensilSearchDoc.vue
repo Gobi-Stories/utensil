@@ -66,7 +66,7 @@
           <td><code>disabled</code></td>
           <td><code>boolean</code></td>
           <td><code>false</code></td>
-          <td>Disables the search input. Drawn muted, with its label, icon and description.</td>
+          <td>Disables the search input. Drawn muted, with its label and icon.</td>
         </tr>
         <tr>
           <td><code>autofocus</code></td>

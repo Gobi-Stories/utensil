@@ -287,6 +287,10 @@ defineExpose({
     cursor: default;
   }
 
+  .utensil-input-control input:disabled::placeholder {
+    color: var(--pencil-a8);
+  }
+
   .utensil-input.disabled .utensil-input-label,
   .utensil-input.disabled .utensil-input-control .utensil-icon,
   .utensil-input.disabled p.description {
@@ -295,20 +299,23 @@ defineExpose({
 
   /* High contrast: the edges, placeholder and resting icon are drawn strong enough to find the field by. The
      soft variation gains an edge. Focus, invalid and disabled keep their own. */
-  .utensil-high-contrast .utensil-input-control.outline input:not(:focus, :disabled),
-  .utensil-high-contrast .utensil-input-control.surface input:not(:focus, :disabled) {
+  .utensil-high-contrast .utensil-input-control.outline:not(.invalid) input:not(:focus, :disabled),
+  .utensil-high-contrast .utensil-input-control.surface:not(.invalid) input:not(:focus, :disabled) {
     box-shadow: inset 0 0 0 1px var(--pencil-a9);
   }
 
-  .utensil-high-contrast .utensil-input-control.soft input:not(:focus, :disabled) {
+  .utensil-high-contrast .utensil-input-control.soft:not(.invalid) input:not(:focus, :disabled) {
     box-shadow: inset 0 0 0 1px var(--pen-a9);
   }
 
-  .utensil-high-contrast .utensil-input-control input::placeholder {
+  .utensil-high-contrast .utensil-input-control input:not(:disabled)::placeholder {
     color: var(--pencil-a11);
   }
 
-  .utensil-high-contrast .utensil-input-control:not(:focus-within, .has-value, .invalid) .utensil-icon {
+  .utensil-high-contrast
+    .utensil-input:not(.disabled)
+    .utensil-input-control:not(:focus-within, .has-value, .invalid)
+    .utensil-icon {
     color: var(--pencil-a11);
   }
 
@@ -366,8 +373,8 @@ defineExpose({
     outline-color: var(--pen-8);
   }
 
+  /* Its icon is muted with the field's */
   .utensil-input-icon-button:disabled {
-    opacity: 0.5;
     cursor: default;
   }
 

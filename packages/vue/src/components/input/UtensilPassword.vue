@@ -35,7 +35,7 @@ import UtensilInput from './UtensilInput.vue'
 
 const model = defineModel<string>()
 
-interface Props {
+export interface Props {
   id?: string
   name?: string
   label?: string

@@ -267,6 +267,10 @@ defineExpose({
     cursor: default;
   }
 
+  .utensil-text-area-control textarea:disabled::placeholder {
+    color: var(--pencil-a8);
+  }
+
   .utensil-text-area.disabled .utensil-text-area-label,
   .utensil-text-area.disabled p.description {
     color: var(--pencil-a8);
@@ -274,16 +278,16 @@ defineExpose({
 
   /* High contrast: the edges and placeholder are drawn strong enough to find the field by. The soft variation
      gains an edge. Focus and invalid keep their own. */
-  .utensil-high-contrast .utensil-text-area-control.outline textarea:not(:focus, :disabled),
-  .utensil-high-contrast .utensil-text-area-control.surface textarea:not(:focus, :disabled) {
+  .utensil-high-contrast .utensil-text-area-control.outline:not(.invalid) textarea:not(:focus, :disabled),
+  .utensil-high-contrast .utensil-text-area-control.surface:not(.invalid) textarea:not(:focus, :disabled) {
     box-shadow: inset 0 0 0 1px var(--pencil-a9);
   }
 
-  .utensil-high-contrast .utensil-text-area-control.soft textarea:not(:focus, :disabled) {
+  .utensil-high-contrast .utensil-text-area-control.soft:not(.invalid) textarea:not(:focus, :disabled) {
     box-shadow: inset 0 0 0 1px var(--pen-a9);
   }
 
-  .utensil-high-contrast .utensil-text-area-control textarea::placeholder {
+  .utensil-high-contrast .utensil-text-area-control textarea:not(:disabled)::placeholder {
     color: var(--pencil-a11);
   }
 

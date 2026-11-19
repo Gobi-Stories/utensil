@@ -304,7 +304,7 @@ defineExpose({
     box-shadow: inset 0 0 0 1px var(--pen-a9);
   }
 
-  .utensil-high-contrast .utensil-select-trigger:not(.has-value) .select-value {
+  .utensil-high-contrast .utensil-select-trigger:not(.has-value, .disabled) .select-value {
     color: var(--pencil-a11);
   }
 
@@ -327,7 +327,7 @@ defineExpose({
   }
 
   /* Placeholder styling */
-  .utensil-select-trigger:not(.has-value) .select-value {
+  .utensil-select-trigger:not(.has-value, .disabled) .select-value {
     color: var(--pencil-a9);
   }
 
