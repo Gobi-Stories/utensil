@@ -34,7 +34,8 @@
     >
       <slot>{{ label || 'Toggle' }}</slot>
     </UtensilButton>
-    <span v-if="label" class="utensil-toggle-button-label" @click="clickButton">{{ label }}</span>
+    <!-- The button is already named by the label; this visible copy routes its clicks to the button, unread -->
+    <span v-if="label" class="utensil-toggle-button-label" aria-hidden="true" @click="clickButton">{{ label }}</span>
   </div>
 </template>
 

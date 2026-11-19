@@ -72,6 +72,13 @@ describe('UtensilToggleButton', () => {
     expect(wrapper.find('.utensil-toggle-button-label').text()).toBe('Star')
   })
 
+  it('names the button by its label, and hides the visible copy so it is read once', () => {
+    const wrapper = mount(UtensilToggleButton, { props: { icon: 'star', label: 'Star' } })
+
+    expect(wrapper.find('button').text()).toBe('Star')
+    expect(wrapper.find('.utensil-toggle-button-label').attributes('aria-hidden')).toBe('true')
+  })
+
   it('does not render label when not provided', () => {
     const wrapper = mount(UtensilToggleButton, {
       props: { icon: 'star' },

@@ -44,7 +44,10 @@
           <td><code>label</code></td>
           <td><code>string</code></td>
           <td>—</td>
-          <td>Optional text label displayed next to the button.</td>
+          <td>
+            Optional text label displayed next to the button. It names the button, so the visible copy is hidden from
+            assistive technology and read once.
+          </td>
         </tr>
         <tr>
           <td><code>labelPosition</code></td>
