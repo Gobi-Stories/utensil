@@ -11,8 +11,9 @@
 
     <h2>Accessibility</h2>
     <p>
-      The label is focusable, so its hint shows from the keyboard, and described by the hint
-      (<code>aria-describedby</code>), so a screen reader reads the explanation with it.
+      The label is a button drawn as text, so its hint shows from the keyboard and on a press, where a touch screen has
+      no hover. It is described by the hint (<code>aria-describedby</code>), so a screen reader reads the explanation
+      with it. Without a <code>hint</code> it is only the label, with no tab stop.
     </p>
 
     <h2>Props</h2>
