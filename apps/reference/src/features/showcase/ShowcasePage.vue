@@ -339,8 +339,8 @@
               <div class="panel-spacer"></div>
 
               <div class="panel-section">
-                <h6 style="margin-bottom: 0">Thinking...</h6>
-                <UtensilProgressBar :value="progressValue" @click="toggleProgress" rounded />
+                <h6 id="showcase-thinking" style="margin-bottom: 0">Thinking...</h6>
+                <ReferenceProgressBar :value="progressValue" aria-labelledby="showcase-thinking" rounded />
               </div>
 
               <!-- Blockquote -->
@@ -368,7 +368,7 @@ import UtensilDivider from '@gobistories/utensil-vue/components/divider/UtensilD
 import UtensilMenuDivider from '@gobistories/utensil-vue/components/menu/UtensilMenuDivider.vue'
 import UtensilDropdownMenu from '@gobistories/utensil-vue/components/dropdown-menu/UtensilDropdownMenu.vue'
 import UtensilToggleSwitch from '@gobistories/utensil-vue/components/toggle-switch/UtensilToggleSwitch.vue'
-import UtensilProgressBar from '@gobistories/utensil-vue/components/progress/UtensilProgressBar.vue'
+import { ReferenceProgressBar } from '@/theme/components/ReferenceProgressBar'
 import UtensilTabs from '@gobistories/utensil-vue/components/tabs/UtensilTabs.vue'
 import UtensilTabsTrigger from '@gobistories/utensil-vue/components/tabs/UtensilTabsTrigger.vue'
 import UtensilComponentLoader from '@gobistories/utensil-vue/components/component-loader/UtensilComponentLoader.vue'

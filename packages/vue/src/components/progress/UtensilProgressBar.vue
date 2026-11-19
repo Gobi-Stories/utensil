@@ -61,7 +61,7 @@ const clampedValue = computed(() => (Number.isFinite(props.value) ? Math.min(100
 <style scoped>
 @layer utensil {
   .utensil-progress-bar {
-    --border-radius: 0;
+    --progress-bar-radius: 0;
     display: block;
     width: 100%;
 
@@ -78,11 +78,11 @@ const clampedValue = computed(() => (Number.isFinite(props.value) ? Math.min(100
     }
 
     &.rounded {
-      --border-radius: var(--radius-rounded);
+      --progress-bar-radius: var(--radius-rounded);
     }
 
     &.squared {
-      --border-radius: var(--radius-squared);
+      --progress-bar-radius: var(--radius-squared);
     }
   }
 
@@ -90,7 +90,7 @@ const clampedValue = computed(() => (Number.isFinite(props.value) ? Math.min(100
     position: relative;
     width: 100%;
     height: var(--utensil-progress-bar-thickness, var(--progress-bar-size-thickness));
-    border-radius: var(--border-radius);
+    border-radius: var(--progress-bar-radius);
     background-color: var(--utensil-progress-bar-track, var(--pencil-a3));
     overflow: hidden;
   }
@@ -99,7 +99,7 @@ const clampedValue = computed(() => (Number.isFinite(props.value) ? Math.min(100
     position: absolute;
     inset-block: 0;
     inset-inline-start: 0;
-    border-radius: var(--border-radius);
+    border-radius: var(--progress-bar-radius);
     background-color: var(--pen-track);
     transition: width 0.3s ease;
   }

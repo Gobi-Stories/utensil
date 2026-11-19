@@ -112,11 +112,11 @@
         <div class="demo-content progress-demo">
           <div class="progress-container">
             <div class="progress-label">Rounded</div>
-            <ReferenceProgressBar :value="66" rounded size="large" />
+            <ReferenceProgressBar :value="66" rounded size="large" aria-label="Rounded" />
           </div>
           <div class="progress-container">
             <div class="progress-label">Squared</div>
-            <ReferenceProgressBar :value="66" squared size="large" />
+            <ReferenceProgressBar :value="66" squared size="large" aria-label="Squared" />
           </div>
         </div>
         <div class="demo-label">Rounded and Squared</div>
@@ -229,11 +229,11 @@ onBeforeUnmount(() => {
   display: flex;
   flex-direction: column;
   gap: var(--space-1);
-  margin-bottom: var(--space-3);
+  margin-block-end: var(--space-3);
 }
 
 .progress-label {
-  font-size: 0.9rem;
+  font-size: var(--font-size-2);
   color: var(--pencil-11);
   font-weight: 500;
 }
@@ -241,7 +241,7 @@ onBeforeUnmount(() => {
 .progress-controls {
   display: flex;
   justify-content: center;
-  margin-bottom: var(--space-2);
+  margin-block-end: var(--space-2);
   padding: var(--space-2);
 }
 </style>
