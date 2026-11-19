@@ -27,7 +27,7 @@ import { ref, computed, watch, onMounted, onBeforeUnmount, useId, type CSSProper
 import { useTheme } from '../../theme/useTheme'
 import { type PopoverPlacement, placementToInsetArea, flipPlacement, isBlockPlacement } from './utensil-popover'
 
-interface Props {
+export interface Props {
   modelValue?: boolean
   placement?: PopoverPlacement
   offset?: number
