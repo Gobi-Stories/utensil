@@ -49,6 +49,9 @@
       </tbody>
     </table>
 
+    <h2>High Contrast</h2>
+    <p>In high contrast the rule is drawn in <code>--pen-8</code> and the label in <code>--pen-11</code>.</p>
+
     <!-- Examples -->
     <h2>Examples</h2>
 

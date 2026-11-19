@@ -44,7 +44,7 @@ const separatorOrientation = computed<ToolbarOrientation>(() => {
     margin-inline: var(--utensil-toolbar-separator-margin, var(--space-1));
   }
 
-  .utensil-high-contrast .utensil-toolbar-separator {
+  .utensil-high-contrast .utensil-divider.utensil-toolbar-separator {
     background-color: var(--pen-a9);
   }
 }

@@ -70,5 +70,16 @@ const { classes: themeClasses, style: themeStyle } = useTheme({
     font-size: var(--font-size-2);
     white-space: nowrap;
   }
+
+  /* High contrast: a stronger rule and label */
+  .utensil-high-contrast .utensil-divider:where(:not(.has-label)),
+  .utensil-high-contrast .utensil-divider.has-label::before,
+  .utensil-high-contrast .utensil-divider.has-label::after {
+    background-color: var(--pen-8);
+  }
+
+  .utensil-high-contrast .utensil-divider-label {
+    color: var(--pen-11);
+  }
 }
 </style>
