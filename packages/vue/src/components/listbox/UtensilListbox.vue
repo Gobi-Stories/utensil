@@ -13,12 +13,10 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watch, nextTick, computed } from 'vue'
+import { ref, watch, nextTick, computed, onBeforeUnmount } from 'vue'
 import { useFocusNavigation } from '../../composables/useFocusNavigation'
 
-interface Props {
-  /** Array of navigable values for keyboard navigation */
-  values?: string[]
+export interface Props {
   /** Currently focused value (controlled) */
   focusedValue?: string | null
   /** Accessible label for screen readers */
@@ -32,7 +30,6 @@ interface Props {
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  values: () => [],
   focusedValue: null,
   multiselectable: false,
   full: false,
@@ -63,75 +60,105 @@ const currentFocusedValue = computed(() => {
 // The focused item's id, for the aria-activedescendant of the element that keeps DOM focus
 const activeDescendant = computed(() => focusedElement.value?.id || null)
 
-// Sync with prop changes - only when value changes to a specific value
-// Don't clear focus when value becomes null (element without data-value may be focused)
+// Focuses the item with a value, scrolled into view; a value with no focusable item, such as a disabled option's,
+// leaves focus where it is
+function focusItemByValue(value: string) {
+  const target = getItems().find((el) => el.dataset.value === value)
+  if (!target) return false
+  setFocused(target)
+  scrollToFocused()
+  return true
+}
+
+// Follows the controlled value, including the one it starts with. A null value leaves focus as it is, since an item
+// without a data-value may be focused.
 watch(
   () => props.focusedValue,
   (value) => {
-    if (value !== null && value !== currentFocusedValue.value) {
-      // Find the element with matching data-value and focus it
-      const items = getItems()
-      const target = items.find((el) => el.dataset.value === value)
-      if (target) {
-        setFocused(target)
-      }
-    }
+    if (value === null || value === currentFocusedValue.value || focusItemByValue(value)) return
+    // Not rendered yet, as on mount: try once it is, unless the value has moved on
+    nextTick(() => {
+      if (props.focusedValue === value && value !== currentFocusedValue.value) focusItemByValue(value)
+    })
   },
+  { immediate: true },
 )
 
 function setFocusedValue(value: string | null) {
   if (value === null) {
     clearFocus()
-  } else {
-    const items = getItems()
-    const target = items.find((el) => el.dataset.value === value)
-    // A value with no focusable item, such as a disabled option's, leaves focus where it is
-    if (!target) return
-    setFocused(target)
+  } else if (!focusItemByValue(value)) {
+    return
   }
   emit('update:focusedValue', value)
+}
+
+function afterMove() {
+  emit('update:focusedValue', currentFocusedValue.value)
   scrollToFocused()
 }
 
 function focusNext() {
   navFocusNext()
-  emit('update:focusedValue', currentFocusedValue.value)
-  scrollToFocused()
+  afterMove()
 }
 
 function focusPrev() {
   navFocusPrev()
-  emit('update:focusedValue', currentFocusedValue.value)
-  scrollToFocused()
+  afterMove()
 }
 
 function focusFirst() {
   navFocusFirst()
-  emit('update:focusedValue', currentFocusedValue.value)
-  scrollToFocused()
+  afterMove()
 }
 
 function focusLast() {
   navFocusLast()
-  emit('update:focusedValue', currentFocusedValue.value)
-  scrollToFocused()
-}
-
-function focusValue(value: string | null) {
-  setFocusedValue(value)
+  afterMove()
 }
 
 function scrollToFocused() {
-  nextTick(() => {
-    const focused = listboxRef.value?.querySelector('[data-focused]')
-    focused?.scrollIntoView({ block: 'nearest' })
-  })
+  nextTick(() => focusedElement.value?.scrollIntoView({ block: 'nearest' }))
+}
+
+// Type-ahead: the characters typed in quick succession, matched against the start of each item's text
+const TYPEAHEAD_RESET = 500
+let typed = ''
+let typedTimeout: ReturnType<typeof setTimeout> | null = null
+
+/**
+ * Focuses the next item whose text starts with what has been typed. Typing one character again moves on through the
+ * items that start with it. Returns whether an item matched.
+ */
+function typeahead(character: string) {
+  if (typedTimeout) clearTimeout(typedTimeout)
+  typedTimeout = setTimeout(() => (typed = ''), TYPEAHEAD_RESET)
+  typed += character.toLowerCase()
+
+  const items = getItems()
+  const repeated = [...typed].every((c) => c === typed[0])
+  const search = repeated ? typed[0] : typed
+  const current = focusedElement.value ? items.indexOf(focusedElement.value) : -1
+  // A repeated character, or a new search, starts after the focused item; a longer search may stay on it
+  const start = repeated || typed.length === 1 ? current + 1 : Math.max(current, 0)
+  const ordered = [...items.slice(start), ...items.slice(0, start)]
+  const match = ordered.find((el) => (el.textContent ?? '').trim().toLowerCase().startsWith(search))
+  if (!match) return false
+  setFocused(match)
+  afterMove()
+  return true
 }
 
 function reset() {
   clearFocus()
+  typed = ''
   emit('update:focusedValue', null)
 }
+
+onBeforeUnmount(() => {
+  if (typedTimeout) clearTimeout(typedTimeout)
+})
 
 defineExpose({
   focusedValue: currentFocusedValue,
@@ -141,7 +168,7 @@ defineExpose({
   focusPrev,
   focusFirst,
   focusLast,
-  focusValue,
+  typeahead,
   reset,
 })
 </script>
@@ -151,7 +178,7 @@ defineExpose({
   .utensil-listbox {
     display: flex;
     flex-direction: column;
-    max-height: var(--utensil-listbox-max-height, 240px);
+    max-height: var(--utensil-listbox-max-height, calc(240px * var(--scale, 1)));
     overflow-y: auto;
   }
 

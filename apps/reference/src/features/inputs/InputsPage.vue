@@ -8,6 +8,7 @@
     <TextAreaDemo />
     <LabelInputDemo />
     <SelectDemo />
+    <ListboxDemo />
     <ColorPickerDemo />
     <RangeSliderDemo />
     <StepsDemo />
@@ -27,6 +28,7 @@ import DigitInputDemo from './demos/DigitInputDemo.vue'
 import TextAreaDemo from './demos/TextAreaDemo.vue'
 import LabelInputDemo from './demos/LabelInputDemo.vue'
 import SelectDemo from './demos/SelectDemo.vue'
+import ListboxDemo from './demos/ListboxDemo.vue'
 import ColorPickerDemo from './demos/ColorPickerDemo.vue'
 import RangeSliderDemo from './demos/RangeSliderDemo.vue'
 import StepsDemo from './demos/StepsDemo.vue'
