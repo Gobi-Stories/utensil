@@ -24,11 +24,11 @@
       </ReferenceCard>
     </div>
 
-    <div id="card-choice" class="component-demo">
-      <h3><a class="demo-anchor" href="#card-choice">Choice</a></h3>
+    <div id="card-action" class="component-demo">
+      <h3><a class="demo-anchor" href="#card-action">Actions</a></h3>
       <p>
-        Clickable cards that act as a whole, pressed when chosen. For one choice among several in a form, use
-        <code>UtensilRadioCards</code>.
+        Clickable cards that act as a whole, each a button that starts something. For one choice among several, use
+        <code>UtensilRadioCards</code>, a radio group.
       </p>
       <div class="card-grid">
         <ReferenceCard
@@ -36,18 +36,18 @@
           :key="choice.id"
           clickable
           :shadow="2"
-          :selected="cardChoice === choice.id"
           :icon="choice.icon"
           icon-color="primary"
           :title="choice.title"
           :description="choice.description"
-          @click="cardChoice = choice.id"
+          @click="startedWith = choice.title"
         >
           <template #footer>
             <span class="card-meta">{{ choice.meta }}</span>
           </template>
         </ReferenceCard>
       </div>
+      <p class="card-status" role="status">{{ startedWith ? `Started: ${startedWith}` : 'Choose a way to start' }}</p>
     </div>
 
     <div id="card-media" class="component-demo">
@@ -151,7 +151,7 @@ const cardChoices = [
   },
 ] as const
 
-const cardChoice = ref<(typeof cardChoices)[number]['id']>('import')
+const startedWith = ref('')
 
 const cardReports = [
   { icon: 'chart-column', title: 'Traffic', body: 'Visits rose 12% this month.', meta: 'Daily' },
@@ -176,6 +176,12 @@ const cardReports = [
   display: flex;
   flex-wrap: wrap;
   gap: var(--space-4);
+}
+
+.card-status {
+  margin-block-start: var(--space-3);
+  font-size: var(--font-size-1);
+  color: var(--pencil-a11);
 }
 
 .card-meta {

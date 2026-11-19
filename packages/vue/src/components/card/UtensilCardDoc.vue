@@ -79,7 +79,8 @@
           <td><code>false</code></td>
           <td>
             Media reaches the card's top and side edges, rounded with the card's top corners, instead of sitting inside
-            its padding. For image-led cards.
+            its padding. For image-led cards. Set the card's padding with <code>--utensil-card-padding</code>, not a
+            padding utility, so the media's edges follow it.
           </td>
         </tr>
         <tr>
@@ -223,7 +224,8 @@
       <code>interactive</code> for hover feedback. Media sits under the link, so the whole image follows it; content
       positioned after the link stacks above it. A disabled card doesn't follow its link, but the link stays focusable:
       drop it while the card is unavailable. A card that holds linked cards, such as a section of them, is left as it
-      is: each inner card follows its own link and shows its own focus ring.
+      is: each inner card follows its own link and shows its own focus ring. Such a card can't have a stretched link of
+      its own.
     </p>
 
     <h2>Colors</h2>
@@ -231,7 +233,8 @@
       The title and description are drawn in pencil on a surface, soft, outline or text card. On a solid or overlay card
       they take the fill's text color, as does the icon's tile unless <code>iconColor</code> is given. An unstyled card
       leaves them the color around it. A disabled card draws its header in its variation's muted color, icon included.
-      In high contrast, the footer divider is drawn stronger.
+      In high contrast, the footer divider is drawn stronger. A disabled card blocks clicks inside it but leaves its
+      slotted controls as they are: disable them too, so they don't look usable.
     </p>
 
     <h2>Examples</h2>
@@ -242,11 +245,11 @@
   &lt;MemberList /&gt;
 &lt;/UtensilCard&gt;</code></pre>
 
-    <h3>Choice</h3>
+    <h3>Action</h3>
+    <p>A card that acts as a button. For one choice among several, use <code>UtensilRadioCards</code>.</p>
     <pre><code>&lt;UtensilCard
   clickable
   :shadow="2"
-  :selected="chosen"
   icon="upload"
   icon-color="primary"
   title="Import a file"
