@@ -1,9 +1,8 @@
 <template generic="Theme extends ThemeConfig">
-  <div class="utensil-select-field">
+  <div class="utensil-select">
     <label v-if="label" :id="labelId" class="utensil-select-label" :for="triggerId">{{ label }}</label>
     <UtensilSelectBase
       ref="selectBaseRef"
-      class="utensil-select"
       v-model="model"
       :values="navigableValues"
       :variation="variation"
@@ -15,7 +14,7 @@
       @change="handleChange"
     >
       <!-- A select-only combobox: named by the label, with the chosen option's text as its value -->
-      <template #trigger="{ value, isOpen, placement, listboxId, activeDescendant, toggle, handleKeydown }">
+      <template #trigger="{ value, isOpen, placement, listboxId, activeDescendant, toggle, navigate }">
         <button
           :id="triggerId"
           type="button"
@@ -37,9 +36,9 @@
           :aria-activedescendant="activeDescendant"
           :aria-describedby="hasDescription() ? descriptionId : undefined"
           @click="toggle"
-          @keydown="handleKeydown"
+          @keydown="navigate"
         >
-          <UtensilIcon v-if="selectedOption?.icon" :icon="selectedOption.icon" class="select-icon" />
+          <UtensilIcon v-if="triggerIcon" :icon="triggerIcon" class="select-icon" />
           <!-- Custom trigger value content; without it the trigger renders the label text -->
           <span class="select-value">
             <span class="select-display">
@@ -58,13 +57,15 @@
           <UtensilIcon icon="chevron-down" class="select-chevron" />
         </button>
       </template>
-      <template #default="{ value, select, focusedValue, setFocusedValue, close }">
+      <template #default="{ value, select, focusedValue, setFocusedValue, isOpen, close }">
         <slot
           name="prepend"
           :value="value"
+          :selection="selection"
           :select="select"
           :focused-value="focusedValue"
           :set-focused-value="setFocusedValue"
+          :is-open="isOpen"
           :close="close"
         />
         <UtensilSelectOption
@@ -87,9 +88,11 @@
         <slot
           name="append"
           :value="value"
+          :selection="selection"
           :select="select"
           :focused-value="focusedValue"
           :set-focused-value="setFocusedValue"
+          :is-open="isOpen"
           :close="close"
         />
       </template>
@@ -128,7 +131,7 @@ export interface Props<Theme extends ThemeConfig> {
   multiple?: boolean
   /** Names the select where there is no visible label */
   ariaLabel?: string
-  /** Icon to display when an option is selected (overrides option icon) */
+  /** Icon at the start of the trigger, in place of the chosen option's own icon */
   icon?: IconProp<Theme>
   /** Shows every option, however many, rather than scrolling past the list's maximum height */
   full?: boolean
@@ -173,7 +176,7 @@ function hasDescription() {
   return !!(slots.description || props.description)
 }
 
-const { classes: themeClasses, style: themeStyle } = useTheme({})
+const { classes: themeClasses, style: themeStyle } = useTheme()
 
 const navigableValues = computed(() => props.options.filter((opt) => !opt.disabled).map((opt) => opt.value))
 
@@ -181,6 +184,9 @@ const selectedOption = computed(() => {
   if (!model.value) return null
   return props.options.find((opt) => opt.value === model.value) ?? null
 })
+
+// The select's own icon, or else the chosen option's
+const triggerIcon = computed(() => props.icon ?? selectedOption.value?.icon)
 
 const displayValue = computed(() => {
   if (props.multiple) {
@@ -203,14 +209,14 @@ defineExpose({
 
 <style scoped>
 @layer utensil {
-  .utensil-select-field {
+  .utensil-select {
     display: flex;
     flex-direction: column;
     gap: var(--space-1);
     min-width: 0;
   }
 
-  .utensil-select-field > .utensil-select {
+  .utensil-select > .utensil-select-base {
     width: 100%;
   }
 
@@ -365,7 +371,7 @@ defineExpose({
 
   .select-chevron {
     flex-shrink: 0;
-    font-size: 0.75rem;
+    font-size: var(--font-size-1);
     color: var(--pencil-9);
     transition: transform 0.15s ease;
   }

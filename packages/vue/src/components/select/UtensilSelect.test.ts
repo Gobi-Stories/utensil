@@ -180,4 +180,100 @@ describe('UtensilSelect', () => {
     expect(sizers.every((sizer) => sizer.attributes('aria-hidden') === 'true')).toBe(true)
     expect(wrapper.find('.select-display').text()).toBe('Apple')
   })
+
+  it('is rooted at .utensil-select', () => {
+    const wrapper = mount(UtensilSelect, { props: { options } })
+    expect(wrapper.classes()).toContain('utensil-select')
+  })
+
+  async function openWith(wrapper: ReturnType<typeof mount>, key = 'ArrowDown') {
+    await trigger(wrapper).trigger('keydown', { key })
+    await nextTick()
+    await nextTick()
+    await nextTick()
+  }
+
+  const activeLabel = (wrapper: ReturnType<typeof mount>) => {
+    const id = trigger(wrapper).attributes('aria-activedescendant')
+    return wrapper
+      .findAll('[role="option"]')
+      .find((option) => option.attributes('id') === id)
+      ?.text()
+  }
+
+  it('chooses the focused option and closes on Tab, letting focus move on', async () => {
+    const wrapper = mount(UtensilSelect, { props: { options }, attachTo: document.body })
+    await openWith(wrapper)
+    await trigger(wrapper).trigger('keydown', { key: 'ArrowDown' })
+
+    const tab = new KeyboardEvent('keydown', { key: 'Tab', cancelable: true })
+    trigger(wrapper).element.dispatchEvent(tab)
+    await nextTick()
+
+    expect(wrapper.emitted('update:modelValue')?.[0]).toEqual(['banana'])
+    expect(trigger(wrapper).attributes('aria-expanded')).toBe('false')
+    expect(tab.defaultPrevented).toBe(false)
+    wrapper.unmount()
+  })
+
+  it('closes on Tab without choosing in multiple mode', async () => {
+    const wrapper = mount(UtensilSelect, { props: { options, multiple: true }, attachTo: document.body })
+    await openWith(wrapper)
+    await trigger(wrapper).trigger('keydown', { key: 'Tab' })
+
+    expect(wrapper.emitted('change')).toBeUndefined()
+    expect(trigger(wrapper).attributes('aria-expanded')).toBe('false')
+    wrapper.unmount()
+  })
+
+  it('jumps to an option by typing the start of its text, opening the list', async () => {
+    const wrapper = mount(UtensilSelect, { props: { options }, attachTo: document.body })
+    await openWith(wrapper, 'c')
+    expect(trigger(wrapper).attributes('aria-expanded')).toBe('true')
+    expect(activeLabel(wrapper)).toBe('Cherry')
+
+    // A pause ends the typed search, so the next character starts a new one
+    await new Promise((resolve) => setTimeout(resolve, 550))
+    await trigger(wrapper).trigger('keydown', { key: 'b' })
+    expect(activeLabel(wrapper)).toBe('Banana')
+    wrapper.unmount()
+  })
+
+  it('moves on through the options starting with a character typed again', async () => {
+    const berries: SelectOption[] = [
+      { value: 'apple', label: 'Apple' },
+      { value: 'blackberry', label: 'Blackberry' },
+      { value: 'blueberry', label: 'Blueberry' },
+    ]
+    const wrapper = mount(UtensilSelect, { props: { options: berries }, attachTo: document.body })
+    await openWith(wrapper)
+    await trigger(wrapper).trigger('keydown', { key: 'b' })
+    expect(activeLabel(wrapper)).toBe('Blackberry')
+    await trigger(wrapper).trigger('keydown', { key: 'b' })
+    expect(activeLabel(wrapper)).toBe('Blueberry')
+    wrapper.unmount()
+  })
+
+  it('shows its own icon on the trigger, in place of the chosen option icon', () => {
+    const withIcons: SelectOption[] = [{ value: 'apple', label: 'Apple', icon: 'image' }]
+    const own = mount(UtensilSelect, { props: { options: withIcons, modelValue: 'apple', icon: 'star' } })
+    expect(own.findComponent({ name: 'UtensilIcon' }).props('icon')).toBe('star')
+
+    const chosen = mount(UtensilSelect, { props: { options: withIcons, modelValue: 'apple' } })
+    expect(chosen.findComponent({ name: 'UtensilIcon' }).props('icon')).toBe('image')
+  })
+
+  it('gives the prepend and append slots the selection and whether it is open', () => {
+    const scopes: Record<string, unknown>[] = []
+    mount(UtensilSelect, {
+      props: { options, multiple: true, selection: ['apple'] },
+      slots: {
+        append: (scope: Record<string, unknown>) => {
+          scopes.push(scope)
+          return []
+        },
+      },
+    })
+    expect(scopes[0]).toMatchObject({ selection: ['apple'], isOpen: false })
+  })
 })

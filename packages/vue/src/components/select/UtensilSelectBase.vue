@@ -1,4 +1,4 @@
-<template generic="Theme extends ThemeConfig">
+<template>
   <UtensilPopover
     ref="popoverRef"
     :offset="0"
@@ -18,14 +18,13 @@
         :toggle="popoverToggle"
         :open="openPopover"
         :close="closePopover"
-        :handle-keydown="handleTriggerKeydown"
+        :navigate="navigate"
       />
     </template>
     <template #default="{ close }">
       <UtensilListbox
         :id="listboxId"
         ref="listboxRef"
-        :values="values"
         :focused-value="focusedValue"
         :aria-label="ariaLabel"
         :aria-labelledby="ariaLabelledby"
@@ -48,9 +47,8 @@
   </UtensilPopover>
 </template>
 
-<script setup lang="ts" generic="Theme extends ThemeConfig">
+<script setup lang="ts">
 import { ref, computed, watch, nextTick, useId } from 'vue'
-import type { ThemeConfig } from '../../theme/utensil-theme'
 import UtensilPopover from '../popover/UtensilPopover.vue'
 import UtensilListbox from '../listbox/UtensilListbox.vue'
 
@@ -130,34 +128,43 @@ function closePopover() {
   popoverRef.value?.close()
 }
 
-function handleTriggerKeydown(event: KeyboardEvent) {
+// Opens the list on the chosen value, or the first, then runs what follows with the list in place
+function openOnValue(then?: () => void) {
+  popoverRef.value?.open()
+  nextTick(() => {
+    const values = props.values
+    focusedValue.value = model.value && values.includes(model.value) ? model.value : (values[0] ?? null)
+    if (then) nextTick(then)
+  })
+}
+
+function isTypeahead(event: KeyboardEvent) {
+  return event.key.length === 1 && event.key !== ' ' && !event.ctrlKey && !event.metaKey && !event.altKey
+}
+
+/** The trigger's keyboard: opens the list, moves through it, chooses from it and closes it */
+function navigate(event: KeyboardEvent) {
   if (props.disabled) return
 
   const open = isOpen.value
-  const values = props.values
+
+  if (isTypeahead(event)) {
+    event.preventDefault()
+    if (open) listboxRef.value?.typeahead(event.key)
+    else openOnValue(() => listboxRef.value?.typeahead(event.key))
+    return
+  }
 
   switch (event.key) {
     case 'ArrowDown':
       event.preventDefault()
-      if (!open) {
-        popoverRef.value?.open()
-        nextTick(() => {
-          focusedValue.value = model.value && values.includes(model.value) ? model.value : (values[0] ?? null)
-        })
-      } else {
-        listboxRef.value?.focusNext()
-      }
+      if (!open) openOnValue()
+      else listboxRef.value?.focusNext()
       break
     case 'ArrowUp':
       event.preventDefault()
-      if (!open) {
-        popoverRef.value?.open()
-        nextTick(() => {
-          focusedValue.value = model.value && values.includes(model.value) ? model.value : (values[0] ?? null)
-        })
-      } else {
-        listboxRef.value?.focusPrev()
-      }
+      if (!open) openOnValue()
+      else listboxRef.value?.focusPrev()
       break
     case 'Enter':
     case ' ':
@@ -171,10 +178,16 @@ function handleTriggerKeydown(event: KeyboardEvent) {
           focusedEl.click()
         }
       } else {
-        popoverRef.value?.open()
-        nextTick(() => {
-          focusedValue.value = model.value && values.includes(model.value) ? model.value : (values[0] ?? null)
-        })
+        openOnValue()
+      }
+      break
+    // Tab chooses the focused option and closes the list, letting focus move on as usual
+    case 'Tab':
+      if (!open) break
+      if (!props.multiple && focusedValue.value && props.values.includes(focusedValue.value)) {
+        selectValue(focusedValue.value, popoverRef.value!.close)
+      } else {
+        popoverRef.value?.close()
       }
       break
     case 'Escape':
@@ -218,7 +231,7 @@ defineExpose({
 @layer utensil {
   .utensil-select-base {
     /* CSS custom properties for popover styling */
-    --utensil-popover-background: var(--background);
+    --utensil-popover-background: var(--panel-solid);
     --utensil-popover-shadow: var(--shadow-border-3);
     --utensil-popover-padding: 0;
   }

@@ -117,7 +117,7 @@ function handleClick(event: MouseEvent) {
 
   .option-check {
     flex-shrink: 0;
-    font-size: 0.75rem;
+    font-size: var(--font-size-1);
     color: var(--pen-9);
   }
 }

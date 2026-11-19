@@ -13,8 +13,3 @@ export interface SelectOption<Theme extends ThemeConfig = ThemeConfig> {
   /** Whether this option is disabled */
   disabled?: boolean
 }
-
-/**
- * Size options for the select component.
- */
-export type SelectSize = 'small' | 'medium' | 'large'

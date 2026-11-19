@@ -29,6 +29,21 @@
       accessibility tree and can be pressed through it; pressing one leaves focus on the trigger. In
       <code>multiple</code> mode the listbox is <code>aria-multiselectable</code>.
     </p>
+    <h3>Keyboard</h3>
+    <ul>
+      <li>Down, Up, Enter or Space opens the list on the chosen option, or the first.</li>
+      <li>While open, Down and Up move through the options, Home and End go to the first and last.</li>
+      <li>Enter or Space chooses the option and closes the list; in <code>multiple</code> mode it stays open.</li>
+      <li>
+        Typing jumps to the next option whose text starts with what is typed, opening the list if it's closed. Typing
+        one character again moves on through the options that start with it.
+      </li>
+      <li>
+        Tab chooses the option the arrow keys are on, closes the list and moves focus on as usual. In
+        <code>multiple</code> mode it closes the list without choosing.
+      </li>
+      <li>Escape closes the list without choosing.</li>
+    </ul>
 
     <!-- Props -->
     <h2>Props</h2>
@@ -88,6 +103,12 @@
           </td>
         </tr>
         <tr>
+          <td><code>selection</code></td>
+          <td><code>string[]</code></td>
+          <td><code>[]</code></td>
+          <td>The chosen values in <code>multiple</code> mode, bound with <code>v-model:selection</code>.</td>
+        </tr>
+        <tr>
           <td><code>placeholder</code></td>
           <td><code>string</code></td>
           <td><code>'Select an option...'</code></td>
@@ -117,7 +138,7 @@
           <td><code>icon</code></td>
           <td><code>IconProp</code></td>
           <td>—</td>
-          <td>Icon to display when an option is selected (overrides option icon).</td>
+          <td>Icon at the start of the trigger, shown whatever is chosen, in place of the chosen option's icon.</td>
         </tr>
         <tr>
           <td><code>full</code></td>
@@ -169,6 +190,19 @@
       </thead>
       <tbody>
         <tr>
+          <td><code>value</code></td>
+          <td><code>option</code>, <code>display</code></td>
+          <td>
+            The trigger's value, in place of the chosen option's label: <code>option</code> is the chosen
+            <code>SelectOption</code> (or <code>null</code>), <code>display</code> the text it would show.
+          </td>
+        </tr>
+        <tr>
+          <td><code>option</code></td>
+          <td><code>option</code></td>
+          <td>Each option's content, in place of its label.</td>
+        </tr>
+        <tr>
           <td><code>description</code></td>
           <td>—</td>
           <td>Replaces the description's text, e.g. with a link.</td>
@@ -176,16 +210,16 @@
         <tr>
           <td><code>prepend</code></td>
           <td>
-            <code>value</code>, <code>select</code>, <code>focusedValue</code>, <code>setFocusedValue</code>,
-            <code>close</code>
+            <code>value</code>, <code>selection</code>, <code>select</code>, <code>focusedValue</code>,
+            <code>setFocusedValue</code>, <code>isOpen</code>, <code>close</code>
           </td>
           <td>Content inserted before the options list.</td>
         </tr>
         <tr>
           <td><code>append</code></td>
           <td>
-            <code>value</code>, <code>select</code>, <code>focusedValue</code>, <code>setFocusedValue</code>,
-            <code>close</code>
+            <code>value</code>, <code>selection</code>, <code>select</code>, <code>focusedValue</code>,
+            <code>setFocusedValue</code>, <code>isOpen</code>, <code>close</code>
           </td>
           <td>Content inserted after the options list. Useful for custom actions like "Manage items...".</td>
         </tr>
@@ -205,7 +239,7 @@
       <tbody>
         <tr>
           <td><code>--utensil-listbox-max-height</code></td>
-          <td><code>240px</code></td>
+          <td><code>240px</code> × <code>--scale</code></td>
           <td>
             The height the open list scrolls past. Set it on the select or an ancestor; <code>full</code> overrides it.
           </td>
@@ -271,9 +305,14 @@
     <p>The <code>prepend</code> and <code>append</code> slots expose:</p>
     <ul>
       <li><code>value</code> — the currently selected value</li>
-      <li><code>select(value)</code> — select a value and close the dropdown</li>
+      <li><code>selection</code> — the selected values in <code>multiple</code> mode</li>
+      <li>
+        <code>select(value)</code> — select a value and close the dropdown; in <code>multiple</code> mode, toggle it in
+        the selection and leave the dropdown open
+      </li>
       <li><code>focusedValue</code> — the currently keyboard-focused value</li>
       <li><code>setFocusedValue(value)</code> — set the focused value for keyboard navigation</li>
+      <li><code>isOpen</code> — whether the dropdown is open</li>
       <li><code>close()</code> — close the dropdown without selecting</li>
     </ul>
 

@@ -7,7 +7,7 @@
     <div class="demo-grid">
       <div class="demo-item">
         <div class="demo-content input-demo">
-          <UtensilSelect
+          <ReferenceSelect
             v-model="basicSelect"
             :options="fruitOptions"
             placeholder="Select a fruit..."
@@ -22,7 +22,7 @@
       </div>
       <div class="demo-item">
         <div class="demo-content input-demo">
-          <UtensilSelect v-model="labelledSelect" :options="fruitOptions" label="Favourite fruit" />
+          <ReferenceSelect v-model="labelledSelect" :options="fruitOptions" label="Favourite fruit" />
           <div class="input-value">Value: "{{ labelledSelect ?? 'null' }}"</div>
         </div>
         <div class="demo-label">With Label</div>
@@ -32,7 +32,7 @@
       </div>
       <div class="demo-item">
         <div class="demo-content input-demo">
-          <UtensilSelect
+          <ReferenceSelect
             v-model="describedSelect"
             :options="fruitOptions"
             label="Snack"
@@ -48,17 +48,23 @@
       <div class="demo-item">
         <div class="demo-content input-demo">
           <div class="flex">
-            <UtensilSelect v-model="periodSelect" :options="periodOptions" aria-label="Period" full />
+            <ReferenceSelect
+              v-model="periodSelect"
+              :options="periodOptions"
+              aria-label="Period"
+              icon="chart-column"
+              full
+            />
           </div>
         </div>
-        <div class="demo-label always-visible">Every option shown, as wide as the widest</div>
+        <div class="demo-label always-visible">Every option shown, as wide as the widest, with its own icon</div>
         <div class="demo-code">
-          <code>&lt;UtensilSelect :options="periods" full /&gt;</code>
+          <code>&lt;UtensilSelect :options="periods" icon="chart-column" full /&gt;</code>
         </div>
       </div>
       <div class="demo-item">
         <div class="demo-content input-demo">
-          <UtensilSelect
+          <ReferenceSelect
             v-model:selection="multipleSelection"
             :options="fruitOptions"
             label="Fruit basket"
@@ -74,7 +80,7 @@
       </div>
       <div class="demo-item">
         <div class="demo-content input-demo">
-          <UtensilSelect
+          <ReferenceSelect
             v-model="softSelect"
             :options="fruitOptions"
             variation="soft"
@@ -90,7 +96,7 @@
       </div>
       <div class="demo-item">
         <div class="demo-content input-demo">
-          <UtensilSelect
+          <ReferenceSelect
             v-model="iconSelect"
             :options="iconOptions"
             placeholder="Select a file type..."
@@ -105,7 +111,12 @@
       </div>
       <div class="demo-item">
         <div class="demo-content input-demo">
-          <UtensilSelect :options="fruitOptions" placeholder="Disabled select" disabled aria-label="Disabled select" />
+          <ReferenceSelect
+            :options="fruitOptions"
+            placeholder="Disabled select"
+            disabled
+            aria-label="Disabled select"
+          />
           <div class="input-value">Disabled state</div>
         </div>
         <div class="demo-label">Disabled</div>
@@ -115,7 +126,7 @@
       </div>
       <div class="demo-item">
         <div class="demo-content input-demo">
-          <UtensilSelect
+          <ReferenceSelect
             v-model="disabledOptionsSelect"
             :options="disabledOptions"
             placeholder="Some options disabled"
@@ -130,7 +141,7 @@
       </div>
       <div class="demo-item">
         <div class="demo-content input-demo">
-          <UtensilSelect
+          <ReferenceSelect
             v-model="longListSelect"
             :options="longOptions"
             placeholder="Scrollable list..."
@@ -145,7 +156,7 @@
       </div>
       <div class="demo-item">
         <div class="demo-content input-demo">
-          <UtensilSelect
+          <ReferenceSelect
             v-model="folderSelect"
             :options="folderOptions"
             placeholder="Custom actions..."
@@ -164,11 +175,11 @@
                 @keydown.enter="handleManageFolders(close)"
                 @keydown.space.prevent="handleManageFolders(close)"
               >
-                <UtensilIcon icon="cog" class="action-icon" />
+                <ReferenceIcon icon="cog" class="action-icon" />
                 <span>Manage folders...</span>
               </div>
             </template>
-          </UtensilSelect>
+          </ReferenceSelect>
           <div class="input-value">Value: "{{ folderSelect ?? 'null' }}"</div>
           <div v-if="manageFoldersClicked" class="input-note">✓ Manage folders clicked!</div>
         </div>
@@ -188,9 +199,9 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import ReferenceComponentDemo from '@/features/components/ReferenceComponentDemo.vue'
-import UtensilSelect from '@gobistories/utensil-vue/components/select/UtensilSelect.vue'
+import { ReferenceSelect } from '@/theme/components/ReferenceSelect'
 import UtensilSelectDoc from '@gobistories/utensil-vue/components/select/UtensilSelectDoc.vue'
-import UtensilIcon from '@gobistories/utensil-vue/components/icon/UtensilIcon.vue'
+import { ReferenceIcon } from '@/theme/components/ReferenceIcon'
 import type { SelectOption } from '@gobistories/utensil-vue/components/select/utensil-select'
 import type { ReferenceThemeConfig } from '@/theme/reference-theme'
 
@@ -280,7 +291,8 @@ function handleManageFolders(close: () => void) {
   font-style: italic;
 }
 
-.input-demo .utensil-select {
+/* A select fills its demo, but one in a .flex row stays as wide as its widest option */
+.input-demo > .utensil-select {
   width: 100%;
 }
 
