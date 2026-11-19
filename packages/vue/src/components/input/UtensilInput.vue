@@ -42,8 +42,8 @@
           :readonly="readonly"
           :pattern="pattern"
           :aria-label="ariaLabel"
-          :aria-describedby="describedBy"
-          :aria-required="ariaRequired"
+          :aria-describedby="describedBy()"
+          :aria-required="ariaRequired || undefined"
           :aria-invalid="ariaInvalid"
         />
         <div class="icon-box" v-if="icon">
@@ -127,11 +127,9 @@ const props = withDefaults(defineProps<Props<Theme>>(), {
   variation: 'surface',
   height: 'normal',
   required: false,
-  autocomplete: 'off',
   autofocus: false,
   disabled: false,
   readonly: false,
-  pattern: '.+',
   ariaRequired: false,
   ariaInvalid: false,
   reserveDescription: false,
@@ -143,19 +141,13 @@ const props = withDefaults(defineProps<Props<Theme>>(), {
 const generatedId = `utensil-input-${useId()}`
 const inputId = computed(() => props.id || generatedId)
 
-// Resolve ariaDescribedBy based on prop or description slot
+// Described by ariaDescribedBy's elements and the description, while it has content. Called while rendering: slots
+// aren't reactive, so a computed would miss a slot added later.
 const slots = useSlots()
-const describedBy = computed(() => {
-  if (props.ariaDescribedBy) {
-    return props.ariaDescribedBy
-  }
-
-  if (slots.description || props.description) {
-    return `${inputId.value}-description`
-  }
-
-  return undefined
-})
+function describedBy() {
+  const description = slots.description || props.description ? `${inputId.value}-description` : undefined
+  return [props.ariaDescribedBy, description].filter(Boolean).join(' ') || undefined
+}
 
 // An invalid input takes the warning variant as its pen
 const { classes: themeClasses, style } = useTheme<Theme>({ pen: () => (props.ariaInvalid ? 'warning' : undefined) })
@@ -184,6 +176,8 @@ const inputElement = computed(() => input.value!)
 
 function delegateKeyboardEvent(event: KeyboardEvent) {
   if (props.blurOnEnterKey && event.key === 'Enter') {
+    // Enter only leaves the field: it doesn't submit the form
+    event.preventDefault()
     inputElement.value.blur()
     event.stopPropagation()
     return

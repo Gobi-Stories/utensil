@@ -139,7 +139,9 @@
           <td><code>ariaRequired</code></td>
           <td><code>boolean</code></td>
           <td><code>false</code></td>
-          <td>Sets <code>aria-required</code>.</td>
+          <td>
+            Sets <code>aria-required="true"</code>, for a field required by other means than <code>required</code>.
+          </td>
         </tr>
         <tr>
           <td><code>ariaInvalid</code></td>
@@ -155,7 +157,7 @@
           <td><code>ariaDescribedBy</code></td>
           <td><code>string</code></td>
           <td>—</td>
-          <td>Sets <code>aria-describedby</code>, in place of the description's id.</td>
+          <td>Ids of more elements that describe the text area, read before its description.</td>
         </tr>
       </tbody>
     </table>

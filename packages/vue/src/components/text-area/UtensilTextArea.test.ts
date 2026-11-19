@@ -88,4 +88,19 @@ describe('UtensilTextArea', () => {
 
     expect(wrapper.find('p.description').classes()).toContain('invalid')
   })
+
+  it('sets aria-required only when asked', () => {
+    expect(mount(UtensilTextArea).find('textarea').attributes('aria-required')).toBeUndefined()
+    expect(
+      mount(UtensilTextArea, { props: { ariaRequired: true } })
+        .find('textarea')
+        .attributes('aria-required'),
+    ).toBe('true')
+  })
+
+  it('is described by ariaDescribedBy and its description together', () => {
+    const wrapper = mount(UtensilTextArea, { props: { ariaDescribedBy: 'hint', description: 'Up to 200 words.' } })
+    const id = wrapper.find('p.description').attributes('id')
+    expect(wrapper.find('textarea').attributes('aria-describedby')).toBe(`hint ${id}`)
+  })
 })

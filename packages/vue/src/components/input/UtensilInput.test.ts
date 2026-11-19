@@ -112,4 +112,36 @@ describe('UtensilInput', () => {
 
     expect(wrapper.find('button').attributes('disabled')).toBeDefined()
   })
+
+  it('leaves required to the native attribute, setting aria-required only when asked', () => {
+    const plain = mount(UtensilInput, { props: { required: true } })
+    expect(plain.find('input').attributes('required')).toBeDefined()
+    expect(plain.find('input').attributes('aria-required')).toBeUndefined()
+
+    const aria = mount(UtensilInput, { props: { ariaRequired: true } })
+    expect(aria.find('input').attributes('aria-required')).toBe('true')
+  })
+
+  it('leaves autocomplete and pattern to the browser by default', () => {
+    const input = mount(UtensilInput).find('input')
+    expect(input.attributes('autocomplete')).toBeUndefined()
+    expect(input.attributes('pattern')).toBeUndefined()
+  })
+
+  it('is described by ariaDescribedBy and its description together', () => {
+    const wrapper = mount(UtensilInput, { props: { ariaDescribedBy: 'hint', description: 'At least 8 characters.' } })
+    const id = wrapper.find('p.description').attributes('id')
+    expect(wrapper.find('input').attributes('aria-describedby')).toBe(`hint ${id}`)
+  })
+
+  it('leaves the field on Enter with blurOnEnterKey, without submitting its form', async () => {
+    const wrapper = mount(UtensilInput, { props: { blurOnEnterKey: true }, attachTo: document.body })
+    const input = wrapper.find('input')
+    input.element.focus()
+    const enter = new KeyboardEvent('keydown', { key: 'Enter', cancelable: true })
+    input.element.dispatchEvent(enter)
+    expect(enter.defaultPrevented).toBe(true)
+    expect(document.activeElement).not.toBe(input.element)
+    wrapper.unmount()
+  })
 })

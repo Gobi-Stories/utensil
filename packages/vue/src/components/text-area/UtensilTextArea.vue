@@ -34,7 +34,7 @@
         :readonly="readonly"
         :aria-label="ariaLabel"
         :aria-describedby="describedBy()"
-        :aria-required="ariaRequired"
+        :aria-required="ariaRequired || undefined"
         :aria-invalid="ariaInvalid"
       />
     </div>
@@ -99,17 +99,12 @@ const props = withDefaults(defineProps<Props>(), {
 const generatedId = `utensil-text-area-${useId()}`
 const textAreaId = computed(() => props.id || generatedId)
 
-// The description describes the text area while it has content, unless ariaDescribedBy names another element.
-// Called while rendering: slots aren't reactive, so a computed would miss a slot added later
+// Described by ariaDescribedBy's elements and the description, while it has content. Called while rendering: slots
+// aren't reactive, so a computed would miss a slot added later.
 const slots = useSlots()
 function describedBy() {
-  if (props.ariaDescribedBy) {
-    return props.ariaDescribedBy
-  }
-  if (slots.description || props.description) {
-    return `${textAreaId.value}-description`
-  }
-  return undefined
+  const description = slots.description || props.description ? `${textAreaId.value}-description` : undefined
+  return [props.ariaDescribedBy, description].filter(Boolean).join(' ') || undefined
 }
 
 // An invalid text area takes the warning variant as its pen

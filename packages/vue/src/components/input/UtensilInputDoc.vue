@@ -132,8 +132,10 @@
         <tr>
           <td><code>autocomplete</code></td>
           <td><code>string</code></td>
-          <td><code>'off'</code></td>
-          <td>Native autocomplete hint.</td>
+          <td>—</td>
+          <td>
+            Native autocomplete hint, such as <code>email</code> or <code>off</code>. Left to the browser by default.
+          </td>
         </tr>
         <tr>
           <td><code>autofocus</code></td>
@@ -174,14 +176,14 @@
         <tr>
           <td><code>pattern</code></td>
           <td><code>string</code></td>
-          <td><code>'.+'</code></td>
+          <td>—</td>
           <td>Native pattern for validation.</td>
         </tr>
         <tr>
           <td><code>blurOnEnterKey</code></td>
           <td><code>boolean</code></td>
           <td><code>false</code></td>
-          <td>Blur the input when Enter is pressed.</td>
+          <td>Leaves the input when Enter is pressed, without submitting its form.</td>
         </tr>
         <tr>
           <td><code>stopKeyboardPropagation</code></td>
@@ -199,7 +201,9 @@
           <td><code>ariaRequired</code></td>
           <td><code>boolean</code></td>
           <td><code>false</code></td>
-          <td>Sets <code>aria-required</code>.</td>
+          <td>
+            Sets <code>aria-required="true"</code>, for a field required by other means than <code>required</code>.
+          </td>
         </tr>
         <tr>
           <td><code>ariaInvalid</code></td>
@@ -214,10 +218,7 @@
           <td><code>ariaDescribedBy</code></td>
           <td><code>string</code></td>
           <td>—</td>
-          <td>
-            Sets <code>aria-describedby</code>. Takes precedence over the auto-generated id from the
-            <code>description</code> prop/slot.
-          </td>
+          <td>Ids of more elements that describe the input, read before its description.</td>
         </tr>
       </tbody>
     </table>
