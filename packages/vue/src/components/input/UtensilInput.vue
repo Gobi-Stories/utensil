@@ -309,6 +309,25 @@ defineExpose({
     box-shadow: inset 0 0 0 2px var(--pen-8);
   }
 
+  /* High contrast: the edges, placeholder and resting icon are drawn strong enough to find the field by. The
+     soft variation gains an edge. Focus and invalid keep their own. */
+  .utensil-high-contrast .utensil-input-control.outline input:not(:focus),
+  .utensil-high-contrast .utensil-input-control.surface input:not(:focus) {
+    box-shadow: inset 0 0 0 1px var(--pencil-a9);
+  }
+
+  .utensil-high-contrast .utensil-input-control.soft input:not(:focus) {
+    box-shadow: inset 0 0 0 1px var(--pen-a9);
+  }
+
+  .utensil-high-contrast .utensil-input-control input::placeholder {
+    color: var(--pencil-a11);
+  }
+
+  .utensil-high-contrast .utensil-input-control:not(:focus-within, .has-value, .invalid) .utensil-icon {
+    color: var(--pencil-a11);
+  }
+
   /* Invalid: the pen is the warning variant. A soft input gains an edge, so invalid isn't shown by color alone.
      Focus keeps its 2px ring. */
   .utensil-input-control.invalid.outline input:not(:focus),
@@ -333,8 +352,7 @@ defineExpose({
   /* Icon styles */
   .utensil-input-control .icon-box {
     position: absolute;
-    top: 0;
-    bottom: 0;
+    inset-block: 0;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -390,7 +408,7 @@ defineExpose({
   }
 
   .utensil-input-control.icon-start .icon-box {
-    left: var(--space-3);
+    inset-inline-start: var(--space-3);
   }
 
   .utensil-input-control.icon-end input {
@@ -398,15 +416,14 @@ defineExpose({
   }
 
   .utensil-input-control.icon-end .icon-box {
-    right: var(--space-3);
+    inset-inline-end: var(--space-3);
   }
 
   /* Action box */
   .utensil-input-control .action-box {
     position: absolute;
-    top: 0;
-    bottom: 0;
-    right: var(--space-2);
+    inset-block: 0;
+    inset-inline-end: var(--space-2);
     display: flex;
     align-items: center;
     z-index: 1;
@@ -417,8 +434,8 @@ defineExpose({
   }
 
   .utensil-input-control.icon-end .action-box {
-    left: var(--space-2);
-    right: auto;
+    inset-inline-start: var(--space-2);
+    inset-inline-end: auto;
   }
 
   .utensil-input-control:has(.action-box:not(:empty)) input {

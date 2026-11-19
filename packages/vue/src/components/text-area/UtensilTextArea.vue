@@ -196,7 +196,7 @@ defineExpose({
   }
 
   .utensil-text-area.label-inline .utensil-text-area-label {
-    padding-top: var(--space-2);
+    padding-block-start: var(--space-2);
   }
 
   .utensil-text-area-control {
@@ -288,6 +288,21 @@ defineExpose({
   .utensil-text-area-control.soft textarea:focus {
     background-color: var(--pen-a4);
     box-shadow: inset 0 0 0 2px var(--pen-8);
+  }
+
+  /* High contrast: the edges and placeholder are drawn strong enough to find the field by. The soft variation
+     gains an edge. Focus and invalid keep their own. */
+  .utensil-high-contrast .utensil-text-area-control.outline textarea:not(:focus),
+  .utensil-high-contrast .utensil-text-area-control.surface textarea:not(:focus) {
+    box-shadow: inset 0 0 0 1px var(--pencil-a9);
+  }
+
+  .utensil-high-contrast .utensil-text-area-control.soft textarea:not(:focus) {
+    box-shadow: inset 0 0 0 1px var(--pen-a9);
+  }
+
+  .utensil-high-contrast .utensil-text-area-control textarea::placeholder {
+    color: var(--pencil-a11);
   }
 
   /* Invalid: the pen is the warning variant. A soft text area gains an edge, so invalid isn't shown by color alone.

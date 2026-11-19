@@ -75,7 +75,7 @@ function handleClick(event: MouseEvent) {
     padding: var(--space-2) var(--space-3);
     border: none;
     background: none;
-    text-align: left;
+    text-align: start;
     font-family: inherit;
     font-size: var(--font-size-2);
     line-height: normal;

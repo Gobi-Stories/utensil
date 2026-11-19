@@ -239,7 +239,7 @@ defineExpose({
       background-color 0.15s ease,
       border-radius 0.15s ease;
     outline: none;
-    text-align: left;
+    text-align: start;
   }
 
   /* Surface variation */
@@ -258,13 +258,13 @@ defineExpose({
   }
 
   .utensil-select-trigger.surface.open.placement-bottom {
-    border-bottom-left-radius: 0;
-    border-bottom-right-radius: 0;
+    border-end-start-radius: 0;
+    border-end-end-radius: 0;
   }
 
   .utensil-select-trigger.surface.open.placement-top {
-    border-top-left-radius: 0;
-    border-top-right-radius: 0;
+    border-start-start-radius: 0;
+    border-start-end-radius: 0;
   }
 
   /* Soft variation */
@@ -283,13 +283,35 @@ defineExpose({
   }
 
   .utensil-select-trigger.soft.open.placement-bottom {
-    border-bottom-left-radius: 0;
-    border-bottom-right-radius: 0;
+    border-end-start-radius: 0;
+    border-end-end-radius: 0;
   }
 
   .utensil-select-trigger.soft.open.placement-top {
-    border-top-left-radius: 0;
-    border-top-right-radius: 0;
+    border-start-start-radius: 0;
+    border-start-end-radius: 0;
+  }
+
+  /* High contrast: the edges, placeholder and chevron are drawn strong enough to find the field by. The soft
+     variation gains an edge. Focus keeps its own. */
+  .utensil-high-contrast .utensil-select-trigger.surface:not(:focus) {
+    box-shadow: inset 0 0 0 1px var(--pencil-a9);
+  }
+
+  .utensil-high-contrast .utensil-select-trigger.surface:hover:not(.disabled):not(:focus) {
+    box-shadow: inset 0 0 0 1px var(--pencil-a10);
+  }
+
+  .utensil-high-contrast .utensil-select-trigger.soft:not(:focus) {
+    box-shadow: inset 0 0 0 1px var(--pen-a9);
+  }
+
+  .utensil-high-contrast .utensil-select-trigger:not(.has-value) .select-value {
+    color: var(--pencil-a11);
+  }
+
+  .utensil-high-contrast .select-chevron {
+    color: var(--pencil-11);
   }
 
   /* Disabled state */
