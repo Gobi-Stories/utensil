@@ -17,17 +17,21 @@
    */
   .utensil-table-header {
     display: grid;
-    grid-template-columns: var(--utensil-table-columns);
-    gap: var(--utensil-table-gap);
+    grid-template-columns: var(--utensil-table-columns, 1fr);
+    gap: var(--utensil-table-gap, var(--space-4));
     align-items: end;
-    padding-block: var(--space-3);
-    padding-inline: var(--utensil-table-padding-inline);
-    border-bottom: 1px solid var(--pencil-a4);
+    padding-block: var(--utensil-table-padding-block, var(--space-3));
+    padding-inline: var(--utensil-table-padding-inline, var(--space-4));
+    border-block-end: 1px solid var(--utensil-table-header-separator, var(--pencil-a4));
     font-size: var(--font-size-1);
-    font-weight: 600;
+    font-weight: var(--utensil-table-header-font-weight, 600);
     color: var(--pencil-a11);
     text-transform: uppercase;
-    letter-spacing: 0.04em;
+    letter-spacing: var(--utensil-table-header-letter-spacing, 0.04em);
+  }
+
+  .utensil-high-contrast .utensil-table-header {
+    border-block-end-color: var(--utensil-table-header-separator, var(--pencil-a8));
   }
 }
 </style>

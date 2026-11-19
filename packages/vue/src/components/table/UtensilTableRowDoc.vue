@@ -80,7 +80,8 @@
     <p>
       <code>UtensilTableHeader</code> is the optional column header row, laid out on the same column template. Its cells
       sit on the row's bottom edge: a label that wraps in a narrow column grows upward, so its last line stays beside
-      the other headers and directly above the column's values.
+      the other headers and directly above the column's values. Give each header cell <code>role="columnheader"</code>,
+      as each row cell has <code>role="cell"</code>; see <code>UtensilTableHeader</code>.
     </p>
 
     <h2>Row Links</h2>

@@ -11,7 +11,7 @@
             <UtensilTableHeader>
               <span role="columnheader">Story</span>
               <span role="columnheader" class="wide-only">Views</span>
-              <span role="columnheader"></span>
+              <span role="columnheader" aria-label="Actions"></span>
             </UtensilTableHeader>
             <UtensilTableRow v-for="story in stories" :key="story.id">
               <span role="cell"
@@ -100,6 +100,7 @@
 
     <template #api>
       <UtensilTableRowDoc />
+      <UtensilTableHeaderDoc />
     </template>
   </ReferenceComponentDemo>
 </template>
@@ -110,6 +111,7 @@ import UtensilTable from '@gobistories/utensil-vue/components/table/UtensilTable
 import UtensilTableHeader from '@gobistories/utensil-vue/components/table/UtensilTableHeader.vue'
 import UtensilTableRow from '@gobistories/utensil-vue/components/table/UtensilTableRow.vue'
 import UtensilTableRowDoc from '@gobistories/utensil-vue/components/table/UtensilTableRowDoc.vue'
+import UtensilTableHeaderDoc from '@gobistories/utensil-vue/components/table/UtensilTableHeaderDoc.vue'
 import ReferenceComponentDemo from '@/features/components/ReferenceComponentDemo.vue'
 import { ReferenceCircleButton } from '@/theme/components/ReferenceCircleButton'
 import { showReferenceDialog } from '@/app/reference-dialog'

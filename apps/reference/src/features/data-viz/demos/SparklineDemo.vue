@@ -30,19 +30,21 @@
         <div class="demo-content">
           <UtensilTable class="trend-table" :columns="['1fr', '80px', '120px']">
             <UtensilTableHeader>
-              <span>Page</span>
-              <span>Views</span>
-              <span>Last 8 weeks</span>
+              <span role="columnheader">Page</span>
+              <span role="columnheader">Views</span>
+              <span role="columnheader">Last 8 weeks</span>
             </UtensilTableHeader>
             <UtensilTableRow v-for="page in pages" :key="page.name">
-              <span>{{ page.name }}</span>
-              <span>{{ page.trend[page.trend.length - 1] }}</span>
-              <ReferenceSparkline
-                class="row-trend"
-                :values="page.trend"
-                :color="page.trend[page.trend.length - 1] >= page.trend[0] ? 'success' : 'warning'"
-                :aria-label="`${page.name} views trend`"
-              />
+              <span role="cell">{{ page.name }}</span>
+              <span role="cell">{{ page.trend[page.trend.length - 1] }}</span>
+              <span role="cell">
+                <ReferenceSparkline
+                  class="row-trend"
+                  :values="page.trend"
+                  :color="page.trend[page.trend.length - 1] >= page.trend[0] ? 'success' : 'warning'"
+                  :aria-label="`${page.name} views trend`"
+                />
+              </span>
             </UtensilTableRow>
           </UtensilTable>
         </div>
