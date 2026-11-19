@@ -165,7 +165,8 @@
         <tr>
           <td><code>--utensil-radio-button-label-display</code></td>
           <td>
-            Controls label visibility in child buttons. Set to <code>block</code> when <code>showLabels</code> is true.
+            Controls label visibility in child buttons: <code>none</code>, or <code>block</code> when
+            <code>showLabels</code> is true. A hidden label still names its button.
           </td>
         </tr>
       </tbody>

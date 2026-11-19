@@ -1,5 +1,6 @@
 <template generic="Theme extends ThemeConfig">
   <UtensilToggleButton
+    class="utensil-radio-button"
     :icon="icon"
     :label="label"
     :label-position="labelPosition"
@@ -85,3 +86,12 @@ function select() {
   }
 }
 </script>
+
+<style scoped>
+@layer utensil {
+  /* The group shows or hides every button's label through its cvar */
+  .utensil-radio-button {
+    --utensil-toggle-button-label-display: var(--utensil-radio-button-label-display, block);
+  }
+}
+</style>

@@ -8,12 +8,12 @@
       <div class="demo-item">
         <div class="demo-content">
           <ReferenceRadioButtons v-model="alignment" aria-label="Text alignment">
-            <ReferenceRadioButton value="left" icon="align-left" />
-            <ReferenceRadioButton value="center" icon="align-center" />
-            <ReferenceRadioButton value="right" icon="align-right" />
+            <ReferenceRadioButton value="left" icon="align-left" label="Left" />
+            <ReferenceRadioButton value="center" icon="align-center" label="Center" />
+            <ReferenceRadioButton value="right" icon="align-right" label="Right" />
           </ReferenceRadioButtons>
         </div>
-        <div class="demo-label">Basic</div>
+        <div class="demo-label">Basic &middot; labels name the buttons, hidden until showLabels</div>
         <div class="demo-code">
           <code>&lt;UtensilRadioButtons v-model="value"&gt;</code>
         </div>
