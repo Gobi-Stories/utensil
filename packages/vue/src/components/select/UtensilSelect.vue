@@ -24,7 +24,7 @@
             ...themeClasses,
             variation,
             `placement-${placement}`,
-            { open: isOpen, disabled, 'has-value': !!value },
+            { open: isOpen, disabled, 'has-value': multiple ? selection.length > 0 : !!value },
           ]"
           :style="themeStyle"
           :disabled="disabled"
@@ -77,7 +77,7 @@
           :focused="focusedValue === option.value"
           :disabled="option.disabled"
           @click="option.disabled ? undefined : select(option.value)"
-          @mouseenter="setFocusedValue(option.value)"
+          @mouseenter="option.disabled ? undefined : setFocusedValue(option.value)"
         >
           <!-- Custom option content; without it the option renders its label -->
           <template v-if="$slots.option" #default>

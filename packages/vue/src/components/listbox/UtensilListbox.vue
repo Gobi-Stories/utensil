@@ -85,9 +85,9 @@ function setFocusedValue(value: string | null) {
   } else {
     const items = getItems()
     const target = items.find((el) => el.dataset.value === value)
-    if (target) {
-      setFocused(target)
-    }
+    // A value with no focusable item, such as a disabled option's, leaves focus where it is
+    if (!target) return
+    setFocused(target)
   }
   emit('update:focusedValue', value)
   scrollToFocused()

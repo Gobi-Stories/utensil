@@ -112,6 +112,31 @@ describe('UtensilSelect', () => {
     expect(trigger(wrapper).find('.select-value').text()).toBe('Apple, Cherry')
   })
 
+  it('never chooses a disabled option, though the pointer rests on it', async () => {
+    const withDisabled: SelectOption[] = [...options, { value: 'durian', label: 'Durian', disabled: true }]
+    const wrapper = mount(UtensilSelect, { props: { options: withDisabled }, attachTo: document.body })
+    const button = trigger(wrapper)
+
+    await button.trigger('keydown', { key: 'ArrowDown' })
+    await nextTick()
+    await nextTick()
+    const apple = wrapper.findAll('[role="option"]')[0]
+    await wrapper.findAll('[role="option"]')[3].trigger('mouseenter')
+    expect(button.attributes('aria-activedescendant')).toBe(apple.attributes('id'))
+
+    await button.trigger('keydown', { key: 'Enter' })
+    expect(wrapper.emitted('update:modelValue')?.[0]).toEqual(['apple'])
+    wrapper.unmount()
+  })
+
+  it('draws chosen values as values, not the placeholder, in multiple mode', () => {
+    const none = mount(UtensilSelect, { props: { options, multiple: true } })
+    expect(trigger(none).classes()).not.toContain('has-value')
+
+    const some = mount(UtensilSelect, { props: { options, multiple: true, selection: ['banana'] } })
+    expect(trigger(some).classes()).toContain('has-value')
+  })
+
   it('leaves aria-multiselectable off a single select', () => {
     const wrapper = mount(UtensilSelect, { props: { options } })
     expect(wrapper.find('[role="listbox"]').attributes('aria-multiselectable')).toBeUndefined()
