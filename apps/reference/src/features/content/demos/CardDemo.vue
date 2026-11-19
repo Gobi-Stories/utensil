@@ -26,14 +26,17 @@
 
     <div id="card-choice" class="component-demo">
       <h3><a class="demo-anchor" href="#card-choice">Choice</a></h3>
-      <p>Clickable cards that act as a whole, highlighted when chosen.</p>
+      <p>
+        Clickable cards that act as a whole, pressed when chosen. For one choice among several in a form, use
+        <code>UtensilRadioCards</code>.
+      </p>
       <div class="card-grid">
         <ReferenceCard
           v-for="choice in cardChoices"
           :key="choice.id"
           clickable
           :shadow="2"
-          :highlighted="cardChoice === choice.id"
+          :selected="cardChoice === choice.id"
           :icon="choice.icon"
           icon-color="primary"
           :title="choice.title"

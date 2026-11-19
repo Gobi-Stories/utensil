@@ -94,7 +94,10 @@
             <code>elevation</code>, <code>highlighted</code>, <code>selected</code>, <code>interactive</code>,
             <code>clickable</code>, <code>disabled</code>, <code>wireframe</code>, <code>as</code>
           </td>
-          <td colspan="3">As <code>UtensilBox</code>.</td>
+          <td colspan="3">
+            As <code>UtensilBox</code>. A <code>clickable</code> card with <code>selected</code> is a toggle, announced
+            as pressed while chosen.
+          </td>
         </tr>
       </tbody>
     </table>
@@ -219,7 +222,16 @@
       new tab" do too. The link's text names it for assistive technology, and the card shows its focus ring. Add
       <code>interactive</code> for hover feedback. Media sits under the link, so the whole image follows it; content
       positioned after the link stacks above it. A disabled card doesn't follow its link, but the link stays focusable:
-      drop it while the card is unavailable.
+      drop it while the card is unavailable. A card that holds linked cards, such as a section of them, is left as it
+      is: each inner card follows its own link and shows its own focus ring.
+    </p>
+
+    <h2>Colors</h2>
+    <p>
+      The title and description are drawn in pencil on a surface, soft, outline or text card. On a solid or overlay card
+      they take the fill's text color, as does the icon's tile unless <code>iconColor</code> is given. An unstyled card
+      leaves them the color around it. A disabled card draws its header in its variation's muted color, icon included.
+      In high contrast, the footer divider is drawn stronger.
     </p>
 
     <h2>Examples</h2>
@@ -234,7 +246,7 @@
     <pre><code>&lt;UtensilCard
   clickable
   :shadow="2"
-  :highlighted="chosen"
+  :selected="chosen"
   icon="upload"
   icon-color="primary"
   title="Import a file"

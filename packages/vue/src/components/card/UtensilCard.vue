@@ -22,7 +22,7 @@
 
     <div v-if="hasHeader()" class="utensil-card-header">
       <slot name="header">
-        <UtensilTheme v-if="icon" class="utensil-card-icon" :pen="iconColor">
+        <UtensilTheme v-if="icon" class="utensil-card-icon" :class="{ 'has-color': iconColor }" :pen="iconColor">
           <UtensilIcon :icon="icon" />
         </UtensilTheme>
         <div v-if="title || $slots.title || description || $slots.description" class="utensil-card-heading">
@@ -208,8 +208,17 @@ function hasHeader() {
     color: var(--pencil-a11);
   }
 
-  /* On a solid or overlay fill, the header takes the variation's text color */
-  .utensil-card:where(.ui-solid, .ui-overlay) :where(.utensil-card-title, .utensil-card-description) {
+  /* On a solid or overlay fill, the header takes the variation's text color; unstyled, the color around it; disabled,
+     the variation's muted one */
+  .utensil-card:where(.ui-solid, .ui-overlay, .ui-unstyled, .disabled)
+    :where(.utensil-card-title, .utensil-card-description) {
+    color: inherit;
+  }
+
+  /* The icon's tile, drawn in the fill's text color where a pen tint would be lost on it, and muted when disabled */
+  .utensil-card:where(.ui-solid, .ui-overlay) .utensil-card-icon:not(.has-color),
+  .utensil-card.disabled .utensil-card-icon {
+    background: color-mix(in oklab, currentColor 18%, transparent);
     color: inherit;
   }
 
@@ -239,6 +248,14 @@ function hasHeader() {
     border-block-start-color: color-mix(in oklab, currentColor 30%, transparent);
   }
 
+  .utensil-high-contrast .utensil-card.footer-divider > .utensil-card-footer {
+    border-block-start-color: var(--pencil-a9);
+  }
+
+  .utensil-high-contrast .utensil-card:where(.ui-solid, .ui-overlay).footer-divider > .utensil-card-footer {
+    border-block-start-color: color-mix(in oklab, currentColor 55%, transparent);
+  }
+
   /* Controls in the header and footer stay above a stretched link */
   .utensil-card-header-end,
   .utensil-card-actions {
@@ -259,7 +276,9 @@ function hasHeader() {
 }
 </style>
 
-<!-- Unscoped: slotted media and links aren't reached by scoped styles; .utensil-card scopes them -->
+<!-- Unscoped: slotted media and links aren't reached by scoped styles; .utensil-card scopes them. A card with a
+     stretched link is one whose link isn't inside a card nested in it, so an outer card holding linked cards is left
+     alone. -->
 <style>
 @layer utensil {
   .utensil-card-media > :where(img, video, picture) {
@@ -268,7 +287,7 @@ function hasHeader() {
   }
 
   /* A stretched link: .utensil-card-link on a link in the card makes the whole card follow it */
-  .utensil-card:has(.utensil-card-link) {
+  .utensil-card:has(.utensil-card-link):not(:has(.utensil-card .utensil-card-link)) {
     position: relative;
   }
 
@@ -288,13 +307,10 @@ function hasHeader() {
   }
 
   /* The card shows the link's focus ring around itself */
-  .utensil-card.utensil-box:has(.utensil-card-link:focus-visible) {
-    outline: 2px solid var(--pen-8);
-    outline-offset: -2px;
-  }
-
-  .utensil-card.utensil-box.ui-solid:has(.utensil-card-link:focus-visible) {
-    outline-offset: 3px;
+  .utensil-card.utensil-box:has(.utensil-card-link:focus-visible):not(
+      :has(.utensil-card .utensil-card-link:focus-visible)
+    ) {
+    outline-color: var(--pen-8);
   }
 
   /* A disabled card doesn't follow its link */
@@ -303,9 +319,9 @@ function hasHeader() {
   }
 
   /* Controls in the description, content and footer stay above the link, positioned after it */
-  .utensil-card:has(.utensil-card-link)
+  .utensil-card:has(.utensil-card-link):not(:has(.utensil-card .utensil-card-link))
     :where(.utensil-card-description, .utensil-card-content, .utensil-card-footer-start)
-    :where(a, button, input, select, textarea, label, [tabindex]) {
+    :where(a, button, input, select, textarea, label, [tabindex]):not(.utensil-card-link) {
     position: relative;
   }
 }

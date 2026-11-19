@@ -132,4 +132,19 @@ describe('UtensilCard', () => {
     expect(wrapper.classes()).toContain('media-bleed')
     expect(wrapper.classes()).toContain('footer-divider')
   })
+
+  it('marks an icon given its own color, which keeps its tint on a solid card', () => {
+    const plain = mount(UtensilCard, { props: { icon: 'image', variation: 'solid' } })
+    const colored = mount(UtensilCard, { props: { icon: 'image', iconColor: 'gray', variation: 'solid' } })
+
+    expect(plain.find('.utensil-card-icon').classes()).not.toContain('has-color')
+    expect(colored.find('.utensil-card-icon').classes()).toContain('has-color')
+  })
+
+  it('announces a clickable card chosen with selected as pressed', () => {
+    const wrapper = mount(UtensilCard, { props: { clickable: true, selected: true, title: 'Import' } })
+
+    expect(wrapper.attributes('role')).toBe('button')
+    expect(wrapper.attributes('aria-pressed')).toBe('true')
+  })
 })
