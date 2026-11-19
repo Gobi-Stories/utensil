@@ -33,6 +33,15 @@ describe('UtensilDivider', () => {
     expect(wrapper.find('.utensil-divider-label').text()).toBe('or')
   })
 
+  it('is named by its label, since the content of a separator is not read', () => {
+    const labelled = mount(UtensilDivider, { props: { label: 'or' } })
+    const vertical = mount(UtensilDivider, { props: { vertical: true, label: 'or' } })
+
+    expect(labelled.attributes('aria-label')).toBe('or')
+    expect(vertical.attributes('aria-label')).toBeUndefined()
+    expect(mount(UtensilDivider).attributes('aria-label')).toBeUndefined()
+  })
+
   it('ignores label in vertical orientation', () => {
     const wrapper = mount(UtensilDivider, {
       props: { vertical: true, label: 'or' },

@@ -5,6 +5,7 @@
     :style="themeStyle"
     role="separator"
     :aria-orientation="vertical ? 'vertical' : 'horizontal'"
+    :aria-label="label && !vertical ? label : undefined"
   >
     <template v-if="label && !vertical">
       <span class="utensil-divider-label">{{ label }}</span>
@@ -38,7 +39,7 @@ const { classes: themeClasses, style: themeStyle } = useTheme({
 <style scoped>
 @layer utensil {
   .utensil-divider {
-    background-color: var(--pen-6);
+    background-color: var(--pen-a6);
     height: 1px;
     width: 100%;
   }
@@ -62,24 +63,20 @@ const { classes: themeClasses, style: themeStyle } = useTheme({
     content: '';
     flex: 1;
     height: 1px;
-    background-color: var(--pen-6);
+    background-color: var(--pen-a6);
   }
 
   .utensil-divider-label {
-    color: var(--pen-10);
+    color: var(--pen-a11);
     font-size: var(--font-size-2);
     white-space: nowrap;
   }
 
-  /* High contrast: a stronger rule and label */
+  /* High contrast: a stronger rule; the label's --pen-a11 is raised by the theme */
   .utensil-high-contrast .utensil-divider:where(:not(.has-label)),
   .utensil-high-contrast .utensil-divider.has-label::before,
   .utensil-high-contrast .utensil-divider.has-label::after {
-    background-color: var(--pen-8);
-  }
-
-  .utensil-high-contrast .utensil-divider-label {
-    color: var(--pen-11);
+    background-color: var(--pen-a8);
   }
 }
 </style>

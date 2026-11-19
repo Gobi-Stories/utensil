@@ -49,8 +49,12 @@
       </tbody>
     </table>
 
-    <h2>High Contrast</h2>
-    <p>In high contrast the rule is drawn in <code>--pen-8</code> and the label in <code>--pen-11</code>.</p>
+    <h2>Color and Accessibility</h2>
+    <p>
+      The rule is drawn in <code>--pen-a6</code>, and in <code>--pen-a8</code> in high contrast. The label is drawn in
+      <code>--pen-a11</code>, which high contrast raises to step 12. A separator's content isn't read, so a labelled
+      divider is named by its label.
+    </p>
 
     <!-- Examples -->
     <h2>Examples</h2>
