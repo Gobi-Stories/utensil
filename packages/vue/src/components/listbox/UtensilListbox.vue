@@ -180,6 +180,13 @@ defineExpose({
     flex-direction: column;
     max-height: var(--utensil-listbox-max-height, calc(240px * var(--scale, 1)));
     overflow-y: auto;
+    outline: 2px solid transparent;
+    outline-offset: 2px;
+  }
+
+  /* A ring for a listbox that takes focus itself, rather than leaving it on a host such as a select's trigger */
+  .utensil-listbox:focus-visible {
+    outline-color: var(--pen-8);
   }
 
   .utensil-listbox.full {

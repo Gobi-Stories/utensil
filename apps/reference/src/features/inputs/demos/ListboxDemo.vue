@@ -25,7 +25,7 @@
             @keydown="typeahead"
           >
             <template #default="{ setFocusedValue }">
-              <UtensilSelectOption
+              <ReferenceSelectOption
                 v-for="option in options"
                 :key="option.value"
                 :value="option.value"
@@ -54,7 +54,7 @@
 import { ref, useId, useTemplateRef } from 'vue'
 import UtensilListbox from '@gobistories/utensil-vue/components/listbox/UtensilListbox.vue'
 import UtensilListboxDoc from '@gobistories/utensil-vue/components/listbox/UtensilListboxDoc.vue'
-import UtensilSelectOption from '@gobistories/utensil-vue/components/select/UtensilSelectOption.vue'
+import { ReferenceSelectOption } from '@/theme/components/ReferenceSelect'
 import ReferenceComponentDemo from '@/features/components/ReferenceComponentDemo.vue'
 
 const options = [
@@ -105,11 +105,5 @@ function typeahead(event: KeyboardEvent) {
   border-radius: var(--radius-3);
   background-color: var(--panel-solid);
   box-shadow: inset 0 0 0 1px var(--pencil-a7);
-  outline: 2px solid transparent;
-  outline-offset: 2px;
-}
-
-.listbox-demo-list:focus-visible {
-  outline-color: var(--pen-8);
 }
 </style>

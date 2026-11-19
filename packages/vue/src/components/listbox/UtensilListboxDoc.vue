@@ -16,7 +16,11 @@
       <code>aria-multiselectable</code> when <code>multiselectable</code>. The option the keyboard is on is marked with
       <code>data-focused</code> rather than DOM focus: the host keeps DOM focus and points its
       <code>aria-activedescendant</code> at the exposed <code>activeDescendant</code>. Each option needs an id,
-      <code>role="option"</code> and <code>aria-selected</code>.
+      <code>role="option"</code> and <code>aria-selected</code>. Where DOM focus stays on another element, such as a
+      combobox trigger, give each option <code>tabindex="-1"</code>, which keeps it in the accessibility tree, and
+      cancel its <code>mousedown</code> (<code>@mousedown.prevent</code>), so pressing it leaves focus where it is.
+      <code>UtensilSelectOption</code> does both. A listbox that takes focus itself, with <code>tabindex="0"</code>,
+      shows a focus ring.
     </p>
 
     <h2>Props</h2>
