@@ -351,5 +351,10 @@ defineExpose({
   .utensil-select-trigger.open .select-chevron {
     transform: rotate(180deg);
   }
+
+  /* Reduced motion: the chevron flips without turning */
+  .utensil-reduced-motion .select-chevron {
+    transition: none;
+  }
 }
 </style>

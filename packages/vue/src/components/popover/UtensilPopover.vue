@@ -307,6 +307,18 @@ defineExpose({
     }
   }
 
+  /* Reduced motion: the panel fades without scaling */
+  .utensil-reduced-motion .utensil-popover-content,
+  .utensil-reduced-motion .utensil-popover-content:popover-open {
+    transform: translateX(calc(var(--popover-inset)));
+  }
+
+  @starting-style {
+    .utensil-reduced-motion .utensil-popover-content:popover-open {
+      transform: translateX(calc(var(--popover-inset)));
+    }
+  }
+
   /* Workaround: Safari 27.0.1 - a closed popover that keeps its position-try fallbacks hangs the page in
      endless style resolution when a stylesheet is added later, such as a lazy route's CSS (as WebKit bug
      299742). The fallbacks apply only while the popover is open. */

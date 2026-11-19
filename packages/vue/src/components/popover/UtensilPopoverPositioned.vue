@@ -219,5 +219,17 @@ defineExpose({
       transform: scale(0.95);
     }
   }
+
+  /* Reduced motion: the panel fades without scaling */
+  .utensil-reduced-motion .utensil-popover-positioned,
+  .utensil-reduced-motion .utensil-popover-positioned:popover-open {
+    transform: none;
+  }
+
+  @starting-style {
+    .utensil-reduced-motion .utensil-popover-positioned:popover-open {
+      transform: none;
+    }
+  }
 }
 </style>
