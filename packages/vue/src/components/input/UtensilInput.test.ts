@@ -80,4 +80,36 @@ describe('UtensilInput', () => {
 
     expect(wrapper.find('input').attributes('maxlength')).toBe('64')
   })
+
+  it('draws a decorative icon that is no button', () => {
+    const wrapper = mount(UtensilInput, { props: { icon: 'search' } })
+
+    expect(wrapper.find('.icon-box .utensil-icon').exists()).toBe(true)
+    expect(wrapper.find('button').exists()).toBe(false)
+  })
+
+  it('makes an icon with an iconClick listener a named button after the input', async () => {
+    const wrapper = mount(UtensilInput, {
+      props: { icon: 'eye', iconPosition: 'end', iconLabel: 'Show password', onIconClick: () => {} },
+    })
+
+    const button = wrapper.find('button')
+    expect(button.attributes('type')).toBe('button')
+    expect(button.attributes('aria-label')).toBe('Show password')
+    // After the input in the DOM, so after it in the tab order
+    const input = wrapper.find('input').element
+    expect(input.compareDocumentPosition(button.element) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy()
+
+    // Enter and Space on a button fire click
+    await button.trigger('click')
+    expect(wrapper.emitted('iconClick')).toHaveLength(1)
+  })
+
+  it('disables the icon button with the input', () => {
+    const wrapper = mount(UtensilInput, {
+      props: { icon: 'eye', iconLabel: 'Show password', disabled: true, onIconClick: () => {} },
+    })
+
+    expect(wrapper.find('button').attributes('disabled')).toBeDefined()
+  })
 })

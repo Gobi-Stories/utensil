@@ -17,17 +17,6 @@
       :style="style"
     >
       <div class="utensil-input-field">
-        <div class="icon-box" v-if="icon">
-          <UtensilIcon
-            v-if="icon"
-            :icon="icon"
-            @mousedown.prevent="() => emit('iconClick')"
-            :role="hasIconClick ? 'button' : undefined"
-          />
-        </div>
-        <div class="action-box">
-          <slot name="action" />
-        </div>
         <input
           ref="input"
           v-model="model"
@@ -57,6 +46,25 @@
           :aria-required="ariaRequired"
           :aria-invalid="ariaInvalid"
         />
+        <div class="icon-box" v-if="icon">
+          <!-- With an iconClick listener the icon is a button of its own, after the input in the tab order (the
+               icon and action follow the input in the DOM for that). A pointer press puts focus in the input. -->
+          <button
+            v-if="hasIconClick()"
+            type="button"
+            class="utensil-input-icon-button"
+            :aria-label="iconLabel"
+            :disabled="disabled"
+            @mousedown.prevent="focus()"
+            @click="emit('iconClick')"
+          >
+            <UtensilIcon :icon="icon" />
+          </button>
+          <UtensilIcon v-else :icon="icon" />
+        </div>
+        <div class="action-box">
+          <slot name="action" />
+        </div>
       </div>
       <p
         v-if="$slots.description || props.description || reserveDescription"
@@ -108,6 +116,8 @@ export interface Props<Theme extends ThemeConfig> {
   stopKeyboardPropagation?: boolean
   icon?: IconProp<Theme>
   iconPosition?: 'start' | 'end'
+  // Names the icon's button, for an icon that acts through iconClick
+  iconLabel?: string
 }
 
 const props = withDefaults(defineProps<Props<Theme>>(), {
@@ -161,8 +171,11 @@ const emit = defineEmits<{
   iconClick: []
 }>()
 
+// Called while rendering: the vnode's listeners aren't reactive, so a computed would miss one added later
 const instance = getCurrentInstance()
-const hasIconClick = computed(() => !!instance?.vnode.props?.onIconClick)
+function hasIconClick() {
+  return !!instance?.vnode.props?.onIconClick
+}
 
 const model = defineModel<string>()
 
@@ -328,9 +341,34 @@ defineExpose({
     width: var(--space-4);
   }
 
-  .utensil-input-control .icon-box:has(.utensil-icon[role='button']) {
-    pointer-events: auto;
+  /* A decorative icon lets a press through to the input under it */
+  .utensil-input-control .icon-box {
+    pointer-events: none;
+  }
+
+  .utensil-input-icon-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    border: none;
+    border-radius: var(--radius-2);
+    background: none;
+    color: inherit;
+    font: inherit;
     cursor: pointer;
+    pointer-events: auto;
+    outline: 2px solid transparent;
+    outline-offset: 2px;
+  }
+
+  .utensil-input-icon-button:focus-visible {
+    outline-color: var(--pen-8);
+  }
+
+  .utensil-input-icon-button:disabled {
+    opacity: 0.5;
+    cursor: default;
   }
 
   .utensil-input-control .utensil-icon {

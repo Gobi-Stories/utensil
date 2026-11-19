@@ -115,6 +115,15 @@
           <td>Where to place the icon relative to the input text.</td>
         </tr>
         <tr>
+          <td><code>iconLabel</code></td>
+          <td><code>string</code></td>
+          <td>—</td>
+          <td>
+            Names the icon's button, for an icon that acts through <code>iconClick</code>. Give it whenever there is a
+            listener: the button has no other name.
+          </td>
+        </tr>
+        <tr>
           <td><code>required</code></td>
           <td><code>boolean</code></td>
           <td><code>false</code></td>
@@ -266,7 +275,11 @@
         <tr>
           <td><code>iconClick</code></td>
           <td>—</td>
-          <td>Fires when the icon is clicked. The icon becomes a button when a listener is attached.</td>
+          <td>
+            Fires when the icon is pressed, by pointer or keyboard. With a listener the icon is a button named by
+            <code>iconLabel</code>, after the input in the tab order and disabled with it. A pointer press puts focus in
+            the input.
+          </td>
         </tr>
       </tbody>
     </table>

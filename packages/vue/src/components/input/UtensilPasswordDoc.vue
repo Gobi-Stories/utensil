@@ -5,7 +5,9 @@
     </div>
     <p>
       Password input with built-in visibility toggle. Shows a lock icon when unfocused, and an eye/eye-slash icon when
-      focused to toggle between masked and plain text. Wraps <code>UtensilInput</code> internally.
+      focused to toggle between masked and plain text. The toggle is a button after the input in the tab order, named
+      for what it does next ("Show password", "Hide password"). The password is masked again when focus leaves the input
+      and its button. Wraps <code>UtensilInput</code> internally.
     </p>
 
     <h2>Props</h2>
@@ -86,6 +88,18 @@
           <td><code>boolean</code></td>
           <td><code>false</code></td>
           <td>Automatically focuses the input on mount.</td>
+        </tr>
+        <tr>
+          <td><code>showPasswordLabel</code></td>
+          <td><code>string</code></td>
+          <td><code>'Show password'</code></td>
+          <td>Names the toggle while the password is masked.</td>
+        </tr>
+        <tr>
+          <td><code>hidePasswordLabel</code></td>
+          <td><code>string</code></td>
+          <td><code>'Hide password'</code></td>
+          <td>Names the toggle while the password is shown.</td>
         </tr>
       </tbody>
     </table>
