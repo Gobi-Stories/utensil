@@ -35,4 +35,22 @@ describe('UtensilProgressBar', () => {
     expect(fills[0].element).not.toBe(fullFill)
     expect(fills[0].attributes('style')).toContain('width: 0%')
   })
+
+  it('clamps its value to 0 to 100, for the fill and aria-valuenow', async () => {
+    const wrapper = mount(UtensilProgressBar, { props: { value: 140 } })
+    expect(wrapper.find('.fill').attributes('style')).toContain('width: 100%')
+    expect(wrapper.attributes('aria-valuenow')).toBe('100')
+
+    await wrapper.setProps({ value: -5 })
+    expect(wrapper.find('.fill').attributes('style')).toContain('width: 0%')
+    expect(wrapper.attributes('aria-valuenow')).toBe('0')
+
+    await wrapper.setProps({ value: Number.NaN })
+    expect(wrapper.attributes('aria-valuenow')).toBe('0')
+  })
+
+  it('takes the theme rounded or squared corners', () => {
+    expect(mount(UtensilProgressBar, { props: { rounded: true } }).classes()).toContain('rounded')
+    expect(mount(UtensilProgressBar, { props: { squared: true } }).classes()).toContain('squared')
+  })
 })

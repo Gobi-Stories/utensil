@@ -112,12 +112,16 @@
         <div class="demo-content progress-demo">
           <div class="progress-container">
             <div class="progress-label">Rounded</div>
-            <ReferenceProgressBar :value="66" rounded />
+            <ReferenceProgressBar :value="66" rounded size="large" />
+          </div>
+          <div class="progress-container">
+            <div class="progress-label">Squared</div>
+            <ReferenceProgressBar :value="66" squared size="large" />
           </div>
         </div>
-        <div class="demo-label">Rounded Progress</div>
+        <div class="demo-label">Rounded and Squared</div>
         <div class="demo-code">
-          <code>&lt;UtensilProgressBar rounded /&gt;</code>
+          <code>&lt;UtensilProgressBar rounded /&gt; &lt;UtensilProgressBar squared /&gt;</code>
         </div>
       </div>
       <div class="demo-item">
