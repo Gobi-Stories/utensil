@@ -131,4 +131,26 @@ describe('UtensilRadioButtons', () => {
     buttons.forEach((button) => expect(button.classes()).not.toContain('round'))
     wrapper.unmount()
   })
+
+  it('names each radio once: by its label, read beside it only where its own content names it', () => {
+    const wrapper = mount(
+      defineComponent({
+        components: { UtensilRadioButtons, UtensilRadioButton },
+        template: `
+          <UtensilRadioButtons aria-label="Alignment" show-labels>
+            <UtensilRadioButton value="left" icon="check" label="Left" />
+            <UtensilRadioButton value="center" icon="star" />
+            <UtensilRadioButton value="right" icon="heart" label="Right">Align right</UtensilRadioButton>
+          </UtensilRadioButtons>
+        `,
+      }),
+    )
+    const [left, center, right] = wrapper.findAll('[role="radio"]')
+    const labels = wrapper.findAll('.utensil-toggle-button-label')
+
+    expect(left.text()).toBe('Left')
+    expect(center.text()).toBe('center')
+    expect(right.text()).toBe('Align right')
+    expect(labels.map((label) => label.attributes('aria-hidden'))).toEqual(['true', undefined])
+  })
 })

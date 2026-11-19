@@ -79,6 +79,20 @@ describe('UtensilToggleButton', () => {
     expect(wrapper.find('.utensil-toggle-button-label').attributes('aria-hidden')).toBe('true')
   })
 
+  it('reads the visible label where something else names the button', () => {
+    const named = mount(UtensilToggleButton, {
+      props: { icon: 'star', label: 'Star' },
+      attrs: { 'aria-label': 'Favorite' },
+    })
+    const slotted = mount(UtensilToggleButton, {
+      props: { icon: 'star', label: 'Star' },
+      slots: { default: 'Favorite' },
+    })
+
+    expect(named.find('.utensil-toggle-button-label').attributes('aria-hidden')).toBeUndefined()
+    expect(slotted.find('.utensil-toggle-button-label').attributes('aria-hidden')).toBeUndefined()
+  })
+
   it('does not render label when not provided', () => {
     const wrapper = mount(UtensilToggleButton, {
       props: { icon: 'star' },

@@ -15,7 +15,11 @@
     :tabindex="isTabbable ? 0 : -1"
     @update:model-value="select"
   >
-    <slot>{{ label || value }}</slot>
+    <!-- Passed on only where it names the button: the consumer's own content, or the value where there is no label.
+         With a label and no content, the toggle button is named by the label and reads it once. -->
+    <template v-if="$slots.default || !label" #default>
+      <slot>{{ value }}</slot>
+    </template>
   </UtensilToggleButton>
 </template>
 

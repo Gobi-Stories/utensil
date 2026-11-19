@@ -34,13 +34,20 @@
     >
       <slot>{{ label || 'Toggle' }}</slot>
     </UtensilButton>
-    <!-- The button is already named by the label; this visible copy routes its clicks to the button, unread -->
-    <span v-if="label" class="utensil-toggle-button-label" aria-hidden="true" @click="clickButton">{{ label }}</span>
+    <!-- This visible copy routes its clicks to the button. Where the label names the button (no slot content or
+         aria-label of its own), it is hidden so the name is read once; otherwise it is read as it is shown. -->
+    <span
+      v-if="label"
+      class="utensil-toggle-button-label"
+      :aria-hidden="labelIsName() ? 'true' : undefined"
+      @click="clickButton"
+      >{{ label }}</span
+    >
   </div>
 </template>
 
 <script setup lang="ts" generic="Theme extends ThemeConfig">
-import { computed, useTemplateRef } from 'vue'
+import { computed, useAttrs, useSlots, useTemplateRef } from 'vue'
 import type { IconProp, ColorProp, ThemeConfig, ScaleProp, UtensilUIVariation } from '../../theme/utensil-theme'
 import UtensilButton from '../button/UtensilButton.vue'
 
@@ -113,6 +120,15 @@ function toggle() {
 }
 
 const buttonRef = useTemplateRef<{ $el: HTMLButtonElement }>('buttonRef')
+
+const slots = useSlots()
+const attrs = useAttrs()
+
+// The label names the button when nothing else does: no slot content or aria-label of its own. Called while
+// rendering: slots aren't reactive.
+function labelIsName() {
+  return !slots.default && !attrs['aria-label'] && !attrs['aria-labelledby']
+}
 
 // Route label clicks through the button so listeners bound by the consumer fire too.
 function clickButton() {
