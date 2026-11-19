@@ -1,12 +1,12 @@
-<template generic="Theme extends ThemeConfig">
-  <div class="utensil-text-area" :class="{ 'label-inline': label && labelPlacement === 'inline' }">
+<template>
+  <div class="utensil-text-area" :class="{ 'label-inline': label && labelPlacement === 'inline', disabled }">
     <label v-if="label" :for="textAreaId" class="utensil-text-area-label">{{ label }}</label>
     <div
       class="utensil-text-area-control"
       :class="[
         ...themeClasses,
         variation,
-        `resize-${resize}`,
+        `resize-${disabled ? 'none' : resize}`,
         {
           'has-value': !!model,
           invalid: ariaInvalid,
@@ -18,6 +18,7 @@
         ref="textarea"
         v-model="model"
         :id="textAreaId"
+        :class="[`ui-${variation}`, { pencil: variation !== 'soft', disabled }]"
         :name="name"
         :placeholder="placeholder"
         @input="(event) => emit('input', (event.target as HTMLTextAreaElement).value)"
@@ -50,9 +51,9 @@
   </div>
 </template>
 
-<script setup lang="ts" generic="Theme extends ThemeConfig">
+<script setup lang="ts">
 import { ref, computed, useId, useSlots } from 'vue'
-import type { ThemeConfig } from '../../theme/utensil-theme'
+import type { UtensilFieldVariation } from '../../theme/utensil-theme'
 import { useTheme } from '../../theme/useTheme'
 
 export interface Props {
@@ -65,7 +66,7 @@ export interface Props {
   /** Holds the description's line while there is none, for a message that comes and goes */
   reserveDescription?: boolean
   placeholder?: string
-  variation?: 'surface' | 'soft' | 'outline'
+  variation?: UtensilFieldVariation
   rows?: number
   maxlength?: number
   resize?: 'none' | 'vertical' | 'horizontal' | 'both'
@@ -108,7 +109,7 @@ function describedBy() {
 }
 
 // An invalid text area takes the warning variant as its pen
-const { classes: themeClasses, style } = useTheme<Theme>({ pen: () => (props.ariaInvalid ? 'warning' : undefined) })
+const { classes: themeClasses, style } = useTheme({ pen: () => (props.ariaInvalid ? 'warning' : undefined) })
 
 const emit = defineEmits<{
   input: [value: string]
@@ -166,6 +167,8 @@ defineExpose({
 <style scoped>
 @layer utensil {
   .utensil-text-area {
+    --text-area-font-size: var(--utensil-text-area-font-size, var(--font-size-2));
+
     display: flex;
     flex-direction: column;
     gap: var(--space-1);
@@ -185,7 +188,7 @@ defineExpose({
   }
 
   .utensil-text-area-label {
-    font-size: var(--font-size-2);
+    font-size: var(--text-area-font-size);
     font-weight: 500;
     color: var(--pencil-11);
   }
@@ -218,16 +221,16 @@ defineExpose({
     resize: both;
   }
 
-  .utensil-text-area-control textarea,
-  .utensil-squared .utensil-text-area-control textarea {
+  .utensil-text-area-control textarea {
     display: block;
     width: 100%;
     height: 100%;
     min-height: 100%;
     border: none;
     border-radius: inherit;
-    padding: var(--space-2) var(--space-3);
-    font-size: var(--font-size-2);
+    /* The nearest rounded or squared theme sets it */
+    padding: var(--utensil-text-area-padding, var(--space-2) var(--space-3));
+    font-size: var(--text-area-font-size);
     line-height: var(--line-height-2);
     font-family: inherit;
     color: var(--pencil-12);
@@ -238,61 +241,45 @@ defineExpose({
       background-color 0.15s ease;
   }
 
-  .utensil-rounded .utensil-text-area-control textarea,
-  .utensil-rounded.utensil-text-area-control textarea {
-    padding: var(--space-3) var(--space-4);
-  }
-
   .utensil-text-area-control textarea::placeholder {
     color: var(--pencil-a9);
   }
 
-  .utensil-text-area-control textarea:disabled {
-    opacity: 0.5;
-    cursor: default;
-  }
-
-  /* Outline variation */
-  .utensil-text-area-control.outline textarea {
-    background-color: var(--pencil-surface);
-    box-shadow: inset 0 0 0 1px var(--pencil-a6);
-  }
-
-  .utensil-text-area-control.outline textarea:focus {
-    background-color: var(--pencil-2);
+  /* The variations are the shared ui-<variation> classes, drawn in pencil at rest (soft keeps its pen tint), and
+     muted by their shared disabled modifier. Focus draws the pen's 2px ring in every variation. */
+  .utensil-text-area-control textarea:focus {
     box-shadow: inset 0 0 0 2px var(--pen-8);
   }
 
-  /* Surface variation */
-  .utensil-text-area-control.surface textarea {
-    background-color: var(--pencil-surface);
-    box-shadow: inset 0 0 0 1px var(--pencil-a7);
-  }
-
-  .utensil-text-area-control.surface textarea:focus {
-    box-shadow: inset 0 0 0 2px var(--pen-8);
-    background-color: var(--pencil-surface);
-  }
-
-  /* Soft variation */
-  .utensil-text-area-control.soft textarea {
-    background-color: var(--pen-a3);
-    box-shadow: none;
+  /* Unstyled draws no field of its own, not even the browser's */
+  .utensil-text-area-control.unstyled textarea {
+    background-color: transparent;
   }
 
   .utensil-text-area-control.soft textarea:focus {
     background-color: var(--pen-a4);
-    box-shadow: inset 0 0 0 2px var(--pen-8);
+  }
+
+  /* Disabled: the field is muted by its shared modifier and can't be resized; its text, label and description go
+     with it */
+  .utensil-text-area-control textarea:disabled {
+    color: var(--pencil-a8);
+    cursor: default;
+  }
+
+  .utensil-text-area.disabled .utensil-text-area-label,
+  .utensil-text-area.disabled p.description {
+    color: var(--pencil-a8);
   }
 
   /* High contrast: the edges and placeholder are drawn strong enough to find the field by. The soft variation
      gains an edge. Focus and invalid keep their own. */
-  .utensil-high-contrast .utensil-text-area-control.outline textarea:not(:focus),
-  .utensil-high-contrast .utensil-text-area-control.surface textarea:not(:focus) {
+  .utensil-high-contrast .utensil-text-area-control.outline textarea:not(:focus, :disabled),
+  .utensil-high-contrast .utensil-text-area-control.surface textarea:not(:focus, :disabled) {
     box-shadow: inset 0 0 0 1px var(--pencil-a9);
   }
 
-  .utensil-high-contrast .utensil-text-area-control.soft textarea:not(:focus) {
+  .utensil-high-contrast .utensil-text-area-control.soft textarea:not(:focus, :disabled) {
     box-shadow: inset 0 0 0 1px var(--pen-a9);
   }
 
@@ -300,24 +287,35 @@ defineExpose({
     color: var(--pencil-a11);
   }
 
-  /* Invalid: the pen is the warning variant. A soft text area gains an edge, so invalid isn't shown by color alone.
-     Focus keeps its 2px ring. */
-  .utensil-text-area-control.invalid.outline textarea:not(:focus),
-  .utensil-text-area-control.invalid.surface textarea:not(:focus),
-  .utensil-text-area-control.invalid.soft textarea:not(:focus) {
+  /* Invalid: the pen is the warning variant. A soft or unstyled text area gains an edge, so invalid isn't shown by
+     color alone. Focus keeps its 2px ring. */
+  .utensil-text-area-control.invalid textarea:not(:focus) {
     box-shadow: inset 0 0 0 1px var(--pen-8);
   }
 
   /* Description */
-  p.description {
+  .utensil-text-area p.description {
     min-height: 1lh;
     margin: 0;
     font-size: var(--font-size-1);
     color: var(--pencil-a11);
   }
 
-  p.description.invalid {
+  .utensil-text-area p.description.invalid {
     color: var(--pen-11);
+  }
+}
+</style>
+
+<!-- Unscoped: the nearest rounded or squared theme sets the text area's padding, through a cvar it inherits -->
+<style>
+@layer utensil {
+  .utensil-squared {
+    --utensil-text-area-padding: var(--space-2) var(--space-3);
+  }
+
+  .utensil-rounded {
+    --utensil-text-area-padding: var(--space-3) var(--space-4);
   }
 }
 </style>

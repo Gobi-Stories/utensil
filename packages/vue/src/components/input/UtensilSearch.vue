@@ -23,6 +23,7 @@
 
 <script setup lang="ts">
 import { ref, watch } from 'vue'
+import type { UtensilFieldVariation } from '../../theme/utensil-theme'
 import UtensilInput from './UtensilInput.vue'
 import type { Debouncer } from '../../lib/debouncer/debouncer'
 import { DebouncerEnd } from '../../lib/debouncer/debouncer-end'
@@ -32,7 +33,7 @@ interface Props {
   label?: string
   labelPlacement?: 'block' | 'inline'
   placeholder?: string
-  variation?: 'surface' | 'soft' | 'outline'
+  variation?: UtensilFieldVariation
   height?: 'normal' | 'large'
   debounce?: boolean
   disabled?: boolean

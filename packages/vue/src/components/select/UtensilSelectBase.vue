@@ -49,6 +49,7 @@
 
 <script setup lang="ts">
 import { ref, computed, watch, nextTick, useId } from 'vue'
+import type { UtensilFieldVariation } from '../../theme/utensil-theme'
 import UtensilPopover from '../popover/UtensilPopover.vue'
 import UtensilListbox from '../listbox/UtensilListbox.vue'
 
@@ -56,7 +57,7 @@ export interface Props {
   /** Array of navigable values for keyboard navigation */
   values?: string[]
   /** Visual style variation */
-  variation?: 'surface' | 'soft'
+  variation?: UtensilFieldVariation
   /** Whether the select is disabled */
   disabled?: boolean
   /** Keeps the list open and only reports selections, for multi-select hosts */

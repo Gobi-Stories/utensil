@@ -276,4 +276,20 @@ describe('UtensilSelect', () => {
     })
     expect(scopes[0]).toMatchObject({ selection: ['apple'], isOpen: false })
   })
+
+  it('draws its trigger in the shared ui- variation, in pencil but for soft', () => {
+    const outline = mount(UtensilSelect, { props: { options, ariaLabel: 'Fruit', variation: 'outline' } })
+    const soft = mount(UtensilSelect, { props: { options, ariaLabel: 'Fruit', variation: 'soft' } })
+
+    expect(outline.find('[role="combobox"]').classes()).toEqual(expect.arrayContaining(['ui-outline', 'pencil']))
+    expect(soft.find('[role="combobox"]').classes()).toContain('ui-soft')
+    expect(soft.find('[role="combobox"]').classes()).not.toContain('pencil')
+  })
+
+  it('marks its root disabled, for the muted label and description', () => {
+    const wrapper = mount(UtensilSelect, { props: { options, label: 'Fruit', disabled: true } })
+
+    expect(wrapper.classes()).toContain('disabled')
+    expect(wrapper.find('[role="combobox"]').attributes('disabled')).toBeDefined()
+  })
 })

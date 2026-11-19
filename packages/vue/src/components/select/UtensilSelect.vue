@@ -1,5 +1,5 @@
 <template generic="Theme extends ThemeConfig">
-  <div class="utensil-select">
+  <div class="utensil-select" :class="{ disabled }">
     <label v-if="label" :id="labelId" class="utensil-select-label" :for="triggerId">{{ label }}</label>
     <UtensilSelectBase
       ref="selectBaseRef"
@@ -22,7 +22,9 @@
           :class="[
             ...themeClasses,
             variation,
+            `ui-${variation}`,
             `placement-${placement}`,
+            { pencil: variation !== 'soft' },
             { open: isOpen, disabled, 'has-value': multiple ? selection.length > 0 : !!value },
           ]"
           :style="themeStyle"
@@ -105,7 +107,7 @@
 
 <script setup lang="ts" generic="Theme extends ThemeConfig">
 import { ref, computed, useId, useSlots } from 'vue'
-import type { ThemeConfig, IconProp } from '../../theme/utensil-theme'
+import type { ThemeConfig, IconProp, UtensilFieldVariation } from '../../theme/utensil-theme'
 import { useTheme } from '../../theme/useTheme'
 import UtensilIcon from '../icon/UtensilIcon.vue'
 import UtensilSelectBase from './UtensilSelectBase.vue'
@@ -124,7 +126,7 @@ export interface Props<Theme extends ThemeConfig> {
   /** Placeholder text when no value is selected */
   placeholder?: string
   /** Visual style variation */
-  variation?: 'surface' | 'soft'
+  variation?: UtensilFieldVariation
   /** Whether the select is disabled */
   disabled?: boolean
   /** Selects multiple values via the selection model instead of a single value */
@@ -248,67 +250,57 @@ defineExpose({
     text-align: start;
   }
 
-  /* Surface variation */
-  .utensil-select-trigger.surface {
-    background-color: var(--pencil-surface);
-    box-shadow: inset 0 0 0 1px var(--pencil-a7);
-  }
-
-  .utensil-select-trigger.surface:hover:not(.disabled):not(:focus) {
+  /* The variations are the shared ui-<variation> classes, drawn in pencil at rest (soft keeps its pen tint), and
+     muted by their shared disabled modifier. Hover strengthens the edge or tint; focus draws the pen's 2px ring. */
+  .utensil-select-trigger.surface:hover:not(.disabled, :focus) {
     box-shadow: inset 0 0 0 1px var(--pencil-a8);
   }
 
-  .utensil-select-trigger.surface:focus {
-    box-shadow: inset 0 0 0 2px var(--pen-8);
-    background-color: var(--pencil-1);
+  .utensil-select-trigger.outline:hover:not(.disabled, :focus) {
+    box-shadow: inset 0 0 0 1px var(--pencil-a9);
   }
 
-  .utensil-select-trigger.surface.open.placement-bottom {
-    border-end-start-radius: 0;
-    border-end-end-radius: 0;
-  }
-
-  .utensil-select-trigger.surface.open.placement-top {
-    border-start-start-radius: 0;
-    border-start-end-radius: 0;
-  }
-
-  /* Soft variation */
-  .utensil-select-trigger.soft {
-    background-color: var(--pen-a3);
-    box-shadow: none;
-  }
-
-  .utensil-select-trigger.soft:hover:not(.disabled):not(:focus) {
+  .utensil-select-trigger.soft:hover:not(.disabled, :focus) {
     background-color: var(--pen-a4);
+  }
+
+  .utensil-select-trigger:focus {
+    box-shadow: inset 0 0 0 2px var(--pen-8);
+  }
+
+  /* Unstyled draws no field of its own, not even the browser's */
+  .utensil-select-trigger.unstyled {
+    background-color: transparent;
   }
 
   .utensil-select-trigger.soft:focus {
     background-color: var(--pen-a4);
-    box-shadow: inset 0 0 0 2px var(--pen-8);
   }
 
-  .utensil-select-trigger.soft.open.placement-bottom {
+  /* Open, the trigger joins the list on the side it opens to */
+  .utensil-select-trigger.open.placement-bottom {
     border-end-start-radius: 0;
     border-end-end-radius: 0;
   }
 
-  .utensil-select-trigger.soft.open.placement-top {
+  .utensil-select-trigger.open.placement-top {
     border-start-start-radius: 0;
     border-start-end-radius: 0;
   }
 
   /* High contrast: the edges, placeholder and chevron are drawn strong enough to find the field by. The soft
-     variation gains an edge. Focus keeps its own. */
-  .utensil-high-contrast .utensil-select-trigger.surface:not(:focus) {
+     variation gains an edge. Focus and disabled keep their own. */
+  .utensil-high-contrast .utensil-select-trigger.surface:not(:focus, .disabled),
+  .utensil-high-contrast .utensil-select-trigger.outline:not(:focus, .disabled) {
     box-shadow: inset 0 0 0 1px var(--pencil-a9);
   }
 
-  .utensil-high-contrast .utensil-select-trigger.surface:hover:not(.disabled):not(:focus) {
+  .utensil-high-contrast .utensil-select-trigger.surface:hover:not(.disabled, :focus),
+  .utensil-high-contrast .utensil-select-trigger.outline:hover:not(.disabled, :focus) {
     box-shadow: inset 0 0 0 1px var(--pencil-a10);
   }
 
-  .utensil-high-contrast .utensil-select-trigger.soft:not(:focus) {
+  .utensil-high-contrast .utensil-select-trigger.soft:not(:focus, .disabled) {
     box-shadow: inset 0 0 0 1px var(--pen-a9);
   }
 
@@ -320,10 +312,18 @@ defineExpose({
     color: var(--pencil-11);
   }
 
-  /* Disabled state */
+  /* Disabled: the trigger is muted by its shared modifier; its text, icons, label and description go with it */
   .utensil-select-trigger.disabled {
-    opacity: 0.5;
     cursor: default;
+  }
+
+  .utensil-select-trigger.disabled,
+  .utensil-select-trigger.disabled .select-value,
+  .utensil-select-trigger.disabled .select-icon,
+  .utensil-select-trigger.disabled .select-chevron,
+  .utensil-select.disabled .utensil-select-label,
+  .utensil-select.disabled .utensil-select-description {
+    color: var(--pencil-a8);
   }
 
   /* Placeholder styling */

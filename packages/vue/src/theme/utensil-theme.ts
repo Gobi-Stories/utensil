@@ -9,6 +9,9 @@ export type ThemeContrast = 'high' | 'normal'
 export type ThemeReducedMotion = 'reduced' | 'normal'
 export type UtensilUIVariation = 'solid' | 'outline' | 'surface' | 'soft' | 'text' | 'overlay' | 'unstyled'
 
+/** The variations a text field, text area or select can take */
+export type UtensilFieldVariation = Extract<UtensilUIVariation, 'surface' | 'soft' | 'outline' | 'unstyled'>
+
 // These defaults are no good for UtensilTheme
 export const defaultUtensilPen = 'gray'
 export const defaultUtensilPencil = 'gray'

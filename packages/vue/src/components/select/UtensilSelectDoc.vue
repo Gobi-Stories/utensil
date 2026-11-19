@@ -116,15 +116,15 @@
         </tr>
         <tr>
           <td><code>variation</code></td>
-          <td><code>'surface' | 'soft'</code></td>
+          <td><code>'surface' | 'soft' | 'outline' | 'unstyled'</code></td>
           <td><code>'surface'</code></td>
-          <td>Visual style variation for the trigger button.</td>
+          <td>Visual style of the trigger. See Variations below.</td>
         </tr>
         <tr>
           <td><code>disabled</code></td>
           <td><code>boolean</code></td>
           <td><code>false</code></td>
-          <td>Disables the select entirely.</td>
+          <td>Disables the select. Drawn muted, with its label, icon and description.</td>
         </tr>
         <tr>
           <td><code>ariaLabel</code></td>
@@ -258,7 +258,14 @@
     <div class="text-ui ui-variations-reference">
       <UtensilBadge variation="surface" scale="giant">Surface</UtensilBadge>
       <UtensilBadge variation="soft" scale="giant">Soft</UtensilBadge>
+      <UtensilBadge variation="outline" scale="giant">Outline</UtensilBadge>
+      <UtensilBadge scale="giant">Unstyled</UtensilBadge>
     </div>
+    <p>
+      The variations are the ones buttons and boxes take: <code>surface</code> is filled and edged, <code>soft</code> is
+      tinted in the pen, <code>outline</code> is an edge over whatever is behind it, and <code>unstyled</code> draws no
+      fill or edge, for a field laid into a panel of its own. Each keeps its padding and the focus ring.
+    </p>
 
     <!-- Exposed -->
     <h2>Exposed</h2>

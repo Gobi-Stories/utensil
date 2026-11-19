@@ -7,9 +7,14 @@
     <div class="demo-grid">
       <div class="demo-item">
         <div class="demo-content input-demo">
-          <UtensilInput v-model="surfaceInput" placeholder="Surface input" variation="surface" />
-          <UtensilInput v-model="softInput" placeholder="Soft input" variation="soft" />
-          <UtensilInput v-model="outlineInput" placeholder="Outline input" variation="outline" />
+          <ReferenceInput
+            v-for="variation in inputVariations"
+            :key="variation"
+            v-model="variationInputs[variation]"
+            :label="labelFor(variation)"
+            placeholder="Type here..."
+            :variation="variation"
+          />
         </div>
         <div class="demo-label">Style Variations</div>
         <div class="demo-code">
@@ -18,7 +23,7 @@
       </div>
       <div class="demo-item">
         <div class="demo-content input-demo">
-          <UtensilSearch v-model="iconStartInput" placeholder="Search..." blur-on-enter-key />
+          <UtensilSearch v-model="iconStartInput" label="Search" placeholder="Search..." blur-on-enter-key />
           <div class="input-value">Value: "{{ iconStartInput }}"</div>
         </div>
         <div class="demo-label">Icon Start</div>
@@ -28,7 +33,7 @@
       </div>
       <div class="demo-item">
         <div class="demo-content input-demo">
-          <UtensilPassword v-model="iconEndInput" placeholder="Enter password" />
+          <UtensilPassword v-model="iconEndInput" label="Password" />
           <div class="input-value">Value: "{{ iconEndInput }}"</div>
         </div>
         <div class="demo-label">Icon End</div>
@@ -38,7 +43,13 @@
       </div>
       <div class="demo-item">
         <div class="demo-content input-demo">
-          <UtensilInput v-model="emailInput" placeholder="Enter email" type="email" icon="envelope" />
+          <ReferenceInput
+            v-model="emailInput"
+            label="Email"
+            placeholder="sam@example.com"
+            type="email"
+            icon="envelope"
+          />
           <div class="input-value">Value: "{{ emailInput }}"</div>
         </div>
         <div class="demo-label">Email Type</div>
@@ -48,14 +59,7 @@
       </div>
       <div class="demo-item">
         <div class="demo-content input-demo">
-          <UtensilInput
-            v-model="numberInput"
-            placeholder="Enter number"
-            type="number"
-            icon="hashtag"
-            min="0"
-            max="100"
-          />
+          <ReferenceInput v-model="numberInput" label="Quantity" type="number" icon="hashtag" min="0" max="100" />
           <div class="input-value">Value: "{{ numberInput }}"</div>
         </div>
         <div class="demo-label">Number Type</div>
@@ -65,8 +69,13 @@
       </div>
       <div class="demo-item">
         <div class="demo-content input-demo">
-          <UtensilInput placeholder="Disabled input" disabled icon="ban" />
-          <div class="input-value">Disabled state</div>
+          <ReferenceInput
+            label="Account ID"
+            model-value="ACC-20418"
+            description="Set when the account was made."
+            disabled
+            icon="ban"
+          />
         </div>
         <div class="demo-label">Disabled</div>
         <div class="demo-code">
@@ -75,7 +84,7 @@
       </div>
       <div class="demo-item">
         <div class="demo-content input-demo">
-          <UtensilInput
+          <ReferenceInput
             v-model="invalidEmailInput"
             label="Email"
             type="email"
@@ -91,7 +100,7 @@
       </div>
       <div class="demo-item">
         <div class="demo-content input-demo">
-          <UtensilInput
+          <ReferenceInput
             v-model="websiteInput"
             label="Website"
             reserve-description
@@ -100,7 +109,7 @@
             @blur="checkWebsite"
             @input="websiteError = ''"
           />
-          <UtensilInput v-model="firstNameInput" label="First name" :maxlength="20" reserve-description />
+          <ReferenceInput v-model="firstNameInput" label="First name" :maxlength="20" reserve-description />
         </div>
         <div class="demo-label always-visible">An error on leaving the field, its line reserved</div>
         <div class="demo-code">
@@ -109,8 +118,8 @@
       </div>
       <div class="demo-item">
         <div class="demo-content input-demo">
-          <UtensilInput v-model="largeInput" placeholder="Large input" height="large" />
-          <UtensilInput v-model="largeSoftInput" placeholder="Large soft" variation="soft" height="large" />
+          <ReferenceInput v-model="largeInput" label="Headline" height="large" />
+          <ReferenceInput v-model="largeSoftInput" label="Subheading" variation="soft" height="large" />
         </div>
         <div class="demo-label always-visible">Large Size</div>
         <div class="demo-code">
@@ -126,16 +135,22 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed, reactive, ref } from 'vue'
+import type { UtensilFieldVariation } from '@gobistories/utensil-vue/theme/utensil-theme'
 import ReferenceComponentDemo from '@/features/components/ReferenceComponentDemo.vue'
-import UtensilInput from '@gobistories/utensil-vue/components/input/UtensilInput.vue'
+import { ReferenceInput } from '@/theme/components/ReferenceInput'
 import UtensilInputDoc from '@gobistories/utensil-vue/components/input/UtensilInputDoc.vue'
 import UtensilSearch from '@gobistories/utensil-vue/components/input/UtensilSearch.vue'
 import UtensilPassword from '@gobistories/utensil-vue/components/input/UtensilPassword.vue'
 
-const surfaceInput = ref('')
-const softInput = ref('')
-const outlineInput = ref('')
+const inputVariations = ['surface', 'soft', 'outline', 'unstyled'] as const
+const variationInputs = reactive<Record<UtensilFieldVariation, string>>({
+  surface: '',
+  soft: '',
+  outline: '',
+  unstyled: '',
+})
+const labelFor = (variation: UtensilFieldVariation) => variation[0].toUpperCase() + variation.slice(1)
 const largeInput = ref('')
 const largeSoftInput = ref('')
 const iconStartInput = ref('')

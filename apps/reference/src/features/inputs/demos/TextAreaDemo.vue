@@ -7,7 +7,13 @@
     <div class="demo-grid">
       <div class="demo-item">
         <div class="demo-content input-demo">
-          <UtensilTextArea v-model="textAreaSurface" placeholder="Surface text area..." variation="surface" :rows="5" />
+          <UtensilTextArea
+            v-model="textAreaSurface"
+            label="Surface"
+            placeholder="Type here..."
+            variation="surface"
+            :rows="5"
+          />
         </div>
         <div class="demo-label">Surface Variation</div>
         <div class="demo-code">
@@ -16,7 +22,7 @@
       </div>
       <div class="demo-item">
         <div class="demo-content input-demo">
-          <UtensilTextArea v-model="textAreaSoft" placeholder="Soft text area..." variation="soft" :rows="5" />
+          <UtensilTextArea v-model="textAreaSoft" label="Soft" placeholder="Type here..." variation="soft" :rows="5" />
         </div>
         <div class="demo-label">Soft Variation</div>
         <div class="demo-code">
@@ -25,11 +31,20 @@
       </div>
       <div class="demo-item">
         <div class="demo-content input-demo">
-          <UtensilTextArea placeholder="Outline text area..." variation="outline" :rows="5" />
+          <UtensilTextArea label="Outline" placeholder="Type here..." variation="outline" :rows="5" />
         </div>
         <div class="demo-label">Outline Variation</div>
         <div class="demo-code">
           <code>&lt;UtensilTextArea variation="outline" /&gt;</code>
+        </div>
+      </div>
+      <div class="demo-item">
+        <div class="demo-content input-demo">
+          <UtensilTextArea label="Unstyled" placeholder="Type here..." variation="unstyled" :rows="5" />
+        </div>
+        <div class="demo-label">Unstyled Variation</div>
+        <div class="demo-code">
+          <code>&lt;UtensilTextArea variation="unstyled" /&gt;</code>
         </div>
       </div>
       <div class="demo-item">
@@ -76,7 +91,7 @@
       </div>
       <div class="demo-item">
         <div class="demo-content input-demo">
-          <UtensilTextArea v-model="textAreaNoResize" placeholder="Cannot resize" resize="none" />
+          <UtensilTextArea v-model="textAreaNoResize" label="Summary" resize="none" />
         </div>
         <div class="demo-label">No Resize</div>
         <div class="demo-code">
@@ -85,8 +100,13 @@
       </div>
       <div class="demo-item">
         <div class="demo-content input-demo">
-          <UtensilTextArea placeholder="Disabled text area" disabled />
-          <div class="input-value">Disabled state</div>
+          <UtensilTextArea
+            label="Archived note"
+            model-value="Moved to the new workspace in March."
+            description="Archived notes can't be edited."
+            :rows="3"
+            disabled
+          />
         </div>
         <div class="demo-label">Disabled</div>
         <div class="demo-code">
@@ -154,16 +174,5 @@ const textAreaInvalid = ref('Too short')
   margin: var(--space-1) 0 0;
   font-size: var(--font-size-1);
   color: var(--pencil-a11);
-}
-
-.input-value {
-  margin-top: var(--space-2);
-  padding: var(--space-1) var(--space-2);
-  background-color: var(--pencil-3);
-  border-radius: var(--radius-2);
-  font-size: 0.85rem;
-  color: var(--pencil-11);
-  text-align: center;
-  font-family: ui-monospace, monospace;
 }
 </style>

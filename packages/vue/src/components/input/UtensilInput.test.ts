@@ -144,4 +144,20 @@ describe('UtensilInput', () => {
     expect(document.activeElement).not.toBe(input.element)
     wrapper.unmount()
   })
+
+  it('draws its variation with the shared ui- class, in pencil but for soft', () => {
+    const outline = mount(UtensilInput, { props: { variation: 'outline' } }).find('input')
+    const soft = mount(UtensilInput, { props: { variation: 'soft' } }).find('input')
+
+    expect(outline.classes()).toEqual(expect.arrayContaining(['ui-outline', 'pencil']))
+    expect(soft.classes()).toContain('ui-soft')
+    expect(soft.classes()).not.toContain('pencil')
+  })
+
+  it('marks itself and its field disabled, for the muted look', () => {
+    const wrapper = mount(UtensilInput, { props: { disabled: true } })
+
+    expect(wrapper.classes()).toContain('disabled')
+    expect(wrapper.find('input').classes()).toContain('disabled')
+  })
 })

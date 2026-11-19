@@ -8,7 +8,12 @@
     <div class="demo-grid">
       <div class="demo-item">
         <div class="demo-content input-demo">
-          <UtensilInput v-model="labelBlockInput" label="Full name" placeholder="Enter your name" variation="surface" />
+          <ReferenceInput
+            v-model="labelBlockInput"
+            label="Full name"
+            placeholder="Enter your name"
+            variation="surface"
+          />
         </div>
         <div class="demo-label">Block Label (default)</div>
         <div class="demo-code">
@@ -17,7 +22,7 @@
       </div>
       <div class="demo-item">
         <div class="demo-content input-demo">
-          <UtensilInput
+          <ReferenceInput
             v-model="labelInlineInput"
             label="Email"
             label-placement="inline"
@@ -56,7 +61,7 @@
       </div>
       <div class="demo-item">
         <div class="demo-content input-demo">
-          <UtensilInput
+          <ReferenceInput
             id="custom-id"
             v-model="labelCustomIdInput"
             label="Custom ID"
@@ -71,7 +76,7 @@
       </div>
       <div class="demo-item">
         <div class="demo-content input-demo">
-          <UtensilInput v-model="labelSoftInput" label="Notes" placeholder="Add notes..." variation="soft" />
+          <ReferenceInput v-model="labelSoftInput" label="Notes" placeholder="Add notes..." variation="soft" />
         </div>
         <div class="demo-label">Soft Variation with Label</div>
         <div class="demo-code">
@@ -84,7 +89,7 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import UtensilInput from '@gobistories/utensil-vue/components/input/UtensilInput.vue'
+import { ReferenceInput } from '@/theme/components/ReferenceInput'
 import UtensilSearch from '@gobistories/utensil-vue/components/input/UtensilSearch.vue'
 import UtensilPassword from '@gobistories/utensil-vue/components/input/UtensilPassword.vue'
 

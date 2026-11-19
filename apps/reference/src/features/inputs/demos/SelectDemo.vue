@@ -81,17 +81,17 @@
       <div class="demo-item">
         <div class="demo-content input-demo">
           <ReferenceSelect
-            v-model="softSelect"
+            v-for="variation in selectVariations"
+            :key="variation"
             :options="fruitOptions"
-            variation="soft"
-            placeholder="Soft variation"
-            aria-label="Soft variation"
+            :variation="variation"
+            :placeholder="`${variation[0].toUpperCase()}${variation.slice(1)} select`"
+            :aria-label="`${variation} select`"
           />
-          <div class="input-value">Value: "{{ softSelect ?? 'null' }}"</div>
         </div>
-        <div class="demo-label">Soft Variation</div>
+        <div class="demo-label">Style Variations</div>
         <div class="demo-code">
-          <code>&lt;UtensilSelect variation="soft" /&gt;</code>
+          <code>&lt;UtensilSelect variation="outline" /&gt;</code>
         </div>
       </div>
       <div class="demo-item">
@@ -219,10 +219,11 @@ const periodOptions: SelectOption<ReferenceThemeConfig>[] = [
   { value: 'custom', label: 'Custom range…' },
 ]
 const multipleSelection = ref<string[]>(['apple', 'cherry'])
-const softSelect = ref<string | null>(null)
 const iconSelect = ref<string | null>(null)
 const disabledOptionsSelect = ref<string | null>(null)
 const longListSelect = ref<string | null>(null)
+
+const selectVariations = ['surface', 'soft', 'outline', 'unstyled'] as const
 
 const fruitOptions: SelectOption<ReferenceThemeConfig>[] = [
   { value: 'apple', label: 'Apple' },

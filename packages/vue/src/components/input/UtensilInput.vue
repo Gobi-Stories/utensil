@@ -1,5 +1,5 @@
 <template generic="Theme extends ThemeConfig">
-  <div class="utensil-input" :class="{ 'label-inline': label && labelPlacement === 'inline' }">
+  <div class="utensil-input" :class="{ 'label-inline': label && labelPlacement === 'inline', disabled }">
     <label v-if="label" :for="inputId" class="utensil-input-label">{{ label }}</label>
     <div
       class="utensil-input-control"
@@ -21,6 +21,7 @@
           ref="input"
           v-model="model"
           :id="inputId"
+          :class="[`ui-${variation}`, { pencil: variation !== 'soft', disabled }]"
           :name="name"
           :type="type"
           :placeholder="placeholder"
@@ -81,7 +82,7 @@
 
 <script setup lang="ts" generic="Theme extends ThemeConfig">
 import { ref, computed, getCurrentInstance, useId, useSlots } from 'vue'
-import type { IconProp, ThemeConfig } from '../../theme/utensil-theme'
+import type { IconProp, ThemeConfig, UtensilFieldVariation } from '../../theme/utensil-theme'
 import { useTheme } from '../../theme/useTheme'
 import UtensilIcon from '../icon/UtensilIcon.vue'
 
@@ -95,7 +96,7 @@ export interface Props<Theme extends ThemeConfig> {
   // Holds the description's line while there is none, for a message that comes and goes
   reserveDescription?: boolean
   placeholder?: string
-  variation?: 'surface' | 'soft' | 'outline'
+  variation?: UtensilFieldVariation
   height?: 'normal' | 'large'
   required?: boolean
   autocomplete?: string
@@ -265,52 +266,41 @@ defineExpose({
     color: var(--pencil-a9);
   }
 
-  .utensil-input-control input:disabled {
-    opacity: 0.5;
-    cursor: default;
-  }
-
-  /* Outline variation */
-  .utensil-input-control.outline input {
-    background-color: var(--pencil-surface);
-    box-shadow: inset 0 0 0 1px var(--pencil-a6);
-  }
-
-  .utensil-input-control.outline input:focus {
+  /* The variations are the shared ui-<variation> classes, drawn in pencil at rest (soft keeps its pen tint), and
+     muted by their shared disabled modifier. Focus draws the pen's 2px ring in every variation. */
+  .utensil-input-control input:focus {
     box-shadow: inset 0 0 0 2px var(--pen-8);
-    background-color: var(--pencil-2);
   }
 
-  /* Surface variation */
-  .utensil-input-control.surface input {
-    background-color: var(--pencil-surface);
-    box-shadow: inset 0 0 0 1px var(--pencil-a7);
-  }
-
-  .utensil-input-control.surface input:focus {
-    box-shadow: inset 0 0 0 2px var(--pen-8);
-    background-color: var(--pencil-surface);
-  }
-
-  /* Soft variation - no outline */
-  .utensil-input-control.soft input {
-    background-color: var(--pen-a3);
-    box-shadow: none;
+  /* Unstyled draws no field of its own, not even the browser's */
+  .utensil-input-control.unstyled input {
+    background-color: transparent;
   }
 
   .utensil-input-control.soft input:focus {
     background-color: var(--pen-a4);
-    box-shadow: inset 0 0 0 2px var(--pen-8);
+  }
+
+  /* Disabled: the field is muted by its shared modifier; its text, label, icon and description go with it */
+  .utensil-input-control input:disabled {
+    color: var(--pencil-a8);
+    cursor: default;
+  }
+
+  .utensil-input.disabled .utensil-input-label,
+  .utensil-input.disabled .utensil-input-control .utensil-icon,
+  .utensil-input.disabled p.description {
+    color: var(--pencil-a8);
   }
 
   /* High contrast: the edges, placeholder and resting icon are drawn strong enough to find the field by. The
-     soft variation gains an edge. Focus and invalid keep their own. */
-  .utensil-high-contrast .utensil-input-control.outline input:not(:focus),
-  .utensil-high-contrast .utensil-input-control.surface input:not(:focus) {
+     soft variation gains an edge. Focus, invalid and disabled keep their own. */
+  .utensil-high-contrast .utensil-input-control.outline input:not(:focus, :disabled),
+  .utensil-high-contrast .utensil-input-control.surface input:not(:focus, :disabled) {
     box-shadow: inset 0 0 0 1px var(--pencil-a9);
   }
 
-  .utensil-high-contrast .utensil-input-control.soft input:not(:focus) {
+  .utensil-high-contrast .utensil-input-control.soft input:not(:focus, :disabled) {
     box-shadow: inset 0 0 0 1px var(--pen-a9);
   }
 
@@ -322,11 +312,9 @@ defineExpose({
     color: var(--pencil-a11);
   }
 
-  /* Invalid: the pen is the warning variant. A soft input gains an edge, so invalid isn't shown by color alone.
-     Focus keeps its 2px ring. */
-  .utensil-input-control.invalid.outline input:not(:focus),
-  .utensil-input-control.invalid.surface input:not(:focus),
-  .utensil-input-control.invalid.soft input:not(:focus) {
+  /* Invalid: the pen is the warning variant. A soft or unstyled input gains an edge, so invalid isn't shown by color
+     alone. Focus keeps its 2px ring. */
+  .utensil-input-control.invalid input:not(:focus) {
     box-shadow: inset 0 0 0 1px var(--pen-8);
   }
 
@@ -413,14 +401,13 @@ defineExpose({
     inset-inline-end: var(--space-3);
   }
 
-  /* Action box */
+  /* Action box: after the input in the DOM, so it is drawn over it */
   .utensil-input-control .action-box {
     position: absolute;
     inset-block: 0;
     inset-inline-end: var(--space-2);
     display: flex;
     align-items: center;
-    z-index: 1;
   }
 
   .utensil-input-control .action-box:empty {
@@ -443,7 +430,7 @@ defineExpose({
   }
 
   /* Description */
-  p.description {
+  .utensil-input-control p.description {
     min-height: 1lh;
     margin: 0;
     font-size: var(--font-size-1);

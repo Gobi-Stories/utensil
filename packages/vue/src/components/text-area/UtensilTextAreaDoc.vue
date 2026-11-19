@@ -2,14 +2,6 @@
   <article class="text-code utensil-api-doc">
     <div class="doc-header">
       <h1>UtensilTextArea</h1>
-      <UtensilPopoverPanel :offset="0">
-        <template #trigger="{ toggle }">
-          <UtensilBadge class="theme-props-badge" scale="large" @click="toggle">Theme Props</UtensilBadge>
-        </template>
-        <div class="theme-props-note">
-          <span>Use a typed wrapper to use your theme values. See the Usage Guide.</span>
-        </div>
-      </UtensilPopoverPanel>
     </div>
     <p>
       A multi-line text input with label support, resize control, and multiple visual variations. Wraps a native
@@ -77,9 +69,9 @@
         </tr>
         <tr>
           <td><code>variation</code></td>
-          <td><code>'surface' | 'soft' | 'outline'</code></td>
+          <td><code>'surface' | 'soft' | 'outline' | 'unstyled'</code></td>
           <td><code>'surface'</code></td>
-          <td>Visual style variation.</td>
+          <td>Visual style of the field. See Variations below.</td>
         </tr>
         <tr>
           <td><code>rows</code></td>
@@ -115,7 +107,7 @@
           <td><code>disabled</code></td>
           <td><code>boolean</code></td>
           <td><code>false</code></td>
-          <td>Disable the textarea.</td>
+          <td>Disable the textarea. Drawn muted, with its label and description, and can't be resized.</td>
         </tr>
         <tr>
           <td><code>readonly</code></td>
@@ -211,7 +203,7 @@
         <tr>
           <td><code>keydown</code></td>
           <td><code>KeyboardEvent</code></td>
-          <td>Fires on keydown (after internal handling).</td>
+          <td>Fires on keydown, before <code>stopKeyboardPropagation</code> stops the event.</td>
         </tr>
         <tr>
           <td><code>blur</code></td>
@@ -231,7 +223,13 @@
       <UtensilBadge variation="surface" scale="giant">Surface</UtensilBadge>
       <UtensilBadge variation="soft" scale="giant">Soft</UtensilBadge>
       <UtensilBadge variation="outline" scale="giant">Outline</UtensilBadge>
+      <UtensilBadge scale="giant">Unstyled</UtensilBadge>
     </div>
+    <p>
+      The variations are the ones buttons and boxes take: <code>surface</code> is filled and edged, <code>soft</code> is
+      tinted in the pen, <code>outline</code> is an edge over whatever is behind it, and <code>unstyled</code> draws no
+      fill or edge, for a field laid into a panel of its own. Each keeps its padding and the focus ring.
+    </p>
 
     <h2>Exposed</h2>
     <table>
@@ -249,6 +247,11 @@
           <td>Focus the textarea programmatically.</td>
         </tr>
         <tr>
+          <td><code>focusEnd()</code></td>
+          <td><code>() =&gt; void</code></td>
+          <td>Focus the textarea with the caret after the last character, without scrolling it into view.</td>
+        </tr>
+        <tr>
           <td><code>blur()</code></td>
           <td><code>() =&gt; void</code></td>
           <td>Blur the textarea programmatically.</td>
@@ -257,6 +260,32 @@
           <td><code>select()</code></td>
           <td><code>() =&gt; void</code></td>
           <td>Select all text in the textarea.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>CSS Cvars</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Variable</th>
+          <th>Default</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>--utensil-text-area-font-size</code></td>
+          <td><code>--font-size-2</code></td>
+          <td>Font size of the text and the label.</td>
+        </tr>
+        <tr>
+          <td><code>--utensil-text-area-padding</code></td>
+          <td>
+            <code>--space-2</code> <code>--space-3</code>, <code>--space-3</code> <code>--space-4</code> under
+            <code>.utensil-rounded</code>
+          </td>
+          <td>Padding around the text. The nearest rounded or squared theme sets it.</td>
         </tr>
       </tbody>
     </table>
@@ -311,7 +340,6 @@
 
 <script setup lang="ts">
 import UtensilBadge from '../badge/UtensilBadge.vue'
-import UtensilPopoverPanel from '../popover/UtensilPopoverPanel.vue'
 </script>
 
 <style src="../../utensil-docs.css"></style>

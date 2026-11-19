@@ -30,6 +30,7 @@
 
 <script setup lang="ts">
 import { ref, computed, useTemplateRef } from 'vue'
+import type { UtensilFieldVariation } from '../../theme/utensil-theme'
 import UtensilInput from './UtensilInput.vue'
 
 const model = defineModel<string>()
@@ -41,7 +42,7 @@ interface Props {
   labelPlacement?: 'block' | 'inline'
   modelValue?: string
   placeholder?: string
-  variation?: 'surface' | 'soft' | 'outline'
+  variation?: UtensilFieldVariation
   height?: 'normal' | 'large'
   debounce?: boolean
   autofocus?: boolean

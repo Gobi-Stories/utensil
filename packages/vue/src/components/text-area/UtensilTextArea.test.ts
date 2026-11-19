@@ -103,4 +103,21 @@ describe('UtensilTextArea', () => {
     const id = wrapper.find('p.description').attributes('id')
     expect(wrapper.find('textarea').attributes('aria-describedby')).toBe(`hint ${id}`)
   })
+
+  it('draws its variation with the shared ui- class, in pencil but for soft', () => {
+    const unstyled = mount(UtensilTextArea, { props: { variation: 'unstyled' } }).find('textarea')
+    const soft = mount(UtensilTextArea, { props: { variation: 'soft' } }).find('textarea')
+
+    expect(unstyled.classes()).toEqual(expect.arrayContaining(['ui-unstyled', 'pencil']))
+    expect(soft.classes()).toContain('ui-soft')
+    expect(soft.classes()).not.toContain('pencil')
+  })
+
+  it('is drawn muted and stops resizing while disabled', () => {
+    const wrapper = mount(UtensilTextArea, { props: { disabled: true, resize: 'both' } })
+
+    expect(wrapper.classes()).toContain('disabled')
+    expect(wrapper.find('textarea').classes()).toContain('disabled')
+    expect(wrapper.find('.utensil-text-area-control').classes()).toContain('resize-none')
+  })
 })
