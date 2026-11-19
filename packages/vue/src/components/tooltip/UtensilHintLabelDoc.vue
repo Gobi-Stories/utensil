@@ -4,7 +4,7 @@
       <h1>UtensilHintLabel</h1>
     </div>
     <p>
-      A label with a dotted underline that reveals a plain-language explanation on hover or keyboard focus. For
+      A label with a dotted underline that reveals a plain-language explanation on hover, keyboard focus or a press. For
       explaining metric names, column headers, and technical terms. Composes
       <code>UtensilTooltip</code> in multiline mode.
     </p>
@@ -13,7 +13,8 @@
     <p>
       The label is a button drawn as text, so its hint shows from the keyboard and on a press, where a touch screen has
       no hover. It is described by the hint (<code>aria-describedby</code>), so a screen reader reads the explanation
-      with it. Without a <code>hint</code> it is only the label, with no tab stop.
+      with it. Without a <code>hint</code> it is only the label, with no tab stop. Being a button, a hint label can't
+      sit inside another button, a <code>&lt;label&gt;</code> or a <code>&lt;summary&gt;</code>: put it beside them.
     </p>
 
     <h2>Props</h2>
@@ -37,7 +38,7 @@
           <td><code>hint</code></td>
           <td><code>string</code></td>
           <td>—</td>
-          <td>The explanation shown in the tooltip.</td>
+          <td>The explanation shown in the tooltip. Without one, the label is plain text.</td>
         </tr>
         <tr>
           <td><code>placement</code></td>

@@ -3,7 +3,7 @@
     ref="tooltipRef"
     class="utensil-hint-label"
     :class="{ wrap }"
-    :text="hint"
+    :text="hint ?? ''"
     :placement="placement"
     multiline
   >
@@ -33,8 +33,8 @@ import UtensilTooltip, { type TooltipPlacement } from './UtensilTooltip.vue'
 export interface Props {
   /** The label */
   text: string
-  /** The plain-language explanation shown in the tooltip */
-  hint: string
+  /** The plain-language explanation shown in the tooltip. Without one, the label is plain text */
+  hint?: string
   /** Preferred placement of the tooltip */
   placement?: TooltipPlacement
   /** Wraps the label onto more lines where it has too little room, instead of truncating it */

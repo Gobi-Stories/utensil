@@ -46,8 +46,8 @@
         <div class="demo-content">
           <div class="tooltip-media">
             <UtensilTooltip :text="mediaTitle" placement="top" variation="overlay">
-              <template #default="{ tooltipId }">
-                <button type="button" class="tooltip-media-label" :aria-describedby="tooltipId">
+              <template #default>
+                <button type="button" class="tooltip-media-label">
                   {{ mediaTitle }}
                 </button>
               </template>

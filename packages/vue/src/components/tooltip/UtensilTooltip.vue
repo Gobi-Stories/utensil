@@ -11,8 +11,9 @@
     @focusout="onFocusout"
   >
     <template #trigger>
-      <!-- The trigger points its aria-describedby at tooltipId, so the text is read with it -->
-      <slot :tooltip-id="tooltipId"></slot>
+      <!-- The trigger points its aria-describedby at tooltipId, so the text is read with it; a disabled or empty
+           tooltip passes none, so it doesn't describe its trigger -->
+      <slot :tooltip-id="enabled ? tooltipId : undefined"></slot>
     </template>
     <div
       :id="tooltipId"

@@ -96,7 +96,10 @@
           <td><code>tooltipId</code></td>
           <td>
             The trigger content the tooltip is anchored to. Point the trigger's <code>aria-describedby</code> at
-            <code>tooltipId</code>, the id of the tooltip's text, so it is read with the trigger.
+            <code>tooltipId</code>, the id of the tooltip's text, so it is read with the trigger. It is
+            <code>undefined</code> while the tooltip is disabled or has no text, so the trigger isn't described by it.
+            Where the tooltip only repeats the trigger's own name, such as a truncated title in full, leave
+            <code>aria-describedby</code> off, or the text is read twice.
           </td>
         </tr>
       </tbody>
@@ -168,8 +171,9 @@
 
     <h3>Over Media</h3>
     <pre v-pre><code>&lt;UtensilTooltip :text="title" :disabled="!truncated" placement="top" variation="overlay"&gt;
-  &lt;template #default="{ tooltipId }"&gt;
-    &lt;button type="button" class="media-label" :aria-describedby="tooltipId"&gt;{{ title }}&lt;/button&gt;
+  &lt;!-- The button is named by the title already, so it isn't described by the tooltip too --&gt;
+  &lt;template #default&gt;
+    &lt;button type="button" class="media-label"&gt;{{ title }}&lt;/button&gt;
   &lt;/template&gt;
 &lt;/UtensilTooltip&gt;</code></pre>
   </article>
