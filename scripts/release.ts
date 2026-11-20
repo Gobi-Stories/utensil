@@ -4,8 +4,8 @@
 //
 // Bumps every workspace package to the new version, gives the Latest section of the breaking changes
 // (packages/vue/docs/BREAKING-CHANGES.md) the version's name, runs ./check and the package verification,
-// then packs both packages into temp/release/. Publishing stays manual: the script prints the
-// commands to run once the tarballs have been reviewed.
+// then packs both packages into temp/release/. Publishing is a separate step, run once the tarballs have been reviewed
+// and the release committed and tagged: bun run release:publish <account> (scripts/publish.ts).
 
 import { $ } from 'bun'
 import { mkdirSync, readFileSync, writeFileSync } from 'node:fs'
@@ -86,10 +86,6 @@ if (!dry) {
 await $`./check`.cwd(root)
 await $`bun scripts/verify-package.ts`.cwd(root)
 
-// The publish token google-artifactregistry-auth writes to ~/.npmrc, removed again once published.
-const registry = JSON.parse(readFileSync(join(root, 'packages/vue/package.json'), 'utf8')).publishConfig.registry
-const registryToken = `${registry.replace(/^https:/, '')}:_authToken`
-
 const out = join(root, 'temp', 'release')
 mkdirSync(out, { recursive: true })
 for (const pkg of ['css', 'vue']) {
@@ -101,11 +97,6 @@ Packed @gobistories/utensil-css@${version} and @gobistories/utensil-vue@${versio
 
 Next steps:
   git commit -am "repo: release: ${version}" && git tag v${version}
-  printf '@gobistories:registry=${registry}\\n' > /tmp/utensil-registry.npmrc
-  CLOUDSDK_CORE_ACCOUNT=<account> env -u GOOGLE_APPLICATION_CREDENTIALS npx google-artifactregistry-auth --repo-config=/tmp/utensil-registry.npmrc --credential-config=$HOME/.npmrc
-  npm publish temp/release/gobistories-utensil-css-${version}.tgz
-  npm publish temp/release/gobistories-utensil-vue-${version}.tgz
-  npm config delete ${registryToken} --location=user
-  rm /tmp/utensil-registry.npmrc
+  bun run release:publish <account>
   git push && git push --tags
 `)

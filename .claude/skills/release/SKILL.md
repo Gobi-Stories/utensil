@@ -99,33 +99,23 @@ git commit -am "repo: release: <v>" && git tag v<v>
 
 ## 6. Hand over: publish
 
-`@gobistories/utensil-css` first: `@gobistories/utensil-vue` depends on it.
-
 ```bash
-printf '@gobistories:registry=<registry>\n' > /tmp/utensil-registry.npmrc
-CLOUDSDK_CORE_ACCOUNT=<account> env -u GOOGLE_APPLICATION_CREDENTIALS npx google-artifactregistry-auth --repo-config=/tmp/utensil-registry.npmrc --credential-config=$HOME/.npmrc
-grep -c <registry without https:>:_authToken ~/.npmrc
-npm publish temp/release/gobistories-utensil-css-<v>.tgz
-npm publish temp/release/gobistories-utensil-vue-<v>.tgz
-npm config delete <registry without https:>:_authToken --location=user
-rm /tmp/utensil-registry.npmrc
+bun run release:publish <account>
 ```
 
-- The first two commands write a short-lived token for the maintainer's account to `~/.npmrc`. The tool only makes
-  tokens for the registries named in `--repo-config`, which defaults to the project's `.npmrc`; this repository has
-  none, so without the small config naming `<registry>` it writes no token and `npm publish` fails with `ENEEDAUTH`.
-  `CLOUDSDK_CORE_ACCOUNT` picks the maintainer's account for this command only, whatever gcloud's active account is,
-  and the tool runs without `GOOGLE_APPLICATION_CREDENTIALS` because it prefers that variable's service account over
-  gcloud.
-- The `grep` prints `1` once the token is in place. If it prints `0`, the maintainer stops before publishing.
-- Each publish should end with `+ @gobistories/utensil-<css|vue>@<v>`; `publishConfig` sends it to `<registry>`.
-- The last command removes the token again. The registry rejects a request that carries an expired or revoked token
-  instead of treating it as anonymous, so a token left in `~/.npmrc` breaks every install from the registry on this
-  machine once it expires.
+- The script publishes `@gobistories/utensil-css`, waits 10 seconds, then publishes `@gobistories/utensil-vue`, which
+  depends on it. It makes a short-lived token for `<account>` in `~/.npmrc` first, and removes it again however it
+  ends: the registry rejects a request that carries an expired or revoked token instead of treating it as anonymous,
+  so a token left there breaks every install from the registry on this machine once it expires.
+- Expect `+ @gobistories/utensil-css@<v>`, the wait, `+ @gobistories/utensil-vue@<v>`, then `Removed the token.` and
+  `Published ...`.
+- It stops before publishing anything if no token was written, and reports a token it couldn't remove for the
+  maintainer to delete by hand.
 
 A 403 naming `artifactregistry.repositories.uploadArtifacts` means the token belongs to an account without write access
-to the repository: check which account it was made for before anything else. Don't retry a publish that succeeded:
-the registry refuses a version that is already published. Wait for the maintainer to confirm both are published.
+to the repository: check which account it was made for before anything else. The script skips a package already
+published at the version, so after a failure the maintainer fixes the cause and runs it again. Wait for the maintainer
+to confirm both are published.
 
 ## 7. Verify the publish
 
@@ -135,7 +125,8 @@ npm view @gobistories/utensil-vue@<v> version dependencies --registry <registry>
 ```
 
 Without `--registry`, npm asks npmjs, where the packages aren't published, and returns a 404. A 403 here means a
-token for the registry is still in `~/.npmrc`: remove it as in step 6.
+token for the registry is still in `~/.npmrc`: remove it with
+`npm config delete <registry without https:>:_authToken --location=user`.
 
 ## 8. Hand over: push
 

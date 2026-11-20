@@ -19,7 +19,8 @@
     "test:server": "vitest",
     "test:coverage": "vitest run --coverage",
     "verify:package": "bun scripts/verify-package.ts",
-    "release": "bun scripts/release.ts"
+    "release": "bun scripts/release.ts",
+    "release:publish": "bun scripts/publish.ts"
   },
   "devDependencies": {
     "@arethetypeswrong/cli": "^0.18.2",

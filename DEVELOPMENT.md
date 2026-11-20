@@ -36,6 +36,7 @@ Run from the repository root.
 | `bun run typecheck`       | Typecheck all projects (use this, not `npx vue-tsc --noEmit`)                               |
 | `bun run verify:package`  | Build, pack and install both packages into a fresh consumer app and check it                |
 | `bun run release <bump>`  | Prepare a release (see below)                                                               |
+| `bun run release:publish` | Publish a prepared release (see below)                                                      |
 
 Generate a color scale in the repository with
 `bun run --filter @gobistories/utensil-css generate-color <name> <hex> [options] > path/to/<name>.css`.
@@ -129,32 +130,33 @@ bun run release patch   # or minor, major, or an explicit x.y.z
 ```
 
 The release script requires a clean working tree. It bumps every workspace package to the new version, runs
-`./check` and `verify:package`, then packs both packages into `temp/release/`. Review the tarballs, then commit, tag
-and publish with the commands it prints. `bun pm pack` replaces `@gobistories/utensil-vue`'s `workspace:*` dependency
-on `@gobistories/utensil-css` with the exact release version.
-
-Publishing authenticates with a short-lived token that `npx google-artifactregistry-auth` writes to `~/.npmrc`, made
-for an account with write access to the repository:
+`./check` and `verify:package`, then packs both packages into `temp/release/`. `bun pm pack` replaces
+`@gobistories/utensil-vue`'s `workspace:*` dependency on `@gobistories/utensil-css` with the exact release version.
+Review the tarballs, commit and tag the release, then publish it:
 
 ```bash
-printf '@gobistories:registry=https://europe-west1-npm.pkg.dev/gobi-tron-production/npm/\n' > /tmp/utensil-registry.npmrc
-CLOUDSDK_CORE_ACCOUNT=<account> env -u GOOGLE_APPLICATION_CREDENTIALS npx google-artifactregistry-auth \
-  --repo-config=/tmp/utensil-registry.npmrc --credential-config=$HOME/.npmrc
-rm /tmp/utensil-registry.npmrc
+git commit -am "repo: release: <version>" && git tag v<version>
+bun run release:publish <account>
+git push && git push --tags
 ```
 
-The tool only makes tokens for the registries named in `--repo-config`, which defaults to the project's `.npmrc`. This
-repository has none, since the registry is set in `publishConfig`, so a small config naming it is passed instead;
-without it the tool writes no token and `npm publish` fails with `ENEEDAUTH`.
+The publish script publishes `@gobistories/utensil-css`, waits 10 seconds, then publishes `@gobistories/utensil-vue`,
+which depends on it. A package already published at the version is skipped, so it can be run again after a failure.
 
-`CLOUDSDK_CORE_ACCOUNT` picks the account for this command alone, so gcloud's active account can stay a development
-account without write access (add the publishing account with `gcloud auth login <account> --no-activate`). The tool
-prefers Application Default Credentials, hence `env -u GOOGLE_APPLICATION_CREDENTIALS`. Remove the token after
-publishing: the registry rejects a request carrying an expired token rather than treating it as anonymous, so a stale
-token breaks every install from it on that machine.
+It authenticates with a short-lived token that `npx google-artifactregistry-auth` writes to `~/.npmrc` for `<account>`,
+which needs write access to the repository, and removes the token again when it's done, whether or not it published:
+the registry rejects a request carrying an expired token rather than treating it as anonymous, so a stale token breaks
+every install from it on that machine. The tool only makes tokens for the registries named in its `--repo-config`,
+which defaults to the project's `.npmrc`; this repository has none, since the registry is set in `publishConfig`, so
+the script passes a small config naming it.
+
+The script picks the account with `CLOUDSDK_CORE_ACCOUNT`, for its own commands alone, so gcloud's active account can
+stay a development account without write access (add the publishing account with
+`gcloud auth login <account> --no-activate`). The tool prefers Application Default Credentials, so the script runs it
+without `GOOGLE_APPLICATION_CREDENTIALS`.
 
 In Claude Code, `/release` walks you through the whole process: choosing the version, the script, reviewing the
-tarballs, the commit and tag, then hands you the publish and `git push` steps and verifies the result.
+tarballs, the commit and tag, then hands you the publish script and `git push` and verifies the result.
 
 ## AI harness
 
