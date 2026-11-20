@@ -105,6 +105,7 @@ describe('UtensilPopover', () => {
     const wrapper = mount(UtensilPopover, { props: { width: 'anchor' } })
     observed?.([{ borderBoxSize: [{ inlineSize: 312.656 }] } as unknown as ResizeObserverEntry], {} as ResizeObserver)
     expect((content(wrapper).element as HTMLElement).style.getPropertyValue('--popover-anchor-width')).toBe('312.656px')
+    expect(content(wrapper).classes()).toContain('anchor-width')
     vi.unstubAllGlobals()
   })
 })

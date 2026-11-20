@@ -13,7 +13,7 @@
       ref="popoverRef"
       :popover="mode"
       class="utensil-popover-content"
-      :class="themeClasses"
+      :class="[themeClasses, { 'anchor-width': width === 'anchor' }]"
       :style="[themeStyle, popoverStyle]"
       @beforetoggle="handleBeforeToggle"
       @toggle="handleToggle"
@@ -137,12 +137,18 @@ const popoverStyle = computed(() => {
   // The offset is on the side facing the trigger. Placements are physical sides (position-area places them so in
   // either writing direction), so a left or right one takes a physical margin: an inline margin would land on the
   // far side in a right-to-left layout.
+  // Above or below, the popover is inset from the trigger's sides by --popover-inset, so a popover as wide as its
+  // trigger meets the trigger's edge. A margin rather than a transform, which would put it on a layer of its own (see
+  // the styles).
+  const inset = 'var(--popover-inset)'
   if (isBlock) {
     if (placement.startsWith('bottom')) {
       style['margin-block-start'] = `${props.offset}px`
     } else {
       style['margin-block-end'] = `${props.offset}px`
     }
+    style['margin-left'] = inset
+    style['margin-right'] = inset
   } else {
     if (placement.startsWith('right')) {
       style['margin-left'] = `${props.offset}px`
@@ -155,8 +161,8 @@ const popoverStyle = computed(() => {
   style['--flip-position-area'] = placementToInsetArea[flipped]
   style['--flip-margin-block-start'] = isBlock && flipped.startsWith('bottom') ? `${props.offset}px` : '0'
   style['--flip-margin-block-end'] = isBlock && flipped.startsWith('top') ? `${props.offset}px` : '0'
-  style['--flip-margin-left'] = !isBlock && flipped.startsWith('right') ? `${props.offset}px` : '0'
-  style['--flip-margin-right'] = !isBlock && flipped.startsWith('left') ? `${props.offset}px` : '0'
+  style['--flip-margin-left'] = isBlock ? inset : flipped.startsWith('right') ? `${props.offset}px` : '0'
+  style['--flip-margin-right'] = isBlock ? inset : flipped.startsWith('left') ? `${props.offset}px` : '0'
 
   return style
 })
@@ -306,13 +312,13 @@ defineExpose({
     box-shadow: var(--popover-shadow);
     color: var(--popover-color);
 
-    /* Anchor width mode: --popover-anchor-width is set by JS ResizeObserver
-       Inset compensates for trigger's inset shadow + popover's outset shadow */
+    /* Anchor width mode: --popover-anchor-width is set by JS ResizeObserver. The inset on each side (a margin, set with
+       the placement) compensates for the trigger's inset shadow and the popover's outset one. */
     width: calc(var(--popover-anchor-width, auto) - var(--popover-inset) * 2);
 
-    /* Animation - translate compensates for shadow border alignment */
+    /* Animation */
     opacity: 0;
-    transform: scale(0.95) translateX(calc(var(--popover-inset)));
+    transform: scale(0.95);
     transition:
       opacity 150ms ease,
       transform 150ms ease,
@@ -322,26 +328,39 @@ defineExpose({
 
   .utensil-popover-content:popover-open {
     opacity: 1;
-    transform: scale(1) translateX(calc(var(--popover-inset)));
-    will-change: transform;
+    transform: none;
   }
 
   @starting-style {
     .utensil-popover-content:popover-open {
       opacity: 0;
-      transform: scale(0.95) translateX(calc(var(--popover-inset)));
+      transform: scale(0.95);
+    }
+  }
+
+  /* A popover as wide as its trigger fades without scaling. Once its transform has animated, Chrome keeps it on a layer
+     of its own, snapped to the pixel, so from a trigger at a half pixel it would sit a pixel off the trigger's edge;
+     and scaled, it would be narrower than the trigger. */
+  .utensil-popover-content.anchor-width,
+  .utensil-popover-content.anchor-width:popover-open {
+    transform: none;
+  }
+
+  @starting-style {
+    .utensil-popover-content.anchor-width:popover-open {
+      transform: none;
     }
   }
 
   /* Reduced motion: the panel fades without scaling */
   .utensil-reduced-motion .utensil-popover-content,
   .utensil-reduced-motion .utensil-popover-content:popover-open {
-    transform: translateX(calc(var(--popover-inset)));
+    transform: none;
   }
 
   @starting-style {
     .utensil-reduced-motion .utensil-popover-content:popover-open {
-      transform: translateX(calc(var(--popover-inset)));
+      transform: none;
     }
   }
 

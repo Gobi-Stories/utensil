@@ -70,6 +70,10 @@ Until 1.0.0, a minor release (`0.4.x` → `0.5.0`) may break, and a patch releas
   outline opaque. A disabled field is drawn muted, with its label, icon, description and placeholder, instead of at
   50% opacity.
 - **UtensilListbox**: the 240px maximum height scales with `--scale`.
+- **UtensilPopover**: a popover as wide as its trigger (`width="anchor"`), such as a select's list, fades in and out
+  without scaling. A popover above or below its trigger is inset by `--utensil-popover-inset` from the trigger's side
+  it aligns to, so an end-aligned one sits 1px in from the trigger's end and a centered one is centered, where all
+  were shifted 1px right; one beside its trigger is no longer shifted.
 - **UtensilProgressBar**: `rounded` draws `--radius-rounded` instead of `--radius-2`, heights scale with `--scale`, and
   the indeterminate segment starts at once, from the start edge, instead of after a 2s blank.
 - **UtensilTooltip**: the overlay tooltip has the overlay's blur.

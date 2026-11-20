@@ -50,7 +50,8 @@
           <td><code>'auto'</code></td>
           <td>
             Width behavior. <code>'auto'</code> sizes to content. <code>'anchor'</code> matches the trigger element
-            width via a <code>ResizeObserver</code>.
+            width via a <code>ResizeObserver</code>, inset by <code>--utensil-popover-inset</code> on each side, and
+            fades in and out without scaling, so its edges stay on the trigger's.
           </td>
         </tr>
         <tr>
