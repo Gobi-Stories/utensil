@@ -7,27 +7,37 @@
     <div class="demo-grid">
       <div class="demo-item">
         <div class="demo-content input-demo">
-          <UtensilSearch v-model="searchBasic" placeholder="Search products..." variation="soft" />
+          <UtensilSearch
+            v-model="searchBasic"
+            aria-label="Search products"
+            placeholder="Search products..."
+            variation="soft"
+          />
           <div class="input-value">Value: "{{ searchBasic }}"</div>
         </div>
-        <div class="demo-label">Basic Search</div>
+        <div class="demo-label">Named without a visible label</div>
         <div class="demo-code">
-          <code>&lt;UtensilSearch v-model="query" /&gt;</code>
+          <code>&lt;UtensilSearch v-model="query" aria-label="Search products" /&gt;</code>
         </div>
       </div>
       <div class="demo-item">
         <div class="demo-content input-demo">
-          <UtensilSearch v-model="searchDebounced" placeholder="Search with debounce" :debounce="true" />
+          <UtensilSearch
+            v-model="searchDebounced"
+            label="Stories"
+            placeholder="Search with debounce"
+            :debounce="true"
+          />
           <div class="input-value">Value: "{{ searchDebounced }}"</div>
         </div>
         <div class="demo-label">Debounced Search</div>
         <div class="demo-code">
-          <code>&lt;UtensilSearch v-model="query" :debounce="true" /&gt;</code>
+          <code>&lt;UtensilSearch v-model="query" label="Stories" :debounce="true" /&gt;</code>
         </div>
       </div>
       <div class="demo-item">
         <div class="demo-content input-demo">
-          <UtensilSearch placeholder="Disabled search" disabled />
+          <UtensilSearch label="Archive" placeholder="Disabled search" disabled />
           <div class="input-value">Disabled state</div>
         </div>
         <div class="demo-label">Disabled</div>

@@ -7,13 +7,13 @@
     <div class="demo-grid">
       <div class="demo-item">
         <div class="demo-content">
-          <ReferenceToggleButton v-model="toggleNoLabel" icon="bold" />
-          <ReferenceToggleButton v-model="toggleNoLabel2" icon="italic" variation="soft" />
-          <ReferenceToggleButton v-model="toggleNoLabel3" icon="underline" variation="outline" />
+          <ReferenceToggleButton v-model="toggleNoLabel" icon="bold" aria-label="Bold" />
+          <ReferenceToggleButton v-model="toggleNoLabel2" icon="italic" variation="soft" aria-label="Italic" />
+          <ReferenceToggleButton v-model="toggleNoLabel3" icon="underline" variation="outline" aria-label="Underline" />
         </div>
         <div class="demo-label">Without Labels</div>
         <div class="demo-code">
-          <code>&lt;UtensilToggleButton v-model="on" icon="bold" /&gt;</code>
+          <code>&lt;UtensilToggleButton v-model="on" icon="bold" aria-label="Bold" /&gt;</code>
         </div>
       </div>
       <div class="demo-item">
@@ -153,8 +153,8 @@
       </div>
       <div class="demo-item">
         <div class="demo-content">
-          <ReferenceToggleButton v-model="toggleRound" icon="heart" round color="error" />
-          <ReferenceToggleButton v-model="toggleRound2" icon="star" round color="warning" />
+          <ReferenceToggleButton v-model="toggleRound" icon="heart" round color="error" aria-label="Like" />
+          <ReferenceToggleButton v-model="toggleRound2" icon="star" round color="warning" aria-label="Star" />
         </div>
         <div class="demo-label">Round</div>
         <div class="demo-code">

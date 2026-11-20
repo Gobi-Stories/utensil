@@ -7,32 +7,32 @@
     <div class="demo-grid">
       <div class="demo-item">
         <div class="demo-content input-demo">
-          <UtensilPassword v-model="passwordBasic" placeholder="Enter password" blurOnEnterKey />
+          <UtensilPassword v-model="passwordBasic" label="Password" required blurOnEnterKey />
           <div class="input-value">Value: "{{ passwordBasic }}"</div>
         </div>
         <div class="demo-label">Basic Password</div>
         <div class="demo-code">
-          <code>&lt;UtensilPasswordInput v-model="password" /&gt;</code>
+          <code>&lt;UtensilPassword v-model="password" label="Password" required /&gt;</code>
         </div>
       </div>
       <div class="demo-item">
         <div class="demo-content input-demo">
-          <UtensilPassword placeholder="Disabled password" disabled />
+          <UtensilPassword label="Old password" placeholder="Disabled password" disabled />
           <div class="input-value">Disabled state</div>
         </div>
         <div class="demo-label">Disabled</div>
         <div class="demo-code">
-          <code>&lt;UtensilPasswordInput disabled /&gt;</code>
+          <code>&lt;UtensilPassword disabled /&gt;</code>
         </div>
       </div>
       <div class="demo-item">
         <div class="demo-content input-demo">
-          <UtensilPassword v-model="passwordReadonly" value="readonly123" readonly />
+          <UtensilPassword v-model="passwordReadonly" label="Generated password" readonly />
           <div class="input-value">Value: "{{ passwordReadonly }}"</div>
         </div>
         <div class="demo-label">Read-only</div>
         <div class="demo-code">
-          <code>&lt;UtensilPasswordInput readonly /&gt;</code>
+          <code>&lt;UtensilPassword readonly /&gt;</code>
         </div>
       </div>
     </div>
