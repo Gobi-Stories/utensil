@@ -86,7 +86,10 @@
         <tr>
           <td><code>placement-change</code></td>
           <td><code>PopoverPlacement</code></td>
-          <td>Emitted when the actual placement differs from the requested placement due to viewport flipping.</td>
+          <td>
+            Emitted when the side the popover shows on changes: when it flips for want of space, and when it opens on
+            its own side again after a flip.
+          </td>
         </tr>
       </tbody>
     </table>
@@ -152,7 +155,10 @@
         <tr>
           <td><code>actualPlacement</code></td>
           <td><code>PopoverPlacement</code></td>
-          <td>The resolved placement after viewport flipping. Matches <code>placement</code> prop unless flipped.</td>
+          <td>
+            The placement it shows at, after any flip: the <code>placement</code> prop unless flipped. Closed, it's the
+            one it was last shown at, so what follows it holds while the popover fades out.
+          </td>
         </tr>
       </tbody>
     </table>

@@ -90,6 +90,22 @@ describe('UtensilPopover', () => {
     expect(content(wrapper).attributes('style')).toContain('margin-block-start: 6px')
   })
 
+  it('reports the side it opens on as it opens, and keeps it once closed', () => {
+    const wrapper = mount(UtensilPopover, { props: { placement: 'bottom-start' } })
+    const rect = (top: number, bottom: number) => ({ top, bottom, left: 0, right: 100 }) as DOMRect
+    vi.spyOn(wrapper.element, 'getBoundingClientRect').mockReturnValue(rect(500, 530))
+    const list = vi.spyOn(content(wrapper).element, 'getBoundingClientRect').mockReturnValue(rect(300, 500))
+
+    wrapper.vm.open()
+    expect(wrapper.emitted('placement-change')).toEqual([['top-start']])
+    wrapper.vm.close()
+    expect(wrapper.vm.actualPlacement).toBe('top-start')
+
+    list.mockReturnValue(rect(530, 730))
+    wrapper.vm.open()
+    expect(wrapper.emitted('placement-change')).toEqual([['top-start'], ['bottom-start']])
+  })
+
   it('is as wide as its trigger to the fraction of a pixel', () => {
     let observed: ResizeObserverCallback | undefined
     vi.stubGlobal(

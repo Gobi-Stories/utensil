@@ -93,17 +93,10 @@ const listboxId = `utensil-select-listbox-${useId()}`
 
 const isOpen = computed(() => popoverRef.value?.isOpen ?? false)
 
-// Handle placement changes from popover
+// The side the list shows on, which the popover keeps once closed, so the list's corners hold while it fades out
 function onPlacementChange(detectedPlacement: string) {
   placement.value = detectedPlacement.startsWith('top') ? 'top' : 'bottom'
 }
-
-// Reset placement when popover closes
-watch(isOpen, (open) => {
-  if (!open) {
-    placement.value = 'bottom'
-  }
-})
 
 function selectValue(value: string, close: () => void) {
   // Multi-select hosts own the selection state and keep the list open for further picks.

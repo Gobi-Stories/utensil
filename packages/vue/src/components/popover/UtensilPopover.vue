@@ -17,6 +17,8 @@
       :style="[themeStyle, popoverStyle]"
       @beforetoggle="handleBeforeToggle"
       @toggle="handleToggle"
+      @transitionend="releaseClosingPlacement"
+      @transitioncancel="releaseClosingPlacement"
     >
       <slot :close="close" :actualPlacement="actualPlacement" />
     </div>
@@ -167,12 +169,19 @@ const popoverStyle = computed(() => {
   return style
 })
 
+// Shows the popover and finds the side it opened on at once, before its first frame, so what follows the placement,
+// such as a select's corners, is right from the start
+function show() {
+  popoverRef.value?.showPopover()
+  detectActualPlacement()
+}
+
 function open() {
   if (isControlled.value) {
     emit('update:modelValue', true)
   } else {
     internalOpen.value = true
-    popoverRef.value?.showPopover()
+    show()
   }
 }
 
@@ -202,6 +211,18 @@ function handleBeforeToggle(event: Event) {
   }
 }
 
+// Once faded out, the popover takes its own placement back, so it's in place before it next opens, where the side it
+// opens on is found at once
+function releaseClosingPlacement(event: TransitionEvent) {
+  if (
+    event.target === event.currentTarget &&
+    event.propertyName === 'opacity' &&
+    !popoverRef.value?.matches(':popover-open')
+  ) {
+    closingPlacement.value = null
+  }
+}
+
 function handleToggle(event: Event) {
   const toggleEvent = event as ToggleEvent
   const newState = toggleEvent.newState === 'open'
@@ -222,9 +243,9 @@ function handleToggle(event: Event) {
       startPlacementObservers()
     })
   } else {
+    // actualPlacement stays the side it was shown on, so what follows it, such as a select's corners, holds while it
+    // fades out; opening on another side is a change, and detected as one
     stopPlacementObservers()
-    // Reset to intended placement when closed
-    actualPlacement.value = props.placement
   }
 }
 
@@ -236,7 +257,7 @@ watch(
 
     const isCurrentlyOpen = popoverRef.value.matches(':popover-open')
     if (value && !isCurrentlyOpen) {
-      popoverRef.value.showPopover()
+      show()
     } else if (!value && isCurrentlyOpen) {
       popoverRef.value.hidePopover()
     }
@@ -248,7 +269,7 @@ let resizeObserver: ResizeObserver | null = null
 
 onMounted(() => {
   // A v-model that starts open: the watcher only follows changes after this
-  if (isControlled.value && props.modelValue && popoverRef.value?.isConnected) popoverRef.value.showPopover()
+  if (isControlled.value && props.modelValue && popoverRef.value?.isConnected) show()
 
   if (props.width === 'anchor' && anchorRef.value && popoverRef.value) {
     // The border box's width unrounded, as offsetWidth isn't, so a trigger with a fractional width doesn't get a list a

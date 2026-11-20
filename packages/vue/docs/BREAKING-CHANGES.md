@@ -45,6 +45,10 @@ Until 1.0.0, a minor release (`0.4.x` → `0.5.0`) may break, and a patch releas
   `UtensilLabelInput` set their look on their own panel only. A `--utensil-popover-*` cvar set around one of them (on
   an ancestor, rather than on the component) reaches its panel instead of being replaced by the component's own look.
   A popover nested in one of them no longer inherits that look: set the cvars on it if it relied on that.
+- `actualPlacement`, exposed and in the slot scopes, stays the placement the popover was last shown at once it closes,
+  rather than going back to the `placement` prop, so what follows it holds while the popover fades out.
+  `placement-change` is emitted when a popover that flipped opens at its own placement again, as well as when it flips.
+  A host that reset its own placement state on close can drop the reset, and should, or it changes during the fade.
 
 ### UtensilSelect
 
