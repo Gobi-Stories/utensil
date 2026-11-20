@@ -172,8 +172,9 @@ function selectLabel(label: string) {
 
 <style scoped>
 @layer utensil {
-  .utensil-label-input {
-    --utensil-popover-padding: var(--space-4);
+  /* Roomier than the panel's padding, for its own content only; .utensil-popover-panel out-specifies the panel's */
+  .utensil-label-input.utensil-popover-panel > :deep(.utensil-popover-content) {
+    --popover-padding: var(--utensil-popover-padding, var(--space-4));
   }
 
   .utensil-label-popup-content {

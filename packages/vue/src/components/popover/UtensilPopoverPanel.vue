@@ -54,13 +54,14 @@ defineExpose({
 
 <style scoped>
 @layer utensil {
-  /* Configure popover appearance via cvars */
-  .utensil-popover-panel {
-    --utensil-popover-background: var(--panel-solid);
-    --utensil-popover-radius: var(--radius-3);
-    --utensil-popover-shadow: var(--shadow-border-3);
-    --utensil-popover-padding: var(--space-2);
-    --utensil-popover-color: var(--pencil-12);
+  /* The panel's look, as the popover's defaults for its own content only, so a popover nested in it doesn't take
+     them; the consumer's --utensil-popover-* cvars still win */
+  .utensil-popover-panel > :deep(.utensil-popover-content) {
+    --popover-background: var(--utensil-popover-background, var(--panel-solid));
+    --popover-radius: var(--utensil-popover-radius, var(--radius-3));
+    --popover-shadow: var(--utensil-popover-shadow, var(--shadow-border-3));
+    --popover-padding: var(--utensil-popover-padding, var(--space-2));
+    --popover-color: var(--utensil-popover-color, var(--pencil-12));
   }
 
   /* Reset margins for common content elements */

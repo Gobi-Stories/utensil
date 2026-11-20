@@ -230,25 +230,26 @@ defineExpose({
 
 <style scoped>
 @layer utensil {
-  .utensil-select-base {
-    /* CSS custom properties for popover styling */
-    --utensil-popover-background: var(--panel-solid);
-    --utensil-popover-shadow: var(--shadow-border-3);
-    --utensil-popover-padding: 0;
+  /* The list's look, as the popover's defaults for its own content only, so a popover nested in it doesn't take
+     them; the consumer's --utensil-popover-* cvars still win */
+  .utensil-select-base > :deep(.utensil-popover-content) {
+    --popover-background: var(--utensil-popover-background, var(--panel-solid));
+    --popover-shadow: var(--utensil-popover-shadow, var(--shadow-border-3));
+    --popover-padding: var(--utensil-popover-padding, 0);
   }
 
-  /* Popover radius based on placement */
-  .utensil-select-base.placement-bottom {
-    --utensil-popover-radius: 0 0 var(--radius-3) var(--radius-3);
+  /* Squared off on the side that meets the trigger */
+  .utensil-select-base.placement-bottom > :deep(.utensil-popover-content) {
+    --popover-radius: var(--utensil-popover-radius, 0 0 var(--radius-3) var(--radius-3));
   }
 
-  .utensil-select-base.placement-top {
-    --utensil-popover-radius: var(--radius-3) var(--radius-3) 0 0;
+  .utensil-select-base.placement-top > :deep(.utensil-popover-content) {
+    --popover-radius: var(--utensil-popover-radius, var(--radius-3) var(--radius-3) 0 0);
   }
 
   /* High contrast: the open list has an edge as strong as its trigger's */
-  .utensil-high-contrast .utensil-select-base {
-    --utensil-popover-shadow: 0 0 0 1px var(--pencil-a9), var(--shadow-3);
+  .utensil-high-contrast .utensil-select-base > :deep(.utensil-popover-content) {
+    --popover-shadow: var(--utensil-popover-shadow, 0 0 0 1px var(--pencil-a9), var(--shadow-3));
   }
 }
 </style>

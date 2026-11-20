@@ -100,13 +100,17 @@ defineExpose({
   .utensil-tasks {
     display: block;
     width: 100%;
-    --utensil-popover-padding: 0;
     opacity: 0;
     transition: opacity 0.15s ease;
 
     &.visible {
       opacity: 1;
     }
+  }
+
+  /* A list without the panel's padding, for its own content only; .utensil-popover-panel out-specifies the panel's */
+  .utensil-tasks.utensil-popover-panel > :deep(.utensil-popover-content) {
+    --popover-padding: var(--utensil-popover-padding, 0);
   }
 
   .utensil-tasks.label-block {

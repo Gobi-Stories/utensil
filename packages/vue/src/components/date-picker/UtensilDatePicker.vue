@@ -459,11 +459,13 @@ defineExpose({
 
 <style scoped>
 @layer utensil {
-  .utensil-date-picker {
-    --utensil-popover-background: var(--panel-solid);
-    --utensil-popover-radius: var(--radius-3);
-    --utensil-popover-shadow: var(--shadow-border-3);
-    --utensil-popover-padding: 0;
+  /* The calendar panel's look, as the popover's defaults for its own content only, so a popover nested in it doesn't
+     take them; the consumer's --utensil-popover-* cvars still win */
+  .utensil-date-picker > :deep(.utensil-popover-content) {
+    --popover-background: var(--utensil-popover-background, var(--panel-solid));
+    --popover-radius: var(--utensil-popover-radius, var(--radius-3));
+    --popover-shadow: var(--utensil-popover-shadow, var(--shadow-border-3));
+    --popover-padding: var(--utensil-popover-padding, 0);
   }
 
   /* ── Trigger ─────────────────────────────────────────────────────── */

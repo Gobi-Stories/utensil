@@ -84,8 +84,12 @@ defineExpose({
 </script>
 
 <style scoped>
-.utensil-dropdown-menu {
-  --utensil-popover-shadow: var(--shadow-border-4);
-  --utensil-popover-radius: var(--radius-3);
+@layer utensil {
+  /* The menu's look, as the popover's defaults for its own content only, so a popover nested in it doesn't take
+     them; the consumer's --utensil-popover-* cvars still win */
+  .utensil-dropdown-menu > :deep(.utensil-popover-content) {
+    --popover-shadow: var(--utensil-popover-shadow, var(--shadow-border-4));
+    --popover-radius: var(--utensil-popover-radius, var(--radius-3));
+  }
 }
 </style>

@@ -158,6 +158,12 @@
 
     <!-- CSS Cvars -->
     <h2>CSS Cvars</h2>
+    <p>
+      The cvars inherit, so a value set around a popover reaches every popover inside it, nested ones included, unless
+      one is set again closer in. Components built on the popover, such as <code>UtensilPopoverPanel</code> and
+      <code>UtensilSelect</code>, give their own content their look as defaults these cvars override, without passing
+      that look on to a popover nested in them.
+    </p>
     <table>
       <thead>
         <tr>
