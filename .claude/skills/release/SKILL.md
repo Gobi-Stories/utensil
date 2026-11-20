@@ -64,8 +64,8 @@ Never propose 1.0.0 yourself: it marks the open sourcing, and is the maintainer'
 
 Draft short release notes grouped as Breaking, Added, Fixed and Docs/skills, and confirm the version with the
 maintainer before going on. Breaking comes from the `## Latest` section of `packages/vue/docs/BREAKING-CHANGES.md`:
-check that every `Breaking:` commit since the last tag has an entry there, and add any that is missing, committed
-before the release.
+check that every `Breaking:` commit since the last tag has an entry there, and every change to how something looks
+an entry under its `### Visual changes`, and add any that is missing, committed before the release.
 
 ## 3. Run the release script
 

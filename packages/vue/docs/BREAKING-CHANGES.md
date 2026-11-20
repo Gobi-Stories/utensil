@@ -1,8 +1,11 @@
 # Breaking Changes
 
 What each release of `@gobistories/utensil-vue` and `@gobistories/utensil-css` changed that a project using them may
-have to adapt to: removed or renamed APIs, changed defaults and behavior, and changes to how things look. The two
-packages share one version.
+have to adapt to. The two packages share one version.
+
+Each version's section lists, by component, the changes your code may need to follow: removed or renamed APIs, and
+changed defaults and behavior. Its **Visual changes** list how things look different without any code having to
+change, so you can check the screens that use them.
 
 To upgrade, work through the section of every version after the one installed, up to the one being installed, and find
 each usage an entry names. **Latest** holds the changes since the last release; a release renames it to its version.
@@ -11,18 +14,11 @@ Until 1.0.0, a minor release (`0.4.x` → `0.5.0`) may break, and a patch releas
 
 ## Latest
 
-### UtensilBox and UtensilCard
-
-- On a light page, content inside an `overlay` box or card uses the dark-mode color scales (pen, pencil, paper and the
-  mode tokens), as it does on a dark page, so it reads on the overlay's dark panel. Content styled for a light page
-  inside one may need adjusting.
-
 ### UtensilCard
 
 - The default header's icon and heading are inside a `.utensil-card-header-start` element, so they wrap as one and only
   `header-end` wraps below them. Update a selector that expects them to be children of `.utensil-card-header`. A
   custom `header` slot is unaffected.
-- An unstyled card's title and description inherit their color instead of being drawn in pencil.
 
 ### UtensilHintLabel
 
@@ -33,16 +29,11 @@ Until 1.0.0, a minor release (`0.4.x` → `0.5.0`) may break, and a patch releas
 
 - The input no longer defaults `autocomplete` to `"off"` or `pattern` to `".+"`. Browsers offer autofill unless a field
   sets `autocomplete`, and an empty input doesn't match `:invalid`. Set either where a field needs it.
-- `outline` is an edge over whatever is behind the field, as on outline buttons, rather than a filled field with a
-  fainter edge. `surface`'s edge is `--pencil-a6`.
-- Focus keeps the field's background and draws a pen ring, rather than making the outline opaque.
-- A disabled input, text area or select is drawn muted instead of at 50% opacity.
 - `UtensilTextArea` is no longer generic over the theme: drop its type argument from a typed wrapper.
 
 ### UtensilListbox
 
 - The `values` prop, which nothing read, and `focusValue()`, a duplicate of `setFocusedValue()`, are removed.
-- The 240px maximum height scales with `--scale`.
 
 ### UtensilPassword
 
@@ -55,16 +46,35 @@ Until 1.0.0, a minor release (`0.4.x` → `0.5.0`) may break, and a patch releas
   an ancestor, rather than on the component) reaches its panel instead of being replaced by the component's own look.
   A popover nested in one of them no longer inherits that look: set the cvars on it if it relied on that.
 
-### UtensilProgressBar
-
-- `rounded` draws `--radius-rounded` instead of `--radius-2`.
-
 ### UtensilSelect
 
 - The root class is `.utensil-select`, not `.utensil-select-field`, and the inner `UtensilSelectBase` no longer carries
   `.utensil-select`.
 - `UtensilSelectBase`'s trigger slot scope `handleKeydown` is `navigate`, and its unused theme generic is removed.
 - The unused `SelectSize` type is removed.
+
+### Visual changes
+
+- **UtensilBox and UtensilCard**: on a light page, content inside an `overlay` box or card is drawn with the dark-mode
+  color scales, as it is on a dark page, so it reads on the overlay's dark panel. An interactive `outline` or `text`
+  box is tinted on hover and press, where a text box had no hover feedback and an outline box only its edge.
+- **UtensilCard**: the icon stays beside the title however narrow the card, where a card narrower than about 19rem put
+  the icon on a line of its own, and beside an icon the title's line-height is 1, so it lines up with the icon's top
+  edge. An unstyled card's title and description take the color around them instead of pencil. A disabled card draws
+  its title, description and icon in its variation's muted color. On a solid or overlay card, the icon's tile takes
+  the fill's text color unless `iconColor` is given.
+- **UtensilDivider**: the rule is `--pen-a6` and the label `--pen-a11`, where they were `--pen-6` and `--pen-10`.
+- **UtensilInput, UtensilTextArea and UtensilSelect**: the variations are the shared ones, as on buttons and boxes.
+  `outline` is an edge over whatever is behind the field, rather than a filled field with a fainter edge, and
+  `surface`'s edge is `--pencil-a6`. Focus keeps the field's background and draws a pen ring, rather than making the
+  outline opaque. A disabled field is drawn muted, with its label, icon, description and placeholder, instead of at
+  50% opacity.
+- **UtensilListbox**: the 240px maximum height scales with `--scale`.
+- **UtensilProgressBar**: `rounded` draws `--radius-rounded` instead of `--radius-2`, heights scale with `--scale`, and
+  the indeterminate segment starts at once, from the start edge, instead of after a 2s blank.
+- **UtensilTooltip**: the overlay tooltip has the overlay's blur.
+- **High contrast**: dividers, the table header's separator, progress bars, a card's footer divider, the select's open
+  list and its focused and selected options are drawn stronger, and the overlay tooltip is opaque.
 
 ## 0.4.0
 
@@ -89,16 +99,8 @@ None.
 
 ### Data visualization
 
-- Line, area, bar, stacked and horizontal bar charts take the height of their box (220px in a box without one) and
-  widen to its width, rather than scaling a fixed 400×220 drawing to fit.
 - `useCartesianChart` takes the chart's svg (`svg`), returns `viewBox` as a ref, and returns `axis` in place of
   `niceMax`.
-- Horizontal and stacked bar charts draw negative values below or left of zero rather than clamping them to zero.
-
-### UtensilInfoStrip
-
-- Every item label is larger, regular weight and higher contrast, where it was `--font-size-0`, weight 600 and
-  `--pencil-a10`.
 
 ### UtensilRating
 
@@ -109,6 +111,14 @@ None.
 
 - A load that ends within a second of its spinner appearing shows its content up to a second later, so the spinner
   doesn't flash. `:loaderMinimum="0"` keeps the old timing.
+
+### Visual changes
+
+- **Data visualization**: line, area, bar, stacked and horizontal bar charts take the height of their box (220px in a
+  box without one) and widen to its width, rather than scaling a fixed 400×220 drawing to fit. Horizontal and stacked
+  bar charts draw negative values below or left of zero rather than clamping them to zero.
+- **UtensilInfoStrip**: every item label is larger, regular weight and higher contrast, where it was `--font-size-0`,
+  weight 600 and `--pencil-a10`.
 
 ## 0.1.1
 
@@ -125,9 +135,13 @@ None.
 ### UtensilBox and UtensilCard
 
 - `UtensilCard` is the structured card, with `surface` as its default variation and its own padding, radius and column
-  layout. Uses as a plain container become `UtensilBox`, which keeps the old card's props, with the content radius
-  (`--radius-2`) where the old card had `--radius-4`.
+  layout. Uses as a plain container become `UtensilBox`, which keeps the old card's props.
 - `interactive` no longer adds `tabindex="0"`, and `shadow` is a shadow-border level (1–6), where it was a boolean that
   did nothing.
-- `UtensilRadioCard` and `UtensilUserProfileCard` render `.utensil-box` where they rendered `.utensil-card`. Their
-  corners are `--radius-3` and `--radius-2`, where they were `--radius-4`.
+- `UtensilRadioCard` and `UtensilUserProfileCard` render `.utensil-box` where they rendered `.utensil-card`.
+
+### Visual changes
+
+- **UtensilBox**: corners are the content radius, `--radius-2`, where the old card's were `--radius-4`.
+- **UtensilRadioCard and UtensilUserProfileCard**: corners are `--radius-3` and `--radius-2`, where they were
+  `--radius-4`.
