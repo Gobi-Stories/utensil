@@ -77,7 +77,7 @@ import { ref, useId } from 'vue'
 import UtensilModal from './UtensilModal.vue'
 import UtensilCloseButton from '../circle-button/UtensilCloseButton.vue'
 import UtensilButton from '../button/UtensilButton.vue'
-import type { UtensilModalComponent } from './dialogs'
+import type { UtensilModalComponent, UtensilModalSize } from './dialogs'
 import type { ColorProp, UtensilUIVariation, ThemeConfig } from '../../theme/utensil-theme'
 
 export interface Props<Theme extends ThemeConfig> {
@@ -104,7 +104,7 @@ export interface Props<Theme extends ThemeConfig> {
   closeOnEscape?: boolean
   appendToDom?: boolean
   fullscreenOnMobile?: boolean
-  size?: 'small' | 'medium' | 'large'
+  size?: UtensilModalSize
   expand?: boolean
   addHistory?: boolean
   blur?: boolean

@@ -3,6 +3,14 @@ import { mount } from '@vue/test-utils'
 import UtensilModal from './UtensilModal.vue'
 
 describe('UtensilModal', () => {
+  it('sizes its container by the size preset, full among them', () => {
+    for (const size of ['small', 'medium', 'large', 'full'] as const) {
+      const wrapper = mount(UtensilModal, { props: { size } })
+      expect(wrapper.find('.utensil-modal-container').classes()).toContain(size)
+      wrapper.unmount()
+    }
+  })
+
   it('applies the blur class by default', () => {
     const wrapper = mount(UtensilModal)
     expect(wrapper.find('.utensil-modal').classes()).toContain('blur')

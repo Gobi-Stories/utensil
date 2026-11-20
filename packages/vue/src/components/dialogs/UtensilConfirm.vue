@@ -65,7 +65,7 @@
 import { computed, ref, useId } from 'vue'
 import UtensilDialog from './UtensilDialog.vue'
 import UtensilButton from '../button/UtensilButton.vue'
-import type { UtensilDialogComponent } from './dialogs'
+import type { UtensilDialogComponent, UtensilModalSize } from './dialogs'
 import type { ColorProp, UtensilUIVariation, ThemeConfig } from '../../theme/utensil-theme'
 
 export interface Props<Theme extends ThemeConfig> {
@@ -84,7 +84,7 @@ export interface Props<Theme extends ThemeConfig> {
   cancelVariation?: UtensilUIVariation
   cancelColor?: ColorProp<Theme>
   // Dialog props
-  size?: 'small' | 'medium' | 'large'
+  size?: UtensilModalSize
   closeOnBackdrop?: boolean
   closeOnEscape?: boolean
   appendToDom?: boolean

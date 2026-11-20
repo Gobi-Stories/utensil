@@ -30,6 +30,7 @@
             <UtensilButton @click="openSizeModal('small')">Small</UtensilButton>
             <UtensilButton @click="openSizeModal('medium')">Medium</UtensilButton>
             <UtensilButton @click="openSizeModal('large')">Large</UtensilButton>
+            <UtensilButton @click="openSizeModal('full')">Full</UtensilButton>
           </div>
           <UtensilModal
             v-model="sizeModal.show"
@@ -118,14 +119,15 @@ import { ref } from 'vue'
 import UtensilModal from '@gobistories/utensil-vue/components/dialogs/UtensilModal.vue'
 import UtensilModalDoc from '@gobistories/utensil-vue/components/dialogs/UtensilModalDoc.vue'
 import UtensilButton from '@gobistories/utensil-vue/components/button/UtensilButton.vue'
+import type { UtensilModalSize } from '@gobistories/utensil-vue/components/dialogs/dialogs'
 import ReferenceComponentDemo from '@/features/components/ReferenceComponentDemo.vue'
 
 const basicModal = ref(false)
 const blurModal = ref(false)
 const scrollableModal = ref(false)
-const sizeModal = ref<{ show: boolean; size: 'small' | 'medium' | 'large' }>({ show: false, size: 'medium' })
+const sizeModal = ref<{ show: boolean; size: UtensilModalSize }>({ show: false, size: 'medium' })
 
-function openSizeModal(size: 'small' | 'medium' | 'large') {
+function openSizeModal(size: UtensilModalSize) {
   sizeModal.value = { show: true, size }
 }
 

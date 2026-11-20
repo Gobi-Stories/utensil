@@ -112,6 +112,21 @@
           >
         </div>
       </div>
+      <div class="demo-item">
+        <div class="demo-content">
+          <UtensilButton @click="fullDialog = true">Full Size</UtensilButton>
+          <UtensilDialog v-model="fullDialog" title="Preview" size="full" expand no-footer>
+            <p>
+              A full dialog takes the whole viewport but a margin, at every width, for content that wants every pixel,
+              such as a document's preview.
+            </p>
+          </UtensilDialog>
+        </div>
+        <div class="demo-label">Full Size</div>
+        <div class="demo-code">
+          <code>&lt;UtensilDialog size="full" expand no-footer&gt;...&lt;/UtensilDialog&gt;</code>
+        </div>
+      </div>
     </div>
 
     <template #api>
@@ -136,6 +151,7 @@ const loadingDialog = ref(false)
 const isProcessing = ref(false)
 const isProcessed = ref(false)
 const messageDialog = ref(false)
+const fullDialog = ref(false)
 const isSaving = ref(false)
 const saveError = ref('')
 
