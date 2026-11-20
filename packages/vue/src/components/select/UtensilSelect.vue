@@ -385,22 +385,17 @@ defineExpose({
     transition: none;
   }
 
-  /* Forced colors drops the box-shadow edge and focus ring: outlines in system colors draw them, Highlight when
-     focused */
+  /* Forced colors drops the box-shadow edge and focus ring: a border in system colors draws the edge, the trigger
+     held to its size by a negative margin, and the shared Highlight outline the focus ring */
   @media (forced-colors: active) {
     .utensil-select-trigger:not(.unstyled) {
-      outline: 1px solid CanvasText;
-      outline-offset: -1px;
-    }
-
-    .utensil-select-trigger:focus {
-      outline: 2px solid Highlight;
-      outline-offset: -2px;
+      border: 1px solid CanvasText;
+      margin-block: -1px;
     }
 
     .utensil-select-trigger.disabled {
       color: GrayText;
-      outline-color: GrayText;
+      border-color: GrayText;
     }
   }
 }

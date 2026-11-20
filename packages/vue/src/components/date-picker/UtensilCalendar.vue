@@ -861,8 +861,8 @@ defineExpose({
   }
 
   /* Forced colors: the chosen day and range are the system's Highlight, over the hover and range rules, and not forced
-     themselves, or the backplate forced colors puts behind text would hide them. Today's edge is thicker, and focus
-     a Highlight outline. */
+     themselves, or the backplate forced colors puts behind text would hide them, nor ringed in the pen: the shared
+     Highlight ring shows focus. Today's edge is thicker. */
   @media (forced-colors: active) {
     .utensil-calendar-day.today .utensil-calendar-day-number {
       outline-width: 2px;
@@ -873,6 +873,7 @@ defineExpose({
       forced-color-adjust: none;
       background: Highlight !important;
       color: HighlightText !important;
+      outline-color: transparent;
     }
 
     .utensil-calendar-day.in-range {
@@ -882,10 +883,6 @@ defineExpose({
 
     .utensil-calendar-day.in-range .utensil-calendar-day-number {
       color: HighlightText !important;
-    }
-
-    .utensil-calendar-day:focus-visible .utensil-calendar-day-number {
-      outline-color: Highlight;
     }
   }
 }

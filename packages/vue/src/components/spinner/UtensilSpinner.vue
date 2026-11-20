@@ -77,5 +77,21 @@ const { classes: themeClasses, style: themeStyle } = useTheme({
       transform: rotate(360deg);
     }
   }
+
+  /* Forced colors turns every side of the spinner's borders into the text color, transparent ones too, which draws a
+     still, full ring: neither is forced, the track isn't drawn, and the arc spins alone in the text color */
+  @media (forced-colors: active) {
+    .utensil-spinner .circle,
+    .utensil-spinner .arc,
+    .utensil-spinner .arc.soft {
+      forced-color-adjust: none;
+      border-color: transparent;
+    }
+
+    .utensil-spinner .arc,
+    .utensil-spinner .arc.soft {
+      border-top-color: CanvasText;
+    }
+  }
 }
 </style>

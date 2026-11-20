@@ -451,8 +451,8 @@ function handleChange(event: Event) {
     text-align: end;
   }
 
-  /* Forced colors replaces the track's and fill's colors with the page's: an outline draws the track, the system's
-     Highlight the fill, and focus rings the thumb in Highlight */
+  /* Forced colors replaces the track's and fill's colors with the page's: an outline draws the track, and the
+     system's Highlight the fill */
   @media (forced-colors: active) {
     .track {
       outline: 1px solid CanvasText;
@@ -461,14 +461,6 @@ function handleChange(event: Event) {
 
     .fill {
       background-color: Highlight;
-    }
-
-    .slider-input:focus-visible::-webkit-slider-thumb {
-      outline-color: Highlight;
-    }
-
-    .slider-input:focus-visible::-moz-range-thumb {
-      outline-color: Highlight;
     }
   }
 }
