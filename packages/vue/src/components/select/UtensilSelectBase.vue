@@ -245,5 +245,10 @@ defineExpose({
   .utensil-select-base.placement-top {
     --utensil-popover-radius: var(--radius-3) var(--radius-3) 0 0;
   }
+
+  /* High contrast: the open list has an edge as strong as its trigger's */
+  .utensil-high-contrast .utensil-select-base {
+    --utensil-popover-shadow: 0 0 0 1px var(--pencil-a9), var(--shadow-3);
+  }
 }
 </style>

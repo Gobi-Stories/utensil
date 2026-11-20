@@ -196,6 +196,12 @@ defineExpose({
     font-weight: normal;
   }
 
+  /* High contrast: the overlay tooltip is opaque, and edged so it stands apart from a dark page */
+  .utensil-high-contrast .utensil-tooltip-content.overlay {
+    background-color: var(--black-a12);
+    box-shadow: 0 0 0 1px var(--white-a7);
+  }
+
   .utensil-tooltip-content.multiline {
     white-space: normal;
     /* width: max-content escapes the anchor-derived containing block before max-width wraps the text. */

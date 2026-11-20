@@ -98,6 +98,21 @@ function handleClick(event: MouseEvent) {
     background-color: var(--pen-a4);
   }
 
+  /* High contrast: the focused and selected options stand out more from the list. Their text is already drawn
+     stronger by the theme. */
+  .utensil-high-contrast .utensil-select-option[data-focused]:not(.disabled, .selected) {
+    background-color: var(--pencil-a5);
+  }
+
+  .utensil-high-contrast .utensil-select-option.selected {
+    background-color: var(--pen-a5);
+  }
+
+  .utensil-high-contrast .utensil-select-option.selected:hover,
+  .utensil-high-contrast .utensil-select-option.selected[data-focused] {
+    background-color: var(--pen-a6);
+  }
+
   .utensil-select-option.disabled {
     opacity: 0.5;
     cursor: default;
