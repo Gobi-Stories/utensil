@@ -193,5 +193,13 @@ onBeforeUnmount(() => {
     font-weight: var(--font-weight-medium, 500);
     letter-spacing: var(--tab-active-letter-spacing, normal);
   }
+
+  /* Forced colors replaces the indicator's color with the page's: the system's Highlight draws it, over the
+     high-contrast rule */
+  @media (forced-colors: active) {
+    .utensil-tabs-trigger.active::before {
+      background-color: Highlight !important;
+    }
+  }
 }
 </style>

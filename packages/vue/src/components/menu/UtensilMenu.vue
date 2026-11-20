@@ -134,5 +134,14 @@ defineExpose({
   .utensil-menu:focus {
     outline: none;
   }
+
+  /* Forced colors drops the shadow that edges the menu: an outline draws it, focused or not */
+  @media (forced-colors: active) {
+    .utensil-menu,
+    .utensil-menu:focus {
+      outline: 1px solid CanvasText;
+      outline-offset: -1px;
+    }
+  }
 }
 </style>

@@ -443,5 +443,30 @@ defineExpose({
     font-size: var(--font-size-1);
     color: var(--pencil-a11);
   }
+
+  /* Forced colors drops the box-shadow edges and focus ring: outlines in system colors draw them, thicker when invalid
+     and Highlight when focused */
+  @media (forced-colors: active) {
+    .utensil-input-control:not(.unstyled) input {
+      outline: 1px solid CanvasText;
+      outline-offset: -1px;
+    }
+
+    .utensil-input-control.invalid input {
+      outline: 2px solid CanvasText;
+      outline-offset: -2px;
+    }
+
+    .utensil-input-control input:focus {
+      outline: 2px solid Highlight;
+      outline-offset: -2px;
+    }
+
+    .utensil-input-control input:disabled,
+    .utensil-input.disabled :is(.utensil-input-label, .utensil-input-control .utensil-icon, p.description) {
+      color: GrayText;
+      outline-color: GrayText;
+    }
+  }
 }
 </style>

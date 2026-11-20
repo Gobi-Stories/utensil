@@ -384,5 +384,24 @@ defineExpose({
   .utensil-reduced-motion .select-chevron {
     transition: none;
   }
+
+  /* Forced colors drops the box-shadow edge and focus ring: outlines in system colors draw them, Highlight when
+     focused */
+  @media (forced-colors: active) {
+    .utensil-select-trigger:not(.unstyled) {
+      outline: 1px solid CanvasText;
+      outline-offset: -1px;
+    }
+
+    .utensil-select-trigger:focus {
+      outline: 2px solid Highlight;
+      outline-offset: -2px;
+    }
+
+    .utensil-select-trigger.disabled {
+      color: GrayText;
+      outline-color: GrayText;
+    }
+  }
 }
 </style>

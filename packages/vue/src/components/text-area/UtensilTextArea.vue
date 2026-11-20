@@ -308,6 +308,31 @@ defineExpose({
   .utensil-text-area p.description.invalid {
     color: var(--pen-11);
   }
+
+  /* Forced colors drops the box-shadow edges and focus ring: outlines in system colors draw them, thicker when invalid
+     and Highlight when focused */
+  @media (forced-colors: active) {
+    .utensil-text-area-control:not(.unstyled) textarea {
+      outline: 1px solid CanvasText;
+      outline-offset: -1px;
+    }
+
+    .utensil-text-area-control.invalid textarea {
+      outline: 2px solid CanvasText;
+      outline-offset: -2px;
+    }
+
+    .utensil-text-area-control textarea:focus {
+      outline: 2px solid Highlight;
+      outline-offset: -2px;
+    }
+
+    .utensil-text-area-control textarea:disabled,
+    .utensil-text-area.disabled :is(.utensil-text-area-label, p.description) {
+      color: GrayText;
+      outline-color: GrayText;
+    }
+  }
 }
 </style>
 

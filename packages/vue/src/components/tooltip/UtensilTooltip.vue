@@ -209,5 +209,13 @@ defineExpose({
     max-width: var(--utensil-tooltip-max-width, 280px);
     line-height: var(--line-height-1);
   }
+
+  /* Forced colors replaces the tooltip's fill with the page's: an outline keeps it apart from the page */
+  @media (forced-colors: active) {
+    .utensil-tooltip-content {
+      outline: 1px solid CanvasText;
+      outline-offset: -1px;
+    }
+  }
 }
 </style>

@@ -23,6 +23,14 @@ Until 1.0.0, a minor release (`0.4.x` → `0.5.0`) may break, and a patch releas
   setters' are, where it applied without being stored unless a setter had been called. Each setter also takes
   `'system'`, which forgets the choice; the choices are `modeChoice`, `contrastChoice` and `reducedMotionChoice`.
 
+### Visual changes
+
+- **Forced colors** (Windows contrast themes): fields, selects, menus, popovers, tooltips, dialogs, drawers, toasts and
+  every filled or edged variation draw an edge in the system's text color, and fields a Highlight focus ring. Pressed,
+  checked and chosen buttons, the option or menu item the keyboard is on, and the chosen calendar day are filled with
+  the system's Highlight. Progress bars, sliders and stepper connectors draw their track as an edge and their fill in
+  Highlight, and the selected tab's indicator is Highlight. Nothing changes outside forced colors.
+
 ## 0.5.0
 
 ### UtensilCard

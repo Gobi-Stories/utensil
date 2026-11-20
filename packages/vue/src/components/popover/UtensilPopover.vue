@@ -401,5 +401,13 @@ defineExpose({
     margin-left: var(--flip-margin-left);
     margin-right: var(--flip-margin-right);
   }
+
+  /* Forced colors drops the shadow that edges the panel: an outline draws it */
+  @media (forced-colors: active) {
+    .utensil-popover-content {
+      outline: 1px solid CanvasText;
+      outline-offset: -1px;
+    }
+  }
 }
 </style>

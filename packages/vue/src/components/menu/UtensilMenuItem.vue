@@ -148,5 +148,24 @@ function handleMouseEnter() {
     color: var(--pencil-a10);
     margin-left: var(--space-3);
   }
+
+  /* Forced colors: the item the keyboard or pointer is on is the system's Highlight, over whatever state rule is more
+     specific, and not forced itself, or the backplate forced colors puts behind text would hide it. A disabled one is
+     GrayText. */
+  @media (forced-colors: active) {
+    .utensil-menu-item:is([data-focused], :focus, .highlighted):not(.disabled) {
+      forced-color-adjust: none;
+      background-color: Highlight !important;
+      color: HighlightText !important;
+
+      & * {
+        color: inherit !important;
+      }
+    }
+
+    .utensil-menu-item.disabled {
+      color: GrayText;
+    }
+  }
 }
 </style>
