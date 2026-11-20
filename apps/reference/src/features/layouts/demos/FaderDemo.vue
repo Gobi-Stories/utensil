@@ -8,9 +8,7 @@
       <div class="demo-item">
         <div class="demo-content fader-demo">
           <div class="fader-controls">
-            <UtensilButton size="small" @click="faderDemo = !faderDemo"
-              >{{ faderDemo ? 'Hide' : 'Show' }} Content</UtensilButton
-            >
+            <UtensilButton @click="faderDemo = !faderDemo">{{ faderDemo ? 'Hide' : 'Show' }} Content</UtensilButton>
           </div>
           <div class="fader-content-area">
             <UtensilFader :show="faderDemo">
@@ -25,7 +23,7 @@
       <div class="demo-item">
         <div class="demo-content fader-demo">
           <div class="fader-controls">
-            <UtensilButton size="small" @click="remountInDelayDemo">Remount &amp; Show</UtensilButton>
+            <UtensilButton @click="remountInDelayDemo">Remount &amp; Show</UtensilButton>
           </div>
           <div class="fader-content-area">
             <UtensilFader v-if="inDelayMounted" :show="inDelayDemo" :in-delay="500">
@@ -40,7 +38,7 @@
       <div class="demo-item">
         <div class="demo-content fader-demo">
           <div class="fader-controls">
-            <UtensilButton size="small" @click="outDelayDemo = !outDelayDemo"
+            <UtensilButton @click="outDelayDemo = !outDelayDemo"
               >{{ outDelayDemo ? 'Hide' : 'Show' }} Content</UtensilButton
             >
           </div>

@@ -8,30 +8,22 @@
       <div v-for="variation in variations" :key="variation" class="demo-item toolbar-demo-item">
         <div class="demo-content toolbar-demo">
           <ReferenceToolbar :variation="variation" :aria-label="`Formatting, ${variation}`">
-            <ReferenceToggleButton v-model="bold" variation="text" icon="bold" icon-only size="tiny">
-              Bold
-            </ReferenceToggleButton>
-            <ReferenceToggleButton v-model="italic" variation="text" icon="italic" icon-only size="tiny">
+            <ReferenceToggleButton v-model="bold" variation="text" icon="bold" icon-only> Bold </ReferenceToggleButton>
+            <ReferenceToggleButton v-model="italic" variation="text" icon="italic" icon-only>
               Italic
             </ReferenceToggleButton>
-            <ReferenceToggleButton v-model="underline" variation="text" icon="underline" icon-only size="tiny">
+            <ReferenceToggleButton v-model="underline" variation="text" icon="underline" icon-only>
               Underline
             </ReferenceToggleButton>
             <UtensilToolbarSeparator />
             <ReferenceRadioButtons v-model="align" variation="text" aria-label="Alignment">
-              <ReferenceRadioButton value="left" icon="align-left" icon-only size="tiny"
-                >Align left</ReferenceRadioButton
-              >
-              <ReferenceRadioButton value="center" icon="align-center" icon-only size="tiny"
-                >Align center</ReferenceRadioButton
-              >
-              <ReferenceRadioButton value="right" icon="align-right" icon-only size="tiny"
-                >Align right</ReferenceRadioButton
-              >
+              <ReferenceRadioButton value="left" icon="align-left" icon-only>Align left</ReferenceRadioButton>
+              <ReferenceRadioButton value="center" icon="align-center" icon-only>Align center</ReferenceRadioButton>
+              <ReferenceRadioButton value="right" icon="align-right" icon-only>Align right</ReferenceRadioButton>
             </ReferenceRadioButtons>
             <UtensilToolbarSeparator />
-            <ReferenceButton variation="text" icon="code" icon-only size="tiny">Code</ReferenceButton>
-            <ReferenceButton variation="text" icon="list" icon-only size="tiny">List</ReferenceButton>
+            <ReferenceButton variation="text" icon="code" icon-only>Code</ReferenceButton>
+            <ReferenceButton variation="text" icon="list" icon-only>List</ReferenceButton>
           </ReferenceToolbar>
         </div>
         <div class="demo-label always-visible">Horizontal &middot; {{ variation }}</div>
@@ -52,13 +44,12 @@
               :key="block.label"
               variation="text"
               :icon="block.icon"
-              size="tiny"
               justify="start"
             >
               {{ block.label }}
             </ReferenceButton>
             <UtensilToolbarSeparator />
-            <ReferenceButton variation="text" icon="trash" size="tiny" justify="start">Delete</ReferenceButton>
+            <ReferenceButton variation="text" icon="trash" justify="start">Delete</ReferenceButton>
           </ReferenceToolbar>
         </div>
         <div class="demo-label always-visible">Vertical &middot; {{ variation }}</div>

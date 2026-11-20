@@ -8,12 +8,7 @@
         <div class="demo-content resource-demo">
           <div class="demo-container">
             <div class="demo-controls">
-              <UtensilButton
-                size="small"
-                variation="outline"
-                @click="addNewItem"
-                :disabled="!memberCollection.loaded.value"
-              >
+              <UtensilButton variation="outline" @click="addNewItem" :disabled="!memberCollection.loaded.value">
                 Add Item
               </UtensilButton>
             </div>
@@ -46,7 +41,6 @@
                     </div>
                     <div class="item-actions">
                       <UtensilButton
-                        size="tiny"
                         variation="text"
                         @click="updateMember(member)"
                         :disabled="member.updating || member.deleting"
@@ -54,7 +48,6 @@
                         Edit
                       </UtensilButton>
                       <UtensilButton
-                        size="tiny"
                         variation="text"
                         color="error"
                         @click="deleteMember(member)"
@@ -84,7 +77,6 @@
           <div class="demo-container">
             <div class="demo-controls">
               <UtensilButton
-                size="small"
                 variation="outline"
                 @click="paginatedCollection.loadNextPage()"
                 :disabled="!paginatedCollection.pagesAvailable.value || paginatedCollection.syncing.value"

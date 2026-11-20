@@ -8,7 +8,7 @@
       <div class="demo-item">
         <div class="demo-content fader-demo">
           <div class="fader-controls">
-            <UtensilButton size="small" @click="deferredDemo = !deferredDemo"
+            <UtensilButton @click="deferredDemo = !deferredDemo"
               >{{ deferredDemo ? 'Unmount' : 'Mount' }} Content</UtensilButton
             >
           </div>
@@ -30,7 +30,7 @@
       <div class="demo-item">
         <div class="demo-content fader-demo">
           <div class="fader-controls">
-            <UtensilButton size="small" @click="deferredSlowDemo = !deferredSlowDemo"
+            <UtensilButton @click="deferredSlowDemo = !deferredSlowDemo"
               >{{ deferredSlowDemo ? 'Unmount' : 'Mount' }} Content</UtensilButton
             >
           </div>

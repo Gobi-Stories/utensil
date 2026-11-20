@@ -13,10 +13,10 @@
           <ReferenceCircleButton variation="overlay" icon="circle-play" :scale="2" description="Play video" />
         </div>
         <div class="media-bottom-bar">
-          <ReferenceButton variation="overlay" icon="heart" icon-only size="tiny">Favorite</ReferenceButton>
+          <ReferenceButton variation="overlay" icon="heart" icon-only>Favorite</ReferenceButton>
           <span class="media-title">Summer Campaign — Final Cut</span>
-          <ReferenceButton variation="overlay" icon="share-alt" icon-only size="tiny">Share</ReferenceButton>
-          <ReferenceButton variation="overlay" icon="download" icon-only size="tiny">Download</ReferenceButton>
+          <ReferenceButton variation="overlay" icon="share-alt" icon-only>Share</ReferenceButton>
+          <ReferenceButton variation="overlay" icon="download" icon-only>Download</ReferenceButton>
         </div>
       </div>
     </div>

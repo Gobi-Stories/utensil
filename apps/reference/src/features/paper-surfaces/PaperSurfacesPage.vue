@@ -260,11 +260,9 @@
                 <!-- Modal and synthetic dropdown attachments -->
                 <div class="panel-section">
                   <div class="flex nowrap space-between">
-                    <ReferenceButton variation="solid" size="small" @click="activeModal = 'work'">Work</ReferenceButton>
-                    <ReferenceButton variation="soft" size="small" @click="activeModal = 'play'">Play</ReferenceButton>
-                    <ReferenceButton variation="outline" size="small" @click="activeModal = 'sleep'"
-                      >Sleep</ReferenceButton
-                    >
+                    <ReferenceButton variation="solid" @click="activeModal = 'work'">Work</ReferenceButton>
+                    <ReferenceButton variation="soft" @click="activeModal = 'play'">Play</ReferenceButton>
+                    <ReferenceButton variation="outline" @click="activeModal = 'sleep'">Sleep</ReferenceButton>
                     <div class="dropdown-host">
                       <ReferenceButton
                         variation="text"
@@ -307,16 +305,14 @@
                 <!-- Toolbar -->
                 <div class="panel-section">
                   <ReferenceTheme pen="pencil" class="toolbar-simulation">
-                    <ReferenceToggleButton variation="text" icon="bold" size="tiny">Bold</ReferenceToggleButton>
-                    <ReferenceToggleButton variation="text" icon="italic" size="tiny">Italic</ReferenceToggleButton>
-                    <ReferenceToggleButton variation="text" icon="underline" size="tiny"
-                      >Underline</ReferenceToggleButton
-                    >
+                    <ReferenceToggleButton variation="text" icon="bold">Bold</ReferenceToggleButton>
+                    <ReferenceToggleButton variation="text" icon="italic">Italic</ReferenceToggleButton>
+                    <ReferenceToggleButton variation="text" icon="underline">Underline</ReferenceToggleButton>
                     <div class="toolbar-divider"></div>
                     <ReferenceRadioButtons variation="text">
-                      <ReferenceRadioButton value="align-left" icon="align-left" icon-only size="tiny" />
-                      <ReferenceRadioButton value="align-center" icon="align-center" icon-only size="tiny" />
-                      <ReferenceRadioButton value="align-right" icon="align-right" icon-only size="tiny" />
+                      <ReferenceRadioButton value="align-left" icon="align-left" icon-only />
+                      <ReferenceRadioButton value="align-center" icon="align-center" icon-only />
+                      <ReferenceRadioButton value="align-right" icon="align-right" icon-only />
                     </ReferenceRadioButtons>
                   </ReferenceTheme>
                 </div>

@@ -10,8 +10,8 @@
         <div class="demo-content scroll-demo">
           <div class="demo-container">
             <div class="demo-controls">
-              <UtensilButton size="small" @click="resetBasicScroll">Reset & Load</UtensilButton>
-              <UtensilButton size="small" variation="outline" @click="toggleScrollDisabled">
+              <UtensilButton @click="resetBasicScroll">Reset & Load</UtensilButton>
+              <UtensilButton variation="outline" @click="toggleScrollDisabled">
                 {{ basicScrollDisabled ? 'Enable' : 'Disable' }}
               </UtensilButton>
             </div>
@@ -68,7 +68,7 @@
         <div class="demo-content scroll-demo">
           <div class="demo-container">
             <div class="demo-controls">
-              <UtensilButton size="small" @click="resetHorizontalScroll">Reset & Load</UtensilButton>
+              <UtensilButton @click="resetHorizontalScroll">Reset & Load</UtensilButton>
               <span class="demo-status">{{ horizontalScrollItems.length }} / 20 items</span>
             </div>
 
@@ -122,8 +122,8 @@
         <div class="demo-content scroll-demo">
           <div class="demo-container">
             <div class="demo-controls">
-              <UtensilButton size="small" @click="resetErrorScroll">Reset & Load</UtensilButton>
-              <UtensilButton size="small" variation="outline" @click="toggleErrorMode">
+              <UtensilButton @click="resetErrorScroll">Reset & Load</UtensilButton>
+              <UtensilButton variation="outline" @click="toggleErrorMode">
                 {{ errorModeEnabled ? 'Disable Errors' : 'Enable Errors' }}
               </UtensilButton>
             </div>
@@ -158,7 +158,7 @@
                 <div class="custom-error">
                   <div class="error-icon">⚠️</div>
                   <div class="error-message">Failed to load more items</div>
-                  <UtensilButton @click="retry" size="small">Try Again</UtensilButton>
+                  <UtensilButton @click="retry">Try Again</UtensilButton>
                 </div>
               </template>
               <template #empty>
@@ -180,7 +180,7 @@
         <div class="demo-content scroll-demo">
           <div class="demo-container">
             <div class="demo-controls">
-              <UtensilButton size="small" @click="resetCustomScroll">Reset & Load</UtensilButton>
+              <UtensilButton @click="resetCustomScroll">Reset & Load</UtensilButton>
               <span class="demo-status">{{ customScrollItems.length }} items</span>
             </div>
 

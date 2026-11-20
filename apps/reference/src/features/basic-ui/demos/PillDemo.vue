@@ -70,8 +70,7 @@
           />
           <div v-if="demoTags.length === 0" class="reset-notice">
             <small
-              >All tags removed!
-              <ReferenceButton variation="text" size="tiny" @click="resetTags">Reset</ReferenceButton></small
+              >All tags removed! <ReferenceButton variation="text" @click="resetTags">Reset</ReferenceButton></small
             >
           </div>
         </div>

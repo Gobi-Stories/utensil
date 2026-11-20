@@ -189,9 +189,9 @@
               <!-- Dropdown Menu -->
               <div class="panel-section">
                 <div class="flex nowrap space-between">
-                  <ReferenceButton variation="solid" size="small" @click="workModal = true">Work</ReferenceButton>
-                  <ReferenceButton variation="soft" size="small" @click="playModal = true">Play</ReferenceButton>
-                  <ReferenceButton variation="outline" size="small" @click="sleepModal = true">Sleep</ReferenceButton>
+                  <ReferenceButton variation="solid" @click="workModal = true">Work</ReferenceButton>
+                  <ReferenceButton variation="soft" @click="playModal = true">Play</ReferenceButton>
+                  <ReferenceButton variation="outline" @click="sleepModal = true">Sleep</ReferenceButton>
                   <UtensilDropdownMenu>
                     <template #trigger="{ toggle, isOpen }">
                       <ReferenceButton
@@ -269,18 +269,18 @@
               <!-- Toolbar -->
               <div class="panel-section theme-options">
                 <ReferenceToolbar aria-label="Formatting" class="toolbar-simulation">
-                  <ReferenceToggleButton variation="text" icon="bold" size="tiny">Bold</ReferenceToggleButton>
-                  <ReferenceToggleButton variation="text" icon="italic" size="tiny">Italic</ReferenceToggleButton>
-                  <ReferenceToggleButton variation="text" icon="underline" size="tiny">Underline</ReferenceToggleButton>
+                  <ReferenceToggleButton variation="text" icon="bold">Bold</ReferenceToggleButton>
+                  <ReferenceToggleButton variation="text" icon="italic">Italic</ReferenceToggleButton>
+                  <ReferenceToggleButton variation="text" icon="underline">Underline</ReferenceToggleButton>
                   <UtensilToolbarSeparator />
                   <ReferenceRadioButtons variation="text" aria-label="Alignment">
-                    <ReferenceRadioButton value="align-left" icon="align-left" icon-only size="tiny"
+                    <ReferenceRadioButton value="align-left" icon="align-left" icon-only
                       >Align left</ReferenceRadioButton
                     >
-                    <ReferenceRadioButton value="align-center" icon="align-center" icon-only size="tiny"
+                    <ReferenceRadioButton value="align-center" icon="align-center" icon-only
                       >Align center</ReferenceRadioButton
                     >
-                    <ReferenceRadioButton value="align-right" icon="align-right" icon-only size="tiny"
+                    <ReferenceRadioButton value="align-right" icon="align-right" icon-only
                       >Align right</ReferenceRadioButton
                     >
                   </ReferenceRadioButtons>

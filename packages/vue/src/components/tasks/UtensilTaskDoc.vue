@@ -112,8 +112,8 @@
   @click="open(upload)"
 &gt;
   &lt;template #actions&gt;
-    &lt;UtensilButton size="tiny" icon="redo" @click="retry"&gt;Retry&lt;/UtensilButton&gt;
-    &lt;UtensilButton size="tiny" icon="times" color="error" @click="remove"&gt;Remove&lt;/UtensilButton&gt;
+    &lt;UtensilButton icon="redo" @click="retry"&gt;Retry&lt;/UtensilButton&gt;
+    &lt;UtensilButton icon="times" color="error" @click="remove"&gt;Remove&lt;/UtensilButton&gt;
   &lt;/template&gt;
 &lt;/UtensilTask&gt;</code></pre>
   </article>

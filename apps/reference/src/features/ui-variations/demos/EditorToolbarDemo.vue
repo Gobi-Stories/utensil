@@ -7,27 +7,19 @@
     </p>
 
     <ReferenceToolbar aria-label="Formatting" class="editor-toolbar">
-      <ReferenceToggleButton v-model="bold" variation="text" icon="bold" size="tiny">Bold</ReferenceToggleButton>
-      <ReferenceToggleButton v-model="italic" variation="text" icon="italic" size="tiny">Italic</ReferenceToggleButton>
-      <ReferenceToggleButton v-model="underline" variation="text" icon="underline" size="tiny">
-        Underline
-      </ReferenceToggleButton>
+      <ReferenceToggleButton v-model="bold" variation="text" icon="bold">Bold</ReferenceToggleButton>
+      <ReferenceToggleButton v-model="italic" variation="text" icon="italic">Italic</ReferenceToggleButton>
+      <ReferenceToggleButton v-model="underline" variation="text" icon="underline"> Underline </ReferenceToggleButton>
       <UtensilToolbarSeparator />
       <ReferenceRadioButtons v-model="align" variation="text" aria-label="Alignment">
-        <ReferenceRadioButton value="align-left" icon="align-left" icon-only size="tiny"
-          >Align left</ReferenceRadioButton
-        >
-        <ReferenceRadioButton value="align-center" icon="align-center" icon-only size="tiny"
-          >Align center</ReferenceRadioButton
-        >
-        <ReferenceRadioButton value="align-right" icon="align-right" icon-only size="tiny"
-          >Align right</ReferenceRadioButton
-        >
+        <ReferenceRadioButton value="align-left" icon="align-left" icon-only>Align left</ReferenceRadioButton>
+        <ReferenceRadioButton value="align-center" icon="align-center" icon-only>Align center</ReferenceRadioButton>
+        <ReferenceRadioButton value="align-right" icon="align-right" icon-only>Align right</ReferenceRadioButton>
       </ReferenceRadioButtons>
       <UtensilToolbarSeparator />
-      <ReferenceButton variation="text" icon="image" icon-only size="tiny">Image</ReferenceButton>
-      <ReferenceButton variation="text" icon="video" icon-only size="tiny">Video</ReferenceButton>
-      <ReferenceButton variation="text" icon="music" icon-only size="tiny">Audio</ReferenceButton>
+      <ReferenceButton variation="text" icon="image" icon-only>Image</ReferenceButton>
+      <ReferenceButton variation="text" icon="video" icon-only>Video</ReferenceButton>
+      <ReferenceButton variation="text" icon="music" icon-only>Audio</ReferenceButton>
     </ReferenceToolbar>
   </div>
 </template>

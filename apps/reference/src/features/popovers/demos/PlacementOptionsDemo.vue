@@ -6,7 +6,7 @@
       <template v-for="placement in placements" :key="placement">
         <UtensilPopoverPanel class="placement-item" :placement="placement">
           <template #trigger="{ toggle }">
-            <UtensilButton variation="outline" size="small" @click="toggle">{{ placement }}</UtensilButton>
+            <UtensilButton variation="outline" @click="toggle">{{ placement }}</UtensilButton>
           </template>
           <span class="placement-label">{{ placement }}</span>
         </UtensilPopoverPanel>

@@ -9,7 +9,6 @@
           <div class="demo-container">
             <div class="demo-controls">
               <UtensilButton
-                size="small"
                 variation="outline"
                 @click="basicCollection.refresh()"
                 :disabled="!basicCollection.loaded.value"

@@ -28,7 +28,7 @@
             <template #default="{ close }">
               <div class="popover-content">
                 <p>This popover is controlled via v-model.</p>
-                <UtensilButton size="small" @click="close">Close from content</UtensilButton>
+                <UtensilButton @click="close">Close from content</UtensilButton>
               </div>
             </template>
           </UtensilPopoverPanel>

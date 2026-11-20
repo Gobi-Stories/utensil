@@ -63,7 +63,7 @@
       <ul>
         <li v-for="(file, index) in droppedFiles" :key="index">{{ file.name }} ({{ formatFileSize(file.size) }})</li>
       </ul>
-      <UtensilButton variation="outline" size="small" @click="clearFiles"> Clear Files </UtensilButton>
+      <UtensilButton variation="outline" @click="clearFiles"> Clear Files </UtensilButton>
     </div>
 
     <template #api>

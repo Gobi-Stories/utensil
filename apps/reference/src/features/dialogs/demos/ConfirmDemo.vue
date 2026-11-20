@@ -92,7 +92,7 @@
                   </UtensilButton>
                 </template>
               </UtensilConfirm>
-              <UtensilButton size="small" @click="toggleSelection">Toggle Selection</UtensilButton>
+              <UtensilButton @click="toggleSelection">Toggle Selection</UtensilButton>
             </div>
           </div>
         </div>

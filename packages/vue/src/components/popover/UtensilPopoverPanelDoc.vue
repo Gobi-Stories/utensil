@@ -152,7 +152,7 @@
   &lt;/template&gt;
   &lt;template #default="{ close }"&gt;
     &lt;p&gt;Content with a close button.&lt;/p&gt;
-    &lt;UtensilButton size="small" @click="close"&gt;Done&lt;/UtensilButton&gt;
+    &lt;UtensilButton @click="close"&gt;Done&lt;/UtensilButton&gt;
   &lt;/template&gt;
 &lt;/UtensilPopoverPanel&gt;</code></pre>
 

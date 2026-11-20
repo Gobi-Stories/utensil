@@ -11,7 +11,7 @@
         <ReferenceBox class="dashboard-stat story-card">
           <div class="stat-header">
             <h5 class="stat-label">Recent Activity</h5>
-            <ReferenceButton variation="text" color="pencil" size="tiny">View All</ReferenceButton>
+            <ReferenceButton variation="text" color="pencil">View All</ReferenceButton>
           </div>
           <div class="activity-list">
             <div class="activity-item">
@@ -44,7 +44,7 @@
         <ReferenceBox class="dashboard-stat story-card">
           <div class="stat-header">
             <h5>Filters</h5>
-            <ReferenceButton variation="text" color="pencil" size="tiny">Clear All</ReferenceButton>
+            <ReferenceButton variation="text" color="pencil">Clear All</ReferenceButton>
           </div>
           <div class="filter-section">
             <span class="filter-label">Search</span>

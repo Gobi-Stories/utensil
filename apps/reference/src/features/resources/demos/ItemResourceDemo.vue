@@ -8,12 +8,7 @@
         <div class="demo-content resource-demo">
           <div class="demo-container">
             <div class="demo-controls">
-              <UtensilButton
-                size="small"
-                variation="outline"
-                @click="basicItem.refresh()"
-                :disabled="!basicItem.loaded.value"
-              >
+              <UtensilButton variation="outline" @click="basicItem.refresh()" :disabled="!basicItem.loaded.value">
                 Refresh
               </UtensilButton>
             </div>
@@ -58,7 +53,6 @@
           <div class="demo-container">
             <div class="demo-controls">
               <UtensilButton
-                size="small"
                 variation="outline"
                 @click="editItemTitle"
                 :disabled="!editableItem.loaded.value || editableItem.syncing.value"

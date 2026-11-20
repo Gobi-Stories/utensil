@@ -21,7 +21,7 @@
               :payload="{ id: 'one' }"
             />
           </UtensilTasks>
-          <UtensilButton class="pinned-action" size="small" @click="animateSingle">
+          <UtensilButton class="pinned-action" @click="animateSingle">
             {{ singleProgress < 100 ? 'Reset' : 'Start' }}
           </UtensilButton>
         </div>
@@ -49,8 +49,8 @@
               :payload="task"
             >
               <template v-if="task.errored" #actions>
-                <UtensilButton size="tiny" @click="retryMixed(task.id)">Retry</UtensilButton>
-                <UtensilButton size="tiny" color="error" @click="removeMixed(task.id)">Remove</UtensilButton>
+                <UtensilButton @click="retryMixed(task.id)">Retry</UtensilButton>
+                <UtensilButton color="error" @click="removeMixed(task.id)">Remove</UtensilButton>
               </template>
             </ReferenceTask>
           </UtensilTasks>
@@ -118,7 +118,7 @@
     <div v-if="lastClicked" class="dropped-files">
       <h4>Last clicked</h4>
       <pre><code>{{ JSON.stringify(lastClicked, null, 2) }}</code></pre>
-      <UtensilButton variation="outline" size="small" @click="lastClicked = null">Clear</UtensilButton>
+      <UtensilButton variation="outline" @click="lastClicked = null">Clear</UtensilButton>
     </div>
 
     <template #api>

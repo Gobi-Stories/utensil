@@ -27,9 +27,9 @@
       <div class="demo-item">
         <div class="demo-content">
           <div class="modal-size-buttons">
-            <UtensilButton size="small" @click="openSizeModal('small')">Small</UtensilButton>
-            <UtensilButton size="small" @click="openSizeModal('medium')">Medium</UtensilButton>
-            <UtensilButton size="small" @click="openSizeModal('large')">Large</UtensilButton>
+            <UtensilButton @click="openSizeModal('small')">Small</UtensilButton>
+            <UtensilButton @click="openSizeModal('medium')">Medium</UtensilButton>
+            <UtensilButton @click="openSizeModal('large')">Large</UtensilButton>
           </div>
           <UtensilModal
             v-model="sizeModal.show"

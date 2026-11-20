@@ -17,8 +17,8 @@
         <div class="demo-content single-task-demo">
           <ReferenceTask title="Upload: huge.zip" icon="file" state="Failed" errored>
             <template #actions>
-              <UtensilButton size="tiny">Retry</UtensilButton>
-              <UtensilButton size="tiny" color="error">Remove</UtensilButton>
+              <UtensilButton>Retry</UtensilButton>
+              <UtensilButton color="error">Remove</UtensilButton>
             </template>
           </ReferenceTask>
         </div>

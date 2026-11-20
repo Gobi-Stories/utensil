@@ -9,8 +9,8 @@
         <div class="demo-content progress-demo">
           <div class="upload-demo">
             <div class="upload-controls">
-              <UtensilButton size="small" @click="startUploadDemo"> Start Upload </UtensilButton>
-              <UtensilButton size="small" variation="outline" @click="resetUploadDemo"> Reset </UtensilButton>
+              <UtensilButton @click="startUploadDemo"> Start Upload </UtensilButton>
+              <UtensilButton variation="outline" @click="resetUploadDemo"> Reset </UtensilButton>
             </div>
             <div class="upload-status">
               Status: {{ uploadState(uploadDemo) }}
@@ -66,7 +66,7 @@
               <UtensilUploadProgressBar :progress="fileUpload2" size="medium" />
             </UtensilBox>
             <div class="upload-actions">
-              <UtensilButton size="small" @click="simulateUploads"> Upload Files </UtensilButton>
+              <UtensilButton @click="simulateUploads"> Upload Files </UtensilButton>
             </div>
           </div>
         </div>
