@@ -38,13 +38,16 @@ const { classes: themeClasses, style: themeStyle } = useTheme({
 
 <style scoped>
 @layer utensil {
+  /* The rule is a border, which forced colors keeps and draws in CanvasText; a fill would take the page's color */
   .utensil-divider {
-    background-color: var(--pen-a6);
+    border-block-start: 1px solid var(--pen-a6);
     height: 1px;
     width: 100%;
   }
 
   .utensil-divider.vertical {
+    border-block-start: none;
+    border-inline-start: 1px solid var(--pen-a6);
     height: auto;
     width: 1px;
     align-self: stretch;
@@ -54,7 +57,7 @@ const { classes: themeClasses, style: themeStyle } = useTheme({
     display: flex;
     align-items: center;
     gap: var(--space-3);
-    background: none;
+    border: none;
     height: auto;
   }
 
@@ -63,7 +66,7 @@ const { classes: themeClasses, style: themeStyle } = useTheme({
     content: '';
     flex: 1;
     height: 1px;
-    background-color: var(--pen-a6);
+    border-block-start: 1px solid var(--pen-a6);
   }
 
   .utensil-divider-label {
@@ -76,7 +79,7 @@ const { classes: themeClasses, style: themeStyle } = useTheme({
   .utensil-high-contrast .utensil-divider:where(:not(.has-label)),
   .utensil-high-contrast .utensil-divider.has-label::before,
   .utensil-high-contrast .utensil-divider.has-label::after {
-    background-color: var(--pen-a8);
+    border-color: var(--pen-a8);
   }
 }
 </style>
