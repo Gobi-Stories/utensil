@@ -757,6 +757,38 @@ Utensil provides text themes that style typographic elements (headings, paragrap
 
 The `ui` text theme is optimized for interface text. The `content` text theme is optimized for reading.
 
+### Web Fonts
+
+UI text and many controls set `line-height: normal`, which takes each line's height from the font's own metrics, so the same control is a different height in different fonts. A web font loaded with `font-display: swap` (as Google Fonts' `display=swap` does) first renders in a fallback font, then swaps in when it arrives: every line changes height, by a pixel or so at UI sizes, and text changes width, so everything below the first lines moves. It shows on a cold load, before the font is cached, when the font arrives after the first render. A single-page app renders first in the fallback whenever the font is slower than the app, since the browser requests a font file only once text uses it.
+
+Two changes in your app keep the page still:
+
+- **A fallback with the web font's metrics.** Declare a local font under a new name, with the web font's vertical metrics as overrides, and list it straight after the web font. Lines are then the same height in both, and `size-adjust` brings their widths close too. Each override is the font's ascender, descender or line gap divided by its units per em (from its `hhea` table); with `size-adjust`, divide each by that as well. Tools such as fontaine and Capsize work the values out for you.
+
+  ```css
+  @font-face {
+    font-family: 'Figtree Fallback';
+    src: local('Arial'), local('Helvetica'), local('Liberation Sans'), local('Roboto');
+    ascent-override: 95%;
+    descent-override: 25%;
+    line-gap-override: 0%;
+  }
+
+  .text-acme {
+    --font-family: 'Figtree', 'Figtree Fallback', ui-sans-serif, sans-serif;
+  }
+  ```
+
+  Give each web font your UI uses a fallback of its own, headings' included.
+
+- **Preload the font file**, or serve it yourself, so it's requested with the page rather than once the app has rendered text, and is often there before the first render:
+
+  ```html
+  <link rel="preload" href="/fonts/figtree-latin.woff2" as="font" type="font/woff2" crossorigin />
+  ```
+
+  A Google Fonts stylesheet names its files only once it has loaded, so preload a file you host, or the exact file URL the stylesheet gives (which changes when the font is updated).
+
 ## Cascade Layers
 
 All Utensil CSS is scoped to cascade layers, declared in `utensil-layers.css`:
