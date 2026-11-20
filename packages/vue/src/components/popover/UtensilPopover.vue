@@ -15,6 +15,7 @@
       class="utensil-popover-content"
       :class="themeClasses"
       :style="[themeStyle, popoverStyle]"
+      @beforetoggle="handleBeforeToggle"
       @toggle="handleToggle"
     >
       <slot :close="close" :actualPlacement="actualPlacement" />
@@ -119,8 +120,12 @@ const anchorStyle = computed<CSSProperties>(() => ({
   'anchor-name': anchorName,
 }))
 
+// The placement a closing popover keeps while it fades out: closed, it has no flip fallback (see the styles), so it
+// takes the side it was showing on as its own rather than jumping back to the intended one
+const closingPlacement = ref<PopoverPlacement | null>(null)
+
 const popoverStyle = computed(() => {
-  const placement = props.placement
+  const placement = closingPlacement.value ?? props.placement
   const flipped = flipPlacement[placement]
   const isBlock = isBlockPlacement(placement)
 
@@ -182,6 +187,15 @@ function toggle() {
   }
 }
 
+function handleBeforeToggle(event: Event) {
+  if ((event as ToggleEvent).newState === 'open') {
+    closingPlacement.value = null
+  } else {
+    detectActualPlacement()
+    closingPlacement.value = actualPlacement.value
+  }
+}
+
 function handleToggle(event: Event) {
   const toggleEvent = event as ToggleEvent
   const newState = toggleEvent.newState === 'open'
@@ -231,10 +245,11 @@ onMounted(() => {
   if (isControlled.value && props.modelValue && popoverRef.value?.isConnected) popoverRef.value.showPopover()
 
   if (props.width === 'anchor' && anchorRef.value && popoverRef.value) {
-    resizeObserver = new ResizeObserver(() => {
-      if (anchorRef.value && popoverRef.value) {
-        popoverRef.value.style.setProperty('--popover-anchor-width', `${anchorRef.value.offsetWidth}px`)
-      }
+    // The border box's width unrounded, as offsetWidth isn't, so a trigger with a fractional width doesn't get a list a
+    // pixel wider or narrower than itself
+    resizeObserver = new ResizeObserver(([entry]) => {
+      const width = entry?.borderBoxSize?.[0]?.inlineSize ?? anchorRef.value?.getBoundingClientRect().width
+      if (width !== undefined) popoverRef.value?.style.setProperty('--popover-anchor-width', `${width}px`)
     })
     resizeObserver.observe(anchorRef.value)
   }
@@ -332,7 +347,8 @@ defineExpose({
 
   /* Workaround: Safari 27.0.1 - a closed popover that keeps its position-try fallbacks hangs the page in
      endless style resolution when a stylesheet is added later, such as a lazy route's CSS (as WebKit bug
-     299742). The fallbacks apply only while the popover is open. */
+     299742). The fallbacks apply only while the popover is open; a closing one fades out on the side it was showing on,
+     which the script makes its own placement. */
   .utensil-popover-content:not(:popover-open) {
     position-try-fallbacks: none;
   }

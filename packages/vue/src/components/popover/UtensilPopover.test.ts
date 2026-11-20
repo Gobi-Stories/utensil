@@ -72,4 +72,39 @@ describe('UtensilPopover', () => {
     expect(style('bottom')).toContain('margin-block-start: 6px')
     expect(style('right')).not.toContain('margin-inline')
   })
+
+  it('keeps the side it flipped to while it closes, rather than jumping back to its placement', async () => {
+    const wrapper = mount(UtensilPopover, { props: { placement: 'bottom-start', offset: 6 } })
+    const rect = (top: number, bottom: number) => ({ top, bottom, left: 0, right: 100 }) as DOMRect
+    vi.spyOn(wrapper.element, 'getBoundingClientRect').mockReturnValue(rect(500, 530))
+    vi.spyOn(content(wrapper).element, 'getBoundingClientRect').mockReturnValue(rect(300, 500))
+    const toggle = (newState: string) => Object.assign(new Event('beforetoggle'), { newState })
+
+    content(wrapper).element.dispatchEvent(toggle('closed'))
+    await wrapper.vm.$nextTick()
+    expect(content(wrapper).attributes('style')).toContain('margin-block-end: 6px')
+    expect(wrapper.emitted('placement-change')?.[0]).toEqual(['top-start'])
+
+    content(wrapper).element.dispatchEvent(toggle('open'))
+    await wrapper.vm.$nextTick()
+    expect(content(wrapper).attributes('style')).toContain('margin-block-start: 6px')
+  })
+
+  it('is as wide as its trigger to the fraction of a pixel', () => {
+    let observed: ResizeObserverCallback | undefined
+    vi.stubGlobal(
+      'ResizeObserver',
+      class {
+        constructor(callback: ResizeObserverCallback) {
+          observed = callback
+        }
+        observe() {}
+        disconnect() {}
+      },
+    )
+    const wrapper = mount(UtensilPopover, { props: { width: 'anchor' } })
+    observed?.([{ borderBoxSize: [{ inlineSize: 312.656 }] } as unknown as ResizeObserverEntry], {} as ResizeObserver)
+    expect((content(wrapper).element as HTMLElement).style.getPropertyValue('--popover-anchor-width')).toBe('312.656px')
+    vi.unstubAllGlobals()
+  })
 })
