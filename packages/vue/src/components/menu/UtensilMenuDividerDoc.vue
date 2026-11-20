@@ -7,6 +7,10 @@
       A visual separator for grouping related items inside a menu. Renders a thin horizontal line with
       <code>role="separator"</code> for accessibility. Has no props, events, or slots.
     </p>
+    <p>
+      The rule is drawn in <code>--pencil-a6</code>, and in <code>--pencil-a8</code> in high contrast, as
+      <code>UtensilDivider</code> draws its own in the pencil.
+    </p>
 
     <!-- Examples -->
     <h2>Examples</h2>
