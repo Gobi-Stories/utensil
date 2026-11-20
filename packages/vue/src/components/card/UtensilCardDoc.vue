@@ -231,10 +231,11 @@
     <h2>Colors</h2>
     <p>
       The title and description are drawn in pencil on a surface, soft, outline or text card. On a solid or overlay card
-      they take the fill's text color, as does the icon's tile unless <code>iconColor</code> is given. An unstyled card
-      leaves them the color around it. A disabled card draws its header in its variation's muted color, icon included.
-      In high contrast, the footer divider is drawn stronger. A disabled card blocks clicks inside it but leaves its
-      slotted controls as they are: disable them too, so they don't look usable.
+      they take the fill's text color, as does the icon's tile unless <code>iconColor</code> is given. An overlay card
+      puts its content in dark mode, as a box does, so its controls read on its dark panel. An unstyled card leaves them
+      the color around it. A disabled card draws its header in its variation's muted color, icon included. In high
+      contrast, the footer divider is drawn stronger. A disabled card blocks clicks inside it but leaves its slotted
+      controls as they are: disable them too, so they don't look usable.
     </p>
 
     <h2>Examples</h2>

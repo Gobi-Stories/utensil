@@ -87,8 +87,10 @@ function attrsWithoutHref() {
 
 const penColor = computed<ColorProp<Theme>>(() => props.color || 'pen')
 
+// An overlay is a dark panel in either mode, so what it holds is drawn in dark mode, to read on it
 const { classes: themeClasses, style } = useTheme({
   pen: penColor,
+  mode: () => (props.variation === 'overlay' ? 'dark' : undefined),
   relativeScale: () => props.scale,
   radiusScale: () => props.radiusScale,
 })

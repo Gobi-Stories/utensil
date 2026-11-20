@@ -1,5 +1,7 @@
 import { describe, it, expect, vi } from 'vitest'
 import { mount } from '@vue/test-utils'
+import { h } from 'vue'
+import UtensilTheme from '../../theme/UtensilTheme.vue'
 import UtensilBox from './UtensilBox.vue'
 
 describe('UtensilBox', () => {
@@ -23,6 +25,18 @@ describe('UtensilBox', () => {
       props: { variation: 'surface' },
     })
     expect(wrapper.find('.utensil-box').classes()).toContain('ui-surface')
+  })
+
+  it('draws an overlay box in dark mode, whatever the mode around it', () => {
+    const inMode = (mode: 'light' | 'dark', variation: 'overlay' | 'surface') =>
+      mount(UtensilTheme, { props: { mode }, slots: { default: () => h(UtensilBox, { variation }) } })
+        .find('.utensil-box')
+        .classes()
+
+    expect(inMode('light', 'overlay')).toContain('dark-mode')
+    expect(inMode('light', 'surface')).not.toContain('dark-mode')
+    // Already dark: nothing to change
+    expect(inMode('dark', 'overlay')).not.toContain('dark-mode')
   })
 
   it('applies pencil class when not highlighted', () => {

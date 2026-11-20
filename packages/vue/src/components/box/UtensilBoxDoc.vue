@@ -38,7 +38,10 @@
           <td><code>variation</code></td>
           <td><code>UtensilUIVariation</code></td>
           <td><code>'unstyled'</code></td>
-          <td>Visual style. See Variations below.</td>
+          <td>
+            Visual style. See Variations below. An <code>overlay</code> box, a dark panel in either mode, puts its
+            content in dark mode, so controls in it, disabled ones included, read on it.
+          </td>
         </tr>
         <tr>
           <td><code>scale</code></td>
