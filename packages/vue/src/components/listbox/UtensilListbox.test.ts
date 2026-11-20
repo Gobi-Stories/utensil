@@ -134,6 +134,23 @@ describe('UtensilListbox', () => {
     expect(listbox.emitted('update:focusedValue')?.slice(-1)[0]).toEqual([null])
   })
 
+  it('takes focus on a press inside it when it takes focus itself', async () => {
+    const listbox = mountListbox()
+    await listbox.find('#option-banana').trigger('mousedown')
+    expect(document.activeElement).not.toBe(listbox.element)
+    wrapper?.unmount()
+
+    const focusable = mount(UtensilListbox, {
+      props: { ariaLabel: 'Fruit' },
+      attrs: { tabindex: '0' },
+      slots: { default: () => h('div', { id: 'only', role: 'option', 'data-value': 'only' }, 'Only') },
+      attachTo: document.body,
+    })
+    wrapper = focusable
+    await focusable.find('#only').trigger('mousedown')
+    expect(document.activeElement).toBe(focusable.element)
+  })
+
   it('scrolls past its maximum height unless full', () => {
     expect(mountListbox().classes()).not.toContain('full')
     wrapper?.unmount()

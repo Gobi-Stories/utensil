@@ -7,6 +7,7 @@
     :aria-label="ariaLabelledby ? undefined : ariaLabel"
     :aria-labelledby="ariaLabelledby"
     :aria-multiselectable="multiselectable || undefined"
+    @mousedown="focusOnPress"
   >
     <slot :focused-value="currentFocusedValue" :set-focused-value="setFocusedValue" />
   </div>
@@ -148,6 +149,16 @@ function typeahead(character: string) {
   setFocused(match)
   afterMove()
   return true
+}
+
+// Options cancel their mousedown so a host such as a select's trigger keeps focus. A listbox that takes focus itself
+// is its own host, so a press inside it focuses it, and the keyboard, type-ahead included, carries on from there.
+// focusVisible: false keeps a press from showing the keyboard's focus ring; TypeScript's DOM types don't have it yet
+const pressFocus: FocusOptions & { focusVisible?: boolean } = { preventScroll: true, focusVisible: false }
+
+function focusOnPress() {
+  const el = listboxRef.value
+  if (el?.hasAttribute('tabindex') && !el.contains(document.activeElement)) el.focus(pressFocus)
 }
 
 function reset() {

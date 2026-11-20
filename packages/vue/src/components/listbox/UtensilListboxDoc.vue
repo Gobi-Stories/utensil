@@ -20,7 +20,7 @@
       combobox trigger, give each option <code>tabindex="-1"</code>, which keeps it in the accessibility tree, and
       cancel its <code>mousedown</code> (<code>@mousedown.prevent</code>), so pressing it leaves focus where it is.
       <code>UtensilSelectOption</code> does both. A listbox that takes focus itself, with <code>tabindex="0"</code>,
-      shows a focus ring.
+      shows a focus ring, and is focused by a press inside it, so the keyboard carries on after a click.
     </p>
 
     <h2>Props</h2>
