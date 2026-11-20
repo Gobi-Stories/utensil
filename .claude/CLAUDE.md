@@ -39,7 +39,7 @@ What a change to the public API may do depends on the current version (`packages
 - **Below 1.0.0** — Utensil is closed: only our own products use it, so breaking changes are allowed. Make them when the design needs them, rather than keeping a worse API for compatibility.
 - **1.0.0 and above** — Utensil is open source: keep changes additive.
 
-Either way, call out anything breaking in the commit message so it reaches the release notes.
+Either way, call out anything breaking in the commit message so it reaches the release notes, and record it in the same commit in `packages/vue/docs/BREAKING-CHANGES.md`, under `## Latest` (add the heading at the top if the last release removed it), grouped by component and worded for the consumer who upgrades: what changed, and what to change in their code. The file ships in the package, so upgrades that didn't come from a promotion can be found there too. A release renames `## Latest` to its version.
 
 ## Skills
 

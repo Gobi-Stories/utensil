@@ -2,7 +2,8 @@
 //
 //   bun scripts/release.ts <patch | minor | major | x.y.z> [--dry]
 //
-// Bumps every workspace package to the new version, runs ./check and the package verification,
+// Bumps every workspace package to the new version, gives the Latest section of the breaking changes
+// (packages/vue/docs/BREAKING-CHANGES.md) the version's name, runs ./check and the package verification,
 // then packs both packages into temp/release/. Publishing stays manual: the script prints the
 // commands to run once the tarballs have been reviewed.
 
@@ -69,6 +70,17 @@ if (!dry) {
   )
   writeFileSync(lockPath, lock)
   await $`bun install`.cwd(root)
+
+  // The breaking changes since the last release, under Latest, become this release's section. A release with none
+  // still gets one, so every version has a section.
+  const breakingPath = join(root, 'packages/vue/docs/BREAKING-CHANGES.md')
+  const breaking = readFileSync(breakingPath, 'utf8')
+  writeFileSync(
+    breakingPath,
+    breaking.includes('\n## Latest\n')
+      ? breaking.replace('\n## Latest\n', `\n## ${version}\n`)
+      : breaking.replace('\n## ', `\n## ${version}\n\nNone.\n\n## `),
+  )
 }
 
 await $`./check`.cwd(root)

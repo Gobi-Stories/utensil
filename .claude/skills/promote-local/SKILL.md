@@ -214,7 +214,8 @@ repository: the consumer commits the notes with its own work.
   (`speed="fast"` → `preset="quick"`), with its release status.
 - **Promoted** — each item and the purpose of what changed in Utensil.
 - **Left out** — each change whose purpose was unclear or added no clear value, and why.
-- **Breaking** — anything breaking, worded for the release notes.
+- **Breaking** — anything breaking, worded for the release notes, and recorded under `## Latest` in
+  `packages/vue/docs/BREAKING-CHANGES.md` in the commit that makes it.
 - **Upgrade notes** — each file written or updated in the local folder, or that none were needed.
 - **Audit** — recommendations not made, and why: outside the promoted work, or breaking for other consumers.
 - **Switching over** — for the consumer, whenever it chooses to upgrade to a release that includes the promotion:

@@ -83,6 +83,8 @@ Utensil covers general-purpose primitives. When your project needs a component U
 
 The skills are version-matched to the installed package: upgrading `@gobistories/utensil-vue` upgrades them.
 
+Upgrading `@gobistories/utensil-vue` itself, read `docs/BREAKING-CHANGES.md` in the package (`node_modules/@gobistories/utensil-vue/docs/BREAKING-CHANGES.md`): a section for each version, saying what changed that your code may have to adapt to. Work through every version after the one you had installed.
+
 ## Pure CSS Usage
 
 Utensil's CSS framework works without Vue or any framework, and ships on its own as the `@gobistories/utensil-css` package. Load its all-in-one stylesheet, which leads with the layer order — from a bundler:

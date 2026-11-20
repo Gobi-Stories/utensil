@@ -38,7 +38,9 @@ Apply SOLID principles throughout.
 Both packages are published to npm. A module's path, its exported names and types, a component's props, events, slots, root class and CSS cvars, and the CSS class and variable names in `@gobistories/utensil-css` are all public API.
 
 - Prefer additive changes.
-- Never rename or move a public module, class or cvar without calling it out as a breaking change for the release.
+- Never rename or move a public module, class or cvar without calling it out as a breaking change for the release: a
+  `Breaking:` section in the commit message, and an entry under `## Latest` in `packages/vue/docs/BREAKING-CHANGES.md`
+  (`.claude/CLAUDE.md` → Consumer Compatibility).
 
 ## Interface Design
 

@@ -63,7 +63,9 @@ From 1.0.0, once Utensil is open source:
 Never propose 1.0.0 yourself: it marks the open sourcing, and is the maintainer's call.
 
 Draft short release notes grouped as Breaking, Added, Fixed and Docs/skills, and confirm the version with the
-maintainer before going on.
+maintainer before going on. Breaking comes from the `## Latest` section of `packages/vue/docs/BREAKING-CHANGES.md`:
+check that every `Breaking:` commit since the last tag has an entry there, and add any that is missing, committed
+before the release.
 
 ## 3. Run the release script
 
@@ -71,8 +73,9 @@ maintainer before going on.
 bun run release <patch | minor | major | x.y.z>
 ```
 
-It bumps every workspace package and `bun.lock` to the new version, runs `./check` and `verify:package`, and packs
-both packages into `temp/release/`. It takes a few minutes. If it fails, stop, report the failure, and restore the
+It bumps every workspace package and `bun.lock` to the new version, renames the `## Latest` section of
+`packages/vue/docs/BREAKING-CHANGES.md` to the version (or adds the version's section, as "None.", when there is no
+Latest), runs `./check` and `verify:package`, and packs both packages into `temp/release/`. It takes a few minutes. If it fails, stop, report the failure, and restore the
 version bump with `git checkout -- .` once the maintainer agrees.
 
 ## 4. Review the tarballs

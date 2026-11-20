@@ -1,6 +1,6 @@
 ---
 name: utensil-usage
-description: Utensil Design System usage knowledge. Use whenever writing, changing or reviewing Vue UI or CSS in a project that uses @gobistories/utensil-vue or @gobistories/utensil-css — pen/pencil/paper color tokens, design tokens, UtensilTheme and theme roots, typed component wrappers, Utensil components, cascade layers and utility classes.
+description: Utensil Design System usage knowledge. Use whenever writing, changing or reviewing Vue UI or CSS in a project that uses @gobistories/utensil-vue or @gobistories/utensil-css — pen/pencil/paper color tokens, design tokens, UtensilTheme and theme roots, typed component wrappers, Utensil components, cascade layers and utility classes — and when upgrading @gobistories/utensil-vue, for what each version changed.
 license: MIT
 ---
 
@@ -13,7 +13,7 @@ This project builds its UI with the Utensil Design System:
 
 A Vue project installs and imports only `@gobistories/utensil-vue`: it forwards the CSS framework's files at the same subpaths (`@gobistories/utensil-vue/utensil-layers.css`, `@gobistories/utensil-vue/colors/generate-css`).
 
-Before writing or reviewing UI, read `references/USAGE.md` (in this skill's directory). It is the source of truth for colors, tokens, components, theming, keyboard handling and CSS conventions. For questions about creating or changing the project's theme (colors, variants, icons, text themes, theme root), also read `references/SETUP.md`.
+Before writing or reviewing UI, read `references/USAGE.md` (in this skill's directory). It is the source of truth for colors, tokens, components, theming, keyboard handling and CSS conventions. For questions about creating or changing the project's theme (colors, variants, icons, text themes, theme root), also read `references/SETUP.md`. When upgrading `@gobistories/utensil-vue`, read `references/BREAKING-CHANGES.md` and adapt the project to every entry in the versions after the one it had installed.
 
 ## Conventions
 

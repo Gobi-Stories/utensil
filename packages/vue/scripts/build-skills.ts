@@ -9,7 +9,7 @@ const skillsDir = 'skills'
 const docsDir = 'docs'
 
 const references: Record<string, string[]> = {
-  'utensil-usage': ['USAGE.md', 'SETUP.md'],
+  'utensil-usage': ['USAGE.md', 'SETUP.md', 'BREAKING-CHANGES.md'],
   'utensil-find-components': ['COMPONENTS.md'],
   'utensil-implement-component': ['DEVELOPMENT.md', 'USAGE.md', 'audit-checklist.md'],
   'utensil-document-component-api': ['DEVELOPMENT.md'],

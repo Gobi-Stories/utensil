@@ -29,7 +29,7 @@ Read and follow the Utensil component guide for all component patterns, conventi
 
 ## Consumer Compatibility
 
-Utensil is published to npm and used by other projects. Treat the component's file path, props, events, slots, root class, CSS cvars and exported types as public API. Prefer additive changes; if a breaking change is unavoidable, call it out to the user so it can be noted in the release.
+Utensil is published to npm and used by other projects. Treat the component's file path, props, events, slots, root class, CSS cvars and exported types as public API. Prefer additive changes; if a breaking change is unavoidable, call it out to the user, in a `Breaking:` section of the commit message, and in an entry under `## Latest` in `packages/vue/docs/BREAKING-CHANGES.md` (`.claude/CLAUDE.md` → Consumer Compatibility).
 
 ## Unit Tests
 

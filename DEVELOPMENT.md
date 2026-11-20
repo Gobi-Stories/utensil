@@ -106,6 +106,10 @@ Until 1.0.0, Utensil is closed: only our own products use it, and breaking chang
 bumps the minor version (`0.1.x` → `0.2.0`); everything else bumps the patch. From 1.0.0, when Utensil is open
 sourced, changes are additive and a breaking change is a major release.
 
+Every breaking change is recorded in [packages/vue/docs/BREAKING-CHANGES.md](packages/vue/docs/BREAKING-CHANGES.md),
+which ships in `@gobistories/utensil-vue` for consumers upgrading: under `## Latest` in the commit that makes it, and
+under its version once released (the release script renames the section).
+
 ## Releasing
 
 The packages are published to a public npm repository in Google Artifact Registry, not to npmjs:
