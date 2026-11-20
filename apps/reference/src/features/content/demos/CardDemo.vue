@@ -24,6 +24,45 @@
       </ReferenceCard>
     </div>
 
+    <div id="card-variations" class="component-demo">
+      <h3><a class="demo-anchor" href="#card-variations">Variations</a></h3>
+      <p>
+        The header follows the card's variation: pencil on a surface, soft, outline or text card, the fill's text color
+        on a solid or overlay card, and the color around it on an unstyled card. A disabled card draws its header muted,
+        but for an unstyled one, which has no colors of its own to mute. Disable its controls too.
+      </p>
+      <div class="card-variations-toggles">
+        <ReferenceCheckbox v-model="variationsInteractive" label="Interactive" />
+        <ReferenceCheckbox v-model="variationsDisabled" label="Disabled" />
+      </div>
+      <div class="card-grid">
+        <div
+          v-for="variation in cardVariations"
+          :key="variation.value"
+          class="card-variation"
+          :class="{ backdrop: variation.value === 'overlay' }"
+        >
+          <ReferenceCard
+            :variation="variation.value"
+            :interactive="variationsInteractive"
+            :disabled="variationsDisabled"
+            footer-divider
+            icon="folder"
+            :title="variation.label"
+            title-element="h4"
+            description="Three projects are waiting for review."
+          >
+            <template #footer>
+              <span class="card-variation-meta">Updated today</span>
+            </template>
+            <template #actions>
+              <ReferenceButton variation="solid" scale="small" :disabled="variationsDisabled">View</ReferenceButton>
+            </template>
+          </ReferenceCard>
+        </div>
+      </div>
+    </div>
+
     <div id="card-action" class="component-demo">
       <h3><a class="demo-anchor" href="#card-action">Actions</a></h3>
       <p>
@@ -128,6 +167,7 @@ import ReferenceComponentDemo from '@/features/components/ReferenceComponentDemo
 import { ReferenceCard } from '@/theme/components/ReferenceCard'
 import { ReferenceButton } from '@/theme/components/ReferenceButton'
 import { ReferenceUserProfileCard } from '@/theme/components/ReferenceUserProfileCard'
+import { ReferenceCheckbox } from '@/theme/components/ReferenceCheckbox'
 
 const cardMembers = [
   { name: 'Sofia Chen', email: 'sofia.chen@example.com', initials: 'SC' },
@@ -153,6 +193,18 @@ const cardChoices = [
 
 const startedWith = ref('')
 
+const variationsInteractive = ref(false)
+const variationsDisabled = ref(false)
+const cardVariations = [
+  { value: 'surface', label: 'Surface' },
+  { value: 'soft', label: 'Soft' },
+  { value: 'outline', label: 'Outline' },
+  { value: 'text', label: 'Text' },
+  { value: 'solid', label: 'Solid' },
+  { value: 'overlay', label: 'Overlay' },
+  { value: 'unstyled', label: 'Unstyled' },
+] as const
+
 const cardReports = [
   { icon: 'chart-column', title: 'Traffic', body: 'Visits rose 12% this month.', meta: 'Daily' },
   {
@@ -176,6 +228,30 @@ const cardReports = [
   display: flex;
   flex-wrap: wrap;
   gap: var(--space-4);
+}
+
+.card-variations-toggles {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+  margin-block-end: var(--space-4);
+}
+
+.card-variation {
+  display: grid;
+}
+
+/* An overlay card is a translucent panel over media, so it's shown over some */
+.card-variation.backdrop {
+  padding: var(--space-4);
+  border-radius: var(--radius-3);
+  background: linear-gradient(135deg, var(--pen-7), var(--pencil-9));
+}
+
+/* Inherits the card's color, so it follows the variation like the description */
+.card-variation-meta {
+  font-size: var(--font-size-1);
+  opacity: 0.8;
 }
 
 .card-status {
