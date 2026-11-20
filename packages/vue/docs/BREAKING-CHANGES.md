@@ -12,6 +12,13 @@ each usage an entry names. **Latest** holds the changes since the last release; 
 
 Until 1.0.0, a minor release (`0.4.x` → `0.5.0`) may break, and a patch release doesn't.
 
+## Latest
+
+### Visual changes
+
+- **UtensilDisclosure**: the label shrinks to the toggle row, so a label that doesn't wrap no longer widens the
+  disclosure past its container; content in the `label` slot with its own ellipsis now shows it.
+
 ## 0.6.0
 
 ### useUserThemePreferences
