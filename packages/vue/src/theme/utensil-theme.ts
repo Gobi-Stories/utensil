@@ -7,6 +7,11 @@ export type ThemeMode = 'light' | 'dark'
 export type Instrument = 'pen' | 'pencil' | 'paper'
 export type ThemeContrast = 'high' | 'normal'
 export type ThemeReducedMotion = 'reduced' | 'normal'
+/** A user's choice of a theme preference: a value of its own, or `'system'` to follow the operating system's setting */
+export type ThemePreferenceChoice<Value extends string> = Value | 'system'
+export type ThemeModeChoice = ThemePreferenceChoice<ThemeMode>
+export type ThemeContrastChoice = ThemePreferenceChoice<ThemeContrast>
+export type ThemeReducedMotionChoice = ThemePreferenceChoice<ThemeReducedMotion>
 export type UtensilUIVariation = 'solid' | 'outline' | 'surface' | 'soft' | 'text' | 'overlay' | 'unstyled'
 
 /** The variations a text field, text area or select can take */

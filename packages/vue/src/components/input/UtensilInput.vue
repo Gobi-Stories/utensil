@@ -443,5 +443,25 @@ defineExpose({
     font-size: var(--font-size-1);
     color: var(--pencil-a11);
   }
+
+  /* Forced colors drops the box-shadow edge and focus ring: a border in system colors draws the edge, thicker when
+     invalid, the field held to its size by a negative margin, and the shared Highlight outline the focus ring */
+  @media (forced-colors: active) {
+    .utensil-input-control:not(.unstyled) input {
+      border: 1px solid CanvasText;
+      margin-block: -1px;
+    }
+
+    .utensil-input-control.invalid input {
+      border: 2px solid CanvasText;
+      margin-block: -2px;
+    }
+
+    .utensil-input-control input:disabled,
+    .utensil-input.disabled :is(.utensil-input-label, .utensil-input-control .utensil-icon, p.description) {
+      color: GrayText;
+      border-color: GrayText;
+    }
+  }
 }
 </style>

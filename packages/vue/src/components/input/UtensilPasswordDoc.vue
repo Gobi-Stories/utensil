@@ -102,6 +102,16 @@
           <td>Marks the input as required, so a form isn't submitted without a password.</td>
         </tr>
         <tr>
+          <td><code>autocomplete</code></td>
+          <td><code>string</code></td>
+          <td>—</td>
+          <td>
+            The input's <code>autocomplete</code>, which tells a password manager what the field is:
+            <code>'current-password'</code> where the user signs in, and <code>'new-password'</code> where they set or
+            change one, so it offers to generate a password there rather than filling in the saved one.
+          </td>
+        </tr>
+        <tr>
           <td><code>showPasswordLabel</code></td>
           <td><code>string</code></td>
           <td><code>'Show password'</code></td>

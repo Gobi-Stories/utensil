@@ -450,5 +450,18 @@ function handleChange(event: Event) {
     min-width: var(--value-width);
     text-align: end;
   }
+
+  /* Forced colors replaces the track's and fill's colors with the page's: an outline draws the track, and the
+     system's Highlight the fill */
+  @media (forced-colors: active) {
+    .track {
+      outline: 1px solid CanvasText;
+      outline-offset: -1px;
+    }
+
+    .fill {
+      background-color: Highlight;
+    }
+  }
 }
 </style>

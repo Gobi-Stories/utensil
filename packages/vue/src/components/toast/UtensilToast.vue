@@ -242,5 +242,13 @@ const hasInteraction = computed(() => !!action || !!onClick || dismissible)
     opacity: 0;
     translate: 0 calc((var(--offset) * -1px) + 8px);
   }
+
+  /* Forced colors replaces the toast's fill with the page's: an outline keeps it apart from the page */
+  @media (forced-colors: active) {
+    .utensil-toast {
+      outline: 1px solid CanvasText;
+      outline-offset: -1px;
+    }
+  }
 }
 </style>

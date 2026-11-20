@@ -859,5 +859,31 @@ defineExpose({
   .utensil-calendar.dual-month .utensil-calendar-month {
     min-width: 232px;
   }
+
+  /* Forced colors: the chosen day and range are the system's Highlight, over the hover and range rules, and not forced
+     themselves, or the backplate forced colors puts behind text would hide them, nor ringed in the pen: the shared
+     Highlight ring shows focus. Today's edge is thicker. */
+  @media (forced-colors: active) {
+    .utensil-calendar-day.today .utensil-calendar-day-number {
+      outline-width: 2px;
+    }
+
+    .utensil-calendar-day:is(.selected, .range-start, .range-end) .utensil-calendar-day-number,
+    .utensil-calendar-year-option.selected {
+      forced-color-adjust: none;
+      background: Highlight !important;
+      color: HighlightText !important;
+      outline-color: transparent;
+    }
+
+    .utensil-calendar-day.in-range {
+      forced-color-adjust: none;
+      background: Highlight !important;
+    }
+
+    .utensil-calendar-day.in-range .utensil-calendar-day-number {
+      color: HighlightText !important;
+    }
+  }
 }
 </style>

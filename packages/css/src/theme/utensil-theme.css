@@ -694,5 +694,89 @@
         box-shadow: inset 0 0 0 var(--interactive-border-width) var(--pen-a9);
       }
     }
+
+    /* Forced colors (Windows contrast themes) replaces colors with the system's and drops box-shadow, which draws the
+       outline and surface edges, so a border in system colors draws an edge on every filled or edged variation
+       (a field draws its own), and the chosen state is the system's Highlight. The edge is a border so the outline
+       is left to the focus ring, set off from it; the resting focus outline, which forced colors would otherwise
+       draw as a thick ring, isn't drawn. The chosen state is important: forced colors would otherwise turn the
+       background of whichever variation, hover or press rule is more specific into the page's color. It isn't
+       forced itself, or the page-colored backplate forced colors puts behind text would hide its HighlightText, and
+       what it holds takes its HighlightText. */
+    @media (forced-colors: active) {
+      :is(.ui-solid, .ui-soft, .ui-outline, .ui-surface, .ui-overlay):not(input, textarea) {
+        border: 1px solid CanvasText !important;
+      }
+
+      :is(.ui-solid, .ui-soft, .ui-outline, .ui-surface, .ui-text, .ui-overlay):not(:focus-visible) {
+        outline-style: none !important;
+      }
+
+      :where(.ui-solid, .ui-soft, .ui-outline, .ui-surface, .ui-text, .ui-overlay):where(
+          .selected,
+          [aria-pressed='true'],
+          [aria-checked='true']
+        ):not(.disabled, :disabled) {
+        forced-color-adjust: none;
+        background-color: Highlight !important;
+        color: HighlightText !important;
+
+        & * {
+          color: inherit !important;
+        }
+      }
+
+      /* A control's resting focus outline, transparent, is drawn by forced colors, where it serves as the control's
+         edge: it's a tight 1px, so it doesn't read as focus */
+      :is(
+        a[href],
+        button,
+        input,
+        textarea,
+        select,
+        summary,
+        [role='button'],
+        [role='link'],
+        [role='checkbox'],
+        [role='radio'],
+        [role='switch'],
+        [role='tab'],
+        [role='slider'],
+        [tabindex='0']
+      ):not(:focus-visible) {
+        outline-width: 1px !important;
+        outline-offset: -1px !important;
+      }
+
+      /* Focus is a Highlight ring 2px off the control, so it stands apart from the control's own edge, over each
+         component's own ring: on controls, including roving ones off the tab order, and anything in it. Options and
+         menu items show focus as their Highlight fill instead, and a container focused by script (a dialog, a
+         drawer, a menu) shows none. */
+      :is(
+          a[href],
+          button,
+          input,
+          textarea,
+          select,
+          summary,
+          [role='button'],
+          [role='link'],
+          [role='checkbox'],
+          [role='radio'],
+          [role='switch'],
+          [role='tab'],
+          [role='slider'],
+          [tabindex='0']
+        ):not([role='option'], [role^='menuitem']):focus-visible {
+        outline: 2px solid Highlight !important;
+        outline-offset: 2px !important;
+      }
+
+      /* As specific as the variations' own disabled rules, and after them */
+      :is(.ui-solid, .ui-soft, .ui-outline, .ui-surface, .ui-text, .ui-overlay):is(.disabled, :disabled) {
+        color: GrayText;
+        border-color: GrayText !important;
+      }
+    }
   }
 }

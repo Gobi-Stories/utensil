@@ -310,5 +310,13 @@ watch(
       background-color: var(--pencil-a2);
     }
   }
+
+  /* Forced colors drops the shadow that edges the open panel: an outline draws it */
+  @media (forced-colors: active) {
+    .utensil-navigation-menu-content {
+      outline: 1px solid CanvasText;
+      outline-offset: -1px;
+    }
+  }
 }
 </style>

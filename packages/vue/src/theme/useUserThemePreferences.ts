@@ -1,55 +1,111 @@
-import { effectScope, ref, watch, type Ref } from 'vue'
-import { resolveMode, type ThemeContrast, type ThemeMode, type ThemeReducedMotion } from './utensil-theme'
+import { computed, effectScope, onScopeDispose, ref, watch, type Ref, type WritableComputedRef } from 'vue'
+import type {
+  ThemeContrast,
+  ThemeContrastChoice,
+  ThemeMode,
+  ThemeModeChoice,
+  ThemePreferenceChoice,
+  ThemeReducedMotion,
+  ThemeReducedMotionChoice,
+} from './utensil-theme'
 
 const MODE_STORAGE_KEY = 'utensil-theme-mode'
 const CONTRAST_STORAGE_KEY = 'utensil-theme-contrast'
 const REDUCED_MOTION_STORAGE_KEY = 'utensil-theme-reduced-motion'
 
-function getStoredMode(): ThemeMode | undefined {
-  const stored = localStorage.getItem(MODE_STORAGE_KEY)
-  if (stored === 'light' || stored === 'dark') {
-    return stored
+// Storage throws where it's blocked (some private windows, cookies disabled, sandboxed iframes): a choice is then
+// applied but not remembered, and nothing stored is read
+function readStorage(key: string): string | null {
+  try {
+    return localStorage.getItem(key)
+  } catch {
+    return null
   }
-  return undefined
 }
 
-function storeMode(mode: ThemeMode) {
-  localStorage.setItem(MODE_STORAGE_KEY, mode)
-}
-
-function getStoredContrast(): ThemeContrast | undefined {
-  const stored = localStorage.getItem(CONTRAST_STORAGE_KEY)
-  if (stored === 'high' || stored === 'normal') {
-    return stored
+function writeStorage(key: string, value: string | null) {
+  try {
+    if (value === null) {
+      localStorage.removeItem(key)
+    } else {
+      localStorage.setItem(key, value)
+    }
+  } catch {
+    // Blocked: the choice lasts until the page is closed
   }
-  return undefined
 }
 
-function storeContrast(contrast: ThemeContrast) {
-  localStorage.setItem(CONTRAST_STORAGE_KEY, contrast)
+function queryMedia(query: string): MediaQueryList | undefined {
+  return typeof window !== 'undefined' && typeof window.matchMedia === 'function' ? window.matchMedia(query) : undefined
 }
 
-function getStoredReducedMotion(): ThemeReducedMotion | undefined {
-  const stored = localStorage.getItem(REDUCED_MOTION_STORAGE_KEY)
-  if (stored === 'reduced' || stored === 'normal') {
-    return stored
+interface PreferenceOptions<Value extends string> {
+  key: string
+  /** The media query that asks for `matched`; the other value applies when it doesn't match */
+  query: string
+  matched: Value
+  unmatched: Value
+}
+
+interface Preference<Value extends string> {
+  choice: Ref<ThemePreferenceChoice<Value>>
+  value: WritableComputedRef<Value>
+  set: (choice: ThemePreferenceChoice<Value>) => void
+}
+
+function createPreference<Value extends string>({
+  key,
+  query,
+  matched,
+  unmatched,
+}: PreferenceOptions<Value>): Preference<Value> {
+  const stored = readStorage(key)
+  const choice = ref(
+    (stored === matched || stored === unmatched ? stored : 'system') as ThemePreferenceChoice<Value>,
+  ) as Ref<ThemePreferenceChoice<Value>>
+
+  // The system's setting, kept live: a preference left on 'system' follows a change to it while the app is open
+  const media = queryMedia(query)
+  const system = ref(media?.matches ? matched : unmatched) as Ref<Value>
+  if (media && typeof media.addEventListener === 'function') {
+    const onChange = (event: MediaQueryListEvent) => {
+      system.value = event.matches ? matched : unmatched
+    }
+    media.addEventListener('change', onChange)
+    onScopeDispose(() => media.removeEventListener('change', onChange))
   }
-  return undefined
-}
 
-function storeReducedMotion(reducedMotion: ThemeReducedMotion) {
-  localStorage.setItem(REDUCED_MOTION_STORAGE_KEY, reducedMotion)
+  // A choice is remembered, and 'system' forgets it
+  watch(choice, (value) => writeStorage(key, value === 'system' ? null : value))
+
+  function set(value: ThemePreferenceChoice<Value>) {
+    choice.value = value
+  }
+
+  // Writing the applied value is a choice of it
+  const value = computed<Value>({
+    get: () => (choice.value === 'system' ? system.value : choice.value),
+    set,
+  })
+
+  return { choice, value, set }
 }
 
 export interface UserThemePreferences {
+  /** The mode that applies: the user's choice, or the system's under `'system'` */
   mode: Ref<ThemeMode>
-  setMode: (value: ThemeMode) => void
+  /** The user's choice of mode, `'system'` until they make one */
+  modeChoice: Ref<ThemeModeChoice>
+  /** Choose a mode, or `'system'` to follow the system's again */
+  setMode: (value: ThemeModeChoice) => void
   toggleThemeMode: () => void
   contrast: Ref<ThemeContrast>
-  setContrast: (value: ThemeContrast) => void
+  contrastChoice: Ref<ThemeContrastChoice>
+  setContrast: (value: ThemeContrastChoice) => void
   toggleContrast: () => void
   reducedMotion: Ref<ThemeReducedMotion>
-  setReducedMotion: (value: ThemeReducedMotion) => void
+  reducedMotionChoice: Ref<ThemeReducedMotionChoice>
+  setReducedMotion: (value: ThemeReducedMotionChoice) => void
   toggleReducedMotion: () => void
 }
 
@@ -57,83 +113,49 @@ export interface UserThemePreferences {
 let preferences: UserThemePreferences | undefined
 
 function createPreferences(): UserThemePreferences {
-  const storedMode = getStoredMode()
-  const mode = ref<ThemeMode>(resolveMode(storedMode))
-  const userHasSetMode = ref(storedMode !== undefined)
-
-  const storedContrast = getStoredContrast()
-  const contrast = ref<ThemeContrast>(storedContrast ?? 'normal')
-  const userHasSetContrast = ref(storedContrast !== undefined)
-
-  const storedReducedMotion = getStoredReducedMotion()
-  const reducedMotion = ref<ThemeReducedMotion>(storedReducedMotion ?? 'normal')
-  const userHasSetReducedMotion = ref(storedReducedMotion !== undefined)
-
-  // Persist changes to localStorage
-  watch(mode, (value) => {
-    if (userHasSetMode.value) {
-      storeMode(value)
-    }
+  const mode = createPreference<ThemeMode>({
+    key: MODE_STORAGE_KEY,
+    query: '(prefers-color-scheme: dark)',
+    matched: 'dark',
+    unmatched: 'light',
   })
-
-  watch(contrast, (value) => {
-    if (userHasSetContrast.value) {
-      storeContrast(value)
-    }
+  const contrast = createPreference<ThemeContrast>({
+    key: CONTRAST_STORAGE_KEY,
+    query: '(prefers-contrast: more)',
+    matched: 'high',
+    unmatched: 'normal',
   })
-
-  watch(reducedMotion, (value) => {
-    if (userHasSetReducedMotion.value) {
-      storeReducedMotion(value)
-    }
+  const reducedMotion = createPreference<ThemeReducedMotion>({
+    key: REDUCED_MOTION_STORAGE_KEY,
+    query: '(prefers-reduced-motion: reduce)',
+    matched: 'reduced',
+    unmatched: 'normal',
   })
-
-  function setMode(value: ThemeMode) {
-    userHasSetMode.value = true
-    mode.value = value
-  }
-
-  function toggleThemeMode() {
-    setMode(mode.value === 'light' ? 'dark' : 'light')
-  }
-
-  function setContrast(value: ThemeContrast) {
-    userHasSetContrast.value = true
-    contrast.value = value
-  }
-
-  function toggleContrast() {
-    setContrast(contrast.value === 'normal' ? 'high' : 'normal')
-  }
-
-  function setReducedMotion(value: ThemeReducedMotion) {
-    userHasSetReducedMotion.value = true
-    reducedMotion.value = value
-  }
-
-  function toggleReducedMotion() {
-    setReducedMotion(reducedMotion.value === 'normal' ? 'reduced' : 'normal')
-  }
 
   return {
-    mode,
-    setMode,
-    toggleThemeMode,
-    contrast,
-    setContrast,
-    toggleContrast,
-    reducedMotion,
-    setReducedMotion,
-    toggleReducedMotion,
+    mode: mode.value,
+    modeChoice: mode.choice,
+    setMode: mode.set,
+    toggleThemeMode: () => mode.set(mode.value.value === 'light' ? 'dark' : 'light'),
+    contrast: contrast.value,
+    contrastChoice: contrast.choice,
+    setContrast: contrast.set,
+    toggleContrast: () => contrast.set(contrast.value.value === 'normal' ? 'high' : 'normal'),
+    reducedMotion: reducedMotion.value,
+    reducedMotionChoice: reducedMotion.choice,
+    setReducedMotion: reducedMotion.set,
+    toggleReducedMotion: () => reducedMotion.set(reducedMotion.value.value === 'normal' ? 'reduced' : 'normal'),
   }
 }
 
 /**
- * The user's mode, contrast and reduced motion preferences, persisted to localStorage and shared
- * across the app. The first call reads storage and starts persisting; later calls share that state.
+ * The user's mode, contrast and reduced motion preferences, shared across the app. Each follows the operating
+ * system's setting (`prefers-color-scheme`, `prefers-contrast`, `prefers-reduced-motion`), live, until the user
+ * chooses a value, which is remembered in localStorage until they choose `'system'` again. The first call reads
+ * storage and the system's settings; later calls share that state.
  */
 export function useUserThemePreferences(): UserThemePreferences {
-  // A detached scope keeps the persisting watchers alive beyond the component that first calls this
+  // A detached scope keeps the persisting watchers and media listeners alive beyond the component that first calls this
   preferences ??= effectScope(true).run(createPreferences)!
   return preferences
 }

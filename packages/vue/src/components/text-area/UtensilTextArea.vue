@@ -308,6 +308,26 @@ defineExpose({
   .utensil-text-area p.description.invalid {
     color: var(--pen-11);
   }
+
+  /* Forced colors drops the box-shadow edge and focus ring: a border in system colors draws the edge, thicker when
+     invalid, the field held to its size by a negative margin, and the shared Highlight outline the focus ring */
+  @media (forced-colors: active) {
+    .utensil-text-area-control:not(.unstyled) textarea {
+      border: 1px solid CanvasText;
+      margin-block: -1px;
+    }
+
+    .utensil-text-area-control.invalid textarea {
+      border: 2px solid CanvasText;
+      margin-block: -2px;
+    }
+
+    .utensil-text-area-control textarea:disabled,
+    .utensil-text-area.disabled :is(.utensil-text-area-label, p.description) {
+      color: GrayText;
+      border-color: GrayText;
+    }
+  }
 }
 </style>
 

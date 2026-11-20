@@ -593,5 +593,13 @@ onBeforeUnmount(() => {
   .utensil-reduced-motion .utensil-drawer {
     --drawer-transition: 0s;
   }
+
+  /* Forced colors drops the shadow that edges a panel over the page: an outline draws it */
+  @media (forced-colors: active) {
+    .drawer-panel:not(:focus) {
+      outline: 1px solid CanvasText;
+      outline-offset: -1px;
+    }
+  }
 }
 </style>

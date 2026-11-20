@@ -118,10 +118,10 @@ const actionSheetFrame = useTemplateRef('actionSheetFrame')
   font-size: var(--font-size-2);
 }
 
-/* The narrow frame keeps the strip in its sheet form; the sheet fills the frame */
+/* A demo column is narrower than the strip's sheet breakpoint, so the strip takes its sheet form; the sheet fills
+   the frame */
 .demo-content.action-strip-sheet-demo {
   position: relative;
-  width: 320px;
   height: 320px;
   padding: 0;
   display: flex;

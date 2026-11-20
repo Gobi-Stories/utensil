@@ -135,5 +135,23 @@ function handleClick(event: MouseEvent) {
     font-size: var(--font-size-1);
     color: var(--pen-9);
   }
+
+  /* Forced colors: the option the keyboard is on is the system's Highlight, over whatever state rule is more specific,
+     and not forced itself, or the backplate forced colors puts behind text would hide it. A disabled one is GrayText. */
+  @media (forced-colors: active) {
+    .utensil-select-option[data-focused]:not(.disabled) {
+      forced-color-adjust: none;
+      background-color: Highlight !important;
+      color: HighlightText !important;
+
+      & * {
+        color: inherit !important;
+      }
+    }
+
+    .utensil-select-option.disabled {
+      color: GrayText;
+    }
+  }
 }
 </style>

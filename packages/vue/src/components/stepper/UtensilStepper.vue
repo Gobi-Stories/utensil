@@ -244,5 +244,18 @@ function indicatorClass(index: number) {
   .utensil-high-contrast .connector {
     background-color: var(--pencil-a5);
   }
+
+  /* Forced colors replaces the connectors' colors with the page's: an outline draws the one still to go, and the
+     system's Highlight the completed one */
+  @media (forced-colors: active) {
+    .connector {
+      outline: 1px solid CanvasText;
+      outline-offset: -1px;
+    }
+
+    .completed .connector {
+      background-color: Highlight;
+    }
+  }
 }
 </style>

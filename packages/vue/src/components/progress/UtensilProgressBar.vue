@@ -173,5 +173,18 @@ const clampedValue = computed(() => (Number.isFinite(props.value) ? Math.min(100
       opacity: 1;
     }
   }
+
+  /* Forced colors replaces the track's and fill's colors with the page's: an outline draws the track and the
+     system's Highlight the fill */
+  @media (forced-colors: active) {
+    .utensil-progress-bar .track {
+      outline: 1px solid CanvasText;
+      outline-offset: -1px;
+    }
+
+    .utensil-progress-bar .fill {
+      background-color: Highlight !important;
+    }
+  }
 }
 </style>

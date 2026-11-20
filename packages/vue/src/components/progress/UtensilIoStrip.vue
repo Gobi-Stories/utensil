@@ -336,5 +336,15 @@ onUnmounted(clearTimers)
       transition: none;
     }
   }
+
+  /* Forced colors drops the gradient and replaces the fill's color: the system's Highlight draws the fill in either
+     mode */
+  @media (forced-colors: active) {
+    .gradient,
+    .fill.progressive .gradient {
+      display: block;
+      background-color: Highlight;
+    }
+  }
 }
 </style>

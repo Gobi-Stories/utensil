@@ -375,5 +375,12 @@ defineExpose({
   .utensil-modal:not([open]) {
     display: none !important;
   }
+
+  /* Forced colors drops the shadow that edges the dialog: an outline draws it */
+  @media (forced-colors: active) {
+    .utensil-modal-container {
+      outline: 1px solid CanvasText;
+    }
+  }
 }
 </style>
