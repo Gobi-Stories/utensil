@@ -36,6 +36,19 @@ describe('UtensilCard', () => {
     expect(wrapper.find('.utensil-card-icon').exists()).toBe(false)
   })
 
+  it('keeps the icon with the heading, apart from header-end, so only header-end wraps below', () => {
+    const wrapper = mount(UtensilCard, {
+      props: { title: 'Title', icon: 'check' },
+      slots: { 'header-end': '<button>Menu</button>' },
+    })
+    const parts = wrapper.findAll('.utensil-card-header > div').map((part) => part.classes()[0])
+    expect(parts).toEqual(['utensil-card-header-start', 'utensil-card-header-end'])
+    const start = wrapper.find('.utensil-card-header-start')
+    expect(start.classes()).toEqual(expect.arrayContaining(['has-icon', 'has-heading']))
+    expect(start.find('.utensil-card-icon').exists()).toBe(true)
+    expect(start.find('.utensil-card-title').text()).toBe('Title')
+  })
+
   it('replaces the header with the header slot, keeping header-end', () => {
     const wrapper = mount(UtensilCard, {
       props: { title: 'Title' },

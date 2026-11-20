@@ -22,15 +22,21 @@
 
     <div v-if="hasHeader()" class="utensil-card-header">
       <slot name="header">
-        <UtensilTheme v-if="icon" class="utensil-card-icon" :class="{ 'has-color': iconColor }" :pen="iconColor">
-          <UtensilIcon :icon="icon" />
-        </UtensilTheme>
-        <div v-if="title || $slots.title || description || $slots.description" class="utensil-card-heading">
-          <component :is="titleElement" v-if="title || $slots.title" class="utensil-card-title">
-            <slot name="title">{{ title }}</slot>
-          </component>
-          <div v-if="description || $slots.description" class="utensil-card-description">
-            <slot name="description">{{ description }}</slot>
+        <div
+          v-if="icon || hasHeading()"
+          class="utensil-card-header-start"
+          :class="{ 'has-icon': icon, 'has-heading': hasHeading() }"
+        >
+          <UtensilTheme v-if="icon" class="utensil-card-icon" :class="{ 'has-color': iconColor }" :pen="iconColor">
+            <UtensilIcon :icon="icon" />
+          </UtensilTheme>
+          <div v-if="hasHeading()" class="utensil-card-heading">
+            <component :is="titleElement" v-if="title || $slots.title" class="utensil-card-title">
+              <slot name="title">{{ title }}</slot>
+            </component>
+            <div v-if="description || $slots.description" class="utensil-card-description">
+              <slot name="description">{{ description }}</slot>
+            </div>
           </div>
         </div>
       </slot>
@@ -123,16 +129,12 @@ const props = withDefaults(defineProps<Props<Theme>>(), {
 const slots = useSlots()
 
 // Called while rendering: slots aren't reactive, so a computed would miss slots added later
+function hasHeading() {
+  return !!(props.title || slots.title || props.description || slots.description)
+}
+
 function hasHeader() {
-  return !!(
-    slots.header ||
-    slots['header-end'] ||
-    slots.title ||
-    slots.description ||
-    props.title ||
-    props.description ||
-    props.icon
-  )
+  return !!(slots.header || slots['header-end'] || props.icon || hasHeading())
 }
 </script>
 
@@ -174,6 +176,24 @@ function hasHeader() {
     gap: var(--space-3);
   }
 
+  /* The icon stays beside the heading however narrow the card: they wrap as one, and only header-end wraps below */
+  .utensil-card-header-start {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-3);
+    min-width: 0;
+  }
+
+  .utensil-card-header-start.has-heading {
+    flex: 1 1 var(--utensil-card-heading-min-width, 16rem);
+  }
+
+  .utensil-card-header-start.has-heading.has-icon {
+    flex-basis: calc(
+      var(--utensil-card-heading-min-width, 16rem) + var(--utensil-card-icon-size, var(--space-7)) + var(--space-3)
+    );
+  }
+
   .utensil-card-icon {
     display: flex;
     align-items: center;
@@ -191,7 +211,7 @@ function hasHeader() {
     display: flex;
     flex-direction: column;
     gap: var(--space-1);
-    flex: 1 1 var(--utensil-card-heading-min-width, 16rem);
+    flex: 1 1 0;
     min-width: 0;
   }
 

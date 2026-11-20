@@ -59,7 +59,7 @@
           <td><code>icon</code></td>
           <td><code>IconProp</code></td>
           <td>—</td>
-          <td>Icon shown at the start of the header, on a tinted square.</td>
+          <td>Icon shown at the start of the header, on a tinted square, beside the title however narrow the card.</td>
         </tr>
         <tr>
           <td><code>iconColor</code></td>
