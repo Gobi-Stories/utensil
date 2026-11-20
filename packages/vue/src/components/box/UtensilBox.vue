@@ -158,6 +158,13 @@ function click(target: EventTarget | null) {
 </script>
 
 <style scoped>
+/* A color, so the tint over an outline or text box's panel transitions like the other variations' backgrounds */
+@property --box-tint {
+  syntax: '<color>';
+  inherits: false;
+  initial-value: transparent;
+}
+
 @layer utensil {
   .utensil-box {
     box-sizing: border-box;
@@ -189,13 +196,27 @@ function click(target: EventTarget | null) {
     color: inherit;
   }
 
-  /* Outline and text use panel-solid background instead of transparent, until selected */
-  .utensil-box.ui-outline:not(.selected) {
+  /* Outline and text sit on the panel rather than show what's behind them, until selected. Interaction tints the
+     panel as the theme tints the transparent variation, drawn over it rather than in place of it. */
+  .utensil-box:is(.ui-outline, .ui-text):not(.selected) {
     background-color: var(--panel-solid);
+    background-image: linear-gradient(var(--box-tint), var(--box-tint));
   }
 
-  .utensil-box.ui-text:not(.selected) {
-    background-color: var(--panel-solid);
+  .utensil-box.interactive.ui-outline:not(.selected, .wireframe):hover {
+    --box-tint: var(--pen-a2);
+  }
+
+  .utensil-box.interactive.ui-outline:not(.selected, .wireframe):active {
+    --box-tint: var(--pen-a3);
+  }
+
+  .utensil-box.interactive.ui-text:not(.selected):hover {
+    --box-tint: var(--pen-a3);
+  }
+
+  .utensil-box.interactive.ui-text:not(.selected):active {
+    --box-tint: var(--pen-a4);
   }
 
   /* Shadow borders draw the edges, over the variation's own border. The :not()s out-specify the theme's resting
@@ -266,6 +287,7 @@ function click(target: EventTarget | null) {
     transition:
       outline-color 0.1s ease,
       background-color 0.15s ease,
+      --box-tint 0.15s ease,
       box-shadow 0.2s ease;
   }
 

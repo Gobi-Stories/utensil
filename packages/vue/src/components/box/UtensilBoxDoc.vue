@@ -60,7 +60,8 @@
           <td><code>boolean</code></td>
           <td><code>false</code></td>
           <td>
-            Hover, active and focus-ring feedback. It doesn't make the box focusable: render it as a
+            Hover, active and focus-ring feedback. An outline or text box keeps its solid panel and is tinted over it.
+            It doesn't make the box focusable: render it as a
             <code>button</code> or link with <code>as</code>, make it <code>clickable</code>, or give it a role and
             keyboard handling of its own, as a radio card does.
           </td>
