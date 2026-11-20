@@ -2,6 +2,7 @@ import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { mount } from '@vue/test-utils'
 import { h } from 'vue'
 import UtensilPopover from './UtensilPopover.vue'
+import type { PopoverPlacement } from './utensil-popover'
 
 // jsdom lacks the Popover API and its :popover-open state
 let open = new WeakSet<Element>()
@@ -54,5 +55,21 @@ describe('UtensilPopover', () => {
 
     await wrapper.setProps({ modelValue: false })
     expect(open.has(content(wrapper).element)).toBe(false)
+  })
+
+  it('opens on mount when its v-model starts open', () => {
+    const wrapper = mount(UtensilPopover, { props: { modelValue: true }, attachTo: document.body })
+    expect(open.has(content(wrapper).element)).toBe(true)
+    wrapper.unmount()
+  })
+
+  it('puts the offset on the side facing the trigger, as a physical margin beside it', () => {
+    const style = (placement: PopoverPlacement) =>
+      content(mount(UtensilPopover, { props: { placement, offset: 6 } })).attributes('style') ?? ''
+
+    expect(style('right')).toContain('margin-left: 6px')
+    expect(style('left-start')).toContain('margin-right: 6px')
+    expect(style('bottom')).toContain('margin-block-start: 6px')
+    expect(style('right')).not.toContain('margin-inline')
   })
 })

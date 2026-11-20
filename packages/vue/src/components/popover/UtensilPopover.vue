@@ -129,7 +129,9 @@ const popoverStyle = computed(() => {
     'position-area': placementToInsetArea[placement],
   }
 
-  // Apply offset based on placement direction
+  // The offset is on the side facing the trigger. Placements are physical sides (position-area places them so in
+  // either writing direction), so a left or right one takes a physical margin: an inline margin would land on the
+  // far side in a right-to-left layout.
   if (isBlock) {
     if (placement.startsWith('bottom')) {
       style['margin-block-start'] = `${props.offset}px`
@@ -138,9 +140,9 @@ const popoverStyle = computed(() => {
     }
   } else {
     if (placement.startsWith('right')) {
-      style['margin-inline-start'] = `${props.offset}px`
+      style['margin-left'] = `${props.offset}px`
     } else {
-      style['margin-inline-end'] = `${props.offset}px`
+      style['margin-right'] = `${props.offset}px`
     }
   }
 
@@ -148,8 +150,8 @@ const popoverStyle = computed(() => {
   style['--flip-position-area'] = placementToInsetArea[flipped]
   style['--flip-margin-block-start'] = isBlock && flipped.startsWith('bottom') ? `${props.offset}px` : '0'
   style['--flip-margin-block-end'] = isBlock && flipped.startsWith('top') ? `${props.offset}px` : '0'
-  style['--flip-margin-inline-start'] = !isBlock && flipped.startsWith('right') ? `${props.offset}px` : '0'
-  style['--flip-margin-inline-end'] = !isBlock && flipped.startsWith('left') ? `${props.offset}px` : '0'
+  style['--flip-margin-left'] = !isBlock && flipped.startsWith('right') ? `${props.offset}px` : '0'
+  style['--flip-margin-right'] = !isBlock && flipped.startsWith('left') ? `${props.offset}px` : '0'
 
   return style
 })
@@ -225,6 +227,9 @@ watch(
 let resizeObserver: ResizeObserver | null = null
 
 onMounted(() => {
+  // A v-model that starts open: the watcher only follows changes after this
+  if (isControlled.value && props.modelValue && popoverRef.value?.isConnected) popoverRef.value.showPopover()
+
   if (props.width === 'anchor' && anchorRef.value && popoverRef.value) {
     resizeObserver = new ResizeObserver(() => {
       if (anchorRef.value && popoverRef.value) {
@@ -268,6 +273,9 @@ defineExpose({
     --popover-padding: var(--utensil-popover-padding, 0);
     --popover-color: var(--utensil-popover-color, inherit);
     --popover-inset: var(--utensil-popover-inset, 1px);
+    /* Set inline, by script, on a popover as wide as its trigger; reset here so a popover nested in one doesn't
+       inherit that width */
+    --popover-anchor-width: initial;
 
     /* Positioning - fixed is required for top layer elements with anchor positioning */
     position: fixed;
@@ -334,8 +342,8 @@ defineExpose({
     position-area: var(--flip-position-area);
     margin-block-start: var(--flip-margin-block-start);
     margin-block-end: var(--flip-margin-block-end);
-    margin-inline-start: var(--flip-margin-inline-start);
-    margin-inline-end: var(--flip-margin-inline-end);
+    margin-left: var(--flip-margin-left);
+    margin-right: var(--flip-margin-right);
   }
 }
 </style>
