@@ -12,6 +12,17 @@ each usage an entry names. **Latest** holds the changes since the last release; 
 
 Until 1.0.0, a minor release (`0.4.x` → `0.5.0`) may break, and a patch release doesn't.
 
+## Latest
+
+### useUserThemePreferences
+
+- With nothing stored, `contrast` and `reducedMotion` follow `prefers-contrast: more` and
+  `prefers-reduced-motion: reduce`, where they were always `'normal'`, and all three follow a change to the system's
+  setting while the app is open, where `mode` was read once. A stored choice still wins.
+- Writing `mode`, `contrast` or `reducedMotion` directly (`v-model` on one of them) is a choice, remembered as the
+  setters' are, where it applied without being stored unless a setter had been called. Each setter also takes
+  `'system'`, which forgets the choice; the choices are `modeChoice`, `contrastChoice` and `reducedMotionChoice`.
+
 ## 0.5.0
 
 ### UtensilCard

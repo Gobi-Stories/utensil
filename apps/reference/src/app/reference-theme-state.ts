@@ -33,7 +33,7 @@ const hasUrlTheme = !!(
   urlTheme.step
 )
 
-const { mode: themeMode, setMode, contrast, reducedMotion } = useUserThemePreferences()
+const { mode: themeMode, modeChoice, setMode, contrast, reducedMotion } = useUserThemePreferences()
 
 if (urlTheme.mode === 'dark' || urlTheme.mode === 'light') setMode(urlTheme.mode)
 
@@ -82,7 +82,8 @@ function syncThemeToUrl() {
       pencil: pencilColor.value.replace('#', ''),
       paper: paperColor.value.replace('#', ''),
       radius: String(radiusScale.value),
-      mode: themeMode.value,
+      // Only a chosen mode: one following the system stays on the system's when the link is opened
+      mode: modeChoice.value === 'system' ? undefined : modeChoice.value,
       tint: String(paperOptions.value.tint),
       step: String(paperOptions.value.stepContrast),
     },
@@ -91,7 +92,7 @@ function syncThemeToUrl() {
 }
 
 // Sync theme controls to the URL when any value changes
-watch([penColor, pencilColor, paperColor, radiusScale, themeMode, paperOptions], () => {
+watch([penColor, pencilColor, paperColor, radiusScale, modeChoice, paperOptions], () => {
   themePersist.value = true
   syncThemeToUrl()
 })

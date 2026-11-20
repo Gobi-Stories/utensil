@@ -315,6 +315,11 @@
                   <UtensilToggleSwitch id="showcase-demo-mode" v-model="enableAnimations" />
                   <label for="showcase-demo-mode" class="theme-label">Demo mode</label>
                 </div>
+                <div class="theme-option system-settings">
+                  <ReferenceButton variation="soft" scale="small" :disabled="followsSystem" @click="useSystemSettings">
+                    Use system settings
+                  </ReferenceButton>
+                </div>
               </div>
 
               <!-- Action Callout -->
@@ -426,7 +431,28 @@ const selectedProfile = ref('kara')
 const workModal = ref(false)
 const playModal = ref(false)
 const sleepModal = ref(false)
-const { mode: themeMode, contrast: themeContrast, reducedMotion: themeReducedMotion } = useUserThemePreferences()
+const {
+  mode: themeMode,
+  contrast: themeContrast,
+  reducedMotion: themeReducedMotion,
+  modeChoice,
+  contrastChoice,
+  reducedMotionChoice,
+  setMode,
+  setContrast,
+  setReducedMotion,
+} = useUserThemePreferences()
+
+// The switches choose a value; this returns all three to the system's settings, followed live
+const followsSystem = computed(
+  () => modeChoice.value === 'system' && contrastChoice.value === 'system' && reducedMotionChoice.value === 'system',
+)
+
+function useSystemSettings() {
+  setMode('system')
+  setContrast('system')
+  setReducedMotion('system')
+}
 const enableAnimations = ref(false)
 
 provide(showcaseContextKey, { immersive: enableAnimations })
@@ -779,6 +805,10 @@ function menuAction(action: string, close: () => void) {
   display: flex;
   align-items: center;
   gap: var(--space-2);
+}
+
+.system-settings {
+  grid-column: 1 / -1;
 }
 
 .toolbar-simulation {

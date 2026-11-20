@@ -421,20 +421,36 @@ const { mode, contrast, reducedMotion } = useUserThemePreferences()
 
 ### User Theme Preferences
 
-`useUserThemePreferences` is a composable that manages user preferences for mode, contrast, and reduced motion. It persists selections to `localStorage` and falls back to system defaults.
+`useUserThemePreferences` manages the user's mode, contrast and reduced motion, shared across the app. Each preference has a **choice**, what the user picked or `'system'`, and a **value**, what applies:
+
+| Value           | Values                  | Under `'system'`, from                                       |
+| --------------- | ----------------------- | ------------------------------------------------------------ |
+| `mode`          | `'light'` \| `'dark'`    | `prefers-color-scheme: dark` → `'dark'`                      |
+| `contrast`      | `'normal'` \| `'high'`   | `prefers-contrast: more` → `'high'`                          |
+| `reducedMotion` | `'normal'` \| `'reduced'` | `prefers-reduced-motion: reduce` → `'reduced'`               |
+
+Until the user chooses, each follows the operating system's setting, and keeps following it when the setting changes while the app is open. A choice is remembered in `localStorage`; choosing `'system'` forgets it and follows the system again. Where storage is blocked, a choice applies until the page is closed.
 
 ```ts
 const {
-  mode, // Ref<'light' | 'dark'>
-  toggleThemeMode, // () => void
-  contrast, // Ref<'normal' | 'high'>
-  toggleContrast, // () => void
-  reducedMotion, // Ref<'normal' | 'reduced'>
-  toggleReducedMotion, // () => void
+  mode, // Ref<'light' | 'dark'>, the value that applies
+  modeChoice, // Ref<'light' | 'dark' | 'system'>
+  setMode, // (choice: 'light' | 'dark' | 'system') => void
+  toggleThemeMode, // () => void, chooses the other mode
+  contrast,
+  contrastChoice,
+  setContrast,
+  toggleContrast,
+  reducedMotion,
+  reducedMotionChoice,
+  setReducedMotion,
+  toggleReducedMotion,
 } = useUserThemePreferences()
 ```
 
-You can also use the individual toggle buttons (`UtensilToggleModeButton`, `UtensilToggleContrastButton`, `UtensilToggleReducedMotionButton`) to give users a UI for these settings.
+Writing a value (`mode.value = 'dark'`, or `v-model="mode"`) chooses it, as the setter does. Bind the values to the theme root; bind the choices to a settings page, which should offer "System" (or "Use system setting") beside the values of each, so a user who chose can return to following the system.
+
+The toggle buttons (`UtensilToggleModeButton`, `UtensilToggleContrastButton`, `UtensilToggleReducedMotionButton`) give users a quick switch: each chooses the opposite of the value that applies.
 
 ### Using Theme Changes within Your App
 
