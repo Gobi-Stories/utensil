@@ -169,6 +169,14 @@
           <td>Fires when the selected value changes (v-model).</td>
         </tr>
         <tr>
+          <td><code>update:selection</code></td>
+          <td><code>string[]</code></td>
+          <td>
+            Fires when an option is added to or removed from the selection in <code>multiple</code> mode
+            (<code>v-model:selection</code>).
+          </td>
+        </tr>
+        <tr>
           <td><code>change</code></td>
           <td><code>string</code></td>
           <td>

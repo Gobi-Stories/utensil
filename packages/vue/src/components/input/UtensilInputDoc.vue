@@ -28,6 +28,12 @@
       </thead>
       <tbody>
         <tr>
+          <td><code>modelValue</code></td>
+          <td><code>string</code></td>
+          <td>—</td>
+          <td>The input's value (v-model).</td>
+        </tr>
+        <tr>
           <td><code>type</code></td>
           <td><code>string</code></td>
           <td><code>'text'</code></td>
