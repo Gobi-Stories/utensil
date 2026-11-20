@@ -7,12 +7,21 @@
     <div class="demo-grid">
       <div class="demo-item">
         <div class="demo-content input-demo">
-          <UtensilPassword v-model="passwordBasic" label="Password" required blurOnEnterKey />
+          <UtensilPassword
+            v-model="passwordBasic"
+            label="Password"
+            autocomplete="current-password"
+            required
+            blurOnEnterKey
+          />
           <div class="input-value">Value: "{{ passwordBasic }}"</div>
         </div>
         <div class="demo-label">Basic Password</div>
         <div class="demo-code">
-          <code>&lt;UtensilPassword v-model="password" label="Password" required /&gt;</code>
+          <code
+            >&lt;UtensilPassword v-model="password" label="Password" autocomplete="current-password" required
+            /&gt;</code
+          >
         </div>
       </div>
       <div class="demo-item">

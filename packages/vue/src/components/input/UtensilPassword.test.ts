@@ -73,4 +73,11 @@ describe('UtensilPassword', () => {
     expect(password.find('input').attributes('aria-label')).toBe('New password')
     expect(password.find('.utensil-password').attributes('aria-label')).toBeUndefined()
   })
+
+  it('puts autocomplete on the input, not the wrapper', () => {
+    const password = mountPassword({ autocomplete: 'new-password' })
+
+    expect(password.find('input').attributes('autocomplete')).toBe('new-password')
+    expect(password.find('.utensil-password').attributes('autocomplete')).toBeUndefined()
+  })
 })

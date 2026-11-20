@@ -18,6 +18,7 @@
       :readonly="readonly"
       :blurOnEnterKey="blurOnEnterKey"
       :required="required"
+      :autocomplete="autocomplete"
       :aria-label="ariaLabel"
       iconPosition="end"
       @input="(value) => emit('input', value)"
@@ -53,6 +54,8 @@ export interface Props {
   size?: string | number
   readonly?: boolean
   required?: boolean
+  // What a password manager fills in: 'current-password' to sign in, 'new-password' to set one
+  autocomplete?: string
   blurOnEnterKey?: boolean
   // Names the button that shows the password
   showPasswordLabel?: string
