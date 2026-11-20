@@ -17,8 +17,9 @@
       :size="size"
       :readonly="readonly"
       :blurOnEnterKey="blurOnEnterKey"
+      :required="required"
+      :aria-label="ariaLabel"
       iconPosition="end"
-      required
       @input="(value) => emit('input', value)"
       @change="(value) => emit('change', value)"
       @focus="(event) => emit('focus', event)"
@@ -40,6 +41,8 @@ export interface Props {
   name?: string
   label?: string
   labelPlacement?: 'block' | 'inline'
+  // Names the input where no visible label does
+  ariaLabel?: string
   modelValue?: string
   placeholder?: string
   variation?: UtensilFieldVariation
@@ -49,6 +52,7 @@ export interface Props {
   disabled?: boolean
   size?: string | number
   readonly?: boolean
+  required?: boolean
   blurOnEnterKey?: boolean
   // Names the button that shows the password
   showPasswordLabel?: string
@@ -58,6 +62,7 @@ export interface Props {
 
 withDefaults(defineProps<Props>(), {
   placeholder: 'Enter password',
+  required: false,
   showPasswordLabel: 'Show password',
   hidePasswordLabel: 'Hide password',
 })

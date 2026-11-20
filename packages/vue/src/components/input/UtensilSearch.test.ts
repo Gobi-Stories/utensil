@@ -67,4 +67,9 @@ describe('UtensilSearch', () => {
 
     expect(wrapper.emitted('update:modelValue')).toEqual([['stories']])
   })
+
+  it('names its input with ariaLabel where no visible label does', () => {
+    const wrapper = mount(UtensilSearch, { props: { ariaLabel: 'Search projects' } })
+    expect(wrapper.find('input').attributes('aria-label')).toBe('Search projects')
+  })
 })

@@ -63,4 +63,14 @@ describe('UtensilPassword', () => {
 
     expect(password.find('button').attributes('aria-label')).toBe('Passwort anzeigen')
   })
+
+  it('is required only when asked, and takes a name of its own', () => {
+    expect(mountPassword().find('input').attributes('required')).toBeUndefined()
+    wrapper?.unmount()
+
+    const password = mountPassword({ label: undefined, ariaLabel: 'New password', required: true })
+    expect(password.find('input').attributes('required')).toBeDefined()
+    expect(password.find('input').attributes('aria-label')).toBe('New password')
+    expect(password.find('.utensil-password').attributes('aria-label')).toBeUndefined()
+  })
 })

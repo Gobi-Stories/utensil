@@ -6,6 +6,7 @@
       icon="search"
       :label="label"
       :label-placement="labelPlacement"
+      :aria-label="ariaLabel"
       :placeholder="placeholder"
       :variation="variation"
       :height="height"
@@ -32,6 +33,8 @@ export interface Props {
   modelValue?: string
   label?: string
   labelPlacement?: 'block' | 'inline'
+  // Names the input where no visible label does, as for a search field in a toolbar
+  ariaLabel?: string
   placeholder?: string
   variation?: UtensilFieldVariation
   height?: 'normal' | 'large'

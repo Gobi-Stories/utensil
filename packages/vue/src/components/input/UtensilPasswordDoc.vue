@@ -46,6 +46,12 @@
           <td>Label text displayed alongside the input.</td>
         </tr>
         <tr>
+          <td><code>ariaLabel</code></td>
+          <td><code>string</code></td>
+          <td>—</td>
+          <td>Names the input where no visible label does.</td>
+        </tr>
+        <tr>
           <td><code>labelPlacement</code></td>
           <td><code>'block' | 'inline'</code></td>
           <td>—</td>
@@ -88,6 +94,12 @@
           <td><code>boolean</code></td>
           <td><code>false</code></td>
           <td>Automatically focuses the input on mount.</td>
+        </tr>
+        <tr>
+          <td><code>required</code></td>
+          <td><code>boolean</code></td>
+          <td><code>false</code></td>
+          <td>Marks the input as required, so a form isn't submitted without a password.</td>
         </tr>
         <tr>
           <td><code>showPasswordLabel</code></td>

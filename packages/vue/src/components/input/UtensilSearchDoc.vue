@@ -33,6 +33,12 @@
           <td>Accessible label for the input.</td>
         </tr>
         <tr>
+          <td><code>ariaLabel</code></td>
+          <td><code>string</code></td>
+          <td>—</td>
+          <td>Names the input where no visible label does, as for a search field in a toolbar.</td>
+        </tr>
+        <tr>
           <td><code>labelPlacement</code></td>
           <td><code>'block' | 'inline'</code></td>
           <td>—</td>
