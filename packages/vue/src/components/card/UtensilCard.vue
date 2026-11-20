@@ -222,6 +222,12 @@ function hasHeader() {
     color: var(--pencil-12);
   }
 
+  /* Beside an icon, the title's line is no taller than its text, so it lines up with the icon's top edge rather than
+     sitting below it on the line's leading */
+  .utensil-card-header-start.has-icon .utensil-card-title {
+    line-height: 1;
+  }
+
   .utensil-card-description {
     font-size: var(--utensil-card-description-size, var(--font-size-2));
     line-height: var(--line-height-2);
