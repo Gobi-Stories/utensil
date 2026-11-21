@@ -29,7 +29,7 @@ The shipped skill reads build copies in its `references/`. Read the sources, wit
 On top of the shipped skill's:
 
 - **Utensil components**: Items 32 and 65 (location, relative imports) always apply, and item 8 (reference examples)
-- **Reference app components and demos**: Items 52–53 and 72 (Reference-typed components, no native `alert`/`confirm`, every control named)
+- **Reference app components and demos**: Items 52–53 and 73 (Reference-typed components, no native `alert`/`confirm`, every control named)
 
 ## Fix mode
 
