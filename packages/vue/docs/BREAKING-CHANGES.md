@@ -12,6 +12,21 @@ each usage an entry names. **Latest** holds the changes since the last release; 
 
 Until 1.0.0, a minor release (`0.4.x` → `0.5.0`) may break, and a patch release doesn't.
 
+## Latest
+
+### UtensilDivider, UtensilMenuDivider
+
+- The rule is drawn as a border, where it was a 1px element's background. A stylesheet that restyles the rule with
+  `background-color` on `.utensil-divider` or `.utensil-menu-divider` sets `border-color` instead (or, for the
+  divider, its `color` prop), and one that thickens it with `height` sets `border-width`.
+
+### Visual changes
+
+- **UtensilDivider, UtensilMenuDivider, UtensilToolbarSeparator**: in forced colors (Windows contrast themes), the rule
+  shows in the system's text color, where it took the page's color and vanished. Nothing changes outside forced colors.
+- **UtensilMenuDivider**: the rule is drawn in `--pencil-a6`, and in `--pencil-a8` in high contrast, as
+  `UtensilDivider` draws its own, where it was a solid `--pencil-6` in every contrast.
+
 ## 0.6.0
 
 ### useUserThemePreferences

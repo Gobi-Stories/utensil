@@ -53,7 +53,8 @@
     <p>
       The rule is drawn in <code>--pen-a6</code>, and in <code>--pen-a8</code> in high contrast. The label is drawn in
       <code>--pen-a11</code>, which high contrast raises to step 12. A separator's content isn't read, so a labelled
-      divider is named by its label.
+      divider is named by its label. The rule is a border, so forced colors (Windows contrast themes) keeps it, in the
+      system's text color.
     </p>
 
     <!-- Examples -->
