@@ -22,6 +22,8 @@ Until 1.0.0, a minor release (`0.4.x` → `0.5.0`) may break, and a patch releas
 
 ### Visual changes
 
+- **UtensilDisclosure**: the label shrinks to the toggle row, so a label that doesn't wrap no longer widens the
+  disclosure past its container; content in the `label` slot with its own ellipsis now shows it.
 - **UtensilDivider, UtensilMenuDivider, UtensilToolbarSeparator**: in forced colors (Windows contrast themes), the rule
   shows in the system's text color, where it took the page's color and vanished. Nothing changes outside forced colors.
 - **UtensilMenuDivider**: the rule is drawn in `--pencil-a6`, and in `--pencil-a8` in high contrast, as

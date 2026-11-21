@@ -18,6 +18,7 @@
 import { ref, computed, onMounted, onBeforeUnmount, watch, nextTick } from 'vue'
 import { useModalHost } from './useModalHost'
 import { useModalKeyboard } from '../../composables/use-modal-keyboard'
+import type { UtensilModalSize } from './dialogs'
 
 const modalHostRef = useModalHost()
 
@@ -27,7 +28,7 @@ interface Props {
   closeOnEscape?: boolean
   appendToDom?: boolean
   fullscreenOnMobile?: boolean
-  size?: 'small' | 'medium' | 'large'
+  size?: UtensilModalSize
   expand?: boolean
   addHistory?: boolean
   blur?: boolean
@@ -335,6 +336,13 @@ defineExpose({
   .utensil-modal-container.medium {
     --dialog-max-width: 600px;
     --dialog-max-height: 500px;
+  }
+
+  /* The whole viewport but a margin, at every width. The width is the dialog's, which leaves out a page
+     scrollbar; the height stays in viewport units, as the dialog's content inherits it as its max-height. */
+  .utensil-modal-container.full {
+    --dialog-max-width: calc(100% - 2 * var(--space-5));
+    --dialog-max-height: calc(100dvh - 2 * var(--space-5));
   }
 
   .utensil-modal-content {

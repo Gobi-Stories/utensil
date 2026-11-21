@@ -43,6 +43,23 @@
 
       <div class="demo-item">
         <div class="demo-content disclosure-demo">
+          <div class="disclosure-demo-narrow">
+            <UtensilDisclosure>
+              <template #label>
+                <span class="disclosure-demo-title">A long title that doesn't wrap ends in an ellipsis</span>
+              </template>
+              <p class="disclosure-demo-copy">The label shrinks to the row rather than widen the disclosure.</p>
+            </UtensilDisclosure>
+          </div>
+        </div>
+        <div class="demo-label">Ellipsis in a Narrow Container</div>
+        <div class="demo-code">
+          <code>&lt;template #label&gt;&lt;span class="title"&gt;...&lt;/span&gt;&lt;/template&gt;</code>
+        </div>
+      </div>
+
+      <div class="demo-item">
+        <div class="demo-content disclosure-demo">
           <UtensilDisclosure label="Indented content" style="--utensil-disclosure-content-indent: var(--space-5)">
             <p class="disclosure-demo-copy">Content nests under the label via the indent cvar.</p>
           </UtensilDisclosure>
@@ -73,6 +90,20 @@ const disclosureOpen = ref(false)
 .demo-content.disclosure-demo {
   flex-direction: column;
   align-items: stretch;
+}
+
+.disclosure-demo-narrow {
+  max-width: 180px;
+  padding-inline: var(--space-2);
+  border: 1px dashed var(--pencil-a6);
+  border-radius: var(--radius-3);
+}
+
+.disclosure-demo-title {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .disclosure-demo-copy {

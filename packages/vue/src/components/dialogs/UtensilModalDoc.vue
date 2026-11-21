@@ -57,9 +57,13 @@
         </tr>
         <tr>
           <td><code>size</code></td>
-          <td><code>'small' | 'medium' | 'large'</code></td>
+          <td><code>'small' | 'medium' | 'large' | 'full'</code></td>
           <td><code>'large'</code></td>
-          <td>Size preset controlling max width and height of the modal container.</td>
+          <td>
+            Size preset controlling max width and height of the modal container; <code>full</code> takes the whole
+            viewport but a margin. The union is exported as <code>UtensilModalSize</code> from
+            <code>components/dialogs/dialogs</code>, and shared by the dialog and confirm.
+          </td>
         </tr>
         <tr>
           <td><code>expand</code></td>

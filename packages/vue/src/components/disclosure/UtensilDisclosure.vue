@@ -79,6 +79,11 @@ function toggle() {
     color: var(--pen-11);
   }
 
+  /* Shrinks to the row, so a label that doesn't wrap can end in its own ellipsis rather than widen the disclosure */
+  .disclosure-label {
+    min-width: 0;
+  }
+
   .disclosure-chevron {
     color: var(--pencil-a11);
     transition: transform 0.15s ease;

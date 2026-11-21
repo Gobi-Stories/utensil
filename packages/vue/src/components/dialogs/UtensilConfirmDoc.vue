@@ -100,9 +100,12 @@
         </tr>
         <tr>
           <td><code>size</code></td>
-          <td><code>'small' | 'medium' | 'large'</code></td>
-          <td>—</td>
-          <td>Dialog size preset controlling max width and height.</td>
+          <td><code>'small' | 'medium' | 'large' | 'full'</code></td>
+          <td><code>'medium'</code></td>
+          <td>
+            Dialog size preset controlling max width and height; <code>full</code> takes the whole viewport but a
+            margin.
+          </td>
         </tr>
         <tr>
           <td><code>closeOnBackdrop</code></td>

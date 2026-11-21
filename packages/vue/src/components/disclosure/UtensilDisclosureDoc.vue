@@ -73,7 +73,10 @@
         <tr>
           <td><code>label</code></td>
           <td>—</td>
-          <td>Custom toggle row content, replacing the <code>label</code> prop text.</td>
+          <td>
+            Custom toggle row content, replacing the <code>label</code> prop text. It shrinks to the row, so content
+            that doesn't wrap can end in its own ellipsis.
+          </td>
         </tr>
       </tbody>
     </table>
@@ -107,6 +110,19 @@
     <pre><code>&lt;UtensilDisclosure label="Browse icons" v-model:open="iconBrowserOpen"&gt;
   &lt;IconBrowser /&gt;
 &lt;/UtensilDisclosure&gt;</code></pre>
+
+    <h3>A label that ends in an ellipsis</h3>
+    <pre><code>&lt;UtensilDisclosure&gt;
+  &lt;template #label&gt;&lt;span class="task-title"&gt;Review the quarterly report&lt;/span&gt;&lt;/template&gt;
+  &lt;TaskDetails /&gt;
+&lt;/UtensilDisclosure&gt;
+
+.task-title {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}</code></pre>
 
     <h3>Indented content</h3>
     <pre><code>&lt;UtensilDisclosure label="Advanced" style="--utensil-disclosure-content-indent: var(--space-5)"&gt;
