@@ -12,7 +12,7 @@ each usage an entry names. **Latest** holds the changes since the last release; 
 
 Until 1.0.0, a minor release (`0.4.x` → `0.5.0`) may break, and a patch release doesn't.
 
-## Latest
+## 0.7.0
 
 ### UtensilDivider, UtensilMenuDivider
 
